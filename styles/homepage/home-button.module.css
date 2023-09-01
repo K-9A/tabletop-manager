@@ -4,7 +4,7 @@
   }
   
   .buttonStyle {
-    @apply text-xl transition duration-300 ease-in-out bg-white text-amber-950 hover:bg-amber-200 active:bg-black active:text-white px-4 py-2 my-20 rounded-full font-bold drop-shadow-1shr;
+    @apply text-xl transition duration-300 ease-in-out bg-white text-black hover:bg-amber-200 active:bg-black active:text-white px-10 py-3 my-5 rounded-full font-bold drop-shadow-1shr;
     /* Adding a thick border */
     @apply border-4 border-amber-950;
   

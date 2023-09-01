@@ -5,30 +5,13 @@
 /* Importing 'Cinzel', 'Cormorant Garamond', and 'Roboto' from Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Cinzel&family=Cormorant+Garamond&family=Roboto&display=swap");
 
-@layer components {
-  body {
-    @apply bg-orange-100 text-amber-950;
-    font-family: "Roboto", sans-serif;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: "Cinzel", serif;
-  }
-}
-
-
-/* :root {
+:root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
+  --background-start-rgb: 244, 227, 204;
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
@@ -44,4 +27,21 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-} */
+}
+
+/* @layer components {
+  body {
+    @apply bg-orange-100 text-amber-950;
+    font-family: "Roboto", sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Cinzel", serif;
+  }
+}
+ */

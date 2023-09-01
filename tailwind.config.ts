@@ -18,11 +18,7 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       dropShadow: {
-        '1shr': '4px 4px 5px rgba(0, 0, 0, 0.35)',
-        '4xl': [
-            '0 35px 35px rgba(0, 0, 0, 0.25)',
-            '0 45px 65px rgba(0, 0, 0, 0.15)'
-        ]
+        '1shr': '2px 2px 3px rgba(0, 0, 0, 0.35)',
       }
     },
   },
