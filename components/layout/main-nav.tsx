@@ -1,31 +1,8 @@
+import React from "react";
 import Link from "next/link";
 import Logo from "./main-logo";
 import ThemeSwitch from "./dark-mode/theme-switch";
 
-// function MainNav() {
-//   return (
-//     <header>
-//       <Link href="/">
-//         <Logo />
-//       </Link>
-//       <nav>
-//         <ul>
-//           <li>
-//             <Link href="/">Login</Link>
-//           </li>
-//           <li>
-//             <Link href="/">Logout</Link>
-//           </li>
-//           <ThemeSwitch />
-//         </ul>
-//       </nav>
-//     </header>
-//   );
-// }
-
-// export default MainNav;
-
-import React from "react";
 import {
   Navbar,
   Collapse,
@@ -40,6 +17,7 @@ import {
   MenuItem,
   Chip,
 } from "@material-tailwind/react";
+
 import {
   ChevronDownIcon,
   UserCircleIcon,
@@ -66,6 +44,7 @@ const colors = {
   teal: "bg-teal-50 text-teal-500",
   cyan: "bg-cyan-50 text-cyan-500",
   pink: "bg-pink-50 text-pink-500",
+  black: "bg-black text-white",
 };
 
 type ColorKey =
@@ -76,7 +55,8 @@ type ColorKey =
   | "purple"
   | "teal"
   | "cyan"
-  | "pink";
+  | "pink"
+  | "black";
 
 const navListMenuItems: {
   color: ColorKey;
@@ -162,12 +142,12 @@ function NavListMenu() {
           <div>
             <Typography
               variant="h6"
-              color="blue-gray"
+              color="black"
               className="flex items-center text-sm"
             >
               {title}
             </Typography>
-            <Typography variant="small" color="gray" className="font-normal">
+            <Typography variant="small" color="black" className="font-normal">
               {description}
             </Typography>
           </div>
@@ -188,7 +168,7 @@ function NavListMenu() {
         <MenuHandler>
           <Typography as="div" variant="small" className="font-normal">
             <ListItem
-              className="flex items-center gap-2 py-2 pr-4"
+              className="flex items-center gap-2 py-2 pr-4 text-black"
               selected={isMenuOpen || isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen((cur) => !cur)}
             >
@@ -227,7 +207,7 @@ function NavList() {
         as="a"
         href="#"
         variant="small"
-        color="blue-gray"
+        color="black"
         className="font-normal"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">
@@ -240,7 +220,7 @@ function NavList() {
         as="a"
         href="#"
         variant="small"
-        color="blue-gray"
+        color="black"
         className="font-normal"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">
@@ -252,7 +232,7 @@ function NavList() {
         as="a"
         href="#"
         variant="small"
-        color="blue-gray"
+        color="black"
         className="font-normal"
       >
         <ListItem className="flex items-center gap-2 py-2 pr-4">
@@ -275,11 +255,11 @@ export function MainNav() {
   }, []);
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl px-4 py-2 ">
+    <Navbar className="mx-auto max-w-screen-xl px-4 py-4">
       <div className="flex items-center justify-between text-black">
         <Typography
           as="a"
-          href="#"
+          href="/"
           variant="h6"
           className="mr-4 cursor-pointer py-1.5 lg:ml-2"
         >
@@ -293,16 +273,22 @@ export function MainNav() {
             variant="gradient"
             size="sm"
             color="blue-gray"
-            className="bg-white text-black border-2 border-black"
+            className="bg-white text-black border-2 border-black whitespace-nowrap"
           >
-            Sign In
+            Login
           </Button>
-          <Button variant="gradient" size="sm">
-            Sign Up
+          <Button variant="gradient" size="sm" className="">
+            Register
           </Button>
-          <Button variant="gradient" size="sm">
+          <Button variant="gradient" size="sm" className="whitespace-nowrap">
             Log Out
           </Button>
+          <div className="w-24 flex justify-center items-center">
+            <ListItem className="flex items-center">
+              <span className="px-2">☀️</span>
+              <ThemeSwitch />
+            </ListItem>
+          </div>
         </div>
         <IconButton
           variant="text"
@@ -320,12 +306,36 @@ export function MainNav() {
       <Collapse open={openNav}>
         <NavList />
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          <Button variant="outlined" size="sm" color="blue-gray" fullWidth>
-            Sign In
+          <Button
+            variant="outlined"
+            size="sm"
+            className="bg-white whitespace-nowrap"
+            fullWidth
+          >
+            Login
           </Button>
-          <Button variant="gradient" size="sm" fullWidth>
-            Sign Up
+          <Button
+            variant="gradient"
+            size="sm"
+            className="whitespace-nowrap"
+            fullWidth
+          >
+            Register
           </Button>
+          <Button
+            variant="gradient"
+            size="sm"
+            className="whitespace-nowrap"
+            fullWidth
+          >
+            Log Out
+          </Button>
+        </div>
+        <div className="w-24 flex justify-center items-center">
+          <ListItem className="flex items-center">
+            <span className="px-2">☀️</span>
+            <ThemeSwitch />
+          </ListItem>
         </div>
       </Collapse>
     </Navbar>

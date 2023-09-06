@@ -1,0 +1,8 @@
+.inputGroup {
+    @apply mb-4;
+  }
+  
+  .error {
+    @apply text-red-500 mt-2;
+  }
+  

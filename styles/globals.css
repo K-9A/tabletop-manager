@@ -5,7 +5,33 @@
 /* Importing 'Cinzel', 'Cormorant Garamond', and 'Roboto' from Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Cinzel&family=Cormorant+Garamond&family=Roboto&display=swap");
 
+
 :root {
+  --gradient-start-color: #e7ab7a; /* Adjust this to your desired starting color */
+  --gradient-end-color: #f4e3cc;   /* Adjust this to your desired ending color */
+}
+
+html {
+  background: linear-gradient(
+    to bottom,
+    var(--gradient-start-color),
+    var(--gradient-end-color),
+    var(--gradient-start-color) 0%,   /* Start color begins at the top (0%) */
+    var(--gradient-start-color) 60%,  /* Start color continues until halfway down (50%) */
+    var(--gradient-end-color) 95%,    /* End color begins halfway down (50%) */
+    var(--gradient-end-color) 100%    /* End color continues to the bottom (100%) */
+  );
+  min-height: 100vh; /* Ensure the html element always takes up at least the full height of the viewport */
+}
+
+body {
+  background: none; /* Remove any background from the body */
+}
+
+
+
+
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 244, 227, 204;
   --background-end-rgb: 255, 255, 255;
@@ -27,7 +53,7 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-}
+} */
 
 /* @layer components {
   body {

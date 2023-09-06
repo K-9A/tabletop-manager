@@ -1,0 +1,6 @@
+.container {
+  @apply bg-white p-8 rounded-lg shadow-md;
+  @apply flex flex-col justify-center items-center;
+  @apply w-full max-w-xl; /* This sets the maximum width for the container */
+  margin: 0 auto;
+}

@@ -1,15 +1,18 @@
 import Head from "next/head";
 import Hero from "@/components/homepage/hero";
-import HomeButton from "@/components/homepage/home-button"
- 
+import HomeButton from "@/components/homepage/home-button";
+
 export default function Home() {
   return (
     <main>
       <div className="py-4">
-      <Hero />
+        <Hero />
       </div>
-      <HomeButton text="Sign In" linkPath="/tbd" />
-      <HomeButton text="Sign Up" linkPath="/tbd" />
+      <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+        <HomeButton text="Login" linkPath="/login" />
+        <HomeButton text="Register" linkPath="/register" />
+        <HomeButton text="About" linkPath="/about" />
+      </div>
     </main>
-  )
+  );
 }
