@@ -8,7 +8,7 @@ export default function Home() {
       <div className="py-4">
         <Hero />
       </div>
-      <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+      <div className="flex flex-col md:flex-row justify-center space-y-2 md:space-y-0 md:space-x-4">
         <HomeButton text="Login" linkPath="/login" />
         <HomeButton text="Register" linkPath="/register" />
         <HomeButton text="About" linkPath="/about" />

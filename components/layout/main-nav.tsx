@@ -33,6 +33,8 @@ import {
   FaceSmileIcon,
   PuzzlePieceIcon,
   GiftIcon,
+  SunIcon,
+  MoonIcon,
 } from "@heroicons/react/24/outline";
 
 const colors = {
@@ -245,7 +247,8 @@ function NavList() {
 }
 
 export function MainNav() {
-  const [openNav, setOpenNav] = React.useState(false);
+  const [openNav, setOpenNav] = React.useState<boolean>(false);
+  const [isDarkMode, setIsDarkMode] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     window.addEventListener(
@@ -284,10 +287,19 @@ export function MainNav() {
             Log Out
           </Button>
           <div className="w-24 flex justify-center items-center">
-            <ListItem className="flex items-center">
-              <span className="px-2">☀️</span>
-              <ThemeSwitch />
-            </ListItem>
+          <ListItem className="flex items-center">
+            <span className="px-2">
+              {isDarkMode ? (
+                <MoonIcon className="h-6 w-6" />
+              ) : (
+                <SunIcon className="h-6 w-6" />
+              )}
+            </span>
+            <ThemeSwitch
+              isDarkMode={isDarkMode}
+              toggleDarkMode={() => setIsDarkMode(!isDarkMode)}
+            />
+          </ListItem>
           </div>
         </div>
         <IconButton
@@ -333,8 +345,17 @@ export function MainNav() {
         </div>
         <div className="w-24 flex justify-center items-center">
           <ListItem className="flex items-center">
-            <span className="px-2">☀️</span>
-            <ThemeSwitch />
+            <span className="px-2">
+              {isDarkMode ? (
+                <MoonIcon className="h-6 w-6" />
+              ) : (
+                <SunIcon className="h-6 w-6" />
+              )}
+            </span>
+            <ThemeSwitch
+              isDarkMode={isDarkMode}
+              toggleDarkMode={() => setIsDarkMode(!isDarkMode)}
+            />
           </ListItem>
         </div>
       </Collapse>

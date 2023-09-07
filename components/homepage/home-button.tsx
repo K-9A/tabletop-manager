@@ -1,7 +1,6 @@
 // components/Button.tsx
 import React from "react";
 import Link from "next/link";
-import styles from "@/styles/homepage/home-button.module.css";
 
 //Type declaration for the button
 type ButtonProps = {
@@ -11,9 +10,11 @@ type ButtonProps = {
 
 const Button: React.FC<ButtonProps> = ({ text, linkPath }) => {
   return (
-    <div className={styles.container}>
+    <div className="flex items-center justify-center">
       <Link href={linkPath}>
-        <div className={styles.buttonStyle}>{text}</div>
+        <div className="text-xl transition duration-300 ease-in-out bg-white text-black hover:bg-amber-200 active:bg-black active:text-white px-10 py-3 my-5 rounded-full font-bold drop-shadow-1shr border-4 border-amber-900 dark:bg-blue-gray-700 dark:text-white dark:border-gray-200 dark:hover:bg-gray-500 cursor-pointer">
+          {text}
+        </div>
       </Link>
     </div>
   );

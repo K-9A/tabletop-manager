@@ -1,12 +1,15 @@
 import React, { ReactNode } from 'react';
-import styles from "@/styles/displayform.module.css"
 
 interface DisplayFormProps {
   children: ReactNode;
 }
 
 const DisplayForm: React.FC<DisplayFormProps> = ({ children }) => {
-  return <div className={styles.container}>{children}</div>;
+  return (
+    <div className="bg-white p-8 rounded-lg shadow-md flex flex-col justify-center items-center w-full max-w-xl mx-auto">
+      {children}
+    </div>
+  );
 };
 
 export default DisplayForm;
