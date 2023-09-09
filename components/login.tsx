@@ -43,6 +43,7 @@ export default function Login() {
               onChange={formik.handleChange}
               value={formik.values.name}
               error={!!(formik.errors.name && formik.touched.name)}
+              crossOrigin=""
             />
             {formik.errors.name && formik.touched.name && (
               <Typography color="red" className="mt-2">{formik.errors.name}</Typography>
@@ -55,6 +56,7 @@ export default function Login() {
               onChange={formik.handleChange}
               value={formik.values.password}
               error={!!(formik.errors.password && formik.touched.password)}
+              crossOrigin=""
             />
             {formik.errors.password && formik.touched.password && (
               <Typography color="red" className="mt-2">{formik.errors.password}</Typography>
@@ -65,7 +67,7 @@ export default function Login() {
             Login
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
-            Don't have an account?{" "}
+            Need an account?{" "}
             <Link href="/register" className="font-medium text-gray-900"> 
                 Register
             </Link>

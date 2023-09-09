@@ -5,7 +5,7 @@ import type { AppProps } from "next/app";
 import { ThemeProvider } from "@material-tailwind/react";
 
 //Background wrapper for site
-import Background from "@/components/layout/background";
+import Background from "@/components/layout/containers/background";
 
 import Layout from "@/components/layout/layout";
 import Head from "next/head";

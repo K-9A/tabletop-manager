@@ -12,6 +12,7 @@ export default function Home() {
         <HomeButton text="Login" linkPath="/login" />
         <HomeButton text="Register" linkPath="/register" />
         <HomeButton text="About" linkPath="/about" />
+        <HomeButton text="Test Sheet" linkPath="/character" />
       </div>
     </main>
   );
