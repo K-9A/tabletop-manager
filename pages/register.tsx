@@ -1,5 +1,5 @@
 import Register from "@/components/register";
-import DisplayForm from "@/components/layout/containers/displayform";
+import DisplayForm from "@/components/layout/containers/display-form";
 
 function LoginPage() {
   return (

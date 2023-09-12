@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography } from "@material-tailwind/react";
-import { SheetValues } from "@/components/character/types/characterTypes";
+import { SheetValues } from "@/components/character/types/character-types";
 import { FormikProps } from "formik";
 
 interface ErrorProps {

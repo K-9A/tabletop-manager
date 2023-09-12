@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import CoreStats from "@/components/character/subsections/corestats";
-import AbilityScores from "./subsections/abilityscores";
+import CoreStats from "@/components/character/subsections/core-stats";
+import AbilityScores from "./subsections/ability-scores";
 import * as Yup from "yup";
 import { Card, Typography } from "@material-tailwind/react";
-import { SheetValues } from "./types/characterTypes";
+import { SheetValues } from "./types/character-types";
 
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/20/solid";
 import { motion, AnimatePresence } from "framer-motion";

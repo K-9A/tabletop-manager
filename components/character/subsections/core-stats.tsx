@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import ErrorMessage from "../../helper/errormessage";
+import ErrorMessage from "../../helper/error-message";
 
 import { useDispatch } from "react-redux";
 import { coreActions } from "@/store/coreSlice";
 
 import { Card, Input } from "@material-tailwind/react";
 import { FormikProps } from "formik";
-import { SheetValues } from "@/components/character/types/characterTypes";
+import { SheetValues } from "@/components/character/types/character-types";
 import { HeartIcon } from "@heroicons/react/20/solid";
 
 interface CoreStatsProps {

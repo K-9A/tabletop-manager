@@ -1,4 +1,4 @@
-import CharacterSheet from "@/components/character/charactersheet";
+import CharacterSheet from "@/components/character/character-sheet";
 
 function CharacterPage() {
   return (
