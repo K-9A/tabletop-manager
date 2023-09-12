@@ -4,21 +4,21 @@ import CoreStats from "@/components/character/subsections/corestats";
 import AbilityScores from "./subsections/abilityscores";
 import * as Yup from "yup";
 import { Card, Typography } from "@material-tailwind/react";
+import { SheetValues } from "./types/characterTypes";
 
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/20/solid";
 import { motion, AnimatePresence } from "framer-motion";
 
-// Define the types for our form values
-interface SheetValues {
-  // You can expand on this as needed
-  name: string;
-  hp: number;
-  // ... other fields
-}
 
 const validationSchema = Yup.object({
-  name: Yup.string().required("Name is required"),
-  hp: Yup.number().required("HP is required"),
+  name: Yup.string().required("Character Name is required"),
+  hp: Yup.number()
+     .min(0, "HP cannot be negative")
+     .required("HP value is required"),
+  strength: Yup.number()
+     .min(1, "Strength should be at least 1")
+     .max(20, "Strength cannot exceed 20")
+     .required("Strength is required"),
   // ... other validations
 });
 
@@ -34,7 +34,9 @@ const CharacterSheet: React.FC = () => {
       // ... other initial values
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      console.log(values);
+    },
   });
 
   return (
@@ -71,7 +73,7 @@ const CharacterSheet: React.FC = () => {
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <CoreStats />
+                <CoreStats formik={formik} />
               </motion.div>
             )}
           </AnimatePresence>

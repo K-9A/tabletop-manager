@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import Logo from "./main-logo";
 import ThemeSwitch from "./dark-mode/theme-switch";
 
 import {
@@ -127,7 +126,7 @@ const navListMenuItems: {
   },
 ];
 
-function NavListMenu() {
+function NavBarMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
@@ -217,7 +216,7 @@ function NavList() {
           Campaign
         </ListItem>
       </Typography>
-      <NavListMenu />
+      <NavBarMenu />
       <Typography
         as="a"
         href="#"
@@ -246,7 +245,7 @@ function NavList() {
   );
 }
 
-export function MainNav() {
+export function NavBar() {
   const [openNav, setOpenNav] = React.useState<boolean>(false);
   const [isDarkMode, setIsDarkMode] = React.useState<boolean>(false);
 

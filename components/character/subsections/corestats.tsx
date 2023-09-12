@@ -1,18 +1,35 @@
-import React from "react";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { Card, Input } from "@material-tailwind/react";
+import React, { useState } from "react";
+import ErrorMessage from "../../helper/errormessage";
 
+import { useDispatch } from "react-redux";
+import { coreActions } from "@/store/coreSlice";
+
+import { Card, Input } from "@material-tailwind/react";
+import { FormikProps } from "formik";
+import { SheetValues } from "@/components/character/types/characterTypes";
 import { HeartIcon } from "@heroicons/react/20/solid";
 
+interface CoreStatsProps {
+  formik: FormikProps<SheetValues>;
+}
 
-export default function CoreStats() {
+const CoreStats: React.FC<CoreStatsProps> = ({ formik }) => {
+  const dispatch = useDispatch();
+
+  const [lastDispatchedName, setLastDispatchedName] = useState("");
+
+  const handleNameBlur = () => {
+    // Check if there's no validation error for the name
+    if (!formik.errors.name && formik.values.name !== lastDispatchedName) {
+      console.log(formik.values.name); // For debugging
+      dispatch(coreActions.setName(formik.values.name));
+      setLastDispatchedName(formik.values.name);
+    }
+  };
 
   return (
     <Card color="transparent" shadow={false} className="shadow-none">
-      <div
-        className="mt-8 mb-2 max-w-screen-lg w-full"
-      >
+      <div className="mt-8 mb-2 max-w-screen-lg w-full">
         <div className="flex gap-4">
           <div className="mb-2 flex flex-col gap-3">
             <Input
@@ -20,8 +37,19 @@ export default function CoreStats() {
               color="black"
               variant="static"
               type="text"
+              name="name"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              onBlur={(e) => {
+                formik.handleBlur(e);
+                handleNameBlur();
+              }}
+              error={!!(formik.errors.name && formik.touched.name)}
+              placeholder="Enter Name"
               crossOrigin=""
             />
+            <ErrorMessage name="name" formik={formik} />
+
             <div className="flex gap-4">
               <Input
                 label="Class"
@@ -59,4 +87,6 @@ export default function CoreStats() {
       </div>
     </Card>
   );
-}
+};
+
+export default CoreStats;

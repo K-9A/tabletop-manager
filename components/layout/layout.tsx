@@ -1,5 +1,5 @@
 import React, { Fragment, ReactNode } from 'react';
-import { MainNav } from "./main-nav"
+import { NavBar } from "./navbar"
 
 //Typescript Interface for props
 interface LayoutProps {
@@ -12,7 +12,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     return (
         <Fragment>
             <div className="pt-4 pb-4 sticky top-0 z-50">
-                <MainNav />
+                <NavBar />
             </div>
             <main>{children}</main>
         </Fragment>
