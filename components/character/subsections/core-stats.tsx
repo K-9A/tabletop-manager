@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ErrorMessage from "../../helper/error-message";
 
 import { useDispatch } from "react-redux";
-import { coreActions } from "@/store/char-store/coreSlice";
+import { coreActions } from "@/store/char-store/core-stats-slice";
 
 import { Card, Input } from "@material-tailwind/react";
 import { FormikProps } from "formik";

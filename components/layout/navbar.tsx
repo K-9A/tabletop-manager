@@ -1,4 +1,8 @@
 import React from "react";
+
+//Redux imports
+import { useSelector } from "react-redux";
+
 import Link from "next/link";
 import ThemeSwitch from "./dark-mode/theme-switch";
 
@@ -246,6 +250,9 @@ function NavList() {
 }
 
 export function NavBar() {
+  //Auth validator for component rendering
+  const isAuth = useSelector((state) => state.auth.isAuthenticated);
+
   const [openNav, setOpenNav] = React.useState<boolean>(false);
   const [isDarkMode, setIsDarkMode] = React.useState<boolean>(false);
 
@@ -271,34 +278,45 @@ export function NavBar() {
           <NavList />
         </div>
         <div className="hidden gap-2 lg:flex">
-          <Button
-            variant="gradient"
-            size="sm"
-            color="blue-gray"
-            className="bg-white text-black border-2 border-black whitespace-nowrap"
-          >
-            Login
-          </Button>
-          <Button variant="gradient" size="sm" className="">
-            Register
-          </Button>
-          <Button variant="gradient" size="sm" className="whitespace-nowrap">
-            Log Out
-          </Button>
+          {!isAuth && (
+            <Link href="/login">
+              <Button
+                variant="gradient"
+                size="sm"
+                color="white"
+                className="bg-white text-black border-2 border-black whitespace-nowrap"
+              >
+                Login
+              </Button>
+            </Link>
+          )}
+
+          {!isAuth && (
+            <Link href="/register">
+              <Button variant="gradient" size="sm" className="">
+                Register
+              </Button>
+            </Link>
+          )}
+          {isAuth && (
+            <Button variant="gradient" size="sm" className="whitespace-nowrap">
+              Log Out
+            </Button>
+          )}
           <div className="w-24 flex justify-center items-center">
-          <ListItem className="flex items-center">
-            <span className="px-2">
-              {isDarkMode ? (
-                <MoonIcon className="h-6 w-6" />
-              ) : (
-                <SunIcon className="h-6 w-6" />
-              )}
-            </span>
-            <ThemeSwitch
-              isDarkMode={isDarkMode}
-              toggleDarkMode={() => setIsDarkMode(!isDarkMode)}
-            />
-          </ListItem>
+            <ListItem className="flex items-center">
+              <span className="px-2">
+                {isDarkMode ? (
+                  <MoonIcon className="h-6 w-6" />
+                ) : (
+                  <SunIcon className="h-6 w-6" />
+                )}
+              </span>
+              <ThemeSwitch
+                isDarkMode={isDarkMode}
+                toggleDarkMode={() => setIsDarkMode(!isDarkMode)}
+              />
+            </ListItem>
           </div>
         </div>
         <IconButton
@@ -317,30 +335,41 @@ export function NavBar() {
       <Collapse open={openNav}>
         <NavList />
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          <Button
-            variant="outlined"
-            size="sm"
-            className="bg-white whitespace-nowrap"
-            fullWidth
-          >
-            Login
-          </Button>
-          <Button
-            variant="gradient"
-            size="sm"
-            className="whitespace-nowrap"
-            fullWidth
-          >
-            Register
-          </Button>
-          <Button
-            variant="gradient"
-            size="sm"
-            className="whitespace-nowrap"
-            fullWidth
-          >
-            Log Out
-          </Button>
+          {!isAuth && (
+            <Link href="/login">
+              <Button
+                variant="outlined"
+                size="sm"
+                className="bg-white whitespace-nowrap"
+                fullWidth
+              >
+                Login
+              </Button>
+            </Link>
+          )}
+
+          {!isAuth && (
+            <Link href="/register">
+              <Button
+                variant="gradient"
+                size="sm"
+                className="whitespace-nowrap"
+                fullWidth
+              >
+                Register
+              </Button>
+            </Link>
+          )}
+          {isAuth && (
+            <Button
+              variant="gradient"
+              size="sm"
+              className="whitespace-nowrap"
+              fullWidth
+            >
+              Log Out
+            </Button>
+          )}
         </div>
         <div className="w-24 flex justify-center items-center">
           <ListItem className="flex items-center">
