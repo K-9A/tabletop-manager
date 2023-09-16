@@ -4,7 +4,7 @@ import CoreStats from "@/components/character/subsections/core-stats";
 import AbilityScores from "./subsections/ability-scores";
 import * as Yup from "yup";
 import { Card, Typography } from "@material-tailwind/react";
-import { SheetValues } from "./types/character-types";
+import { SheetValues } from "../types/character-types";
 
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/20/solid";
 import { motion, AnimatePresence } from "framer-motion";

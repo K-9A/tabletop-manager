@@ -6,7 +6,7 @@ import { coreActions } from "@/store/char-store/core-stats-slice";
 
 import { Card, Input } from "@material-tailwind/react";
 import { FormikProps } from "formik";
-import { SheetValues } from "@/components/character/types/character-types";
+import { SheetValues } from "@/components/types/character-types";
 import { HeartIcon } from "@heroicons/react/20/solid";
 
 interface CoreStatsProps {

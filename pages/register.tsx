@@ -1,7 +1,7 @@
 import Register from "@/components/register";
 import DisplayForm from "@/components/layout/containers/display-form";
 
-function LoginPage() {
+function RegisterPage() {
   return (
     <div className="flex justify-center items-start mt-16 min-h-screen">
       <DisplayForm>
@@ -11,4 +11,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default RegisterPage;

@@ -8,6 +8,8 @@ import store from "@/store/index";
 import { ThemeProvider } from "@material-tailwind/react";
 import Background from "@/components/layout/containers/background";
 import Layout from "@/components/layout/layout";
+import { AlertProvider } from "@/components/layout/alert/alert-context";
+import AlertBox from "@/components/layout/alert/alert-box";
 
 import Head from "next/head";
 
@@ -15,7 +17,6 @@ import "@/styles/globals.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    
     <Provider store={store}>
       {/* Redux store provider */}
 
@@ -27,14 +28,15 @@ export default function App({ Component, pageProps }: AppProps) {
         {/* Theme provider for Material UI */}
 
         <Background>
-          {/* Wrapper for website background */}
-
-          <Layout>
-            {/* Layout component with NavBar */}
-
-            <Component {...pageProps} />
-            
-          </Layout>
+          {/* Wrapper for site alerts */}
+          <AlertProvider>
+            {/* Wrapper for website background */}
+            <Layout>
+              {/* Layout component with NavBar */}
+              <AlertBox />
+              <Component {...pageProps} />
+            </Layout>
+          </AlertProvider>
         </Background>
       </ThemeProvider>
     </Provider>
