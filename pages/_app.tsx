@@ -1,7 +1,8 @@
 import type { AppProps } from "next/app";
 
-//Redux imports
+//Provider imports
 import { Provider } from "react-redux";
+import { SessionProvider } from "next-auth/react";
 import store from "@/store/index";
 
 //Wrapper imports
@@ -20,25 +21,33 @@ export default function App({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       {/* Redux store provider */}
 
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head>
+      <SessionProvider session={pageProps.session}>
+        {/* NextAuth provider */}
 
-      <ThemeProvider>
-        {/* Theme provider for Material UI */}
+        <Head>
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+        </Head>
 
-        <Background>
-          {/* Wrapper for site alerts */}
-          <AlertProvider>
+        <ThemeProvider>
+          {/* Theme provider for Material UI */}
+
+          <Background>
             {/* Wrapper for website background */}
-            <Layout>
-              {/* Layout component with NavBar */}
-              <AlertBox />
-              <Component {...pageProps} />
-            </Layout>
-          </AlertProvider>
-        </Background>
-      </ThemeProvider>
+
+            <AlertProvider>
+              {/* Wrapper for site alerts */}
+              <Layout>
+                {/* Layout component with NavBar */}
+                <AlertBox />
+                <Component {...pageProps} />
+              </Layout>
+            </AlertProvider>
+          </Background>
+        </ThemeProvider>
+      </SessionProvider>
     </Provider>
   );
 }

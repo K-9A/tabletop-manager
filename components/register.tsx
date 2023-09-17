@@ -4,8 +4,10 @@ import axios from "@/utils/axios-instance";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import { useAlert } from "./layout/alert/alert-context";
+import { ErrorResponse, MessageError } from "./types/error-types";
 import * as Yup from "yup";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
+import type { CardProps } from "@material-tailwind/react";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Username is required"),
@@ -13,7 +15,7 @@ const validationSchema = Yup.object({
     .email("Invalid email format")
     .required("Email is required"),
   password: Yup.string()
-    .min(6, "Password must be at least 6 characters")
+    .min(5, "Password must be at least 5 characters")
     .required("Password is required"),
 });
 
@@ -30,19 +32,17 @@ export default function Register() {
 
   const { addAlert } = alertContext;
 
-  
-  //Typeguard for error functions
-  function isErrorWithResponse(
-    error: any
-  ): error is { response: { data: { error: string } } } {
+  // Typeguard for error functions
+  function isErrorWithResponse(error: any): error is ErrorResponse {
     return (
       error && error.response && typeof error.response.data.error === "string"
     );
   }
 
-  function isErrorWithMessage(error: any): error is { message: string } {
+  function isErrorWithMessage(error: any): error is MessageError {
     return error && typeof error.message === "string";
   }
+
 
   const formik = useFormik({
     initialValues: {
@@ -65,7 +65,7 @@ export default function Register() {
           addAlert("Registration successful!", "success");
           setTimeout(() => {
             router.push("/login");
-          }, 2000); // Delay of 2 seconds
+          }, 1500); // Delay of 1.5 seconds
         }
       } catch (error) {
         if (isErrorWithResponse(error)) {
