@@ -58,5 +58,5 @@ export default NextAuth({
         }
       })
     ],
-    // Add any other NextAuth options you want here...
+    // Add any other NextAuth options here...
   })

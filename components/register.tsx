@@ -3,11 +3,11 @@ import Link from "next/link";
 import axios from "@/utils/axios-instance";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
-import { useAlert } from "./layout/alert/alert-context";
+import { useMemoizedAlert } from "./layout/alert";
 import { ErrorResponse, MessageError } from "./types/error-types";
 import * as Yup from "yup";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
-import type { CardProps } from "@material-tailwind/react";
+
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Username is required"),
@@ -24,13 +24,8 @@ export default function Register() {
   const router = useRouter();
 
   //Alert component
-  const alertContext = useAlert();
+  const addAlertMemo = useMemoizedAlert();
 
-  if (!alertContext) {
-    throw new Error("useAlert must be used within an AlertProvider");
-  }
-
-  const { addAlert } = alertContext;
 
   // Typeguard for error functions
   function isErrorWithResponse(error: any): error is ErrorResponse {
@@ -62,7 +57,7 @@ export default function Register() {
 
         if (response.status === 201) {
           console.log("Registration successful!");
-          addAlert("Registration successful!", "success");
+          addAlertMemo("Registration successful!", "success");
           setTimeout(() => {
             router.push("/login");
           }, 1500); // Delay of 1.5 seconds
@@ -73,13 +68,13 @@ export default function Register() {
             "Error during registration:",
             error.response.data.error
           );
-          addAlert("Registration failed. Please try again.", "error");
+          addAlertMemo("Registration failed. Please try again.", "error");
         } else if (isErrorWithMessage(error)) {
           console.error("Error during registration:", error.message);
-          addAlert("Registration failed. Please try again.", "error");
+          addAlertMemo("Registration failed. Please try again.", "error");
         } else {
           console.error("Error during registration: Unknown error");
-          addAlert("Registration failed.", "error");
+          addAlertMemo("Registration failed.", "error");
         }
       }
     },

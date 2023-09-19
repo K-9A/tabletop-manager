@@ -41,8 +41,8 @@ export default function App({ Component, pageProps }: AppProps) {
               {/* Wrapper for site alerts */}
               <Layout>
                 {/* Layout component with NavBar */}
-                <AlertBox />
                 <Component {...pageProps} />
+                <AlertBox />
               </Layout>
             </AlertProvider>
           </Background>

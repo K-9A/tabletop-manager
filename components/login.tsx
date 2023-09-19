@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import * as Yup from "yup";
 import Link from "next/link";
 import axios from "axios";
+import { useSession } from "next-auth/react";
+import { useMemoizedAlert } from "./layout/alert";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 
 const validationSchema = Yup.object({
@@ -15,8 +17,31 @@ const validationSchema = Yup.object({
 });
 
 export default function Login() {
-
   const router = useRouter();
+  const { data: session } = useSession();
+  const [justLoggedIn, setJustLoggedIn] = useState(false);
+
+  const addAlertMemo = useMemoizedAlert();
+
+  //Client-side user redirection if the user is logged in. This works in tandem with getStaticProps on page level.
+  useEffect(() => {
+    // If there's an active session and the user didn't just login
+    if (session && !justLoggedIn) {
+      addAlertMemo("Already logged in.", "info");
+      router.push("/"); // Redirect to the homepage
+    }
+    if (justLoggedIn) {
+      setJustLoggedIn(false);  // Reset the state so it doesn't interfere with future logins
+  }
+  }, [session, router]); // eslint-disable-line react-hooks/exhaustive-deps
+
+/*
+ * Note on ESLint:
+ * The `react-hooks/exhaustive-deps` rule is intentionally disabled for this effect.
+ * This is because ESLint will flag the absence of the `addAlertMemo` function from 
+ * the dependency array, even though it's safe to omit due to being a memoized, stable function.
+ * Including it would introduce unnecessary re-renders without providing any tangible benefits.
+ */
 
   const formik = useFormik({
     initialValues: {
@@ -34,30 +59,40 @@ export default function Login() {
 
         console.log("Sending formData:", formData.toString());
 
-        const response = await axios.post("/api/auth/callback/credentials", formData);
+        const response = await axios.post(
+          "/api/auth/callback/credentials",
+          formData
+        );
 
         if (response.status !== 200) {
+          addAlertMemo("Something went wrong.", "error");
           throw new Error(response.data.error || "Something went wrong");
         }
 
         // Integrate with NextAuth's signIn method
-        const result = await signIn('credentials', {
+        const result = await signIn("credentials", {
           redirect: false,
           username: values.name,
-          password: values.password
+          password: values.password,
         });
 
-        if (result?.ok) {
-          router.push('/about');  // Redirects to the dashboard.
+        if (result?.ok) { //Login is successful.
+          setJustLoggedIn(true); // Set the state to true when the user logs in
+          addAlertMemo("Login successful.", "success");
+          router.push("/"); // Redirects to the homepage.
         } else {
+          addAlertMemo("Bad login info.", "error");
           console.error("Login error:", result?.error);
           formik.setStatus({ apiError: result?.error });
         }
-
       } catch (error) {
-        console.error("Login error:", error.message);
-        // Optionally, handle/display error to the user using Formik's setErrors or setStatus method
-        formik.setStatus({ apiError: error.message });
+        addAlertMemo("Something went wrong.", "error");
+        const errorMessage =
+          error instanceof Error
+            ? error.message
+            : "An unexpected error occurred.";
+        console.error("Login error:", errorMessage);
+        formik.setStatus({ apiError: errorMessage });
       }
     },
   });

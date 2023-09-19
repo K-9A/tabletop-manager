@@ -1,10 +1,11 @@
 import React from "react";
 
-//Redux imports
-import { useSelector } from "react-redux";
-
 import Link from "next/link";
 import ThemeSwitch from "./dark-mode/theme-switch";
+
+import { useSession, signOut } from "next-auth/react";
+
+
 
 import {
   Navbar,
@@ -40,6 +41,8 @@ import {
   MoonIcon,
 } from "@heroicons/react/24/outline";
 
+import { ColorKey } from "../types/color-key-types";
+
 const colors = {
   blue: "bg-blue-50 text-blue-500",
   orange: "bg-orange-50 text-orange-500",
@@ -51,17 +54,6 @@ const colors = {
   pink: "bg-pink-50 text-pink-500",
   black: "bg-black text-white",
 };
-
-type ColorKey =
-  | "blue"
-  | "orange"
-  | "green"
-  | "blue-gray"
-  | "purple"
-  | "teal"
-  | "cyan"
-  | "pink"
-  | "black";
 
 const navListMenuItems: {
   color: ColorKey;
@@ -109,24 +101,6 @@ const navListMenuItems: {
     icon: RocketLaunchIcon,
     title: "Products",
     description: "Checkout our products that helps a startup running.",
-  },
-  {
-    color: "teal",
-    icon: FaceSmileIcon,
-    title: "Icons",
-    description: "Set of beautiful icons that you can use in your project.",
-  },
-  {
-    color: "cyan",
-    icon: PuzzlePieceIcon,
-    title: "UI Kits",
-    description: "High quality UI Kits helps you to 2x faster.",
-  },
-  {
-    color: "pink",
-    icon: GiftIcon,
-    title: "Open Source",
-    description: "List of all our open-source projects, it's all free.",
   },
 ];
 
@@ -206,55 +180,62 @@ function NavBarMenu() {
 }
 
 function NavList() {
+  const { data: session } = useSession();
+
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
-      <Typography
-        as="a"
-        href="#"
-        variant="small"
-        color="black"
-        className="font-normal"
-      >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">
-          <CubeTransparentIcon className="h-[18px] w-[18px]" />
-          Campaign
-        </ListItem>
-      </Typography>
-      <NavBarMenu />
-      <Typography
-        as="a"
-        href="#"
-        variant="small"
-        color="black"
-        className="font-normal"
-      >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">
-          <UserCircleIcon className="h-[18px] w-[18px]" />
-          Character Sheet
-        </ListItem>
-      </Typography>
-      <Typography
-        as="a"
-        href="#"
-        variant="small"
-        color="black"
-        className="font-normal"
-      >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">
-          <UserCircleIcon className="h-[18px] w-[18px]" />
-          Account
-        </ListItem>
-      </Typography>
+      {session ? (
+        <>
+          <Typography
+            as="a"
+            href="#"
+            variant="small"
+            color="black"
+            className="font-normal"
+          >
+            <ListItem className="flex items-center gap-2 py-2 pr-4">
+              <CubeTransparentIcon className="h-[18px] w-[18px]" />
+              Campaign
+            </ListItem>
+          </Typography>
+          <NavBarMenu />
+          <Typography
+            as="a"
+            href="#"
+            variant="small"
+            color="black"
+            className="font-normal"
+          >
+            <ListItem className="flex items-center gap-2 py-2 pr-4">
+              <UserCircleIcon className="h-[18px] w-[18px]" />
+              Character Sheet
+            </ListItem>
+          </Typography>
+          <Typography
+            as="a"
+            href="#"
+            variant="small"
+            color="black"
+            className="font-normal"
+          >
+            <ListItem className="flex items-center gap-2 py-2 pr-4">
+              <UserCircleIcon className="h-[18px] w-[18px]" />
+              Account
+            </ListItem>
+          </Typography>
+        </>
+      ) : (
+        <></>
+      )}
     </List>
   );
 }
 
 export function NavBar() {
-  //Auth validator for component rendering
-  const isAuth = useSelector((state) => state.auth.isAuthenticated);
-
   const [openNav, setOpenNav] = React.useState<boolean>(false);
   const [isDarkMode, setIsDarkMode] = React.useState<boolean>(false);
+
+  const { data: session } = useSession();
 
   React.useEffect(() => {
     window.addEventListener(
@@ -262,6 +243,13 @@ export function NavBar() {
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
+
+  //Function that transfers the user baack to homepage to flash alert message they logged out
+  const handleLogout = () => {
+    signOut({
+      callbackUrl: `${window.location.origin}/?loggedOut=true`
+  });
+  };
 
   return (
     <Navbar className="mx-auto max-w-screen-xl px-4 py-4">
@@ -278,31 +266,42 @@ export function NavBar() {
           <NavList />
         </div>
         <div className="hidden gap-2 lg:flex">
-          {!isAuth && (
-            <Link href="/login">
+          {!session ? (
+            <>
+              <Link href="/login">
+                <Button
+                  variant="gradient"
+                  size="sm"
+                  color="white"
+                  className="bg-white text-black border-2 border-black px-5 py-3"
+                >
+                  Login
+                </Button>
+              </Link>
+
+              <Link href="/register">
+                <Button
+                  variant="gradient"
+                  size="sm"
+                  className="border-2 border-black px-5 py-3"
+                >
+                  Register
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <>
               <Button
                 variant="gradient"
                 size="sm"
-                color="white"
-                className="bg-white text-black border-2 border-black whitespace-nowrap"
+                className="whitespace-nowrap"
+                onClick={() => handleLogout()}
               >
-                Login
+                Log Out
               </Button>
-            </Link>
+            </>
           )}
 
-          {!isAuth && (
-            <Link href="/register">
-              <Button variant="gradient" size="sm" className="">
-                Register
-              </Button>
-            </Link>
-          )}
-          {isAuth && (
-            <Button variant="gradient" size="sm" className="whitespace-nowrap">
-              Log Out
-            </Button>
-          )}
           <div className="w-24 flex justify-center items-center">
             <ListItem className="flex items-center">
               <span className="px-2">
@@ -334,44 +333,41 @@ export function NavBar() {
       </div>
       <Collapse open={openNav}>
         <NavList />
-        <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          {!isAuth && (
-            <Link href="/login">
-              <Button
-                variant="outlined"
-                size="sm"
-                className="bg-white whitespace-nowrap"
-                fullWidth
-              >
-                Login
-              </Button>
-            </Link>
-          )}
+        <div className="flex flex-col items-center justify-center gap-2 lg:hidden w-full ">
+          {!session ? (
+            <>
+              <Link href="/login">
+                <Button
+                  variant="outlined"
+                  size="lg"
+                  className="bg-white whitespace-nowrap py-3 px-10 text-center w-full"
+                >
+                  Login
+                </Button>
+              </Link>
 
-          {!isAuth && (
-            <Link href="/register">
-              <Button
-                variant="gradient"
-                size="sm"
-                className="whitespace-nowrap"
-                fullWidth
-              >
-                Register
-              </Button>
-            </Link>
-          )}
-          {isAuth && (
+              <Link href="/register">
+                <Button
+                  variant="gradient"
+                  size="lg"
+                  className="whitespace-nowrap"
+                >
+                  Register
+                </Button>
+              </Link>
+            </>
+          ) : (
             <Button
               variant="gradient"
-              size="sm"
+              size="lg"
               className="whitespace-nowrap"
-              fullWidth
+              onClick={() => handleLogout()}
             >
               Log Out
             </Button>
           )}
         </div>
-        <div className="w-24 flex justify-center items-center">
+        <div className="w-24 flex justify-center items-center text-black">
           <ListItem className="flex items-center">
             <span className="px-2">
               {isDarkMode ? (

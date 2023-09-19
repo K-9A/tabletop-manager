@@ -35,7 +35,7 @@ export default function AlertBox() {
         if (firstAlert) {
           removeAlert(firstAlert.message);
         }
-      }, 2000); // 2 seconds
+      }, 3000); // 2 seconds
 
       return () => {
         clearTimeout(timerId);
