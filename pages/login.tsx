@@ -1,14 +1,14 @@
 import Login from "@/components/login";
-import DisplayForm from "@/components/layout/containers/display-form";
+import DisplayBox from "@/components/layout/containers/display-box";
 import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext } from 'next';
 
 function LoginPage() {
   return (
     <div className="flex justify-center items-start mt-16">
-      <DisplayForm>
+      <DisplayBox>
         <Login />
-      </DisplayForm>
+      </DisplayBox>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import HomeButton from "@/components/homepage/home-button";
 
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useMemoizedAlert } from "./layout/alert";
+import { useMemoizedAlert } from "../layout/alert";
 import { useSession } from "next-auth/react";
 
 function HomePage() {

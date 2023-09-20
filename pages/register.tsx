@@ -1,5 +1,5 @@
 import Register from "@/components/register";
-import DisplayForm from "@/components/layout/containers/display-form";
+import DisplayBox from "@/components/layout/containers/display-box";
 import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext } from 'next';
 
@@ -7,9 +7,9 @@ import { GetServerSidePropsContext } from 'next';
 function RegisterPage() {
   return (
     <div className="flex justify-center items-start mt-16">
-      <DisplayForm>
+      <DisplayBox>
         <Register />
-      </DisplayForm>
+      </DisplayBox>
     </div>
   );
 }

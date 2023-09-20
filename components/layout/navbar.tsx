@@ -34,9 +34,6 @@ import {
   FolderIcon,
   Square3Stack3DIcon,
   RocketLaunchIcon,
-  FaceSmileIcon,
-  PuzzlePieceIcon,
-  GiftIcon,
   SunIcon,
   MoonIcon,
 } from "@heroicons/react/24/outline";
