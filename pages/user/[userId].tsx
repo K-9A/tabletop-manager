@@ -1,8 +1,8 @@
 import DisplayBox from "@/components/layout/containers/display-box";
 import Dashboard from "@/components/dashboard/dashboard";
-import axios from 'axios';
+import axios from "axios";
 import { getSession } from "next-auth/react";
-import { GetServerSidePropsContext } from 'next';
+import { GetServerSidePropsContext } from "next";
 
 type UserProps = {
   user: {
@@ -16,39 +16,40 @@ type UserProps = {
 };
 
 function DashboardPage({ user }: UserProps) {
-
-    return (
-        <div>
-            <DisplayBox>
-              <Dashboard user={user}/>
-            </DisplayBox>
-        </div>
-    )
+  return (
+    <div className="flex justify-center items-start mt-16">
+      <DisplayBox>
+        <Dashboard user={user} />
+      </DisplayBox>
+    </div>
+  );
 }
 
 export default DashboardPage;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-    const session = await getSession(context);
+  const session = await getSession(context);
 
-    // If the user is NOT logged in, redirect to the homepage or login page
-    if (!session) {
-      return {
-        redirect: {
-          destination: '/', // Adjust to your desired path, like /login
-          permanent: false,
-        },
-      }
-    }
-
-    // For logged-in users, fetch their data
-    // Ideally, you'd get the user ID from the session, not hard-code it.
-    const userId = "12345678";
-    const { data: user } = await axios.get(`http://localhost:3000/api/user/${userId}`);
-
+  // If the user is NOT logged in, redirect to the homepage or login page
+  if (!session) {
     return {
-      props: {
-        user
-      }
-    }
+      redirect: {
+        destination: "/", // Adjust to your desired path, like /login
+        permanent: false,
+      },
+    };
+  }
+
+  // For logged-in users, fetch their data
+  // Ideally, you'd get the user ID from the session, not hard-code it.
+  const userId = "12345678";
+  const { data: user } = await axios.get(
+    `http://localhost:3000/api/user/${userId}`
+  );
+
+  return {
+    props: {
+      user,
+    },
+  };
 }

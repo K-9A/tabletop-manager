@@ -11,6 +11,11 @@ module.exports = withMT({
   ],
   theme: {
     extend: {
+      colors: {
+        indigo: {
+          '950': 'rgb(6 6 40)'
+        }
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':

@@ -3,6 +3,8 @@ import Link from "next/link";
 import axios from "@/utils/axios-instance";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
+import { useSelector } from 'react-redux';
+import { RootState } from "@/store";
 import { useMemoizedAlert } from "./layout/alert";
 import { ErrorResponse, MessageError } from "./types/error-types";
 import * as Yup from "yup";
@@ -25,6 +27,9 @@ export default function Register() {
 
   //Alert component
   const addAlertMemo = useMemoizedAlert();
+
+  //Darkmode state
+  const isDarkMode = useSelector((state: RootState) => state.darkMode);
 
 
   // Typeguard for error functions
@@ -60,7 +65,7 @@ export default function Register() {
           addAlertMemo("Registration successful!", "success");
           setTimeout(() => {
             router.push("/login");
-          }, 1500); // Delay of 1.5 seconds
+          }, 1000); // Delay of 1 second
         }
       } catch (error) {
         if (isErrorWithResponse(error)) {
@@ -82,10 +87,10 @@ export default function Register() {
 
   return (
     <Card color="transparent" shadow={false} className="shadow-none">
-      <Typography variant="h4" color="blue-gray">
+      <Typography variant="h4" color="blue-gray" className="dark:text-white">
         Register
       </Typography>
-      <Typography color="gray" className="mt-1 font-normal">
+      <Typography color="gray" className="mt-1 font-normal dark:text-gray-300">
         Enter your details to register.
       </Typography>
       <form
@@ -97,6 +102,8 @@ export default function Register() {
             size="lg"
             label="Username"
             name="name"
+            className={"dark:text-white"}
+            color={isDarkMode ? "white" : "black"} 
             onChange={formik.handleChange}
             value={formik.values.name}
             error={!!(formik.errors.name && formik.touched.name)}
@@ -112,6 +119,8 @@ export default function Register() {
             size="lg"
             label="Email"
             name="email"
+            className={"dark:text-white"}
+            color={isDarkMode ? "white" : "black"} 
             onChange={formik.handleChange}
             value={formik.values.email}
             error={!!(formik.errors.email && formik.touched.email)}
@@ -128,6 +137,8 @@ export default function Register() {
             size="lg"
             label="Password"
             name="password"
+            className={"dark:text-white"}
+            color={isDarkMode ? "white" : "black"} 
             onChange={formik.handleChange}
             value={formik.values.password}
             error={!!(formik.errors.password && formik.touched.password)}
@@ -143,9 +154,9 @@ export default function Register() {
         <Button type="submit" className="mt-6" fullWidth>
           Register
         </Button>
-        <Typography color="gray" className="mt-4 text-center font-normal">
+        <Typography color="gray" className="mt-4 text-center font-normal dark:text-white">
           Already have an account?{" "}
-          <Link href="/login" className="font-medium text-gray-900">
+          <Link href="/login" className="font-bold dark:text-gray-300">
             Login
           </Link>
         </Typography>

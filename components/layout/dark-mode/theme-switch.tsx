@@ -1,42 +1,37 @@
+
+
 import React, { useEffect, useState } from "react";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleDarkMode } from "@/store/dark-slice";
+import { RootState } from "@/store";
+
 import { Switch } from "@material-tailwind/react";
 
 interface ThemeSwitchProps {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
 }
+const ThemeSwitch: React.FC = () => {
+    const dispatch = useDispatch();
+    const isDarkMode = useSelector((state: RootState) => state.darkMode);
 
-const ThemeSwitch: React.FC<ThemeSwitchProps> = ({ isDarkMode, toggleDarkMode }) => {
-    const [localDarkMode, setLocalDarkMode] = useState(isDarkMode);
-
-    // Initialize local state based on local storage
+    // Update body class and local storage when Redux state changes
     useEffect(() => {
-        const darkModeStored = window.localStorage.getItem('dark-mode') === 'true';
-        setLocalDarkMode(darkModeStored);
-    }, []);
+        window.localStorage.setItem('dark-mode', String(isDarkMode));
 
-    // Update local state when isDarkMode prop changes
-    useEffect(() => {
-        setLocalDarkMode(isDarkMode);
-    }, [isDarkMode]);
-
-    // Update body class and local storage when local state changes
-    useEffect(() => {
-        window.localStorage.setItem('dark-mode', String(localDarkMode));
-
-        if (localDarkMode) {
+        if (isDarkMode) {
             document.body.classList.add('dark');
         } else {
             document.body.classList.remove('dark');
         }
-    }, [localDarkMode]);
+    }, [isDarkMode]);
 
     const handleToggle = () => {
-        setLocalDarkMode(!localDarkMode);
-        toggleDarkMode();
+        dispatch(toggleDarkMode());
     };
 
-    return <Switch color="blue" checked={localDarkMode} onChange={handleToggle} />;
+    return <Switch color="blue" checked={isDarkMode} onChange={handleToggle} crossOrigin="" />;
 }
 
 export default ThemeSwitch;

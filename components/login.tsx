@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useSelector } from 'react-redux';
+import { RootState } from "@/store";
 import * as Yup from "yup";
 import Link from "next/link";
 import axios from "axios";
@@ -23,6 +25,9 @@ export default function Login() {
 
   const addAlertMemo = useMemoizedAlert();
 
+  //Darkmode state
+  const isDarkMode = useSelector((state: RootState) => state.darkMode);
+
   //Client-side user redirection if the user is logged in. This works in tandem with getStaticProps on page level.
   useEffect(() => {
     // If there's an active session and the user didn't just login
@@ -31,17 +36,17 @@ export default function Login() {
       router.push("/"); // Redirect to the homepage
     }
     if (justLoggedIn) {
-      setJustLoggedIn(false);  // Reset the state so it doesn't interfere with future logins
-  }
+      setJustLoggedIn(false); // Reset the state so it doesn't interfere with future logins
+    }
   }, [session, router]); // eslint-disable-line react-hooks/exhaustive-deps
 
-/*
- * Note on ESLint:
- * The `react-hooks/exhaustive-deps` rule is intentionally disabled for this effect.
- * This is because ESLint will flag the absence of the `addAlertMemo` function from 
- * the dependency array, even though it's safe to omit due to being a memoized, stable function.
- * Including it would introduce unnecessary re-renders without providing any tangible benefits.
- */
+  /*
+   * Note on ESLint:
+   * The `react-hooks/exhaustive-deps` rule is intentionally disabled for this effect.
+   * This is because ESLint will flag the absence of the `addAlertMemo` function from
+   * the dependency array, even though it's safe to omit due to being a memoized, stable function.
+   * Including it would introduce unnecessary re-renders without providing any tangible benefits.
+   */
 
   const formik = useFormik({
     initialValues: {
@@ -76,7 +81,8 @@ export default function Login() {
           password: values.password,
         });
 
-        if (result?.ok) { //Login is successful.
+        if (result?.ok) {
+          //Login is successful.
           setJustLoggedIn(true); // Set the state to true when the user logs in
           addAlertMemo("Login successful.", "success");
           router.push("/"); // Redirects to the homepage.
@@ -98,11 +104,11 @@ export default function Login() {
   });
 
   return (
-    <Card color="transparent" shadow={false} className="shadow-none">
-      <Typography variant="h4" color="blue-gray">
+    <Card color="transparent" shadow={false} className="shadow-non">
+      <Typography variant="h4" color="blue-gray" className="dark:text-white">
         Login
       </Typography>
-      <Typography color="gray" className="mt-1 font-normal">
+      <Typography color="gray" className="mt-1 font-normal dark:text-gray-300">
         Enter your login credentials.
       </Typography>
       <form
@@ -114,6 +120,8 @@ export default function Login() {
             size="lg"
             label="Username"
             name="name"
+            className={"dark:text-white"}
+            color={isDarkMode ? "white" : "black"}
             onChange={formik.handleChange}
             value={formik.values.name}
             error={!!(formik.errors.name && formik.touched.name)}
@@ -129,6 +137,8 @@ export default function Login() {
             size="lg"
             label="Password"
             name="password"
+            className={"dark:text-white"}
+            color={isDarkMode ? "white" : "black"}
             onChange={formik.handleChange}
             value={formik.values.password}
             error={!!(formik.errors.password && formik.touched.password)}
@@ -144,9 +154,9 @@ export default function Login() {
         <Button type="submit" className="mt-6" fullWidth>
           Login
         </Button>
-        <Typography color="gray" className="mt-4 text-center font-normal">
+        <Typography color="gray" className="mt-4 text-center font-normal dark:text-white">
           Need an account?{" "}
-          <Link href="/register" className="font-medium text-gray-900">
+          <Link href="/register" className="font-bold dark:text-gray-300">
             Register
           </Link>
         </Typography>

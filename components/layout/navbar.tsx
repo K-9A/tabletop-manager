@@ -3,9 +3,10 @@ import React from "react";
 import Link from "next/link";
 import ThemeSwitch from "./dark-mode/theme-switch";
 
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
+
 import { useSession, signOut } from "next-auth/react";
-
-
 
 import {
   Navbar,
@@ -230,7 +231,9 @@ function NavList() {
 
 export function NavBar() {
   const [openNav, setOpenNav] = React.useState<boolean>(false);
-  const [isDarkMode, setIsDarkMode] = React.useState<boolean>(false);
+
+  //Dark mode selector for icons
+  const isDarkMode = useSelector((state: RootState) => state.darkMode);
 
   const { data: session } = useSession();
 
@@ -244,8 +247,8 @@ export function NavBar() {
   //Function that transfers the user baack to homepage to flash alert message they logged out
   const handleLogout = () => {
     signOut({
-      callbackUrl: `${window.location.origin}/?loggedOut=true`
-  });
+      callbackUrl: `${window.location.origin}/?loggedOut=true`,
+    });
   };
 
   return (
@@ -303,15 +306,14 @@ export function NavBar() {
             <ListItem className="flex items-center">
               <span className="px-2">
                 {isDarkMode ? (
-                  <MoonIcon className="h-6 w-6" />
+                  <span className="dark:text-white">
+                    <MoonIcon className="h-6 w-6 " />
+                  </span>
                 ) : (
                   <SunIcon className="h-6 w-6" />
                 )}
               </span>
-              <ThemeSwitch
-                isDarkMode={isDarkMode}
-                toggleDarkMode={() => setIsDarkMode(!isDarkMode)}
-              />
+              <ThemeSwitch />
             </ListItem>
           </div>
         </div>
@@ -368,15 +370,14 @@ export function NavBar() {
           <ListItem className="flex items-center">
             <span className="px-2">
               {isDarkMode ? (
-                <MoonIcon className="h-6 w-6" />
+                <span className="dark:text-white">
+                  <MoonIcon className="h-6 w-6 " />
+                </span>
               ) : (
                 <SunIcon className="h-6 w-6" />
               )}
             </span>
-            <ThemeSwitch
-              isDarkMode={isDarkMode}
-              toggleDarkMode={() => setIsDarkMode(!isDarkMode)}
-            />
+            <ThemeSwitch />
           </ListItem>
         </div>
       </Collapse>
