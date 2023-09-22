@@ -1,62 +1,78 @@
-import NextAuth from 'next-auth';
-import Credentials from "next-auth/providers/credentials";
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { dbQuery } from "@/utils/dbQuery";
 import bcrypt from "bcrypt";
-import { User } from '@/components/types/user-types';
+import { User } from "@/components/types/user-types";
 
 //Type Interface
 type Credentials = {
-    username: string;
-    password: string;
-  };
-  
+  username: string;
+  password: string;
+};
 
 export default NextAuth({
+  debug: true,
+  providers: [
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {},
+      authorize: async (credentials) => {
+        const { username, password } = credentials;
 
-    providers: [
-        Credentials({
-          name: 'Credentials',
-          credentials: {
-            username: { label: "Username", type: "text" },
-            password: { label: "Password", type: "password" }
-          },
-          authorize: async (credentials) => {
-            console.log("Received credentials:", credentials);
-            if (!credentials) {
-              throw new Error('Credentials object is missing.');
-            }
-            if (typeof credentials.username !== 'string') {
-              throw new Error('Username is not a string.');
-            }
-            if (typeof credentials.password !== 'string') {
-              throw new Error('Password is not a string.');
-            }
-          
-          const { username, password } = credentials as Credentials;
+        const users = await dbQuery(
+          "SELECT user_id, username, user_password FROM users WHERE username = ?",
+          [username]
+        );
 
-          const users = await dbQuery(
-            "SELECT user_id, username, user_password FROM users WHERE username = ?",
-            [username]
-          );
+        const user: User | undefined = users[0] as User;
 
-          const user: User | undefined = users[0] as User;
-  
-          if (!user) {
-            console.log("User doesn't match");
-            throw new Error('Invalid credentials. Bad user credentials.');
-          }
-  
-          const passwordMatches = await bcrypt.compare(password, user.user_password);
-          
-          if (!passwordMatches) {
-            console.log("Password doesn't match");
-            throw new Error('Invalid credentials.  Bad user credentials.');
-          }
-  
-          // If everything is okay, return a user object.
-          return { id: user.user_id, name: user.username }
+        if (!user) {
+          console.log("User doesn't match");
+          return null;
         }
-      })
-    ],
-    // Add any other NextAuth options here...
-  })
+
+        const passwordMatches = await bcrypt.compare(
+          password,
+          user.user_password
+        );
+
+        // Check if credentials are provided
+        if (!credentials) {
+          throw new Error("Credentials object is missing.");
+        }
+
+        // Check if both username and password are of type string
+        if (
+          typeof credentials.username !== "string" ||
+          typeof credentials.password !== "string"
+        ) {
+          throw new Error("Invalid type of credentials.");
+        }
+
+        // Check if the user exists
+        if (!user) {
+          throw new Error("Invalid credentials. Bad user credentials.");
+        }
+
+        return { id: user.user_id.toString(), name: user.username };
+      },
+    }),
+  ],
+  // Session configuration
+  session: {
+    jwt: true,
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.sub = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.user.id = token.sub;
+      return session;
+    },
+  },
+
+});

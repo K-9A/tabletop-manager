@@ -1,16 +1,5 @@
 import { Typography } from "@material-tailwind/react";
-
-interface UserInfoProps {
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    dateJoined: string;
-    campaignsOwned: string;
-    characterSheetsOwned: string;
-  };
-  labelBgColor: string;
-}
+import { UserInfoProps } from "../types/dash-types";
 
 
 const UserInfo: React.FC<UserInfoProps> = ({ user, labelBgColor }) => {
@@ -25,16 +14,16 @@ const UserInfo: React.FC<UserInfoProps> = ({ user, labelBgColor }) => {
       </Typography>
       <div className="flex flex-col items-center space-y-3 py-6">
       <p className="text-sm">
-            <span className="font-bold">User ID:</span> {user.id}
+            <span className="font-bold">User ID:</span> {user.user_id}
           </p>
           <p className="text-sm">
-            <span className="font-bold">Username:</span> {user.name}
+            <span className="font-bold">Username:</span> {user.username}
           </p>
           <p className="text-sm">
             <span className="font-bold">Email:</span> {user.email}
           </p>
           <p className="text-sm">
-            <span className="font-bold">Date Joined:</span> {user.dateJoined}
+            <span className="font-bold">Date Joined:</span> {user.created_at}
           </p>
           <p className="text-sm">
             <span className="font-bold">Campaigns Owned:</span>{" "}

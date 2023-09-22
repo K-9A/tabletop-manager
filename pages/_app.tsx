@@ -18,11 +18,11 @@ import "@/styles/globals.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={store}>
-      {/* Redux store provider */}
+    <SessionProvider session={pageProps.session}>
+      {/* NextAuth provider */}
 
-      <SessionProvider session={pageProps.session}>
-        {/* NextAuth provider */}
+      <Provider store={store}>
+        {/* Redux store provider */}
 
         <Head>
           <meta
@@ -47,7 +47,7 @@ export default function App({ Component, pageProps }: AppProps) {
             </AlertProvider>
           </Background>
         </ThemeProvider>
-      </SessionProvider>
-    </Provider>
+      </Provider>
+    </SessionProvider>
   );
 }

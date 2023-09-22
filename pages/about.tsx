@@ -1,3 +1,5 @@
+import { useSession } from 'next-auth/react';
+
 function AboutPage() {
 
     return (

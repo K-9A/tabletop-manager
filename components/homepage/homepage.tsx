@@ -13,8 +13,6 @@ function HomePage() {
 
 
   useEffect(() => {
-    console.log("Checking logout status:", router.query.loggedOut);
-
     if (router.query.loggedOut) {
       console.log("Logged out detected");
       addAlertMemo("You have successfully logged out.", "info");
@@ -22,6 +20,8 @@ function HomePage() {
       router.replace(router.pathname);
     }
   }, [router.query.loggedOut, session]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  
 
   return (
     <main>

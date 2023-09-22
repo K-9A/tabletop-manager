@@ -1,5 +1,5 @@
 import pool from "./db";
-import { FieldPacket, RowDataPacket } from "mysql2/promise";
+import { RowDataPacket } from "mysql2/promise";
 
 type QueryResult<T> = T & RowDataPacket[];
 

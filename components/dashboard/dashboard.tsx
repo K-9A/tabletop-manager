@@ -2,22 +2,45 @@ import React from "react";
 import UserInfo from "./user-info";
 import CampaignSection from "./campagin-section";
 import CharacterSheetSection from "./sheet-section";
+import axios from "axios";
+import { DashboardProps } from "../types/dash-types";
+import { useEffect, useState } from "react";
+
+const Dashboard: React.FC<DashboardProps> = ({
+  user,
+  labelBgColor = "bg-white",
+}) => {
 
 
-interface DashboardProps {
-    user: {
-      id: string;
-      name: string;
-      email: string;
-      dateJoined: string;
-      campaignsOwned: string;
-      characterSheetsOwned: string;
-    };
-    labelBgColor?: string;
+  const [userData, setUserData] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(`/api/user/${user.user_id}`);
+
+        if (response.status === 200) {
+          setUserData(response.data);
+        }
+      } catch (err) {
+        console.error("Error fetching user data:", err); 
+        setError(
+          err.response?.data?.error || "An unexpected component error occurred"
+        );
+      }
+    }
+
+    fetchData();
+  }, [user]);
+
+  if (error) {
+    return <p>{error}</p>;
   }
 
-const Dashboard: React.FC<DashboardProps> = ({ user, labelBgColor = "bg-white" }) => {
-
+  if (!userData) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="flex flex-col space-y-10 max-w-4xl mx-auto p-6 border-gray-500">

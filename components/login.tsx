@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
+import * as Yup from "yup";
+import Link from "next/link";
 import { useFormik } from "formik";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import { RootState } from "@/store";
-import * as Yup from "yup";
-import Link from "next/link";
-import axios from "axios";
-import { useSession } from "next-auth/react";
+import { useSession, getSession } from "next-auth/react";
 import { useMemoizedAlert } from "./layout/alert";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 
@@ -21,6 +20,8 @@ const validationSchema = Yup.object({
 export default function Login() {
   const router = useRouter();
   const { data: session } = useSession();
+
+  //To make sure alert messages displays properly
   const [justLoggedIn, setJustLoggedIn] = useState(false);
 
   const addAlertMemo = useMemoizedAlert();
@@ -55,50 +56,37 @@ export default function Login() {
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      console.log("Formik values:", values);
-
       try {
-        const formData = new URLSearchParams();
-        formData.append("username", values.name);
-        formData.append("password", values.password);
-
-        console.log("Sending formData:", formData.toString());
-
-        const response = await axios.post(
-          "/api/auth/callback/credentials",
-          formData
-        );
-
-        if (response.status !== 200) {
-          addAlertMemo("Something went wrong.", "error");
-          throw new Error(response.data.error || "Something went wrong");
-        }
-
-        // Integrate with NextAuth's signIn method
         const result = await signIn("credentials", {
           redirect: false,
           username: values.name,
           password: values.password,
         });
 
-        if (result?.ok) {
-          //Login is successful.
-          setJustLoggedIn(true); // Set the state to true when the user logs in
+        if (!result) {
+          addAlertMemo("Something went wrong.", "error");
+          throw new Error("Login failed");
+        }
+
+        const session = await getSession();
+        const userId = session.user.id;
+
+        if (userId)
+         {
+          router.push(`/user/${userId}`);
           addAlertMemo("Login successful.", "success");
-          router.push("/"); // Redirects to the homepage.
         } else {
-          addAlertMemo("Bad login info.", "error");
-          console.error("Login error:", result?.error);
-          formik.setStatus({ apiError: result?.error });
+          console.error("No user id found in session");
+          router.push("/login");
         }
       } catch (error) {
-        addAlertMemo("Something went wrong.", "error");
         const errorMessage =
           error instanceof Error
             ? error.message
             : "An unexpected error occurred.";
         console.error("Login error:", errorMessage);
         formik.setStatus({ apiError: errorMessage });
+        addAlertMemo("Failed to log in.", "error");
       }
     },
   });
@@ -154,7 +142,11 @@ export default function Login() {
         <Button type="submit" className="mt-6" fullWidth>
           Login
         </Button>
-        <Typography color="gray" className="mt-4 text-center font-normal dark:text-white">
+
+        <Typography
+          color="gray"
+          className="mt-4 text-center font-normal dark:text-white"
+        >
           Need an account?{" "}
           <Link href="/register" className="font-bold dark:text-gray-300">
             Register
