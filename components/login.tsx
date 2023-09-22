@@ -69,7 +69,13 @@ export default function Login() {
         }
 
         const session = await getSession();
-        const userId = session.user.id;
+        if (!session || !session.user) {
+          console.error("No session or user found");
+          router.push("/login");
+          return;
+        }
+
+       const userId = (session.user as any).id;
 
         if (userId)
          {

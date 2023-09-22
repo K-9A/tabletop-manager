@@ -5,6 +5,7 @@ import CharacterSheetSection from "./sheet-section";
 import axios from "axios";
 import { DashboardProps } from "../types/dash-types";
 import { useEffect, useState } from "react";
+import { isErrorWithMessage, isErrorWithResponse } from "../types/error-typeguard";
 
 const Dashboard: React.FC<DashboardProps> = ({
   user,
@@ -13,7 +14,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
 
   const [userData, setUserData] = useState(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -25,9 +26,14 @@ const Dashboard: React.FC<DashboardProps> = ({
         }
       } catch (err) {
         console.error("Error fetching user data:", err); 
-        setError(
-          err.response?.data?.error || "An unexpected component error occurred"
-        );
+
+        if (isErrorWithResponse(err)) {
+          setError(err.response.data.error);
+        } else if (isErrorWithMessage(err)) {
+          setError(err.message);
+        } else {
+          setError("An unexpected component error occurred");
+        }
       }
     }
 

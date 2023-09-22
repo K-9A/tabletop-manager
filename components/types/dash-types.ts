@@ -1,6 +1,6 @@
 export interface DashboardProps {
     user: {
-      id: string;
+      user_id: string;
       name: string;
       email: string;
       dateJoined: string;
@@ -12,20 +12,23 @@ export interface DashboardProps {
 
   export interface UserInfoProps {
     user: {
-      id: string;
-      name: string;
+      user_id: string;
+      username: string;
       email: string;
       dateJoined: string;
       campaignsOwned: string;
       characterSheetsOwned: string;
+      created_at: string;
     };
     labelBgColor: string;
   }
 
   export type UserStaticProps = {
     user: {
-      id: string;
+      user_id: string;
       name: string;
+      id: string;
+      username: string;
       email: string;
       dateJoined: string;
       campaignsOwned: string;

@@ -3,7 +3,13 @@ import Dashboard from "@/components/dashboard/dashboard";
 import { UserStaticProps } from "@/components/types/dash-types";
 import axios from "axios";
 import { getSession } from "next-auth/react";
+import { Session } from "next-auth"; //For typescripting
 import { GetServerSidePropsContext } from "next";
+
+type MySession = Session & {
+  user: UserStaticProps['user'];
+};
+
 
 
 function DashboardPage({ user }: UserStaticProps) {
@@ -19,7 +25,7 @@ function DashboardPage({ user }: UserStaticProps) {
 export default DashboardPage;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getSession(context);
+  const session = await getSession(context) as MySession;
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   // If the user is NOT logged in, redirect to the homepage or login page
