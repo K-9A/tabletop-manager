@@ -1,6 +1,5 @@
 
-
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleDarkMode } from "@/store/dark-slice";
@@ -12,6 +11,7 @@ interface ThemeSwitchProps {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
 }
+
 const ThemeSwitch: React.FC = () => {
     const dispatch = useDispatch();
     const isDarkMode = useSelector((state: RootState) => state.darkMode);

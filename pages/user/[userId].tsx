@@ -11,7 +11,6 @@ type MySession = Session & {
 };
 
 
-
 function DashboardPage({ user }: UserStaticProps) {
   return (
     <div className="flex justify-center items-start mt-16">

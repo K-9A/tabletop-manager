@@ -1,5 +1,5 @@
 import React, { Fragment, ReactNode } from 'react';
-import { NavBar } from "./navbar"
+import { NavBar } from "./navbar/navbar"
 
 //Typescript Interface for props
 interface LayoutProps {
