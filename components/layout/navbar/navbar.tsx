@@ -2,7 +2,8 @@ import React, { useEffect, Fragment } from "react";
 
 import NavBarMenu from "./navbarmenu";
 import NavList from "./navlist";
-import NavLogo from "./nav-logo";
+import NavLogo from "./navlogo";
+import Link from "next/link";
 import { AuthNavButtons } from "./auth-nav-buttons";
 import { DarkModeToggle } from "./dark-mode/dark-mode";
 
@@ -12,8 +13,6 @@ import { useSession } from "next-auth/react";
 
 import { Navbar, Collapse, IconButton } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-
-
 
 <Fragment>
   <NavBarMenu />
@@ -28,7 +27,7 @@ export function NavBar() {
 
   const { data: session } = useSession();
 
-    useEffect(() => {
+  useEffect(() => {
     const handleResize = () => window.innerWidth >= 960 && setOpenNav(false);
     window.addEventListener("resize", handleResize);
 
@@ -38,10 +37,11 @@ export function NavBar() {
   }, []);
 
   return (
-    
     <Navbar className="mx-auto max-w-screen-xl px-4 py-4">
       <div className="flex items-center justify-between text-black">
-        <NavLogo />
+        <Link href="/">
+          <NavLogo />
+        </Link>
         <div className="hidden lg:block">
           <NavList />
         </div>
