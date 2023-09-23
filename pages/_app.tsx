@@ -11,6 +11,7 @@ import Background from "@/components/layout/containers/background";
 import Layout from "@/components/layout/layout";
 import { AlertProvider } from "@/components/layout/alert/alert-context";
 import AlertBox from "@/components/layout/alert/alert-box";
+import { AnimatePresence } from "framer-motion";
 
 import Head from "next/head";
 
@@ -30,24 +31,31 @@ export default function App({ Component, pageProps }: AppProps) {
             content="width=device-width, initial-scale=1.0"
           />
         </Head>
+        <AnimatePresence>
+          <ThemeProvider>
+            {/* Theme provider for Material UI */}
 
-        <ThemeProvider>
-          {/* Theme provider for Material UI */}
+            <Background>
+              {/* Wrapper for website background */}
 
-          <Background>
-            {/* Wrapper for website background */}
+              <AlertProvider>
+                {/* Wrapper for site alerts */}
+                <Layout>
+                  {/* Layout component with NavBar */}
 
-            <AlertProvider>
-              {/* Wrapper for site alerts */}
-              <Layout>
-                {/* Layout component with NavBar */}
-                <Component {...pageProps} />
-                <AlertBox />
-              </Layout>
-            </AlertProvider>
-          </Background>
-        </ThemeProvider>
+                    <Component {...pageProps} />
+
+                  <AlertBox />
+                </Layout>
+              </AlertProvider>
+            </Background>
+          </ThemeProvider>
+        </AnimatePresence>
       </Provider>
     </SessionProvider>
   );
 }
+
+{/* <div className="absolute top-24 left-0 w-full">
+<Component {...pageProps} />
+</div> */}

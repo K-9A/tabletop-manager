@@ -13,7 +13,14 @@ module.exports = withMT({
     extend: {
       colors: {
         indigo: {
-          '950': 'rgb(6 6 40)'
+          '950': 'rgb(6 6 30)'
+        },
+        mahogany: {
+          '500': 'rgb(199, 103, 73)',   
+          '400': 'rgb(199, 123, 103)',   
+          '300': 'rgb(219, 148, 140)', 
+          '200': 'rgb(229, 163, 153)', 
+          '100': 'rgb(239, 203, 193)'   
         }
       },
       backgroundImage: {

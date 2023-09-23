@@ -5,26 +5,34 @@ import axios from "axios";
 import { getSession } from "next-auth/react";
 import { Session } from "next-auth"; //For typescripting
 import { GetServerSidePropsContext } from "next";
+import { motion } from "framer-motion";
+import { PageFade } from "@/components/animations/page-fade";
 
 type MySession = Session & {
-  user: UserStaticProps['user'];
+  user: UserStaticProps["user"];
 };
-
 
 function DashboardPage({ user }: UserStaticProps) {
   return (
-    <div className="flex justify-center items-start mt-16">
+    <motion.main
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={PageFade}
+      transition={{ duration: 0.2 }}
+      className="flex justify-center items-start mt-6"
+    >
       <DisplayBox>
         <Dashboard user={user} />
       </DisplayBox>
-    </div>
+    </motion.main>
   );
 }
 
 export default DashboardPage;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getSession(context) as MySession;
+  const session = (await getSession(context)) as MySession;
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
   // If the user is NOT logged in, redirect to the homepage or login page

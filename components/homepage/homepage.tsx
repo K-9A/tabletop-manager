@@ -5,12 +5,12 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useMemoizedAlert } from "../layout/alert";
 import { useSession } from "next-auth/react";
+import { motion } from "framer-motion";
 
 function HomePage() {
   const { data: session } = useSession();
   const addAlertMemo = useMemoizedAlert();
   const router = useRouter();
-
 
   useEffect(() => {
     if (router.query.loggedOut) {
@@ -21,10 +21,13 @@ function HomePage() {
     }
   }, [router.query.loggedOut, session]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  
-
   return (
-    <main>
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="py-4">
         <Hero />
       </div>
@@ -41,7 +44,7 @@ function HomePage() {
         <HomeButton text="Test Sheet" linkPath="/character" />
         <HomeButton text="Test Chat" linkPath="/chat" />
       </div>
-    </main>
+    </motion.main>
   );
 }
 

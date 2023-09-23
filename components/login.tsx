@@ -103,7 +103,7 @@ export default function Login() {
         Login
       </Typography>
       <Typography color="gray" className="mt-1 font-normal dark:text-gray-300">
-        Enter your login credentials.
+        Enter your login information.
       </Typography>
       <form
         onSubmit={formik.handleSubmit}

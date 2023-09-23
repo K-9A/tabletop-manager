@@ -7,7 +7,7 @@ type LayoutProps = {
 
 const Background: React.FC<LayoutProps> = ({ children }) => {
   return (
-<div className="min-h-screen bg-gradient-to-b from-brown-400 via-brown-300 to-brown-100 via-[75%] dark:from-indigo-950 dark:via-indigo-950 dark:to-indigo-950">
+<div className="min-h-screen bg-gradient-to-b from-mahogany-400 via-mahogany-300 to-mahogany-100 via-[70%] dark:from-indigo-950 dark:via-indigo-950 dark:to-indigo-950">
 
   {children}
 </div>

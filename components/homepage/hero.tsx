@@ -10,7 +10,7 @@ function Hero() {
     <div className={styles.heroContainer}>
       <Image
         src="/images/homepage/hero-background.jpg"
-        layout="fill"
+        fill
         objectFit="cover"
         alt="Hero background"
         className={styles.backgroundImage}
