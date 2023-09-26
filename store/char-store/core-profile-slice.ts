@@ -7,7 +7,7 @@ interface CoreState {
 
 const initialCoreState: CoreState = {
     name: "",
-    // ... initial values for other core stats
+
 };
 
 const coreSlice = createSlice({
@@ -17,10 +17,10 @@ const coreSlice = createSlice({
         setName(state, action: PayloadAction<string>) {
             state.name = action.payload;
         },
-        // ... other reducers for core stats
+
     },
 });
 
-export const coreActions = coreSlice.actions;
+export const coreProfileActions = coreSlice.actions;
 
 export default coreSlice.reducer;

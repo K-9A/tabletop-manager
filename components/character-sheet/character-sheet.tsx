@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import CoreStats from "@/components/character/subsections/core-stats";
-import AbilityScores from "./subsections/ability-scores";
+import CoreStats from "@/components/character-sheet/subsections/core-stats/core-profile";
+import AbilityScores from "./subsections/ability-scores/ability-scores";
 import * as Yup from "yup";
 import { Card, Typography } from "@material-tailwind/react";
 import { SheetValues } from "../types/character-types";
+
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/store";
+import { coreProfileActions } from "@/store/char-store/core-profile-slice";
 
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/20/solid";
 import { motion, AnimatePresence } from "framer-motion";
@@ -43,7 +47,6 @@ const CharacterSheet: React.FC = () => {
     <Card
       color="transparent"
       shadow={false}
-      className="shadow-none mt-10 p-6 bg-white w-full max-w-4xl"
     >
       <Typography variant="h4" color="blue-gray" className="mb-4">
         Character Sheet

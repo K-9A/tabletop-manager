@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 // Slice Imports
 import authReducer from "./auth-slice";
-import coreReducer from "./char-store/core-stats-slice";
+import coreReducer from "./char-store/core-profile-slice";
 import darkModeReducer from "./dark-slice";
 
 const store = configureStore({
