@@ -28,12 +28,21 @@ export const submitNameData = createAsyncThunk(
     'core/submitName',
     async (name: string) => {
         const response = await axios.post("/api/character/core-stats/core-profile", {
-            name: name,
+            name: name
         });
+        console.log("submitNameData block: ", response.data); 
         return response.data;
     }
 );
 
+export const fetchNameData = createAsyncThunk(
+    'core/fetchName',
+    async () => {
+        const response = await axios.get('/api/character/core-stats/core-profile', {
+        });
+        return response.data;
+    }
+);
 
 
 const coreSlice = createSlice({
@@ -56,11 +65,24 @@ const coreSlice = createSlice({
             })
             .addCase(submitNameData.fulfilled, (state, action) => {
                 state.loading = false;
-                state.name = action.payload.name; // assuming the response contains the name
+                state.name = action.payload.data;
             })
             .addCase(submitNameData.rejected, (state, action) => {
                 state.loading = false;
+            })
+            .addCase(fetchNameData.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchNameData.fulfilled, (state, action) => {
+                state.loading = false;
+                state.name = action.payload.data; 
+            })
+            .addCase(fetchNameData.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error;  // capture the error if there's any
             });
+            
     }
 });
 

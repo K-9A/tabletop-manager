@@ -20,14 +20,14 @@ export default async function handler(
 
       const result = await dbQuery(
         `
-        INSERT INTO test_core (id, character_name) VALUES (1, ?)
-        ON DUPLICATE KEY UPDATE character_name = VALUES(character_name);
+        INSERT INTO test_core (id, name) VALUES (1, ?)
+        ON DUPLICATE KEY UPDATE name = VALUES(name);
             `,
         [name]
       );
 
       // Respond with success or the inserted/updated id or any other data
-      res.status(200).json({ success: true, data: result });
+      res.status(200).json({ success: true, data: name});
     } catch (error) {
       handleError(error, res);
     }
@@ -35,11 +35,11 @@ export default async function handler(
     try {
       // Assuming you have only one character name with a static id=1 for this example
       const result = await dbQuery(
-        `SELECT character_name FROM test_core WHERE id = 1`
+        `SELECT name FROM test_core WHERE id = 1`
       );
 
       if (result && result.length > 0) {
-        res.status(200).json({ success: true, data: result[0].character_name });
+        res.status(200).json({ success: true, data: result[0].name });
       } else {
         res.status(404).json({ success: false, message: "Name not found" });
       }

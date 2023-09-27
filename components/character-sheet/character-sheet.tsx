@@ -4,7 +4,7 @@ import CoreStats from "@/components/character-sheet/subsections/core-stats/core-
 import AbilityScores from "./subsections/ability-scores/ability-scores";
 import * as Yup from "yup";
 import { Card, Typography } from "@material-tailwind/react";
-import { SheetValues } from "../types/character-types";
+import { CoreProfileValues } from "../types/character-types";
 
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/store";
@@ -26,15 +26,14 @@ const validationSchema = Yup.object({
   // ... other validations
 });
 
-const CharacterSheet: React.FC = () => {
+const CharacterSheet = () => {
   //Piece of state for collapsing the subsection dividers
   const [isCoreStatsCollapsed, setCoreStatsCollapsed] = useState(false);
   const [isAbilityScoresCollapsed, setAbilityScoresCollapsed] = useState(false);
 
-  const formik = useFormik<SheetValues>({
+  const formik = useFormik<CoreProfileValues>({
     initialValues: {
-      name: "",
-      hp: 0,
+      name: ""
       // ... other initial values
     },
     validationSchema: validationSchema,
@@ -76,7 +75,7 @@ const CharacterSheet: React.FC = () => {
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <CoreStats formik={formik} />
+                <CoreStats />
               </motion.div>
             )}
           </AnimatePresence>

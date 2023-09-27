@@ -1,7 +1,6 @@
 // characterTypes.ts
-export interface SheetValues {
+export interface CoreProfileValues {
     name: string;
-    hp: number;
     // ... other fields
   }
   
