@@ -1,1 +1,0 @@
-//Frontend socket goes here to send data to server or talk to it

@@ -2,9 +2,7 @@ import socket from "./socket-client";
 import store from "@/store";
 
 
-
 let isListenerAttached = false;
-
 
 export const socketMiddleware = (api: any) => (next: any) => (action: any) => {
 
