@@ -5,6 +5,7 @@ import {
   isErrorWithResponse,
 } from "@/components/types/error-typeguard";
 
+
 //API route for core profile section
 export default async function handler(
   req: NextApiRequest,
@@ -31,6 +32,7 @@ export default async function handler(
 
       // Respond with success or the inserted/updated id or any other data
       res.status(200).json({ success: true, data: result });
+
     } catch (error) {
       // Use type guards to narrow the error type
       if (isErrorWithResponse(error)) {

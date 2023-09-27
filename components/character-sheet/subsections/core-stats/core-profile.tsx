@@ -1,23 +1,24 @@
 import React, { useState } from "react";
 import ErrorMessage from "../../../helper/error-message";
+import { AppDispatch } from "@/store"; //For Typescript
 
-import axios from 'axios';
 import { useDispatch } from "react-redux";
-import { coreProfileActions } from "@/store/char-store/core-profile-slice";
+import { submitNameData } from "@/store/char-store/core-profile-slice";
+import socket from "@/utils/socket-client";
 
 import { Card, Input } from "@material-tailwind/react";
 import { FormikProps } from "formik";
 import { SheetValues } from "@/components/types/character-types";
 import { HeartIcon } from "@heroicons/react/20/solid";
 
-import { isErrorWithMessage, isErrorWithResponse } from "@/components/types/error-typeguard";
+import { AnyAction } from "@reduxjs/toolkit";
 
 interface CoreStatsProps {
   formik: FormikProps<SheetValues>;
 }
 
 const CoreStats: React.FC<CoreStatsProps> = ({ formik }) => {
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   const [lastDispatchedName, setLastDispatchedName] = useState("");
 
@@ -25,31 +26,10 @@ const CoreStats: React.FC<CoreStatsProps> = ({ formik }) => {
     // Check if there's no validation error for the name
     if (!formik.errors.name && formik.values.name !== lastDispatchedName) {
       console.log(formik.values.name); // For debugging
-      dispatch(coreProfileActions.setName(formik.values.name));
+      dispatch(submitNameData(formik.values.name) as unknown as AnyAction);
       setLastDispatchedName(formik.values.name);
+      socket.emit('client:name-update', 'Test message');
     }
-
-    //After dispatching to Redux, send data to the API route.
-    try {
-      const response = await axios.post("/api/character/core-stats/core-profile", {
-        name: formik.values.name,
-      });
-
-      if (response.data.success) {
-        console.log("Data saved successfully to the database.");
-      } else {
-        console.error(
-          "Error saving data to the database:",
-          response.data.message
-        );
-      }
-    } catch (error) {
-      if (isErrorWithMessage(error)) {
-          console.error("Error sending request:", error.message);
-      } else {
-          console.error("Error sending request:", error);
-      }
-  }
   };
 
   //Handle submit for the enter key

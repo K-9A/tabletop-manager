@@ -1,6 +1,6 @@
 // pages/index.tsx
 import React, { useState, useEffect } from 'react';
-import socket from "@/utils/socket";
+import socket from "@/utils/socket-client";
 import ChatBox from "@/components/chat/chat-box";
 import ChatInput from "@/components/chat/chat-input";
 
