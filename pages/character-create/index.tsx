@@ -1,9 +1,10 @@
-import CharacterSheet from "@/components/character-sheet/character-sheet";
 import SheetForm from "@/components/layout/containers/sheet-box";
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
 
-function CharacterPage() {
+
+
+function CreateCharacterPage() {
   return (
     <motion.main
       initial="initial"
@@ -14,10 +15,10 @@ function CharacterPage() {
       className="flex justify-center items-start mt-10"
     >
       <SheetForm>
-        <CharacterSheet />
+        <h1>Create Sheet</h1>
       </SheetForm>
     </motion.main>
   );
 }
 
-export default CharacterPage;
+export default CreateCharacterPage;

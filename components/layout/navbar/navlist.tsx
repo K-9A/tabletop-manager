@@ -21,7 +21,6 @@ function NavList() {
         <>
           <Typography
             as="a"
-            href="#"
             variant="small"
             color="black"
             className="font-normal"
@@ -34,7 +33,6 @@ function NavList() {
           <NavBarMenu />
           <Typography
             as="a"
-            href="#"
             variant="small"
             color="black"
             className="font-normal"
@@ -46,7 +44,6 @@ function NavList() {
           </Typography>
           <Typography
             as="a"
-            href="#"
             variant="small"
             color="black"
             className="font-normal"

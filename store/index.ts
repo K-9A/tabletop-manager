@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { socketMiddleware } from "@/utils/socket-middleware";
+import { socketMiddleware } from "@/socket-middleware/core-stats-middleware/socket-middleware";
 import thunk from "redux-thunk";
 
 // Slice Imports
 import authReducer from "./auth-slice";
-import coreReducer from "./char-store/core-profile-slice";
+import coreReducer from "./core-stats-store/core-profile-slice";
 import darkModeReducer from "./dark-slice";
 
 

@@ -1,11 +1,11 @@
 import React from "react";
 import { Typography } from "@material-tailwind/react";
-import { SheetValues } from "@/components/types/character-types";
+import { CoreProfileValues } from "@/components/types/character-types";
 import { FormikProps } from "formik";
 
 interface ErrorProps {
-  name: keyof SheetValues;  // <-- This specifies that 'name' is a key of SheetValues
-  formik: FormikProps<SheetValues>;
+  name: keyof CoreProfileValues;  // <-- This specifies that 'name' is a key of SheetValues
+  formik: FormikProps<CoreProfileValues>;
 }
 
 const ErrorMessage: React.FC<ErrorProps> = ({ name, formik }) => (

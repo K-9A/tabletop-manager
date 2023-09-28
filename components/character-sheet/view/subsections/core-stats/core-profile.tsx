@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import ErrorMessage from "../../../helper/error-message";
+import ErrorMessage from "@/components/helper/error-message";
 import { AppDispatch } from "@/store"; //For Typescript
 
 import { RootState } from "@/store";
@@ -8,7 +8,7 @@ import {
   coreProfileActions,
   submitNameData,
   fetchNameData,
-} from "@/store/char-store/core-profile-slice";
+} from "@/store/core-stats-store/core-profile-slice";
 import socket from "@/utils/socket-client";
 
 import { useFormik } from "formik";

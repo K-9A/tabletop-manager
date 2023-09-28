@@ -17,13 +17,12 @@ const validationSchema = Yup.object({
     .required("Password is required"),
 });
 
-export default function Login() {
+function Login() {
   const router = useRouter();
   const { data: session } = useSession();
 
   //To make sure alert messages displays properly
   const [justLoggedIn, setJustLoggedIn] = useState(false);
-
   const addAlertMemo = useMemoizedAlert();
 
   //Darkmode state
@@ -63,9 +62,10 @@ export default function Login() {
           password: values.password,
         });
 
-        if (!result) {
-          addAlertMemo("Something went wrong.", "error");
-          throw new Error("Login failed");
+        // Check for errors in the result
+        if (result?.error) {
+          addAlertMemo(result.error, "error");
+          throw new Error(result.error);
         }
 
         const session = await getSession();
@@ -75,10 +75,9 @@ export default function Login() {
           return;
         }
 
-       const userId = (session.user as any).id;
+        const userId = (session.user as any).id;
 
-        if (userId)
-         {
+        if (userId) {
           router.push(`/user/${userId}`);
           addAlertMemo("Login successful.", "success");
         } else {
@@ -92,7 +91,7 @@ export default function Login() {
             : "An unexpected error occurred.";
         console.error("Login error:", errorMessage);
         formik.setStatus({ apiError: errorMessage });
-        addAlertMemo("Failed to log in.", "error");
+        addAlertMemo(errorMessage, "error");
       }
     },
   });
@@ -110,17 +109,17 @@ export default function Login() {
         className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
       >
         <div className="mb-4 flex flex-col gap-6">
-          <Input
-            size="lg"
-            label="Username"
-            name="name"
-            className={"dark:text-white"}
-            color={isDarkMode ? "white" : "black"}
-            onChange={formik.handleChange}
-            value={formik.values.name}
-            error={!!(formik.errors.name && formik.touched.name)}
-            crossOrigin=""
-          />
+            <Input
+              size="lg"
+              label="Username"
+              name="name"
+              className={"dark:text-white"}
+              color={isDarkMode ? "white" : "black"}
+              onChange={formik.handleChange}
+              value={formik.values.name}
+              error={!!(formik.errors.name && formik.touched.name)}
+              crossOrigin=""
+            />
           {formik.errors.name && formik.touched.name && (
             <Typography color="red" className="mt-2">
               {formik.errors.name}
@@ -162,3 +161,5 @@ export default function Login() {
     </Card>
   );
 }
+
+export default Login;

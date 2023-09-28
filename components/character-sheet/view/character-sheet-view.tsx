@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import CoreProfile from "@/components/character-sheet/subsections/core-stats/core-profile";
+import CoreProfile from "@/components/character-sheet/view/subsections/core-stats/core-profile";
 import AbilityScores from "./subsections/ability-scores/ability-scores";
 import * as Yup from "yup";
 import { Card, Typography } from "@material-tailwind/react";
-import { CoreProfileValues } from "../types/character-types";
+import { CoreProfileValues } from "../../types/character-types";
 
 
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/20/solid";
@@ -23,7 +23,7 @@ const validationSchema = Yup.object({
   // ... other validations
 });
 
-const CharacterSheet = () => {
+const CharacterSheetView = () => {
   //Piece of state for collapsing the subsection dividers
   const [isCoreStatsCollapsed, setCoreStatsCollapsed] = useState(false);
   const [isAbilityScoresCollapsed, setAbilityScoresCollapsed] = useState(false);
@@ -111,4 +111,4 @@ const CharacterSheet = () => {
   );
 };
 
-export default CharacterSheet;
+export default CharacterSheetView;

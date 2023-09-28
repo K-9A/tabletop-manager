@@ -41,7 +41,10 @@ function HomePage() {
           <></>
         )}
         <HomeButton text="About" linkPath="/about" />
-        <HomeButton text="Test Sheet" linkPath="/character" />
+      </div>
+      <div className="flex flex-col md:flex-row justify-center space-y-2 md:space-y-0 md:space-x-4">
+        <HomeButton text="Test View Sheet" linkPath="/character-view" />
+        <HomeButton text="Test Create Sheet" linkPath="/character-create" />
         <HomeButton text="Test Chat" linkPath="/chat" />
       </div>
     </motion.main>

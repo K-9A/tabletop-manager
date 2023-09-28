@@ -17,7 +17,7 @@ export default NextAuth({
       name: "Credentials",
       credentials: {},
       authorize: async (credentials) => {
-        const { username, password } = credentials;
+        const { username, password } = credentials as Credentials;
 
         const users = await dbQuery(
           "SELECT user_id, username, user_password FROM users WHERE username = ?",
@@ -26,42 +26,52 @@ export default NextAuth({
 
         const user: User | undefined = users[0] as User;
 
+        const creds = credentials as Credentials;
+
+        //Generic error message for bad login credentials. Better practice to keep bad login info vague instead of
+        //specifying if User or Pass is wrong. Gives bad players hints if they're trying to bruteforce.
+        const invalidMessage = "Invalid Login Credentials";
+
+        //If submitted user doesn't exist.
         if (!user) {
           console.log("User doesn't match");
-          return null;
+          throw new Error(invalidMessage);
         }
 
+        //Unhash password and compare to user submission
         const passwordMatches = await bcrypt.compare(
           password,
           user.user_password
         );
 
-        // Check if credentials are provided
+        // Check if credentials are provided at all
         if (!credentials) {
-          throw new Error("Credentials object is missing.");
+          throw new Error("Login credentials are missing.");
         }
 
         // Check if both username and password are of type string
         if (
-          typeof credentials.username !== "string" ||
-          typeof credentials.password !== "string"
+          typeof creds.username !== "string" ||
+          typeof creds.password !== "string"
         ) {
-          throw new Error("Invalid type of credentials.");
+          throw new Error(invalidMessage);
         }
 
         // Check if the user exists
         if (!user) {
-          throw new Error("Invalid credentials. Bad user credentials.");
+          throw new Error("Invalid Login credentials.");
+        }
+        //Check is password is correct from the 
+        if (!passwordMatches) {
+          throw new Error(invalidMessage);
         }
 
         return { id: user.user_id.toString(), name: user.username };
       },
     }),
   ],
+  
   // Session configuration
-  session: {
-    jwt: true,
-  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
@@ -70,7 +80,7 @@ export default NextAuth({
       return token;
     },
     async session({ session, token }) {
-      session.user.id = token.sub;
+      (session.user as any).id = token.sub;
       return session;
     },
   },

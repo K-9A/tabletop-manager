@@ -1,4 +1,4 @@
-import socket from "./socket-client";
+import socket from "../../utils/socket-client";
 import store from "@/store";
 
 
