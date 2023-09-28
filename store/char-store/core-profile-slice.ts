@@ -30,7 +30,6 @@ export const submitNameData = createAsyncThunk(
         const response = await axios.post("/api/character/core-stats/core-profile", {
             name: name
         });
-        console.log("submitNameData block: ", response.data); 
         return response.data;
     }
 );
@@ -55,6 +54,9 @@ const coreSlice = createSlice({
         characterUpdateReceived(state, action: PayloadAction<CharacterType>) {
             // Update the state with the new character data
             state = action.payload;
+        },
+        nameUpdated: (state, action: PayloadAction<string>) => {
+            state.name = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -80,12 +82,11 @@ const coreSlice = createSlice({
             })
             .addCase(fetchNameData.rejected, (state, action) => {
                 state.loading = false;
-                state.error = action.error;  // capture the error if there's any
+                state.error = null;  // capture the error if there's any
             });
             
     }
 });
 
 export const coreProfileActions = coreSlice.actions;
-
 export default coreSlice.reducer;

@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import CoreStats from "@/components/character-sheet/subsections/core-stats/core-profile";
+import CoreProfile from "@/components/character-sheet/subsections/core-stats/core-profile";
 import AbilityScores from "./subsections/ability-scores/ability-scores";
 import * as Yup from "yup";
 import { Card, Typography } from "@material-tailwind/react";
 import { CoreProfileValues } from "../types/character-types";
 
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "@/store";
-import { coreProfileActions } from "@/store/char-store/core-profile-slice";
 
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/20/solid";
 import { motion, AnimatePresence } from "framer-motion";
@@ -75,7 +72,7 @@ const CharacterSheet = () => {
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <CoreStats />
+                <CoreProfile />
               </motion.div>
             )}
           </AnimatePresence>

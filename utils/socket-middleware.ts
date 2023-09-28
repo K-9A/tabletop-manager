@@ -7,7 +7,7 @@ let isListenerAttached = false;
 export const socketMiddleware = (api: any) => (next: any) => (action: any) => {
 
     if (!isListenerAttached) {
-      socket.on('server:name-update-confirmed', (updatedProfileData) => {
+      socket.on('server:name-update', (updatedProfileData) => {
             store.dispatch({
                 type: "SERVER_NAME_UPDATE_RECEIVED",
                 payload: updatedProfileData,

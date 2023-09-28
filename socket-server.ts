@@ -24,10 +24,11 @@ io.on("connection", (socket: Socket) => {
     io.emit("chat message", msg);
   });
 
+
   socket.on("client:name-update", (data) => {
     console.log("Received client:name-update on server with data:", data);
-    //Processing to be done
-    io.emit("server:name-update-confirmed", "Server has confirmed the name update");
+
+    io.emit("server:name-update", data);
   });
 });
 

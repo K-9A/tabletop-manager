@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ErrorMessage from "../../../helper/error-message";
 import { AppDispatch } from "@/store"; //For Typescript
 
-import { useDispatch } from "react-redux";
-import { submitNameData, fetchNameData } from "@/store/char-store/core-profile-slice";
+import { RootState } from "@/store";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  coreProfileActions,
+  submitNameData,
+  fetchNameData,
+} from "@/store/char-store/core-profile-slice";
 import socket from "@/utils/socket-client";
 
 import { useFormik } from "formik";
@@ -15,34 +20,41 @@ import { HeartIcon } from "@heroicons/react/20/solid";
 
 import { AnyAction } from "@reduxjs/toolkit";
 
-
 const validationSchema = Yup.object({
   name: Yup.string().required("Character Name is required"),
-})
+});
 
-const CoreStats = () => {
+const CoreProfile = () => {
   const dispatch: AppDispatch = useDispatch();
 
+  const fetchName = useSelector((state: RootState) => state.core.name);
+
   const [lastDispatchedName, setLastDispatchedName] = useState("");
+  // State to track external updates
+  const [hasExternalUpdate, setHasExternalUpdate] = useState(false);
+  // Ref to store the previous name
+  const previousNameRef = useRef(fetchName);
 
   const formik = useFormik<CoreProfileValues>({
     initialValues: {
-      name: ""
+      name: fetchName,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log(values);
     },
+    enableReinitialize: true,
   });
 
-
-  const updatCharacterName = async () => {
+  const updateCharacterName = async () => {
     // Check if there's no validation error for the name
     if (!formik.errors.name && formik.values.name !== lastDispatchedName) {
       console.log(formik.values.name); // For debugging
-      try{
-        await dispatch(submitNameData(formik.values.name) as unknown as AnyAction).unwrap();
-        socket.emit('client:name-update', formik.values.name);
+      try {
+        await dispatch(
+          submitNameData(formik.values.name) as unknown as AnyAction
+        ).unwrap();
+        socket.emit("client:name-update", formik.values.name);
 
         dispatch(fetchNameData() as unknown as AnyAction);
 
@@ -57,9 +69,44 @@ const CoreStats = () => {
   const handleNameKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      updatCharacterName();
+      updateCharacterName();
     }
   };
+
+  // Dispatch an action to fetch initial data.
+  useEffect(() => {
+    dispatch(fetchNameData() as unknown as AnyAction);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (previousNameRef.current !== fetchName) {
+      setHasExternalUpdate(true);
+      formik.setFieldValue("name", fetchName);
+      previousNameRef.current = fetchName;
+    }
+  }, [fetchName, formik]);
+
+  useEffect(() => {
+    // If there's an external update, reset the flag after Formik's state has been updated
+    if (hasExternalUpdate) {
+      setHasExternalUpdate(false);
+    }
+  }, [hasExternalUpdate]);
+
+
+
+  useEffect(() => {
+    console.log('Setting up listener for server:name-update');
+    socket.on("server:name-update", (updatedName) => {
+      console.log('Received name update:', updatedName);
+      dispatch(coreProfileActions.setName(updatedName));
+      formik.setFieldValue("name", updatedName);
+    });
+    return () => {
+      console.log('Cleaning up listener');
+      socket.off("server:name-update");
+    };
+  }, [dispatch, formik]);
 
   return (
     <Card color="transparent" shadow={false} className="shadow-none">
@@ -73,10 +120,15 @@ const CoreStats = () => {
               type="text"
               name="name"
               value={formik.values.name}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                formik.handleChange(e);
+                if (hasExternalUpdate) {
+                  setHasExternalUpdate(false);
+                }
+              }}
               onBlur={(e) => {
                 formik.handleBlur(e);
-                updatCharacterName();
+                updateCharacterName();
               }}
               onKeyDown={handleNameKeyDown}
               error={!!(formik.errors.name && formik.touched.name)}
@@ -124,4 +176,4 @@ const CoreStats = () => {
   );
 };
 
-export default CoreStats;
+export default CoreProfile;
