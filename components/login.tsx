@@ -9,6 +9,7 @@ import { RootState } from "@/store";
 import { useSession, getSession } from "next-auth/react";
 import { useMemoizedAlert } from "./layout/alert";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
+import ErrorMessage from "./helper/error-message";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Username is required"),
@@ -109,22 +110,20 @@ function Login() {
         className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
       >
         <div className="mb-4 flex flex-col gap-6">
-            <Input
-              size="lg"
-              label="Username"
-              name="name"
-              className={"dark:text-white"}
-              color={isDarkMode ? "white" : "black"}
-              onChange={formik.handleChange}
-              value={formik.values.name}
-              error={!!(formik.errors.name && formik.touched.name)}
-              crossOrigin=""
-            />
-          {formik.errors.name && formik.touched.name && (
-            <Typography color="red" className="mt-2">
-              {formik.errors.name}
-            </Typography>
-          )}
+          <ErrorMessage name="name" formik={formik as any} />
+          <Input
+            size="lg"
+            label="Username"
+            name="name"
+            className={"dark:text-white"}
+            color={isDarkMode ? "white" : "black"}
+            onChange={formik.handleChange}
+            value={formik.values.name}
+            error={!!(formik.errors.name && formik.touched.name)}
+            crossOrigin=""
+          />
+
+          <ErrorMessage name="password" formik={formik as any} />
           <Input
             type="password"
             size="lg"
@@ -137,11 +136,6 @@ function Login() {
             error={!!(formik.errors.password && formik.touched.password)}
             crossOrigin=""
           />
-          {formik.errors.password && formik.touched.password && (
-            <Typography color="red" className="mt-2">
-              {formik.errors.password}
-            </Typography>
-          )}
         </div>
 
         <Button type="submit" className="mt-6" fullWidth>

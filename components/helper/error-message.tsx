@@ -1,18 +1,19 @@
 import React from "react";
 import { Typography } from "@material-tailwind/react";
-import { CoreProfileValues } from "@/components/types/character-types";
 import { FormikProps } from "formik";
 
-interface ErrorProps {
-  name: keyof CoreProfileValues;  // <-- This specifies that 'name' is a key of SheetValues
-  formik: FormikProps<CoreProfileValues>;
+interface ErrorProps<T> {
+  name: keyof T; 
+  formik: FormikProps<T>;
 }
 
-const ErrorMessage: React.FC<ErrorProps> = ({ name, formik }) => (
-  formik.errors[name] && formik.touched[name] ? (  // <-- Now TypeScript understands this
-    <Typography color="red" className="mt-1">
-      {formik.errors[name]}
+const ErrorMessage = <T, >({ name, formik }: ErrorProps<T>): JSX.Element | null => (
+  typeof formik.errors[name] === 'string' && formik.touched[name] ? (
+    <div className="h-0">
+    <Typography color="red" className="text-sm">
+      {formik.errors[name] as string}
     </Typography>
+    </div>
   ) : null
 );
 

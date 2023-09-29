@@ -135,7 +135,7 @@ const CoreProfile = () => {
               placeholder="Enter Name"
               crossOrigin=""
             />
-            <ErrorMessage name="name" formik={formik} />
+            <ErrorMessage<CoreProfileValues> name="name" formik={formik} />
 
             <div className="flex gap-4">
               <Input

@@ -1,6 +1,7 @@
 import React from 'react';
 import { DisplayFormProps } from '@/components/types/display-types';
 
+//This container is for the VIEW character sheet.
 const SheetForm: React.FC<DisplayFormProps> = ({ children, bgColor = "bg-gray-200" }) => { //Default color is white shade
   const darkBgColor = bgColor === "bg-gray-200" ? "dark:bg-gray-700" : ""; // Handle dark mode if necessary
 
