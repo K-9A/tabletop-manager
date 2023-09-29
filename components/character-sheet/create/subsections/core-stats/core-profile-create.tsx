@@ -51,9 +51,6 @@ const CoreProfileCreate = () => {
     enableReinitialize: true,
   });
 
-  const proficiencyValues = `Leven 1-4: +2 
-  Level 5-8: +3`
-
   return (
     <motion.div
       initial="initial"
@@ -61,7 +58,7 @@ const CoreProfileCreate = () => {
       exit="out"
       variants={PageFade}
       transition={{ duration: 0.2 }}
-      className="mt-5"
+      className="mt-3"
     >
       <h1 className="font-bold text-left w-full text-2xl">
         Core Profile Section
@@ -187,6 +184,7 @@ const CoreProfileCreate = () => {
             name="affinity"
             placeholder="Optional"
             crossOrigin=""
+            containerProps={{ className: "min-w-[200px]" }}
           />
         </div>
       </div>

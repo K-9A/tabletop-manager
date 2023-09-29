@@ -6,7 +6,7 @@ const CreateSheetForm: React.FC<DisplayFormProps> = ({ children, bgColor = "bg-g
   const darkBgColor = bgColor === "bg-gray-200" ? "dark:bg-gray-700" : ""; // Handle dark mode if necessary
 
   return (
-    <div className={`${bgColor} ${darkBgColor} py-10 px-12 rounded-lg shadow-md flex flex-col justify-center items-center w-full max-w-4xl mx-auto h-[550px]`}>
+    <div className={`${bgColor} ${darkBgColor} py-10 px-12 rounded-lg shadow-md flex flex-col justify-center items-center w-full max-w-4xl mx-auto h-[590px]`}>
       {children}
     </div>
   );
