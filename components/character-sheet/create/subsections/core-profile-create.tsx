@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
 import { useFormik } from "formik";
@@ -7,7 +8,6 @@ import { CoreProfileCreateValues } from "@/components/types/create-sheet-types";
 import { Input, Tooltip, Typography } from "@material-tailwind/react";
 import { ProficiencyTooltip } from "@/components/helper/tooltips";
 
-import { InformationCircleIcon } from "@heroicons/react/20/solid";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Character Name is required"),
@@ -32,7 +32,7 @@ const validationSchema = Yup.object({
     .required("Next Level is required"),
 });
 
-const CoreProfileCreate = () => {
+const CoreProfileCreate = ({ onValid }) => {
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -46,10 +46,17 @@ const CoreProfileCreate = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values);
     },
     enableReinitialize: true,
   });
+
+  
+  useEffect(() => {
+    if (formik.isValid) {
+      onValid();
+    }
+  }, [formik.isValid, onValid]);
+
 
   return (
     <motion.div

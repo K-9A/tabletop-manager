@@ -21,10 +21,10 @@ const CreateSheetWelcome = () => {
           ⪼ Fields that have an ℹ️ contain tooltips to help fill that field out.
         </p>
         <p className="text-base mt-1">
-          ⪼ Fields you must fill out to progress will be marked as Required.
+          ⪼ Fields you must fill out will be marked as required.
         </p>
         <p className="text-base mt-1">
-          ⪼ Each section must be filled out before you can move onto the next.
+          ⪼ When all required fields are filled, the section will turn green on the navigation below.
         </p>
         <p className="text-base mt-1">
           ⪼ At the end, you will have the option to have the sheet join an
