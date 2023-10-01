@@ -1,75 +1,45 @@
-import { Fragment, useState, useRef } from "react";
+import { Fragment, useState } from "react";
 import { Button, IconButton, Tooltip } from "@material-tailwind/react";
-import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowRightIcon,
+  ArrowLeftIcon,
+} from "@heroicons/react/24/outline";
+import { CheckCircleIcon } from "@heroicons/react/20/solid";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
-import { allInitialValues } from "./initialFormValues";
 import CreateSheetWelcome from "./sheet-create-welcome";
 import CoreProfileCreate from "./subsections/core-profile-create";
 import CombatStatsCreate from "./subsections/combat-stats-create";
 import AbilityScoresCreate from "./subsections/ability-scores";
-import { useFormik } from "formik";
+import SubmitCharacterSheet from "./subsections/submit-character-sheet";
 
 function CharacterSheetCreate() {
   const [active, setActive] = useState(1);
-  const [formValues, setFormValues] = useState({allInitialValues});
-  const [sectionValidity, setSectionValidity] = useState({ coreProfile: false, abilityScore: false });
 
-  const onValid = useRef(null);
-  const validSection = "bg-emerald-500 text-white"
+  const coreProfileValid = useSelector(
+    (state: RootState) => state.createCore.isValid
+  );
 
-  const getActiveSectionName = (active) => {
-    switch (active) {
-      case 1:
-        return 'welcome';
-      case 2:
-        return 'coreProfile';
-      case 3:
-        return 'abilityScores';
-      case 4:
-        return 'combatStats';
-      default:
-        return null;
-    }
-  };
+  const validSection = coreProfileValid && "bg-emerald-500 text-white";
 
   const renderPageContent = () => {
     switch (active) {
       case 1:
         return <CreateSheetWelcome />;
       case 2:
-        return <CoreProfileCreate onValid={() => handleSectionComplete('coreProfile')} />;
+        return <CoreProfileCreate />;
       case 3:
         return <AbilityScoresCreate />;
       case 4:
         return <CombatStatsCreate />;
+      case 5:
+        return <SubmitCharacterSheet />;
 
       default:
         return null;
     }
   };
-
-
-
-  const handleSectionComplete = (sectionName) => {
-    setSectionValidity(prev => ({ ...prev, [sectionName]: true }));
-  };
-
-  const handleNext = () => {
-    const activeSectionName = getActiveSectionName(active);
-    if (onValid.current && onValid.current.isValid && activeSectionName) {
-      setSectionValidity(prev => ({ ...prev, [activeSectionName]: true }));
-      setActive(prevActive => prevActive + 1);
-    }
-  };
-
-  //Set up a single dummy field to initialize formik. Workaround should be used sparingly.
-  const formik = useFormik({
-    initialValues: {
-      dummyField: ""
-    },
-    onSubmit: (values) => {
-    }
-  });
 
   const getItemProps = (index: number) =>
     ({
@@ -90,8 +60,6 @@ function CharacterSheetCreate() {
     setActive(active - 1);
   };
 
-
-
   return (
     <Fragment>
       <div className="flex-grow mt-4 pb-8">{renderPageContent()}</div>
@@ -106,11 +74,15 @@ function CharacterSheetCreate() {
         </Button>
         <div className="flex items-center gap-2">
           <Tooltip content="Welcome" placement="bottom">
-            <IconButton {...getItemProps(1)} className="bg-emerald-500 focus:bg-black hover:bg-black text-white">WEL</IconButton>
+            <IconButton {...getItemProps(1)} className="">
+              WEL
+            </IconButton>
           </Tooltip>
 
           <Tooltip content="Core Profile" placement="bottom">
-            <IconButton {...getItemProps(2)} className={`${sectionValidity.coreProfile && {validSection}}`}>PRF</IconButton>
+            <IconButton {...getItemProps(2)}>
+              PRF{coreProfileValid && <CheckCircleIcon />}
+            </IconButton>
           </Tooltip>
           <Tooltip content="Ability Scores" placement="bottom">
             <IconButton {...getItemProps(3)}>ABS</IconButton>
@@ -125,7 +97,6 @@ function CharacterSheetCreate() {
           className="flex items-center gap-2"
           onClick={next}
           disabled={active === 5}
-          
         >
           Next
           <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
@@ -137,4 +108,3 @@ function CharacterSheetCreate() {
 
 export default CharacterSheetCreate;
 
-//<IconButton {...getItemProps(2)} className="bg-green-400">PRF</IconButton>

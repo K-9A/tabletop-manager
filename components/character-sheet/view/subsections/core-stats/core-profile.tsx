@@ -20,6 +20,8 @@ import { HeartIcon } from "@heroicons/react/20/solid";
 
 import { AnyAction } from "@reduxjs/toolkit";
 
+
+
 const validationSchema = Yup.object({
   name: Yup.string().required("Character Name is required"),
 });

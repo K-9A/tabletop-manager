@@ -4,10 +4,17 @@ import { PageFade } from "@/components/animations/page-fade";
 import { useFormik } from "formik";
 import ErrorMessage from "@/components/helper/error-message";
 import * as Yup from "yup";
+import { AppDispatch } from "@/store";
+import { useDispatch } from "react-redux";
+import { createCoreProfileActions } from "@/store/create-sheet-store/core-stats-create/core-stats-profile-slice";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
+
+
+
 import { CoreProfileCreateValues } from "@/components/types/create-sheet-types";
 import { Input, Tooltip, Typography } from "@material-tailwind/react";
 import { ProficiencyTooltip } from "@/components/helper/tooltips";
-
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Character Name is required"),
@@ -32,31 +39,36 @@ const validationSchema = Yup.object({
     .required("Next Level is required"),
 });
 
-const CoreProfileCreate = ({ onValid }) => {
+const CoreProfileCreate = () => {
+  const coreProfileData = useSelector((state: RootState) => state.createCore);
+  
+  const dispatch: AppDispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
-      name: "",
-      char_class: "",
-      race: "",
-      proficiency: "",
-      char_level: "",
-      experience: "",
-      next_level: "",
-      affinity: "",
+      name: coreProfileData.name,
+      char_class: coreProfileData.char_class,
+      race: coreProfileData.race,
+      proficiency: coreProfileData.proficiency,
+      char_level: coreProfileData.char_level,
+      experience: coreProfileData.experience,
+      next_level: coreProfileData.next_level,
+      affinity: coreProfileData.affinity,
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-    },
-    enableReinitialize: true,
+    onSubmit: (values) => {},
   });
 
-  
-  useEffect(() => {
-    if (formik.isValid) {
-      onValid();
-    }
-  }, [formik.isValid, onValid]);
+  const updateCharacterName = async () => {
+    const isValid = await validationSchema.isValid(formik.values);
+    dispatch(createCoreProfileActions.updateField({name: "name", value: formik.values.name}));
+  }
 
+  useEffect(() => {
+    validationSchema.isValid(formik.values).then((isValid) => {
+      dispatch(createCoreProfileActions.setValidity(isValid));
+    });
+  }, [formik.values, dispatch]);
 
   return (
     <motion.div
@@ -77,7 +89,10 @@ const CoreProfileCreate = ({ onValid }) => {
             label="Character Name"
             name="name"
             placeholder="Required"
-            onBlur={formik.handleBlur}
+            onBlur={(e) => {
+              formik.handleBlur(e);
+              updateCharacterName();
+            }}
             onChange={formik.handleChange}
             value={formik.values.name}
             error={!!(formik.errors.name && formik.touched.name)}

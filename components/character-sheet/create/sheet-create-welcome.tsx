@@ -1,9 +1,8 @@
+import { CheckCircleIcon } from "@heroicons/react/20/solid";
 
 const CreateSheetWelcome = () => {
   return (
-    <div
-      className="flex flex-col justify-center items-center mt-5 mx-auto text-center"
-    >
+    <div className="flex flex-col justify-center items-center mt-5 mx-auto text-center">
       <h1 className="font-bold text-3xl">
         Welcome to the Character Sheet Creator!
       </h1>
@@ -24,7 +23,11 @@ const CreateSheetWelcome = () => {
           ⪼ Fields you must fill out will be marked as required.
         </p>
         <p className="text-base mt-1">
-          ⪼ When all required fields are filled, the section will turn green on the navigation below.
+          ⪼ When all required fields are filled, on the navigation below the
+          section will be marked with a {" "}
+          <span className="inline-flex">
+            <CheckCircleIcon className="w-4 h-4 mt-0.5" />
+          </span>
         </p>
         <p className="text-base mt-1">
           ⪼ At the end, you will have the option to have the sheet join an
