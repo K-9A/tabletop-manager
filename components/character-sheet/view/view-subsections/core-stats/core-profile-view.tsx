@@ -5,9 +5,9 @@ import { AppDispatch } from "@/store"; //For Typescript
 import { RootState } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  coreProfileActions,
-  submitNameData,
-  fetchNameData,
+  coreProfileViewActions,
+  submitCoreProfileData,
+  fetchCoreProfileData,
 } from "@/store/view-sheet-store/core-stats-view/core-profile-view-slice";
 import socket from "@/utils/socket-client";
 
@@ -54,11 +54,11 @@ const CoreProfile = () => {
       console.log(formik.values.name); // For debugging
       try {
         await dispatch(
-          submitNameData(formik.values.name) as unknown as AnyAction
+          submitCoreProfileData({ name: formik.values.name }) as unknown as AnyAction
         ).unwrap();
         socket.emit("client:name-update", formik.values.name);
 
-        dispatch(fetchNameData() as unknown as AnyAction);
+        dispatch(fetchCoreProfileData() as unknown as AnyAction);
 
         setLastDispatchedName(formik.values.name);
       } catch (error) {
@@ -77,7 +77,7 @@ const CoreProfile = () => {
 
   // Dispatch an action to fetch initial data.
   useEffect(() => {
-    dispatch(fetchNameData() as unknown as AnyAction);
+    dispatch(fetchCoreProfileData() as unknown as AnyAction);
   }, [dispatch]);
 
   useEffect(() => {
@@ -101,7 +101,7 @@ const CoreProfile = () => {
     console.log('Setting up listener for server:name-update');
     socket.on("server:name-update", (updatedName) => {
       console.log('Received name update:', updatedName);
-      dispatch(coreProfileActions.setName(updatedName));
+      dispatch(coreProfileViewActions.updateField(updatedName));
       formik.setFieldValue("name", updatedName);
     });
     return () => {

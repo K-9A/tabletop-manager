@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-interface CoreState {
+interface CoreProfileState {
     name: string;
     loading: boolean;
     error: string | null;
     // ... other states for core stats
 }
 
-const initialCoreState: CoreState = {
+const initialCoreState: CoreProfileState = {
     name: "",
     loading: false,
     error: null
@@ -24,21 +24,19 @@ interface CharacterType {
 }
 
 // Async thunk action for submitting name data
-export const submitNameData = createAsyncThunk(
-    'coreProfileView/submitName',
-    async (name: string) => {
-        const response = await axios.post("/api/character/core-stats/core-profile", {
-            name: name
-        });
+export const submitCoreProfileData = createAsyncThunk(
+    'coreProfileView/submitCoreProfile',
+    async (coreProfile: Partial<typeof initialCoreState>) => {
+        const response = await axios.post("/api/character/core-stats/core-profile", coreProfile);
         return response.data;
     }
 );
 
-export const fetchNameData = createAsyncThunk(
-    'coreProfileView/fetchName',
+
+export const fetchCoreProfileData = createAsyncThunk(
+    'coreProfileView/fetchCoreProfile',
     async () => {
-        const response = await axios.get('/api/character/core-stats/core-profile', {
-        });
+        const response = await axios.get('/api/character/core-stats/core-profile');
         return response.data;
     }
 );
@@ -48,39 +46,37 @@ const coreProfileViewSlice = createSlice({
     name: 'coreProfileView',
     initialState: initialCoreState,
     reducers: {
-        setName(state, action: PayloadAction<string>) {
-            state.name = action.payload;
+        updateField: (state, action) => {
+            const { name, value } = action.payload;
+            state[name] = value;
         },
         characterUpdateReceived(state, action: PayloadAction<CharacterType>) {
             // Update the state with the new character data
             state = action.payload;
         },
-        nameUpdated: (state, action: PayloadAction<string>) => {
-            state.name = action.payload;
-        }
     },
     extraReducers: (builder) => {
         builder
-            .addCase(submitNameData.pending, (state) => {
+            .addCase(submitCoreProfileData.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(submitNameData.fulfilled, (state, action) => {
+            .addCase(submitCoreProfileData.fulfilled, (state, action) => {
                 state.loading = false;
                 state.name = action.payload.data;
             })
-            .addCase(submitNameData.rejected, (state, action) => {
+            .addCase(submitCoreProfileData.rejected, (state, action) => {
                 state.loading = false;
             })
-            .addCase(fetchNameData.pending, (state) => {
+            .addCase(fetchCoreProfileData.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(fetchNameData.fulfilled, (state, action) => {
+            .addCase(fetchCoreProfileData.fulfilled, (state, action) => {
                 state.loading = false;
                 state.name = action.payload.data; 
             })
-            .addCase(fetchNameData.rejected, (state, action) => {
+            .addCase(fetchCoreProfileData.rejected, (state, action) => {
                 state.loading = false;
                 state.error = null;  // capture the error if there's any
             });
@@ -88,5 +84,5 @@ const coreProfileViewSlice = createSlice({
     }
 });
 
-export const coreProfileActions = coreProfileViewSlice.actions;
+export const coreProfileViewActions = coreProfileViewSlice.actions;
 export default coreProfileViewSlice.reducer;
