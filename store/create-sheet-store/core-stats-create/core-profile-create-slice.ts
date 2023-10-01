@@ -53,8 +53,8 @@ export const saveCoreProfileData = createAsyncThunk(
 );
 
 
-const createCoreProfileSlice = createSlice({
-    name: 'createCoreProfile',
+const coreProfileCreateSlice = createSlice({
+    name: 'coreProfileCreate',
     initialState: initialCreateCoreProfileState,
     reducers: {
       updateField: (state, action) => {
@@ -72,5 +72,5 @@ const createCoreProfileSlice = createSlice({
 
 })
 
-export const createCoreProfileActions = createCoreProfileSlice.actions;
-export default createCoreProfileSlice.reducer;
+export const createCoreProfileActions = coreProfileCreateSlice.actions;
+export default coreProfileCreateSlice.reducer;

@@ -9,16 +9,16 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 
 import CreateSheetWelcome from "./sheet-create-welcome";
-import CoreProfileCreate from "./subsections/core-profile-create";
-import CombatStatsCreate from "./subsections/combat-stats-create";
-import AbilityScoresCreate from "./subsections/ability-scores";
-import SubmitCharacterSheet from "./subsections/submit-character-sheet";
+import CoreProfileCreate from "./create-subsections/core-profile-create";
+import CombatStatsCreate from "./create-subsections/combat-stats-create";
+import AbilityScoresCreate from "./create-subsections/ability-scores";
+import SubmitCharacterSheet from "./create-subsections/submit-character-sheet";
 
 function CharacterSheetCreate() {
   const [active, setActive] = useState(1);
 
   const coreProfileValid = useSelector(
-    (state: RootState) => state.createCore.isValid
+    (state: RootState) => state.coreProfileCreate.isValid
   );
 
   const validSection = coreProfileValid && "bg-emerald-500 text-white";

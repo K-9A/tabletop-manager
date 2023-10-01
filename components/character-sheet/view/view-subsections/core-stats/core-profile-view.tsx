@@ -8,7 +8,7 @@ import {
   coreProfileActions,
   submitNameData,
   fetchNameData,
-} from "@/store/core-stats-store/core-profile-slice";
+} from "@/store/view-sheet-store/core-stats-view/core-profile-view-slice";
 import socket from "@/utils/socket-client";
 
 import { useFormik } from "formik";
@@ -29,7 +29,7 @@ const validationSchema = Yup.object({
 const CoreProfile = () => {
   const dispatch: AppDispatch = useDispatch();
 
-  const fetchName = useSelector((state: RootState) => state.core.name);
+  const fetchName = useSelector((state: RootState) => state.coreProfileView.name);
 
   const [lastDispatchedName, setLastDispatchedName] = useState("");
   // State to track external updates

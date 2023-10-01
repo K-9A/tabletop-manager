@@ -6,7 +6,7 @@ import ErrorMessage from "@/components/helper/error-message";
 import * as Yup from "yup";
 import { AppDispatch } from "@/store";
 import { useDispatch } from "react-redux";
-import { createCoreProfileActions } from "@/store/create-sheet-store/core-stats-create/core-stats-profile-slice";
+import { createCoreProfileActions } from "@/store/create-sheet-store/core-stats-create/core-profile-create-slice";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 
@@ -40,7 +40,7 @@ const validationSchema = Yup.object({
 });
 
 const CoreProfileCreate = () => {
-  const coreProfileData = useSelector((state: RootState) => state.createCore);
+  const coreProfileData = useSelector((state: RootState) => state.coreProfileCreate);
   
   const dispatch: AppDispatch = useDispatch();
 
@@ -60,7 +60,6 @@ const CoreProfileCreate = () => {
   });
 
   const updateCharacterName = async () => {
-    const isValid = await validationSchema.isValid(formik.values);
     dispatch(createCoreProfileActions.updateField({name: "name", value: formik.values.name}));
   }
 

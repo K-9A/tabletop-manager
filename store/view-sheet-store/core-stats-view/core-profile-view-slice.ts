@@ -25,7 +25,7 @@ interface CharacterType {
 
 // Async thunk action for submitting name data
 export const submitNameData = createAsyncThunk(
-    'core/submitName',
+    'coreProfileView/submitName',
     async (name: string) => {
         const response = await axios.post("/api/character/core-stats/core-profile", {
             name: name
@@ -35,7 +35,7 @@ export const submitNameData = createAsyncThunk(
 );
 
 export const fetchNameData = createAsyncThunk(
-    'core/fetchName',
+    'coreProfileView/fetchName',
     async () => {
         const response = await axios.get('/api/character/core-stats/core-profile', {
         });
@@ -44,8 +44,8 @@ export const fetchNameData = createAsyncThunk(
 );
 
 
-const coreSlice = createSlice({
-    name: 'core',
+const coreProfileViewSlice = createSlice({
+    name: 'coreProfileView',
     initialState: initialCoreState,
     reducers: {
         setName(state, action: PayloadAction<string>) {
@@ -88,5 +88,5 @@ const coreSlice = createSlice({
     }
 });
 
-export const coreProfileActions = coreSlice.actions;
-export default coreSlice.reducer;
+export const coreProfileActions = coreProfileViewSlice.actions;
+export default coreProfileViewSlice.reducer;

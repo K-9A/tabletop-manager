@@ -7,10 +7,10 @@ import darkModeReducer from "./dark-slice";
 import authReducer from "./auth-slice";
 
 // View Sheet Slice Imports
-import coreReducer from "./core-stats-store/core-profile-slice";
+import coreProfileViewReducer from "./view-sheet-store/core-stats-view/core-profile-view-slice";
 
 // Create Sheet Slice Imports
-import createCoreProfileReducer from "./create-sheet-store/core-stats-create/core-stats-profile-slice"
+import coreProfileCreateReducer from "./create-sheet-store/core-stats-create/core-profile-create-slice"
 
 
 const store = configureStore({
@@ -19,9 +19,11 @@ const store = configureStore({
         darkMode: darkModeReducer,
         auth: authReducer,
 
-        core: coreReducer,
+        //View Sheet Reducers
+        coreProfileView: coreProfileViewReducer,
         
-        createCore: createCoreProfileReducer,
+        //Create Sheet Reducers
+        coreProfileCreate: coreProfileCreateReducer,
     },
     middleware: [thunk, socketMiddleware]
 });

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import CoreProfile from "@/components/character-sheet/view/subsections/core-stats/core-profile";
-import AbilityScores from "./subsections/ability-scores/ability-scores";
+import CoreProfileView from "@/components/character-sheet/view/view-subsections/core-stats/core-profile-view";
+import AbilityScoresView from "@/components/character-sheet/view/view-subsections/ability-scores/ability-scores-view";
 import * as Yup from "yup";
 import { Card, Typography } from "@material-tailwind/react";
 import { CoreProfileValues } from "../../types/character-types";
@@ -72,7 +72,7 @@ const CharacterSheetView = () => {
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <CoreProfile />
+                <CoreProfileView />
               </motion.div>
             )}
           </AnimatePresence>
@@ -101,7 +101,7 @@ const CharacterSheetView = () => {
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <AbilityScores />
+                <AbilityScoresView />
               </motion.div>
             )}
           </AnimatePresence>
