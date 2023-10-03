@@ -30,6 +30,9 @@ const CreateSheetWelcome = () => {
           </span>
         </p>
         <p className="text-base mt-1">
+          ⪼ Some sections have no required fields. Instead, fill out as many fields as you wish and mark it done with a provided checkbox.
+        </p>
+        <p className="text-base mt-1">
           ⪼ At the end, you will have the option to have the sheet join an
           existing campaign or leave it stand-alone.
         </p>

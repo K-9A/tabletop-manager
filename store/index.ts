@@ -10,7 +10,8 @@ import authReducer from "./auth-slice";
 import coreProfileViewReducer from "./view-sheet-store/core-stats-view/core-profile-view-slice";
 
 // Create Sheet Slice Imports
-import coreProfileCreateReducer from "./create-sheet-store/core-stats-create/core-profile-create-slice"
+import coreProfileCreateReducer from "./create-sheet-store/core-stats-create/core-profile-create-slice";
+import backgroundCreateReducer from "./create-sheet-store/core-stats-create/background-create-slice";
 
 
 const store = configureStore({
@@ -24,6 +25,7 @@ const store = configureStore({
         
         //Create Sheet Reducers
         coreProfileCreate: coreProfileCreateReducer,
+        backgroundCreate: backgroundCreateReducer,
     },
     middleware: [thunk, socketMiddleware]
 });

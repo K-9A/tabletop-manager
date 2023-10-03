@@ -39,7 +39,6 @@ const AbilityScoresCreate = () => {
     onSubmit: (values) => {
       console.log(values);
     },
-    enableReinitialize: true,
   });
 
   return (
@@ -54,36 +53,6 @@ const AbilityScoresCreate = () => {
       <h1 className="font-bold text-left w-full text-2xl">
         Ability Score Section
       </h1>
-      <div className="mt-16 flex gap-4">
-        <div>
-          <Input
-            variant="static"
-            label="Strength Score"
-            name="str_score"
-            placeholder="Required"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            value={formik.values.str_score}
-            error={!!(formik.errors.str_score && formik.touched.str_score)}
-            crossOrigin=""
-          />
-          {/* TO RE-ENABLE TYPESCRIPTTING LATER WHEN THE TYPESCRIPT FILES CAN APPLY TO BOTH VIEW AND CREATE SHEETS*/}
-          <ErrorMessage name="str_score" formik={formik as any} />
-        </div>
-      </div>
-
-      <div className="mt-20 mb-12 flex gap-4">
-        <div>
-          <Input
-            variant="static"
-            label="Affinity"
-            name="affinity"
-            placeholder="Optional"
-            crossOrigin=""
-            containerProps={{ className: "min-w-[200px]" }}
-          />
-        </div>
-      </div>
     </motion.div>
   );
 };

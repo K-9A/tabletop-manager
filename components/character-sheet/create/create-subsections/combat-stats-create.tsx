@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
 import { useFormik } from "formik";
-import ErrorMessage from "@/components/helper/error-message";
 import * as Yup from "yup";
 import { CoreProfileCreateValues } from "@/components/types/create-sheet-types";
 import { Input, Tooltip, Typography } from "@material-tailwind/react";
@@ -55,8 +54,7 @@ const CombatStatsCreate = () => {
             error={!!(formik.errors.max_hp && formik.touched.max_hp)}
             crossOrigin=""
           />
-          {/* TO RE-ENABLE TYPESCRIPTTING LATER WHEN THE TYPESCRIPT FILES CAN APPLY TO BOTH VIEW AND CREATE SHEETS*/}
-          <ErrorMessage name="max_hp" formik={formik as any} />
+         
         </div>
       </div>
 
