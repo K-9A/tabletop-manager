@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
 import { useFormik } from "formik";
@@ -9,11 +8,10 @@ import { useDispatch } from "react-redux";
 import { createCoreProfileActions } from "@/store/create-sheet-store/core-stats-create/core-profile-create-slice";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
-
-
+import { useCoreProfileCreate } from "./custom-hooks-create-sheet/use-core-profile-create";
 
 import { CoreProfileCreateValues } from "@/components/types/create-sheet-types";
-import { Input, Tooltip, Typography } from "@material-tailwind/react";
+import { Input, Tooltip } from "@material-tailwind/react";
 import { ProficiencyTooltip } from "@/components/helper/tooltips";
 
 const validationSchema = Yup.object({
@@ -21,6 +19,7 @@ const validationSchema = Yup.object({
   char_class: Yup.string().required("Class is required"),
   race: Yup.string().required("Race is required"),
   proficiency: Yup.number()
+    .typeError("Proficiency must be a number")
     .min(2, "Proficiency must be least 2")
     .max(6, "Proficiency cannot exceed 6")
     .required("Proficiency is required"),
@@ -39,35 +38,23 @@ const validationSchema = Yup.object({
     .required("Next Level is required"),
 });
 
-const CoreProfileCreate = () => {
-  const coreProfileData = useSelector((state: RootState) => state.coreProfileCreate);
-  
-  const dispatch: AppDispatch = useDispatch();
-
-  const formik = useFormik({
-    initialValues: {
-      name: coreProfileData.name,
-      char_class: coreProfileData.char_class,
-      race: coreProfileData.race,
-      proficiency: coreProfileData.proficiency,
-      char_level: coreProfileData.char_level,
-      experience: coreProfileData.experience,
-      next_level: coreProfileData.next_level,
-      affinity: coreProfileData.affinity,
-    },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {},
-  });
-
-  const updateCharacterName = async () => {
-    dispatch(createCoreProfileActions.updateField({name: "name", value: formik.values.name}));
-  }
-
-  useEffect(() => {
-    validationSchema.isValid(formik.values).then((isValid) => {
-      dispatch(createCoreProfileActions.setValidity(isValid));
-    });
-  }, [formik.values, dispatch]);
+const CoreProfileCreate = (props) => {
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    updateCharacterName,
+    updateCharacterClass,
+    updateRace,
+    updateProficiency,
+    updateCharacterLevel,
+    updateExperience,
+    updateNextLevel,
+    updateAffinity,
+    getErrorMessage,
+  } = useCoreProfileCreate(props.initialData);
 
   return (
     <motion.div
@@ -89,16 +76,15 @@ const CoreProfileCreate = () => {
             name="name"
             placeholder="Required"
             onBlur={(e) => {
-              formik.handleBlur(e);
+              handleBlur(e);
               updateCharacterName();
             }}
-            onChange={formik.handleChange}
-            value={formik.values.name}
-            error={!!(formik.errors.name && formik.touched.name)}
+            onChange={handleChange}
+            value={values.name}
+            error={!!(errors.name && touched.name)}
             crossOrigin=""
           />
-          {/* TO RE-ENABLE TYPESCRIPTTING LATER WHEN THE TYPESCRIPT FILES CAN APPLY TO BOTH VIEW AND CREATE SHEETS*/}
-          <ErrorMessage name="name" formik={formik as any} />
+          <ErrorMessage message={getErrorMessage("name")} />
         </div>
         <div>
           <Input
@@ -106,14 +92,16 @@ const CoreProfileCreate = () => {
             label="Class"
             name="char_class"
             placeholder="Required"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            value={formik.values.char_class}
-            error={!!(formik.errors.char_class && formik.touched.char_class)}
+            onBlur={(e) => {
+              handleBlur(e);
+              updateCharacterClass();
+            }}
+            onChange={handleChange}
+            value={values.char_class}
+            error={!!(errors.char_class && touched.char_class)}
             crossOrigin=""
           />
-          {/* TO RE-ENABLE TYPESCRIPTTING LATER WHEN THE TYPESCRIPT FILES CAN APPLY TO BOTH VIEW AND CREATE SHEETS*/}
-          <ErrorMessage name="char_class" formik={formik as any} />
+          <ErrorMessage message={getErrorMessage("char_class")} />
         </div>
         <div>
           <Input
@@ -121,14 +109,17 @@ const CoreProfileCreate = () => {
             label="Race"
             name="race"
             placeholder="Required"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            value={formik.values.race}
-            error={!!(formik.errors.race && formik.touched.race)}
+            onBlur={(e) => {
+              handleBlur(e);
+              updateRace();
+            }}
+            onChange={handleChange}
+            value={values.race}
+            error={!!(errors.race && touched.race)}
             crossOrigin=""
           />
-          {/* TO RE-ENABLE TYPESCRIPTTING LATER WHEN THE TYPESCRIPT FILES CAN APPLY TO BOTH VIEW AND CREATE SHEETS*/}
-          <ErrorMessage name="race" formik={formik as any} />
+
+           <ErrorMessage message={getErrorMessage("race")} />
         </div>
 
         <div>
@@ -138,17 +129,19 @@ const CoreProfileCreate = () => {
               label="Proficiency ℹ️"
               name="proficiency"
               placeholder="Required"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              value={formik.values.proficiency}
+              onBlur={(e) => {
+                handleBlur(e);
+                updateProficiency();
+              }}
+              onChange={handleChange}
+              value={values.proficiency}
               error={
-                !!(formik.errors.proficiency && formik.touched.proficiency)
+                !!(errors.proficiency && touched.proficiency)
               }
               crossOrigin=""
             />
           </Tooltip>
-          {/* TO RE-ENABLE TYPESCRIPTTING LATER WHEN THE TYPESCRIPT FILES CAN APPLY TO BOTH VIEW AND CREATE SHEETS*/}
-          <ErrorMessage name="proficiency" formik={formik as any} />
+          <ErrorMessage message={getErrorMessage("proficiency")} />
         </div>
       </div>
 
@@ -159,14 +152,16 @@ const CoreProfileCreate = () => {
             label="Character Level"
             name="char_level"
             placeholder="Required"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            value={formik.values.char_level}
-            error={!!(formik.errors.char_level && formik.touched.char_level)}
+            onBlur={(e) => {
+              handleBlur(e);
+              updateCharacterLevel();
+            }}
+            onChange={handleChange}
+            value={values.char_level}
+            error={!!(errors.char_level && touched.char_level)}
             crossOrigin=""
           />
-          {/* TO RE-ENABLE TYPESCRIPTTING LATER WHEN THE TYPESCRIPT FILES CAN APPLY TO BOTH VIEW AND CREATE SHEETS*/}
-          <ErrorMessage name="char_level" formik={formik as any} />
+          <ErrorMessage message={getErrorMessage("char_level")} />
         </div>
         <div>
           <Input
@@ -174,14 +169,16 @@ const CoreProfileCreate = () => {
             label="Experience"
             name="experience"
             placeholder="Required"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            value={formik.values.experience}
-            error={!!(formik.errors.experience && formik.touched.experience)}
+            onBlur={(e) => {
+              handleBlur(e);
+              updateExperience();
+            }}
+            onChange={handleChange}
+            value={values.experience}
+            error={!!(errors.experience && touched.experience)}
             crossOrigin=""
           />
-          {/* TO RE-ENABLE TYPESCRIPTTING LATER WHEN THE TYPESCRIPT FILES CAN APPLY TO BOTH VIEW AND CREATE SHEETS*/}
-          <ErrorMessage name="experience" formik={formik as any} />
+          <ErrorMessage message={getErrorMessage("experience")} />
         </div>
         <div>
           <Input
@@ -189,14 +186,16 @@ const CoreProfileCreate = () => {
             label="Next Level"
             name="next_level"
             placeholder="Required"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            value={formik.values.next_level}
-            error={!!(formik.errors.next_level && formik.touched.next_level)}
+            onBlur={(e) => {
+              handleBlur(e);
+              updateNextLevel();
+            }}
+            onChange={handleChange}
+            value={values.next_level}
+            error={!!(errors.next_level && touched.next_level)}
             crossOrigin=""
           />
-          {/* TO RE-ENABLE TYPESCRIPTTING LATER WHEN THE TYPESCRIPT FILES CAN APPLY TO BOTH VIEW AND CREATE SHEETS*/}
-          <ErrorMessage name="next_level" formik={formik as any} />
+          <ErrorMessage message={getErrorMessage("next_level")} />
         </div>
         <div>
           <Input
@@ -204,8 +203,13 @@ const CoreProfileCreate = () => {
             label="Affinity"
             name="affinity"
             placeholder="Optional"
+            onBlur={(e) => {
+              handleBlur(e);
+              updateAffinity();
+            }}
+            onChange={handleChange}
+            value={values.affinity}
             crossOrigin=""
-            containerProps={{ className: "min-w-[200px]" }}
           />
         </div>
       </div>

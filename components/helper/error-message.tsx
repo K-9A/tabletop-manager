@@ -2,19 +2,19 @@ import React from "react";
 import { Typography } from "@material-tailwind/react";
 import { FormikProps } from "formik";
 
-interface ErrorProps<T> {
-  name: keyof T; 
-  formik: FormikProps<T>;
+interface ErrorMessageProps {
+  message: string | null;
 }
 
-const ErrorMessage = <T, >({ name, formik }: ErrorProps<T>): JSX.Element | null => (
-  typeof formik.errors[name] === 'string' && formik.touched[name] ? (
+const ErrorMessage: React.FC<ErrorMessageProps> = ({ message }): JSX.Element | null => (
+  message ? (
     <div className="h-0">
-    <Typography color="red" className="text-sm">
-      {formik.errors[name] as string}
-    </Typography>
+      <Typography color="red" className="text-sm">
+        {message}
+      </Typography>
     </div>
   ) : null
 );
+
 
 export default ErrorMessage;
