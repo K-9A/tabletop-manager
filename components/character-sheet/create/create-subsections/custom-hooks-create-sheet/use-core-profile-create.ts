@@ -1,12 +1,9 @@
 import { useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
-import { createCoreProfileActions } from "@/store/create-sheet-store/core-stats-create/core-profile-create-slice";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store";
-import { AppDispatch } from "@/store";
-
+import { useDispatch, useSelector } from "react-redux";
+import { createCoreProfileActions } from "@/store/create-sheet-store/core-profile-create-slice";
+import { RootState, AppDispatch } from "@/store";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Character Name is required"),
@@ -34,6 +31,8 @@ const validationSchema = Yup.object({
 
 export const useCoreProfileCreate = (initialData) => {
 
+  const isDarkMode = useSelector((state: RootState) => state.darkMode);
+
   const coreProfileData = useSelector(
     (state: RootState) => state.coreProfileCreate
   );
@@ -53,7 +52,6 @@ export const useCoreProfileCreate = (initialData) => {
     validationSchema: validationSchema,
     onSubmit: (values) => {},
   });
-
 
   //Store Update Handlers Section
   const updateCharacterName = async () => {
@@ -136,6 +134,7 @@ export const useCoreProfileCreate = (initialData) => {
 
   return {
     ...formik,
+    isDarkMode,
     updateCharacterName,
     updateCharacterClass,
     updateRace,
@@ -144,6 +143,9 @@ export const useCoreProfileCreate = (initialData) => {
     updateExperience,
     updateNextLevel,
     updateAffinity,
-    getErrorMessage: (fieldName: keyof typeof formik.values) => formik.errors[fieldName] && formik.touched[fieldName] ? formik.errors[fieldName] : null
+    getErrorMessage: (fieldName: keyof typeof formik.values) =>
+      formik.errors[fieldName] && formik.touched[fieldName]
+        ? formik.errors[fieldName]
+        : null,
   };
 };

@@ -6,12 +6,12 @@ import { useCoreProfileCreate } from "./custom-hooks-create-sheet/use-core-profi
 import { Input, Tooltip } from "@material-tailwind/react";
 import { ProficiencyTooltip } from "@/components/helper/tooltips";
 
-
 const CoreProfileCreate = (props) => {
   const {
     values,
     errors,
     touched,
+    isDarkMode,
     handleChange,
     handleBlur,
     updateCharacterName,
@@ -34,7 +34,7 @@ const CoreProfileCreate = (props) => {
       transition={{ duration: 0.2 }}
       className="mt-3"
     >
-      <h1 className="font-bold text-left w-full text-2xl">
+      <h1 className="font-bold text-left w-full text-2xl dark:text-white">
         Core Profile Section
       </h1>
       <div className="mt-16 flex gap-4">
@@ -51,6 +51,8 @@ const CoreProfileCreate = (props) => {
             onChange={handleChange}
             value={values.name}
             error={!!(errors.name && touched.name)}
+            className={"dark:text-white"}
+            color={isDarkMode ? "white" : "black"}
             crossOrigin=""
           />
           <ErrorMessage message={getErrorMessage("name")} />
@@ -68,6 +70,8 @@ const CoreProfileCreate = (props) => {
             onChange={handleChange}
             value={values.char_class}
             error={!!(errors.char_class && touched.char_class)}
+            className={"dark:text-white"}
+            color={isDarkMode ? "white" : "black"}
             crossOrigin=""
           />
           <ErrorMessage message={getErrorMessage("char_class")} />
@@ -85,10 +89,12 @@ const CoreProfileCreate = (props) => {
             onChange={handleChange}
             value={values.race}
             error={!!(errors.race && touched.race)}
+            className={"dark:text-white"}
+            color={isDarkMode ? "white" : "black"}
             crossOrigin=""
           />
 
-           <ErrorMessage message={getErrorMessage("race")} />
+          <ErrorMessage message={getErrorMessage("race")} />
         </div>
 
         <div>
@@ -104,9 +110,9 @@ const CoreProfileCreate = (props) => {
               }}
               onChange={handleChange}
               value={values.proficiency}
-              error={
-                !!(errors.proficiency && touched.proficiency)
-              }
+              error={!!(errors.proficiency && touched.proficiency)}
+              className={"dark:text-white"}
+              color={isDarkMode ? "white" : "black"}
               crossOrigin=""
             />
           </Tooltip>
@@ -128,6 +134,8 @@ const CoreProfileCreate = (props) => {
             onChange={handleChange}
             value={values.char_level}
             error={!!(errors.char_level && touched.char_level)}
+            className={"dark:text-white"}
+            color={isDarkMode ? "white" : "black"}
             crossOrigin=""
           />
           <ErrorMessage message={getErrorMessage("char_level")} />
@@ -145,6 +153,8 @@ const CoreProfileCreate = (props) => {
             onChange={handleChange}
             value={values.experience}
             error={!!(errors.experience && touched.experience)}
+            className={"dark:text-white"}
+            color={isDarkMode ? "white" : "black"}
             crossOrigin=""
           />
           <ErrorMessage message={getErrorMessage("experience")} />
@@ -162,6 +172,8 @@ const CoreProfileCreate = (props) => {
             onChange={handleChange}
             value={values.next_level}
             error={!!(errors.next_level && touched.next_level)}
+            className={"dark:text-white"}
+            color={isDarkMode ? "white" : "black"}
             crossOrigin=""
           />
           <ErrorMessage message={getErrorMessage("next_level")} />
@@ -178,6 +190,8 @@ const CoreProfileCreate = (props) => {
             }}
             onChange={handleChange}
             value={values.affinity}
+            className={"dark:text-white"}
+            color={isDarkMode ? "white" : "black"}
             crossOrigin=""
           />
         </div>

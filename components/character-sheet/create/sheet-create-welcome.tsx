@@ -2,7 +2,7 @@ import { CheckCircleIcon } from "@heroicons/react/20/solid";
 
 const CreateSheetWelcome = () => {
   return (
-    <div className="flex flex-col justify-center items-center mt-5 mx-auto text-center">
+    <div className="flex flex-col justify-center items-center mt-5 mx-auto text-center dark:text-white">
       <h1 className="font-bold text-3xl">
         Welcome to the Character Sheet Creator!
       </h1>

@@ -69,7 +69,6 @@ const coreProfileCreateSlice = createSlice({
         state.isValid = action.payload;
       },
     },
-
 })
 
 export const createCoreProfileActions = coreProfileCreateSlice.actions;

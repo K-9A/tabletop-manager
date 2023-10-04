@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
-import { createBackgroundActions } from "@/store/create-sheet-store/core-stats-create/background-create-slice";
+import { createBackgroundActions } from "@/store/create-sheet-store/background-create-slice";
 import { RootState, AppDispatch } from "@/store";
 
 //No fields are mandatory in this subsection
@@ -12,7 +12,6 @@ export const useBackgroundCreate = (initialData) => {
   const backgroundData = useSelector(
     (state: RootState) => state.backgroundCreate
   );
-
 
   const isValid = useSelector(
     (state: RootState) => state.backgroundCreate.isValid
@@ -30,7 +29,6 @@ export const useBackgroundCreate = (initialData) => {
       flaws: backgroundData.flaws,
       valuables: backgroundData.valuables,
       additional_traits: backgroundData.additional_traits,
-      additional_features: backgroundData.additional_features,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {},
@@ -109,15 +107,6 @@ export const useBackgroundCreate = (initialData) => {
     );
   };
 
-  const updateAdditonalFeatures = async () => {
-    dispatch(
-      createBackgroundActions.updateField({
-        name: "additional_features",
-        value: formik.values.additional_features,
-      })
-    );
-  };
-
   const handleCheckboxChange = (e) => {
     if (e.target.checked) {
       dispatch(createBackgroundActions.markSectionAsValid());
@@ -137,7 +126,6 @@ export const useBackgroundCreate = (initialData) => {
     updateFlaws,
     updateValuables,
     updateAdditonalTraits,
-    updateAdditonalFeatures,
-    handleCheckboxChange,
+    handleCheckboxChange
   };
 };

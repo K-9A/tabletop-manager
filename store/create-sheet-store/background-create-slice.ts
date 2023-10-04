@@ -10,7 +10,6 @@ interface BackgroundCreateState {
     flaws: string;
     valuables: string;
     additional_traits: string;
-    additional_features: string;
     isValid: false;
     error: string | null;
 }
@@ -26,7 +25,6 @@ const initialBackgroundCreateState = {
     flaws: "",
     valuables: "",
     additional_traits: "",
-    additional_features: "",
     loading: false,
     isValid: false,
     error: null

@@ -3,7 +3,7 @@ import { PageFade } from "@/components/animations/page-fade";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { CoreProfileCreateValues } from "@/components/types/create-sheet-types";
-import { Input, Tooltip, Typography } from "@material-tailwind/react";
+import { Input } from "@material-tailwind/react";
 
 
 const validationSchema = Yup.object({
@@ -38,7 +38,7 @@ const CombatStatsCreate = () => {
       transition={{ duration: 0.2 }}
       className="mt-3"
     >
-      <h1 className="font-bold text-left w-full text-2xl">
+      <h1 className="font-bold text-left w-full text-2xl dark:text-white">
         Combat Stats Section
       </h1>
       <div className="mt-16 flex gap-4">

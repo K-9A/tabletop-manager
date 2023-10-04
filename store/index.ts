@@ -10,9 +10,10 @@ import authReducer from "./auth-slice";
 import coreProfileViewReducer from "./view-sheet-store/core-stats-view/core-profile-view-slice";
 
 // Create Sheet Slice Imports
-import coreProfileCreateReducer from "./create-sheet-store/core-stats-create/core-profile-create-slice";
-import backgroundCreateReducer from "./create-sheet-store/core-stats-create/background-create-slice";
-
+import coreProfileCreateReducer from "./create-sheet-store/core-profile-create-slice";
+import featsTraitsCreateReducer from "./create-sheet-store/feats-traits-create-slice";
+import backgroundCreateReducer from "./create-sheet-store/background-create-slice"
+import abilityScoresCreateReducer from "./create-sheet-store/ability-scores-create-slice";
 
 const store = configureStore({
     reducer: { 
@@ -25,7 +26,9 @@ const store = configureStore({
         
         //Create Sheet Reducers
         coreProfileCreate: coreProfileCreateReducer,
+        featsTraitsCreate: featsTraitsCreateReducer,
         backgroundCreate: backgroundCreateReducer,
+        abilityScoresCreate: abilityScoresCreateReducer,
     },
     middleware: [thunk, socketMiddleware]
 });

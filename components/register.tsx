@@ -9,7 +9,7 @@ import { useMemoizedAlert } from "./layout/alert";
 import { ErrorResponse, MessageError } from "./types/error-types";
 import * as Yup from "yup";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
-import ErrorMessage from "./helper/error-message";
+import AuthErrorMessage from "./helper/auth-error";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Username is required"),
@@ -96,11 +96,11 @@ export default function Register() {
         className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
       >
         <div className="mb-4 flex flex-col gap-6">
-          <ErrorMessage name="name" formik={formik as any} />
+          <AuthErrorMessage name="username" formik={formik} />
           <Input
             size="lg"
             label="Username"
-            name="name"
+            name="username"
             className={"dark:text-white"}
             color={isDarkMode ? "white" : "black"}
             onChange={formik.handleChange}
@@ -109,7 +109,7 @@ export default function Register() {
             crossOrigin=""
           />
 
-          <ErrorMessage name="email" formik={formik as any} />
+          <AuthErrorMessage name="email" formik={formik} />
           <Input
             size="lg"
             label="Email"
@@ -122,7 +122,7 @@ export default function Register() {
             crossOrigin=""
           />
 
-          <ErrorMessage name="password" formik={formik as any} />
+          <AuthErrorMessage name="password" formik={formik} />
           <Input
             type="password"
             size="lg"
