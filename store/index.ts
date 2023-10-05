@@ -14,6 +14,9 @@ import coreProfileCreateReducer from "./create-sheet-store/core-profile-create-s
 import featsTraitsCreateReducer from "./create-sheet-store/feats-traits-create-slice";
 import backgroundCreateReducer from "./create-sheet-store/background-create-slice"
 import abilityScoresCreateReducer from "./create-sheet-store/ability-scores-create-slice";
+import combatStatsCreateReducer from "./create-sheet-store/combat-stats-create-slice";
+import explorationSkillsCreateReducer from "./create-sheet-store/exploration-skills-create-slice";
+
 
 const store = configureStore({
     reducer: { 
@@ -29,6 +32,8 @@ const store = configureStore({
         featsTraitsCreate: featsTraitsCreateReducer,
         backgroundCreate: backgroundCreateReducer,
         abilityScoresCreate: abilityScoresCreateReducer,
+        combatStatsCreate: combatStatsCreateReducer,
+        explorationSkillsCreate: explorationSkillsCreateReducer,
     },
     middleware: [thunk, socketMiddleware]
 });

@@ -21,7 +21,7 @@ const initialCreateAbilityScoresState = {
   int_save: "",
   wis_save: "",
   chr_save: "",
-  perception: "",
+  passive_perception: "",
   loading: false,
   isValid: false,
   error: null

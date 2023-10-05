@@ -31,7 +31,7 @@ const AbilityScoresCreate = (props) => {
     updateIntSave,
     updateWisSave,
     updateChrSave,
-    updatePerception,
+    updatePassivePerception,
     getErrorMessage,
   } = useAbilityScoresCreate(props.initialData);
 
@@ -46,11 +46,11 @@ const AbilityScoresCreate = (props) => {
       transition={{ duration: 0.2 }}
       className="mt-3"
     >
-      <h1 className="font-bold text-left w-full text-2xl dark:text-white">
+      <h1 className="font-bold text-left w-full text-2xl dark:text-white ml-4">
           Ability Scores Section
       </h1>
 
-      <div className="mt-8 flex">
+      <div className="mt-8 flex mr-8">
         <div className={inputSpacing}>
           <Input
             variant="static"
@@ -71,7 +71,7 @@ const AbilityScoresCreate = (props) => {
               className: "!w-16",
             }}
             containerProps={{
-              className: "min-w-0",
+              className: "!min-w-0",
             }}
             crossOrigin=""
           />
@@ -98,7 +98,7 @@ const AbilityScoresCreate = (props) => {
               className: "!w-16",
             }}
             containerProps={{
-              className: "min-w-0",
+              className: "!min-w-0",
             }}
             crossOrigin=""
           />
@@ -125,7 +125,7 @@ const AbilityScoresCreate = (props) => {
               className: "!w-16",
             }}
             containerProps={{
-              className: "min-w-0",
+              className: "!min-w-0",
             }}
             crossOrigin=""
           />
@@ -152,7 +152,7 @@ const AbilityScoresCreate = (props) => {
               className: "!w-16",
             }}
             containerProps={{
-              className: "min-w-0",
+              className: "!min-w-0",
             }}
             crossOrigin=""
           />
@@ -179,7 +179,7 @@ const AbilityScoresCreate = (props) => {
               className: "!w-16",
             }}
             containerProps={{
-              className: "min-w-0",
+              className: "!min-w-0",
             }}
             crossOrigin=""
           />
@@ -206,7 +206,7 @@ const AbilityScoresCreate = (props) => {
               className: "!w-16",
             }}
             containerProps={{
-              className: "min-w-0",
+              className: "!min-w-0",
             }}
             crossOrigin=""
           />
@@ -235,7 +235,7 @@ const AbilityScoresCreate = (props) => {
               className: "!w-16",
             }}
             containerProps={{
-              className: "min-w-0",
+              className: "!min-w-0",
             }}
             crossOrigin=""
           />
@@ -262,7 +262,7 @@ const AbilityScoresCreate = (props) => {
               className: "!w-16",
             }}
             containerProps={{
-              className: "min-w-0",
+              className: "!min-w-0",
             }}
             crossOrigin=""
           />
@@ -289,7 +289,7 @@ const AbilityScoresCreate = (props) => {
               className: "!w-16",
             }}
             containerProps={{
-              className: "min-w-0",
+              className: "!min-w-0",
             }}
             crossOrigin=""
           />
@@ -316,7 +316,7 @@ const AbilityScoresCreate = (props) => {
               className: "!w-16",
             }}
             containerProps={{
-              className: "min-w-0",
+              className: "!min-w-0",
             }}
             crossOrigin=""
           />
@@ -343,7 +343,7 @@ const AbilityScoresCreate = (props) => {
               className: "!w-16",
             }}
             containerProps={{
-              className: "min-w-0",
+              className: "!min-w-0",
             }}
             crossOrigin=""
           />
@@ -370,7 +370,7 @@ const AbilityScoresCreate = (props) => {
               className: "!w-16",
             }}
             containerProps={{
-              className: "min-w-0",
+              className: "!min-w-0",
             }}
             crossOrigin=""
           />
@@ -399,7 +399,7 @@ const AbilityScoresCreate = (props) => {
               className: "!w-16",
             }}
             containerProps={{
-              className: "min-w-0",
+              className: "!min-w-0",
             }}
             crossOrigin=""
           />
@@ -426,7 +426,7 @@ const AbilityScoresCreate = (props) => {
               className: "!w-16",
             }}
             containerProps={{
-              className: "min-w-0",
+              className: "!min-w-0",
             }}
             crossOrigin=""
           />
@@ -453,7 +453,7 @@ const AbilityScoresCreate = (props) => {
               className: "!w-16",
             }}
             containerProps={{
-              className: "min-w-0",
+              className: "!min-w-0",
             }}
             crossOrigin=""
           />
@@ -480,7 +480,7 @@ const AbilityScoresCreate = (props) => {
               className: "!w-16",
             }}
             containerProps={{
-              className: "min-w-0",
+              className: "!min-w-0",
             }}
             crossOrigin=""
           />
@@ -507,7 +507,7 @@ const AbilityScoresCreate = (props) => {
               className: "!w-16",
             }}
             containerProps={{
-              className: "min-w-0",
+              className: "!min-w-0",
             }}
             crossOrigin=""
           />
@@ -534,7 +534,7 @@ const AbilityScoresCreate = (props) => {
               className: "!w-16",
             }}
             containerProps={{
-              className: "min-w-0",
+              className: "!min-w-0",
             }}
             crossOrigin=""
           />
@@ -547,21 +547,21 @@ const AbilityScoresCreate = (props) => {
           <Input
             variant="static"
             label="Passive Perception"
-            name="perception"
+            name="passive_perception"
             placeholder="Required"
             onBlur={(e) => {
               handleBlur(e);
-              updatePerception();
+              updatePassivePerception();
             }}
             onChange={handleChange}
-            value={values.perception}
-            error={!!(errors.perception && touched.perception)}
+            value={values.passive_perception}
+            error={!!(errors.passive_perception && touched.passive_perception)}
             size="md"
             className={"dark:text-white"}
             color={isDarkMode ? "white" : "black"}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("perception")} />
+          <ErrorMessage message={getErrorMessage("passive_perception")} />
         </div>
         <div className="px-36 mt-2">
         <Tooltip content={<AbilityScoresTooltip />} placement="top">

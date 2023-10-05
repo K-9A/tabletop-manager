@@ -1,4 +1,4 @@
-//Helper file for all the tooltips both create and view sheets use.
+//Helper file for all the big tooltips both create and view sheets use.
 import { Typography } from "@material-tailwind/react";
 
 export const MarkAsCompleteTooltip = () => {

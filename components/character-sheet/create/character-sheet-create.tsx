@@ -11,6 +11,7 @@ import FeatsTraitsCreate from "./create-subsections/feats-traits-create";
 import BackgroundCreate from "./create-subsections/background-create";
 import AbilityScoresCreate from "./create-subsections/ability-scores-create";
 import CombatStatsCreate from "./create-subsections/combat-stats-create";
+import ExplorationSkillsCreate from "./create-subsections/exploration-skills-create";
 import SubmitCharacterSheet from "./create-subsections/submit-character-sheet";
 
 function CharacterSheetCreate() {
@@ -28,6 +29,13 @@ function CharacterSheetCreate() {
   const abilityScoresValid = useSelector(
     (state: RootState) => state.abilityScoresCreate.isValid
   );
+  const combatStatsValid = useSelector(
+    (state: RootState) => state.combatStatsCreate.isValid
+  );
+  const explorationSkillsValid = useSelector(
+    (state: RootState) => state.explorationSkillsCreate.isValid
+  );
+
 
   const renderPageContent = () => {
     switch (active) {
@@ -41,6 +49,10 @@ function CharacterSheetCreate() {
         return <BackgroundCreate />;
       case 5:
         return <AbilityScoresCreate />;
+      case 6:
+        return <CombatStatsCreate />;
+      case 7:
+        return <ExplorationSkillsCreate />;
 
       default:
         return null;
@@ -55,7 +67,7 @@ function CharacterSheetCreate() {
     } as any);
 
   const next = () => {
-    if (active === 12) return;
+    if (active === 13) return;
 
     setActive(active + 1);
   };
@@ -106,17 +118,17 @@ function CharacterSheetCreate() {
           </Tooltip>
           <Tooltip content="Combat Stats" placement="bottom">
             <IconButton {...getItemProps(6)} className="dark:text-white">
-              CMB
-            </IconButton>
-          </Tooltip>
-          <Tooltip content="Offensive Skills" placement="bottom">
-            <IconButton {...getItemProps(7)} className="dark:text-white">
-              OFL
+              CMB{combatStatsValid && <CheckCircleIcon />}
             </IconButton>
           </Tooltip>
           <Tooltip content="Exploration Skills" placement="bottom">
+            <IconButton {...getItemProps(7)} className="dark:text-white">
+              EXL{explorationSkillsValid && <CheckCircleIcon />}
+            </IconButton>
+          </Tooltip>
+          <Tooltip content="Offensive Skills" placement="bottom">
             <IconButton {...getItemProps(8)} className="dark:text-white">
-              EXL
+              OFL
             </IconButton>
           </Tooltip>
           <Tooltip content="Cantrips & Spells" placement="bottom">
@@ -134,8 +146,13 @@ function CharacterSheetCreate() {
               ITM
             </IconButton>
           </Tooltip>
-          <Tooltip content="Submit Sheet" placement="bottom">
+          <Tooltip content="Homebrew" placement="bottom">
             <IconButton {...getItemProps(12)} className="dark:text-white">
+              HMB
+            </IconButton>
+          </Tooltip>
+          <Tooltip content="Submit Sheet" placement="bottom">
+            <IconButton {...getItemProps(13)} className="dark:text-white">
               FIN
             </IconButton>
           </Tooltip>
@@ -144,7 +161,7 @@ function CharacterSheetCreate() {
           variant="text"
           className="flex items-center gap-2 dark:text-white"
           onClick={next}
-          disabled={active === 12}
+          disabled={active === 13}
         >
           Next
           <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />

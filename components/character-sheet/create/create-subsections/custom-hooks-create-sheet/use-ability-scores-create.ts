@@ -31,7 +31,7 @@ const validationSchema = Yup.object({
   int_save: Yup.number().typeError(saveTypeError).required(saveReqError),
   wis_save: Yup.number().typeError(saveTypeError).required(saveReqError),
   chr_save: Yup.number().typeError(saveTypeError).required(saveReqError),
-  perception: Yup.number()
+  passive_perception: Yup.number()
     .typeError("Perception must be a number")
     .required("Perception is required"),
 });
@@ -65,7 +65,7 @@ export const useAbilityScoresCreate = (initialData) => {
       int_save: abilityScoresData.int_save,
       wis_save: abilityScoresData.wis_save,
       chr_save: abilityScoresData.chr_save,
-      perception: abilityScoresData.perception,
+      passive_perception: abilityScoresData.passive_perception,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {},
@@ -236,11 +236,11 @@ export const useAbilityScoresCreate = (initialData) => {
     );
   };
 
-  const updatePerception = async () => {
+  const updatePassivePerception = async () => {
     dispatch(
       createAbilityScoresActions.updateField({
-        name: "perception",
-        value: formik.values.perception,
+        name: "passive_perception",
+        value: formik.values.passive_perception,
       })
     );
   };
@@ -273,7 +273,7 @@ export const useAbilityScoresCreate = (initialData) => {
     updateIntSave,
     updateWisSave,
     updateChrSave,
-    updatePerception,
+    updatePassivePerception,
     getErrorMessage: (fieldName: keyof typeof formik.values) =>
       formik.errors[fieldName] && formik.touched[fieldName]
         ? formik.errors[fieldName]
