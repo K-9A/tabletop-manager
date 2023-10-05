@@ -12,6 +12,7 @@ import BackgroundCreate from "./create-subsections/background-create";
 import AbilityScoresCreate from "./create-subsections/ability-scores-create";
 import CombatStatsCreate from "./create-subsections/combat-stats-create";
 import ExplorationSkillsCreate from "./create-subsections/exploration-skills-create";
+import SkillsPassivesCreate from "./create-subsections/skills-passives-create";
 import SubmitCharacterSheet from "./create-subsections/submit-character-sheet";
 
 function CharacterSheetCreate() {
@@ -35,7 +36,9 @@ function CharacterSheetCreate() {
   const explorationSkillsValid = useSelector(
     (state: RootState) => state.explorationSkillsCreate.isValid
   );
-
+  const skillsPassivesValid = useSelector(
+    (state: RootState) => state.skillsPassivesCreate.isValid
+  );
 
   const renderPageContent = () => {
     switch (active) {
@@ -53,6 +56,8 @@ function CharacterSheetCreate() {
         return <CombatStatsCreate />;
       case 7:
         return <ExplorationSkillsCreate />;
+      case 8:
+        return <SkillsPassivesCreate />;
 
       default:
         return null;
@@ -126,14 +131,14 @@ function CharacterSheetCreate() {
               EXL{explorationSkillsValid && <CheckCircleIcon />}
             </IconButton>
           </Tooltip>
-          <Tooltip content="Offensive Skills" placement="bottom">
+          <Tooltip content="Offensive & Passives" placement="bottom">
             <IconButton {...getItemProps(8)} className="dark:text-white">
-              OFL
+              SKP{skillsPassivesValid && <CheckCircleIcon />}
             </IconButton>
           </Tooltip>
           <Tooltip content="Cantrips & Spells" placement="bottom">
             <IconButton {...getItemProps(9)} className="dark:text-white">
-              SPL
+              CNS
             </IconButton>
           </Tooltip>
           <Tooltip content="Equipment" placement="bottom">
