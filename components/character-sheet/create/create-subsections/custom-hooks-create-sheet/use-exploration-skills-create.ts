@@ -260,6 +260,6 @@ export const useExplorationSkillsCreate = (initialData) => {
     getErrorMessage: (fieldName: keyof typeof formik.values) =>
       formik.errors[fieldName] && formik.touched[fieldName]
         ? formik.errors[fieldName]
-        : null,
+        : null
   };
 };

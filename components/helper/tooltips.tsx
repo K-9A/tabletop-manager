@@ -10,6 +10,14 @@ export const MarkAsCompleteTooltip = () => {
   );
 };
 
+export const SkillsCreateTooltip = () => {
+  return (
+    <div>
+      <Typography variant="small">You may add up to 30 skills maximum. Add as many as you want</Typography>
+      <Typography variant="small">but name is required for each. Mark as Complete when finished.</Typography>
+    </div>
+  );
+};
 
 //Proficiency Tooltip
 export const ProficiencyTooltip = () => {

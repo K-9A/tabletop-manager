@@ -16,7 +16,7 @@ import backgroundCreateReducer from "./create-sheet-store/background-create-slic
 import abilityScoresCreateReducer from "./create-sheet-store/ability-scores-create-slice";
 import combatStatsCreateReducer from "./create-sheet-store/combat-stats-create-slice";
 import explorationSkillsCreateReducer from "./create-sheet-store/exploration-skills-create-slice";
-import skillsPassivesCreateReducer from "./create-sheet-store/skills-passives-create-slice";
+import skillsCreateReducer from "./create-sheet-store/skills-create-slice";
 
 
 const store = configureStore({
@@ -35,7 +35,7 @@ const store = configureStore({
         abilityScoresCreate: abilityScoresCreateReducer,
         combatStatsCreate: combatStatsCreateReducer,
         explorationSkillsCreate: explorationSkillsCreateReducer,
-        skillsPassivesCreate: skillsPassivesCreateReducer,
+        skillsCreate: skillsCreateReducer,
     },
     middleware: [thunk, socketMiddleware]
 });

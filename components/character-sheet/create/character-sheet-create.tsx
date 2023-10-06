@@ -12,7 +12,7 @@ import BackgroundCreate from "./create-subsections/background-create";
 import AbilityScoresCreate from "./create-subsections/ability-scores-create";
 import CombatStatsCreate from "./create-subsections/combat-stats-create";
 import ExplorationSkillsCreate from "./create-subsections/exploration-skills-create";
-import SkillsPassivesCreate from "./create-subsections/skills-passives-create";
+import SkillsCreate from "./create-subsections/skills-create";
 import SubmitCharacterSheet from "./create-subsections/submit-character-sheet";
 
 function CharacterSheetCreate() {
@@ -36,8 +36,8 @@ function CharacterSheetCreate() {
   const explorationSkillsValid = useSelector(
     (state: RootState) => state.explorationSkillsCreate.isValid
   );
-  const skillsPassivesValid = useSelector(
-    (state: RootState) => state.skillsPassivesCreate.isValid
+  const skillsValid = useSelector(
+    (state: RootState) => state.skillsCreate.isValid
   );
 
   const renderPageContent = () => {
@@ -57,7 +57,7 @@ function CharacterSheetCreate() {
       case 7:
         return <ExplorationSkillsCreate />;
       case 8:
-        return <SkillsPassivesCreate />;
+        return <SkillsCreate />;
 
       default:
         return null;
@@ -131,14 +131,14 @@ function CharacterSheetCreate() {
               EXL{explorationSkillsValid && <CheckCircleIcon />}
             </IconButton>
           </Tooltip>
-          <Tooltip content="Offensive & Passives" placement="bottom">
+          <Tooltip content="Offensive Skills" placement="bottom">
             <IconButton {...getItemProps(8)} className="dark:text-white">
-              SKP{skillsPassivesValid && <CheckCircleIcon />}
+              OFL{skillsValid && <CheckCircleIcon />}
             </IconButton>
           </Tooltip>
           <Tooltip content="Cantrips & Spells" placement="bottom">
             <IconButton {...getItemProps(9)} className="dark:text-white">
-              CNS
+              SPL
             </IconButton>
           </Tooltip>
           <Tooltip content="Equipment" placement="bottom">
