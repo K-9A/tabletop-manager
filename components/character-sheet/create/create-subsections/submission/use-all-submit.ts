@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import axios from "axios";
@@ -14,7 +15,10 @@ import axios from "axios";
     }
   }
 
-export const useAllHandleSubmit = () => {
+export const useAllHandleSubmit = (initialData) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [data, setData] = useState(null);
     
   //Grab all the data from each subsection's slice
   const coreProfileRawData = useSelector(
@@ -52,6 +56,7 @@ export const useAllHandleSubmit = () => {
   );
 
 
+  //Extract the useful data
   const coreProfileData = extractData(coreProfileRawData);
   const featsTraitsData = extractData(featsTraitsRawData);
   const backgroundData = extractData(backgroundRawData);
@@ -79,6 +84,33 @@ export const useAllHandleSubmit = () => {
     ...equipmentData,
     ...itemsData,
   }
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    setError(null);
+    //Submission will be done sequentially
+    try {
+      const responseCoreProfileCreate = await axios.post('api/character-sheet-create/core-profile-create', coreProfileData);
+      if (!responseCoreProfileCreate.data.success) throw new Error(responseCoreProfileCreate.data.error);
+
+      //const responseCoreProfileCreate = await axios.post('/api/character-sheet-create/create', combinedData);
+      //if (!responseCoreProfileCreate.data.success) throw new Error(responseCoreProfileCreate.data.error);
+
+      setData(responseCoreProfileCreate);
+    } catch (error) {
+      setError(error.message);
+      // Handle network or other errors
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    loading,
+    error,
+    data,
+    handleSubmit
+  };
 
 }
 

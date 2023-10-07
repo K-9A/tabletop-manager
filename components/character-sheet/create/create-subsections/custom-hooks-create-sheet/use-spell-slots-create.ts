@@ -1,34 +1,9 @@
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { createSpellSlotsActions } from "@/store/create-sheet-store/spell-slots-create-slice";
 import { RootState, AppDispatch } from "@/store";
+import { spellSlotsSchema } from "@/components/character-sheet/validation-schema/spell-slots-schema";
 
-const yupSpellValidation = Yup.number()
-  .typeError("Slot must be number")
-  .nullable()
-  .transform((_, val) => (val !== "" ? Number(val) : null));
-
-const validationSchema = Yup.object({
-  first_available: yupSpellValidation,
-  first_max: yupSpellValidation,
-  second_available: yupSpellValidation,
-  second_max: yupSpellValidation,
-  third_available: yupSpellValidation,
-  third_max: yupSpellValidation,
-  fourth_available: yupSpellValidation,
-  fourth_max: yupSpellValidation,
-  fifth_available: yupSpellValidation,
-  fifth_max: yupSpellValidation,
-  sixth_available: yupSpellValidation,
-  sixth_max: yupSpellValidation,
-  seventh_available: yupSpellValidation,
-  seventh_max: yupSpellValidation,
-  eighth_available: yupSpellValidation,
-  eighth_max: yupSpellValidation,
-  nineth_available: yupSpellValidation,
-  nineth_max: yupSpellValidation,
-});
 
 export const useSpellSlotsCreate = (initialData) => {
   const isDarkMode = useSelector((state: RootState) => state.darkMode);
@@ -65,7 +40,7 @@ export const useSpellSlotsCreate = (initialData) => {
       nineth_available: spellSlotsData.nineth_available,
       nineth_max: spellSlotsData.nineth_max,
     },
-    validationSchema: validationSchema,
+    validationSchema: spellSlotsSchema,
     onSubmit: (values) => {},
   });
 

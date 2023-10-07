@@ -1,25 +1,9 @@
 import { useFormik, FormikErrors } from "formik";
-import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { createItemsActions } from "@/store/create-sheet-store/items-create-slice";
 import { RootState, AppDispatch } from "@/store";
+import { itemsSchema } from "@/components/character-sheet/validation-schema/items-schema";
 
-//No fields are mandatory in this subsection
-const validationSchema = Yup.object({
-  items: Yup.array().of(
-    Yup.object({
-      item: Yup.string().required("Name is required"),
-      item_amount: Yup.number()
-        .typeError("Must be number")
-        .nullable()
-        .transform((_, val) => (val !== "" ? Number(val) : null)),
-      item_max: Yup.number()
-        .typeError("Must be number")
-        .nullable()
-        .transform((_, val) => (val !== "" ? Number(val) : null)),
-    })
-  ),
-});
 
 export const useItemsCreate = (initialData) => {
 const isDarkMode = useSelector((state: RootState) => state.darkMode);
@@ -35,7 +19,7 @@ const formik = useFormik({
     items: itemsData.items,
   },
   enableReinitialize: true,
-  validationSchema: validationSchema,
+  validationSchema: itemsSchema,
   onSubmit: (values) => {},
 });
 

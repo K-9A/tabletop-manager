@@ -1,15 +1,8 @@
 import { useFormik, FormikErrors } from "formik";
-import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { createSpellsActions } from "@/store/create-sheet-store/spells-create-slice";
 import { RootState, AppDispatch } from "@/store";
-
-//No fields are mandatory in this subsection
-const validationSchema = Yup.object({
-  spells: Yup.array().of(
-    Yup.object({ spell_name: Yup.string().required("Name is required") })
-  ),
-});
+import { spellsSchema } from "@/components/character-sheet/validation-schema/spells-schema";
 
 export const useSpellsCreate = (initialData) => {
   const isDarkMode = useSelector((state: RootState) => state.darkMode);
@@ -25,7 +18,7 @@ export const useSpellsCreate = (initialData) => {
       spells: spellsData.spells,
     },
     enableReinitialize: true,
-    validationSchema: validationSchema,
+    validationSchema: spellsSchema,
     onSubmit: (values) => {},
   });
 

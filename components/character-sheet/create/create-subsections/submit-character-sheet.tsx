@@ -4,12 +4,20 @@ import { PageFade } from "@/components/animations/page-fade";
 import AllIsValid from "./submission/use-all-valid";
 import { useAllHandleSubmit } from "./submission/use-all-submit";
 
-const SubmitCharacterSheet = () => {
+const SubmitCharacterSheet = (props) => {
+
+  const {
+    loading,
+    error,
+    data,
+    handleSubmit
+  } = useAllHandleSubmit(props.initialData);
+
+  //Check if all sections re valid
   const { allIsValid } = AllIsValid();
   //purely for debugging
   const alwaysValid = true;
 
-  const handleSubmit = useAllHandleSubmit();
 
   return (
     <motion.div
@@ -29,7 +37,7 @@ const SubmitCharacterSheet = () => {
           Submit. If not, button is greyed out.
         </p>
       </div>
-
+      {/*{loading && <Spinner />}*/} {/* Some loading spinner component */}
       <div className="mt-10 flex justify-center">
         <Button
           disabled={!alwaysValid}

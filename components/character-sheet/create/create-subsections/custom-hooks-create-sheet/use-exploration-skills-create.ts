@@ -1,33 +1,9 @@
 import { useEffect } from "react";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { createExplorationSkillsActions } from "@/store/create-sheet-store/exploration-skills-create-slice";
 import { RootState, AppDispatch } from "@/store";
-
-const skillTypeError = "Skill must be a number";
-const skillReqError = "Skill required";
-
-const validationSchema = Yup.object({
-  acrobatics: Yup.number().typeError(skillTypeError).required(skillReqError),
-  animal: Yup.number().typeError(skillTypeError).required(skillReqError),
-  arcana: Yup.number().typeError(skillTypeError).required(skillReqError),
-  athletics: Yup.number().typeError(skillTypeError).required(skillReqError),
-  deception: Yup.number().typeError(skillTypeError).required(skillReqError),
-  history: Yup.number().typeError(skillTypeError).required(skillReqError),
-  insight: Yup.number().typeError(skillTypeError).required(skillReqError),
-  intimidation: Yup.number().typeError(skillTypeError).required(skillReqError),
-  investigation: Yup.number().typeError(skillTypeError).required(skillReqError),
-  medicine: Yup.number().typeError(skillTypeError).required(skillReqError),
-  nature: Yup.number().typeError(skillTypeError).required(skillReqError),
-  perception: Yup.number().typeError(skillTypeError).required(skillReqError),
-  performance: Yup.number().typeError(skillTypeError).required(skillReqError),
-  persuasion: Yup.number().typeError(skillTypeError).required(skillReqError),
-  religion: Yup.number().typeError(skillTypeError).required(skillReqError),
-  sleight: Yup.number().typeError(skillTypeError).required(skillReqError),
-  stealth: Yup.number().typeError(skillTypeError).required(skillReqError),
-  survival: Yup.number().typeError(skillTypeError).required(skillReqError),
-});
+import { explorationSkillsSchema } from "@/components/character-sheet/validation-schema/explortation-skills-schema";
 
 
 export const useExplorationSkillsCreate = (initialData) => {
@@ -60,7 +36,7 @@ export const useExplorationSkillsCreate = (initialData) => {
       stealth: explorationSkillsData.stealth,
       survival: explorationSkillsData.survival,
     },
-    validationSchema: validationSchema,
+    validationSchema: explorationSkillsSchema,
     onSubmit: (values) => {},
   });
 
@@ -230,7 +206,7 @@ export const useExplorationSkillsCreate = (initialData) => {
 
 
   useEffect(() => {
-    validationSchema.isValid(formik.values).then((isValid) => {
+    explorationSkillsSchema.isValid(formik.values).then((isValid) => {
       dispatch(createExplorationSkillsActions.setValidity(isValid));
     });
   }, [formik.values, dispatch]);

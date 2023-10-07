@@ -1,11 +1,10 @@
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { createFeatsTraitsActions } from "@/store/create-sheet-store/feats-traits-create-slice";
 import { RootState, AppDispatch } from "@/store";
+import { featsTraitsSchema } from "@/components/character-sheet/validation-schema/feats-traits-schema";
 
-//No fields are mandatory in this subsection
-const validationSchema = Yup.object({});
+
 
 export const useFeatsTraitsCreate = (initialData) => {
 
@@ -28,7 +27,7 @@ export const useFeatsTraitsCreate = (initialData) => {
       debuffs: featsTraitsData.debuffs,
       other_proficiency: featsTraitsData.other_proficiency,
     },
-    validationSchema: validationSchema,
+    validationSchema: featsTraitsSchema,
     onSubmit: (values) => {},
   });
 

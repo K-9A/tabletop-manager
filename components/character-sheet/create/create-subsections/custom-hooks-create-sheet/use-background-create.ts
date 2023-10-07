@@ -1,11 +1,9 @@
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { createBackgroundActions } from "@/store/create-sheet-store/background-create-slice";
 import { RootState, AppDispatch } from "@/store";
+import { backgroundSchema } from "@/components/character-sheet/validation-schema/background-schema";
 
-//No fields are mandatory in this subsection
-const validationSchema = Yup.object({});
 
 export const useBackgroundCreate = (initialData) => {
 
@@ -30,7 +28,7 @@ export const useBackgroundCreate = (initialData) => {
       valuables: backgroundData.valuables,
       additional_traits: backgroundData.additional_traits,
     },
-    validationSchema: validationSchema,
+    validationSchema: backgroundSchema,
     onSubmit: (values) => {},
   });
 

@@ -1,15 +1,9 @@
-import { useFormik } from "formik";
-import * as Yup from "yup";
+import { useFormik, FormikErrors } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { createEquipmentActions } from "@/store/create-sheet-store/equipment-create-slice";
 import { RootState, AppDispatch } from "@/store";
-import { FormikErrors } from "formik";
+import { equipmentSchema } from "@/components/character-sheet/validation-schema/equipment-schema";
 
-const validationSchema = Yup.object({
-  equipment: Yup.array().of(
-    Yup.object({ equipment_name: Yup.string().required("Name is required") })
-  ),
-});
 
 export const useEquipmentCreate = (initialData) => {
   const isDarkMode = useSelector((state: RootState) => state.darkMode);
@@ -29,7 +23,7 @@ export const useEquipmentCreate = (initialData) => {
       equipment: equipmentData.equipment,
     },
     enableReinitialize: true,
-    validationSchema: validationSchema,
+    validationSchema: equipmentSchema,
     onSubmit: (values) => {},
   });
 

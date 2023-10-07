@@ -1,16 +1,8 @@
-import { useFormik } from "formik";
-import * as Yup from "yup";
+import { useFormik,FormikErrors } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { createSkillsActions } from "@/store/create-sheet-store/skills-create-slice";
 import { RootState, AppDispatch } from "@/store";
-import { FormikErrors } from "formik";
-
-//No fields are mandatory in this subsection
-const validationSchema = Yup.object({
-  skills: Yup.array().of(
-    Yup.object({ skill_name: Yup.string().required("Name is required") })
-  ),
-});
+import { skillsSchema } from "@/components/character-sheet/validation-schema/skills-schema";
 
 export const useSkillsCreate = (initialData) => {
   const isDarkMode = useSelector((state: RootState) => state.darkMode);
@@ -30,7 +22,7 @@ export const useSkillsCreate = (initialData) => {
       skills: skillsData.skills,
     },
     enableReinitialize: true,
-    validationSchema: validationSchema,
+    validationSchema: skillsSchema,
     onSubmit: (values) => {},
   });
 
