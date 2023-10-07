@@ -37,7 +37,7 @@ const CoreProfileCreate = (props) => {
       <h1 className="font-bold text-left w-full text-2xl dark:text-white">
         Core Profile Section
       </h1>
-      <div className="mt-16 flex gap-4">
+      <div className="mt-16 flex gap-3">
         <div>
           <Input
             variant="static"

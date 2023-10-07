@@ -17,13 +17,20 @@ import abilityScoresCreateReducer from "./create-sheet-store/ability-scores-crea
 import combatStatsCreateReducer from "./create-sheet-store/combat-stats-create-slice";
 import explorationSkillsCreateReducer from "./create-sheet-store/exploration-skills-create-slice";
 import skillsCreateReducer from "./create-sheet-store/skills-create-slice";
+import spellSlotsReducer from "./create-sheet-store/spell-slots-create-slice";
+import spellsCreateReducer from "./create-sheet-store/spells-create-slice";
+import equipmentCreateReducer from "./create-sheet-store/equipment-create-slice";
+import itemsCreateReducer from "./create-sheet-store/items-create-slice";
 
 
 const store = configureStore({
     reducer: { 
 
+        //Misc Reducers
         darkMode: darkModeReducer,
         auth: authReducer,
+
+        //Campaign Create Rducers
 
         //View Sheet Reducers
         coreProfileView: coreProfileViewReducer,
@@ -36,6 +43,10 @@ const store = configureStore({
         combatStatsCreate: combatStatsCreateReducer,
         explorationSkillsCreate: explorationSkillsCreateReducer,
         skillsCreate: skillsCreateReducer,
+        spellSlotsCreate: spellSlotsReducer,
+        spellsCreate: spellsCreateReducer,
+        equipmentCreate: equipmentCreateReducer,
+        itemsCreate: itemsCreateReducer,
     },
     middleware: [thunk, socketMiddleware]
 });

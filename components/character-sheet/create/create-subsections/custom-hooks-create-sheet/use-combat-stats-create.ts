@@ -5,18 +5,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { createCombatStatsActions } from "@/store/create-sheet-store/combat-stats-create-slice";
 import { RootState, AppDispatch } from "@/store";
 
-
 type CombatStats = {
-    current_hp: number;
-    max_hp: number;
-    temp_hp: number | null;
-    armor_class: number;
-    hit_dice: number | null;
-    max_hit_dice: number;
-    speed: number;
-    initiative: number;
-    inspiration: number | null;
-}
+  current_hp: number;
+  max_hp: number;
+  temp_hp: number | null;
+  armor_class: number;
+  hit_dice: number | null;
+  max_hit_dice: number;
+  speed: number;
+  initiative: number;
+  inspiration: number | null;
+};
 
 const validationSchema = Yup.object({
   current_hp: Yup.number()
@@ -57,6 +56,17 @@ const validationSchema = Yup.object({
     .min(0, "Inspiration cannot be negative")
     .nullable()
     .transform((_, val) => (val !== "" ? Number(val) : null)),
+  spell_casting: Yup.number()
+    .typeError("Spell Casting must be a number")
+    .nullable()
+    .transform((_, val) => (val !== "" ? Number(val) : null)),
+  spell_save: Yup.number()
+    .typeError("Spell Save must be a number")
+    .required("Spell Save is required"),
+  spell_attack: Yup.number()
+    .typeError("Spell Attack must be a number")
+    .nullable()
+    .transform((_, val) => (val !== "" ? Number(val) : null)),
 });
 
 export const useCombatStatsCreate = (initialData) => {
@@ -78,6 +88,9 @@ export const useCombatStatsCreate = (initialData) => {
       speed: combatStatsData.speed,
       initiative: combatStatsData.initiative,
       inspiration: combatStatsData.inspiration,
+      spell_casting: combatStatsData.spell_casting,
+      spell_save: combatStatsData.spell_save,
+      spell_attack: combatStatsData.spell_attack,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {},
@@ -165,6 +178,35 @@ export const useCombatStatsCreate = (initialData) => {
     );
   };
 
+  const updateSpellCasting = async () => {
+    dispatch(
+      createCombatStatsActions.updateField({
+        name: "spell_casting",
+        value: formik.values.spell_casting,
+      })
+    );
+  };
+
+  const updateSpellSave = async () => {
+    dispatch(
+      createCombatStatsActions.updateField({
+        name: "spell_save",
+        value: formik.values.spell_save,
+      })
+    );
+  };
+
+  const updateSpellAttack = async () => {
+    dispatch(
+      createCombatStatsActions.updateField({
+        name: "spell_attack",
+        value: formik.values.spell_attack,
+      })
+    );
+  };
+
+
+
   useEffect(() => {
     validationSchema.isValid(formik.values).then((isValid) => {
       dispatch(createCombatStatsActions.setValidity(isValid));
@@ -183,6 +225,9 @@ export const useCombatStatsCreate = (initialData) => {
     updateSpeed,
     updateInitiative,
     updateInspiration,
+    updateSpellCasting,
+    updateSpellSave,
+    updateSpellAttack,
     getErrorMessage: (fieldName: keyof typeof formik.values) =>
       formik.errors[fieldName] && formik.touched[fieldName]
         ? formik.errors[fieldName]

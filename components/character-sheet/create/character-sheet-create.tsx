@@ -13,6 +13,11 @@ import AbilityScoresCreate from "./create-subsections/ability-scores-create";
 import CombatStatsCreate from "./create-subsections/combat-stats-create";
 import ExplorationSkillsCreate from "./create-subsections/exploration-skills-create";
 import SkillsCreate from "./create-subsections/skills-create";
+import SpellSlotsCreate from "./create-subsections/spell-slots-create";
+import SpellsCreate from "./create-subsections/spells-create";
+import EquipmentCreate from "./create-subsections/equipment-create";
+import ItemsCreate from "./create-subsections/items-create";
+//Homebrew Section
 import SubmitCharacterSheet from "./create-subsections/submit-character-sheet";
 
 function CharacterSheetCreate() {
@@ -39,6 +44,18 @@ function CharacterSheetCreate() {
   const skillsValid = useSelector(
     (state: RootState) => state.skillsCreate.isValid
   );
+  const spellSlotsValid = useSelector(
+    (state: RootState) => state.spellSlotsCreate.isValid
+  );
+  const spellsValid = useSelector(
+    (state: RootState) => state.spellsCreate.isValid
+  );
+  const equipmentValid = useSelector(
+    (state: RootState) => state.equipmentCreate.isValid
+  );
+  const itemsValid = useSelector(
+    (state: RootState) => state.itemsCreate.isValid
+  );
 
   const renderPageContent = () => {
     switch (active) {
@@ -58,6 +75,18 @@ function CharacterSheetCreate() {
         return <ExplorationSkillsCreate />;
       case 8:
         return <SkillsCreate />;
+      case 9:
+        return <SpellSlotsCreate />;
+      case 10:
+        return <SpellsCreate />;
+      case 11:
+        return <EquipmentCreate />;
+      case 12:
+        return <ItemsCreate />;
+      case 13:
+        return null;
+      case 14:
+        return <SubmitCharacterSheet />;
 
       default:
         return null;
@@ -72,7 +101,7 @@ function CharacterSheetCreate() {
     } as any);
 
   const next = () => {
-    if (active === 13) return;
+    if (active === 14) return;
 
     setActive(active + 1);
   };
@@ -91,11 +120,12 @@ function CharacterSheetCreate() {
           variant="text"
           className="flex items-center gap-2 dark:text-white"
           onClick={prev}
+          size="sm"
           disabled={active === 1}
         >
           <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
         </Button>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           <Tooltip content="Welcome" placement="bottom">
             <IconButton {...getItemProps(1)} className="dark:text-white">
               WEL
@@ -136,28 +166,33 @@ function CharacterSheetCreate() {
               OFL{skillsValid && <CheckCircleIcon />}
             </IconButton>
           </Tooltip>
-          <Tooltip content="Cantrips & Spells" placement="bottom">
+          <Tooltip content="Spell Slots" placement="bottom">
             <IconButton {...getItemProps(9)} className="dark:text-white">
-              SPL
+              SPS{spellSlotsValid && <CheckCircleIcon />}
+            </IconButton>
+          </Tooltip>
+          <Tooltip content="Cantrips & Spells" placement="bottom">
+            <IconButton {...getItemProps(10)} className="dark:text-white">
+              SPL{spellsValid && <CheckCircleIcon />}
             </IconButton>
           </Tooltip>
           <Tooltip content="Equipment" placement="bottom">
-            <IconButton {...getItemProps(10)} className="dark:text-white">
-              EQP
+            <IconButton {...getItemProps(11)} className="dark:text-white">
+              EQP{equipmentValid && <CheckCircleIcon />}
             </IconButton>
           </Tooltip>
           <Tooltip content="Items & Consumables" placement="bottom">
-            <IconButton {...getItemProps(11)} className="dark:text-white">
-              ITM
+            <IconButton {...getItemProps(12)} className="dark:text-white">
+              ITM{itemsValid && <CheckCircleIcon />}
             </IconButton>
           </Tooltip>
           <Tooltip content="Homebrew" placement="bottom">
-            <IconButton {...getItemProps(12)} className="dark:text-white">
-              HMB
+            <IconButton {...getItemProps(13)} className="dark:text-white">
+              HMB{<CheckCircleIcon />}
             </IconButton>
           </Tooltip>
           <Tooltip content="Submit Sheet" placement="bottom">
-            <IconButton {...getItemProps(13)} className="dark:text-white">
+            <IconButton {...getItemProps(14)} className="dark:text-white">
               FIN
             </IconButton>
           </Tooltip>
@@ -166,7 +201,8 @@ function CharacterSheetCreate() {
           variant="text"
           className="flex items-center gap-2 dark:text-white"
           onClick={next}
-          disabled={active === 13}
+          size="sm"
+          disabled={active === 14}
         >
           Next
           <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />

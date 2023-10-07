@@ -15,6 +15,17 @@ export const SkillsCreateTooltip = () => {
     <div>
       <Typography variant="small">You may add up to 30 skills maximum. Add as many as you want</Typography>
       <Typography variant="small">but name is required for each. Mark as Complete when finished.</Typography>
+      <Typography variant="small">Skills without a name in the name field will not be submitted.</Typography>
+    </div>
+  );
+};
+
+export const SpellsCreateTooltip = () => {
+  return (
+    <div>
+      <Typography variant="small">You may add up to 40 cantrips/spells maximum. Add as many as you want</Typography>
+      <Typography variant="small">but name is required for each. Mark as Complete when finished.</Typography>
+      <Typography variant="small">Cantrips/Spells without a name in the name field will not be submitted.</Typography>
     </div>
   );
 };
@@ -31,6 +42,27 @@ export const ProficiencyTooltip = () => {
     </div>
   );
 };
+
+export const EquipmentCreateTooltip = () => {
+  return (
+    <div>
+      <Typography variant="small">You may add up to 20 pieces of equipment maximum. Add as many as you want</Typography>
+      <Typography variant="small">but name is required for each. Mark as Complete when finished.</Typography>
+      <Typography variant="small">Equipment without a name in the name field will not be submitted.</Typography>
+    </div>
+  );
+};
+
+export const ItemsCreateTooltip = () => {
+  return (
+    <div>
+      <Typography variant="small">You may add up to 40 items maximum. Add as many as you want</Typography>
+      <Typography variant="small">but name is required for each. Mark as Complete when finished.</Typography>
+      <Typography variant="small">Items without a name in the name field will not be submitted.</Typography>
+    </div>
+  );
+};
+
 
 //Ability Score Tooltip
 //Proficiency Tooltip

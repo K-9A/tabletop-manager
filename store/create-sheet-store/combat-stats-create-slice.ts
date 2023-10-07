@@ -12,6 +12,9 @@ const initialCreateCombatStatsState = {
     speed: "",
     initiative: "",
     inspiration: "",
+    spell_casting: "",
+    spell_save: "",
+    spell_attack: "",
     loading: false,
     isValid: false,
     error: null

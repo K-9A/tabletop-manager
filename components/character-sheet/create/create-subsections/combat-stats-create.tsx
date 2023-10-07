@@ -21,6 +21,9 @@ const CombatStatsCreate = (props) => {
     updateSpeed,
     updateInitiative,
     updateInspiration,
+    updateSpellCasting,
+    updateSpellSave,
+    updateSpellAttack,
     getErrorMessage,
   } = useCombatStatsCreate(props.initialData);
 
@@ -37,7 +40,7 @@ const CombatStatsCreate = (props) => {
         Combat Stats Section
       </h1>
 
-      <div className="mt-20 flex justify-center gap-24">
+      <div className="mt-16 flex justify-center gap-24">
         <div>
           <Input
             variant="static"
@@ -176,7 +179,7 @@ const CombatStatsCreate = (props) => {
 
 
 
-      <div className="mt-24 justify-center flex gap-36">
+      <div className="mt-16 flex gap-36">
         <div>
           <Input
             variant="static"
@@ -285,6 +288,93 @@ const CombatStatsCreate = (props) => {
             crossOrigin=""
           />
           <ErrorMessage message={getErrorMessage("inspiration")} />
+        </div>
+      </div>
+
+
+
+      <div className="mt-16 flex gap-36">
+        <div>
+          <Input
+            variant="static"
+            label="Spell Casting Ability"
+            name="spell_casting"
+            placeholder="Optional"
+            onBlur={(e) => {
+              handleBlur(e);
+              updateSpellCasting();
+            }}
+            onChange={handleChange}
+            value={values.spell_casting}
+            error={!!(errors.spell_casting && touched.spell_casting)}
+            size="md"
+            className={"dark:text-white !w-36"}
+            color={isDarkMode ? "white" : "black"}
+            labelProps={{
+              className: "!w-36",
+            }}
+            containerProps={{
+              className: "!min-w-0",
+            }}
+            crossOrigin=""
+          />
+          <ErrorMessage message={getErrorMessage("spell_casting")} />
+        </div>
+
+        <div>
+          <Tooltip content="In Feet (ft.)" placement="top">
+            <Input
+              variant="static"
+              label="Spell Save DC"
+              name="spell_save"
+              placeholder="Required"
+              onBlur={(e) => {
+                handleBlur(e);
+                updateSpellSave();
+              }}
+              onChange={handleChange}
+              value={values.spell_save}
+              error={!!(errors.spell_save && touched.spell_save)}
+              size="md"
+              className={"dark:text-white !w-36"}
+              color={isDarkMode ? "white" : "black"}
+              labelProps={{
+                className: "!w-36",
+              }}
+              containerProps={{
+                className: "!min-w-0",
+              }}
+              crossOrigin=""
+            />
+          </Tooltip>
+          <ErrorMessage message={getErrorMessage("spell_save")} />
+        </div>
+
+        <div>
+          <Input
+            variant="static"
+            label="Spell Attack Bonus"
+            name="spell_attack"
+            placeholder="Optional"
+            onBlur={(e) => {
+              handleBlur(e);
+              updateSpellAttack();
+            }}
+            onChange={handleChange}
+            value={values.spell_attack}
+            error={!!(errors.spell_attack && touched.spell_attack)}
+            size="md"
+            className={"dark:text-white !w-36"}
+            color={isDarkMode ? "white" : "black"}
+            labelProps={{
+              className: "!w-36",
+            }}
+            containerProps={{
+              className: "!min-w-0",
+            }}
+            crossOrigin=""
+          />
+          <ErrorMessage message={getErrorMessage("spell_attack")} />
         </div>
       </div>
     </motion.div>
