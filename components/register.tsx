@@ -12,7 +12,7 @@ import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import AuthErrorMessage from "./helper/auth-error";
 
 const validationSchema = Yup.object({
-  name: Yup.string().required("Username is required"),
+  username: Yup.string().required("Username is required"),
   email: Yup.string()
     .email("Invalid email format")
     .required("Email is required"),
@@ -44,7 +44,7 @@ export default function Register() {
 
   const formik = useFormik({
     initialValues: {
-      name: "",
+      username: "",
       email: "",
       password: "",
     },
@@ -53,7 +53,7 @@ export default function Register() {
       try {
         //Point Axios to the Register API route.
         const response = await axios.post("/register", {
-          username: values.name,
+          username: values.username,
           email: values.email,
           password: values.password,
         });
@@ -104,8 +104,8 @@ export default function Register() {
             className={"dark:text-white"}
             color={isDarkMode ? "white" : "black"}
             onChange={formik.handleChange}
-            value={formik.values.name}
-            error={!!(formik.errors.name && formik.touched.name)}
+            value={formik.values.username}
+            error={!!(formik.errors.username && formik.touched.username)}
             crossOrigin=""
           />
 

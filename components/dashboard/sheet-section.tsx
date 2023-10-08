@@ -1,4 +1,5 @@
 import { Typography, Button } from "@material-tailwind/react";
+import Link from "next/link";
 
 interface CharacterSheetSectionProps {
   labelBgColor: string;
@@ -20,9 +21,11 @@ const CharacterSheetSection: React.FC<CharacterSheetSectionProps> = ({
         <Button color="teal" fullWidth>
           View Character Sheet
         </Button>
-        <Button color="teal" fullWidth>
-          Create Character Sheet
-        </Button>
+
+          <Button color="teal" fullWidth>
+            Create Character Sheet
+          </Button>
+
       </div>
     </div>
   );

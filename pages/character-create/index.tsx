@@ -4,7 +4,11 @@ import { GetServerSidePropsContext } from "next";
 import { getSession } from 'next-auth/react';
 import { motion } from "framer-motion";
 
-function CreateCharacterPage() {
+interface CreateCharacterPageProps {
+  session: any; // You can replace 'any' with the appropriate type for your session object
+}
+
+const CreateCharacterPage: React.FC<CreateCharacterPageProps> = ({ session }) => {
   return (
     <motion.main
       initial={{ opacity: 0 }}
@@ -23,19 +27,19 @@ function CreateCharacterPage() {
 export default CreateCharacterPage;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getSession(context);
+  const session = await getSession({ req: context.req });
 
-  if (session) {
+  if (!session) {
     // Redirect logged-in users to the homepage
     return {
       redirect: {
-        destination: "/", // Adjust to your desired path
+        destination: "/",
         permanent: false,
       },
     };
   }
 
   return {
-    props: {}, // Props are returned as an empty object because they aren't necessary
+    props: { session }, 
   };
 }

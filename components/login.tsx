@@ -59,7 +59,7 @@ function Login() {
       try {
         const result = await signIn("credentials", {
           redirect: false,
-          username: values.name,
+          name: values.name,
           password: values.password,
         });
 
@@ -110,11 +110,11 @@ function Login() {
         className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
       >
         <div className="mb-4 flex flex-col gap-6">
-          <AuthErrorMessage name="username" formik={formik} />
+          <AuthErrorMessage name="name" formik={formik} />
           <Input
             size="lg"
             label="Username"
-            name="username"
+            name="name"
             className={"dark:text-white"}
             color={isDarkMode ? "white" : "black"}
             onChange={formik.handleChange}
