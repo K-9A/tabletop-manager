@@ -20,8 +20,10 @@
     "bcrypt": "^5.1.1",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
+    "express-rate-limit": "^7.1.0",
     "formik": "^2.4.3",
     "framer-motion": "^10.16.4",
+    "micro": "^10.0.1",
     "mysql2": "^3.6.1",
     "nanoid": "^5.0.1",
     "next": "13.4.19",
@@ -34,6 +36,8 @@
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
     "typescript": "5.2.2",
+    "validator": "^13.11.0",
+    "winston": "^3.11.0",
     "yup": "^1.2.0"
   },
   "devDependencies": {
