@@ -22,10 +22,9 @@ const CharacterSheetSection: React.FC<CharacterSheetSectionProps> = ({
           View Character Sheet
         </Button>
 
-          <Button color="teal" fullWidth>
-            Create Character Sheet
-          </Button>
-
+        <Button color="teal" fullWidth>
+          Create Character Sheet
+        </Button>
       </div>
     </div>
   );

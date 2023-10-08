@@ -59,7 +59,7 @@ function Login() {
       try {
         const result = await signIn("credentials", {
           redirect: false,
-          name: values.name,
+          username: values.name,
           password: values.password,
         });
 

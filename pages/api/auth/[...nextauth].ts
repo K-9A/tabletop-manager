@@ -25,6 +25,7 @@ export default NextAuth({
         );
 
         const user: User | undefined = users[0] as User;
+        console.log(user)
 
         const creds = credentials as Credentials;
 

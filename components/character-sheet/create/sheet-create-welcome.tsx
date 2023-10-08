@@ -24,13 +24,14 @@ const CreateSheetWelcome = () => {
         </p>
         <p className="text-base mt-1">
           ⪼ When all required fields are filled, on the navigation below the
-          section will be marked with a {" "}
+          section will be marked with a{" "}
           <span className="inline-flex">
             <CheckCircleIcon className="w-4 h-4 mt-0.5" />
           </span>
         </p>
         <p className="text-base mt-1">
-          ⪼ Some sections have no required fields. Instead, fill out as many fields as you wish and mark it done with a provided checkbox.
+          ⪼ Some sections have no required fields. Instead, fill out as many
+          fields as you wish and mark it done with a provided checkbox.
         </p>
         <p className="text-base mt-1">
           ⪼ At the end, you will have the option to have the sheet join an
