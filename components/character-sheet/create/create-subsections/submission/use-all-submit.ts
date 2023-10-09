@@ -83,14 +83,18 @@ export const useAllHandleSubmit = (initialData) => {
     setError(null);
 
     const session = await getSession();
-    console.log("from handle submit:",session);
+    //Grab user id from getSession
+    const userId = session.user.id;
+    //Send it as a header to the APIs
+    const userIdHeader = { headers: { 'x-user-id': userId}};
+
+
 
     //Submission will be done sequentially
     try {
       const responseCoreProfileCreate = await axios.post(
         "api/character-sheet-create/core-profile-create",
-        coreProfileData,
-        { withCredentials: true }
+        coreProfileData, userIdHeader
       );
       if (!responseCoreProfileCreate.data.success)
         throw new Error(responseCoreProfileCreate.data.error);

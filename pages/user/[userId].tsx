@@ -2,11 +2,13 @@ import DisplayBox from "@/components/layout/containers/display-box";
 import Dashboard from "@/components/dashboard/dashboard";
 import { UserStaticProps } from "@/components/types/dash-types";
 import axios from "axios";
-import { getSession } from "next-auth/react";
 import { Session } from "next-auth"; //For typescripting
 import { GetServerSidePropsContext } from "next";
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
+import authOptions from "@/pages/api/auth/[...nextauth]";
+import { getServerSession } from "next-auth";
+import { getSession } from "next-auth/react";
 
 type MySession = Session & {
   user: UserStaticProps["user"];
