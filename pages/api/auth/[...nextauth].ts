@@ -8,6 +8,7 @@ import { User } from "@/components/types/user-types";
 type Credentials = {
   username: string;
   password: string;
+  id: string;
 };
 
 export default NextAuth({
@@ -25,7 +26,6 @@ export default NextAuth({
         );
 
         const user: User | undefined = users[0] as User;
-        console.log(user)
 
         const creds = credentials as Credentials;
 
@@ -62,7 +62,7 @@ export default NextAuth({
         if (!user) {
           throw new Error("Invalid Login credentials.");
         }
-        //Check is password is correct from the 
+        //Check is password is correct from the
         if (!passwordMatches) {
           throw new Error(invalidMessage);
         }
@@ -73,6 +73,12 @@ export default NextAuth({
   ],
   
   // Session configuration
+  secret: process.env.SECRET,
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+    updateAge: 24 * 60 * 60, // 24 hours
+  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
@@ -82,8 +88,8 @@ export default NextAuth({
     },
     async session({ session, token }) {
       (session.user as any).id = token.sub;
+
       return session;
     },
   },
-
 });

@@ -15,7 +15,7 @@
     "incremental": true,
     "paths": {
       "@/*": ["./*"]
-    }
+    },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/helper/tooltips.tsz", "store/create-sheet-store/core-stats-create"],
   "exclude": ["node_modules"]

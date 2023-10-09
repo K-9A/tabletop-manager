@@ -4,7 +4,9 @@ import { withCreateRateLimit } from "@/components/character-sheet/create/create-
 import validator from "validator";
 import headersMiddleware from "@/utils/headers-middleware";
 import { loggerMiddleware } from "@/utils/logging/logger-middleware";
+import { getToken } from "next-auth/jwt";
 import { dbQuery } from "@/utils/dbQuery";
+import { getServerSession } from "next-auth";
 
 //Use the Yup Schema to validate inputs
 const validatedCoreProfileCreate = (schema, handler) => async (req, res) => {
@@ -20,6 +22,20 @@ const submitCoreProfileData = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
+    
+    // Access user data from the token
+
+    const session = getServerSession();
+
+
+  // if (!session) {
+  //   return res
+  //     .status(401)
+  //     .json({ success: false, message: "Not authenticated" });
+  // }
+
+  //const userId = (session.user as any).id;
+
   if (req.method === "POST") {
     try {
       // Extract data from the request body
@@ -57,6 +73,8 @@ const submitCoreProfileData = async (
         sanitizedData.affinity
       );
 
+      console.log("API route:", session);
+
       //await dbQuery("INSERT INTO coreProfileTable SET ?", [coreProfileData]);
       //res.status(200).json({ success: true });
       res.status(200).json({ success: true, message: "Data received!" });
@@ -69,10 +87,12 @@ const submitCoreProfileData = async (
   }
 };
 
-export default loggerMiddleware(
-  headersMiddleware(
-    withCreateRateLimit(
-      validatedCoreProfileCreate(coreProfileSchema, submitCoreProfileData)
-    )
-  )
-);
+// export default loggerMiddleware(
+//   headersMiddleware(
+//     withCreateRateLimit(
+//       validatedCoreProfileCreate(coreProfileSchema, submitCoreProfileData)
+//     )
+//   )
+//);
+export default submitCoreProfileData;
+
