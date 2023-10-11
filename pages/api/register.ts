@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { dbQuery } from "@/utils/dbQuery";
 import bcrypt from "bcrypt";
 import { customAlphabet } from "nanoid";
+import validator from "validator";
 
 // Define a custom nanoid alphabet function: 8-character length with the full alphabet and numbers
 const nanoid = customAlphabet(
@@ -37,11 +38,17 @@ const registerHandler = async (
       .json({ error: "Username, email and password are required." });
   }
 
+  const sanitizedData = {
+    username: validator.escape(username),
+    email: validator.escape(email),
+    password: validator.escape(password),
+  }
+
   try {
     // Check if the username is already taken
     const existingUsers = await dbQuery<User>(
       "SELECT user_id, username FROM users WHERE username = ?",
-      [username]
+      [sanitizedData.username]
     );
 
     //If it exists, throw a 409 error.
@@ -55,12 +62,12 @@ const registerHandler = async (
     const userId = nanoid();
 
     //Hash the password for storage with 10 salt rounds, as is the standard which is around 10-12 rounds.
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(sanitizedData.password, 10);
 
     // Insert the new user into the database
     await dbQuery(
       "INSERT INTO users (user_id, username, email, user_password) VALUES (?, ?, ?, ?)",
-      [userId, username, email, hashedPassword] // Include userId in the values to insert
+      [userId, sanitizedData.username, sanitizedData.email, hashedPassword] // Include userId in the values to insert
     );
 
     // Respond to the client. Depending on your application, you might also want to

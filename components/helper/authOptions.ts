@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { dbQuery } from "@/utils/dbQuery";
 import bcrypt from "bcrypt";
 import { User } from "@/components/types/user-types";
+import validator from "validator";
 
 //Type Interface
 type Credentials = {
@@ -20,9 +21,14 @@ export const authOptions: NextAuthOptions = {
       authorize: async (credentials) => {
         const { username, password } = credentials as Credentials;
 
+        const sanitizedData = {
+          username: validator.escape(username),
+          password: validator.escape(password),
+        }
+
         const users = await dbQuery(
           "SELECT user_id, username, user_password FROM users WHERE username = ?",
-          [username]
+          [sanitizedData.username]
         );
 
         const user: User | undefined = users[0] as User;
@@ -41,7 +47,7 @@ export const authOptions: NextAuthOptions = {
 
         //Unhash password and compare to user submission
         const passwordMatches = await bcrypt.compare(
-          password,
+          sanitizedData.password,
           user.user_password
         );
 

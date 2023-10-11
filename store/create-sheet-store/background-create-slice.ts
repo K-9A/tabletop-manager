@@ -6,7 +6,7 @@ interface BackgroundCreateState {
     backstory: string;
     bonds: string;
     appearance: string;
-    ideas: string;
+    ideals: string;
     flaws: string;
     valuables: string;
     additional_traits: string;
@@ -21,7 +21,7 @@ const initialBackgroundCreateState = {
     backstory: "",
     bonds: "",
     appearance: "",
-    ideas: "",
+    ideals: "",
     flaws: "",
     valuables: "",
     additional_traits: "",

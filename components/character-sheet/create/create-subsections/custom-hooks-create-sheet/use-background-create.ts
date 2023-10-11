@@ -23,7 +23,7 @@ export const useBackgroundCreate = (initialData) => {
       backstory: backgroundData.backstory,
       bonds: backgroundData.bonds,
       appearance: backgroundData.appearance,
-      ideals: backgroundData.ideas,
+      ideals: backgroundData.ideals,
       flaws: backgroundData.flaws,
       valuables: backgroundData.valuables,
       additional_traits: backgroundData.additional_traits,
