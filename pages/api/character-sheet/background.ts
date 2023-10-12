@@ -8,6 +8,7 @@ import { loggerMiddleware } from "@/utils/logging/logger-middleware";
 import { dbQuery } from "@/utils/dbQuery";
 import { getServerSession } from "next-auth";
 import authOptions from "@/pages/api/auth/[...nextauth]";
+import { BackgroundTypes } from "@/components/types/api-route-types";
 
 const submitBackgroundData = async (
   req: NextApiRequest,
@@ -22,6 +23,9 @@ const submitBackgroundData = async (
   }
 
   if (req.method === "POST") {
+
+    const data: BackgroundTypes = req.body;
+
     try {
       // Extract data from the request body
       const {
@@ -34,7 +38,7 @@ const submitBackgroundData = async (
         valuables,
         additional_traits,
         characterId,
-      } = req.body;
+      } = data;
 
       const sanitizedData = {
         personality: validator.escape(personality),

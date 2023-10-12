@@ -8,7 +8,7 @@ import { loggerMiddleware } from "@/utils/logging/logger-middleware";
 import { dbQuery } from "@/utils/dbQuery";
 import { getServerSession } from "next-auth";
 import authOptions from "@/pages/api/auth/[...nextauth]";
-
+import { AbilityScoreTypes } from "@/components/types/api-route-types";
 
 const submitAbilityScoresData = async (
   req: NextApiRequest,
@@ -23,6 +23,8 @@ const submitAbilityScoresData = async (
   }
 
   if (req.method === "POST") {
+    // Type the request body
+    const data: AbilityScoreTypes = req.body;
 
     try {
       // Extract data from the request body
@@ -47,8 +49,7 @@ const submitAbilityScoresData = async (
         chr_save,
         passive_perception,
         characterId,
-      } = req.body;
-      
+      } = data;
 
       //Use the validator package to sanitize data for SQL querying
       const sanitizedData = {
@@ -72,7 +73,7 @@ const submitAbilityScoresData = async (
         chr_save: validator.escape(chr_save),
         passive_perception: validator.escape(passive_perception),
       };
-      
+
       await dbQuery(
         "INSERT INTO ability_scores (character_id, strength_score, dexterity_score, con_score, int_score, wis_score, chr_score, str_mod, dex_mod, con_mod, int_mod, wis_mod, chr_mod, str_save, dex_save, con_save, int_save, wis_save, chr_save, passive_perception) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
@@ -109,11 +110,10 @@ const submitAbilityScoresData = async (
   }
 };
 
-
 export default loggerMiddleware(
-    headersMiddleware(
-      withCreateRateLimit(
-        validateWithSchema(abilityScoresSchema, submitAbilityScoresData)
-      )
+  headersMiddleware(
+    withCreateRateLimit(
+      validateWithSchema(abilityScoresSchema, submitAbilityScoresData)
     )
-  );
+  )
+);

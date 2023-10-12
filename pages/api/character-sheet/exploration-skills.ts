@@ -8,6 +8,7 @@ import { loggerMiddleware } from "@/utils/logging/logger-middleware";
 import { dbQuery } from "@/utils/dbQuery";
 import { getServerSession } from "next-auth";
 import authOptions from "@/pages/api/auth/[...nextauth]";
+import { ExplorationTypes } from "@/components/types/api-route-types";
 
 const submitExplorationSkillsData = async (
   req: NextApiRequest,
@@ -22,6 +23,8 @@ const submitExplorationSkillsData = async (
   }
 
   if (req.method === "POST") {
+    // Type the request body
+    const data: ExplorationTypes = req.body;
     try {
       // Extract data from the request body
       const {
@@ -44,7 +47,7 @@ const submitExplorationSkillsData = async (
         stealth,
         survival,
         characterId,
-      } = req.body;
+      } = data;
 
       //Use the validator package to sanitize data for SQL querying
       const sanitizedData = {
@@ -68,7 +71,7 @@ const submitExplorationSkillsData = async (
         survival: validator.escape(survival),
       };
 
-      console.log(sanitizedData)
+      console.log(sanitizedData);
       await dbQuery(
         "INSERT INTO exploration_skills (character_id, acrobatics, animal, arcana, athletics, deception, history, insight, intimidation, investigation, medicine, nature, perception, performance, persuasion, religion, sleight, stealth, survival) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
@@ -93,7 +96,6 @@ const submitExplorationSkillsData = async (
           sanitizedData.survival,
         ]
       );
-      
 
       res.status(200).json({ success: true });
     } catch (error) {

@@ -39,10 +39,6 @@ export const combatStatsSchema = Yup.object({
       .min(0, "Inspiration cannot be negative")
       .nullable()
       .transform((_, val) => (val !== "" ? Number(val) : null)),
-    spell_casting: Yup.number()
-      .typeError("Spell Casting must be a number")
-      .nullable()
-      .transform((_, val) => (val !== "" ? Number(val) : null)),
     spell_save: Yup.number()
       .typeError("Spell Save must be a number")
       .required("Spell Save is required"),

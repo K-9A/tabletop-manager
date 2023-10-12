@@ -5,6 +5,7 @@ import { loggerMiddleware } from "@/utils/logging/logger-middleware";
 import { dbQuery } from "@/utils/dbQuery";
 import { getServerSession } from "next-auth";
 import authOptions from "@/pages/api/auth/[...nextauth]";
+import { OkPacketParams } from "mysql2"; //For Typescript
 
 const submitCreateSheet = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerSession(req, res, authOptions);
@@ -21,7 +22,7 @@ const submitCreateSheet = async (req: NextApiRequest, res: NextApiResponse) => {
       userId
     } = req.body;
 
-    const result = await dbQuery("INSERT INTO character_sheet (user_id) VALUES (?)", [userId]);
+    const result = await dbQuery("INSERT INTO character_sheet (user_id) VALUES (?)", [userId]) as OkPacketParams;
     const characterId = result.insertId;
 
 

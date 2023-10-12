@@ -8,6 +8,7 @@ import { loggerMiddleware } from "@/utils/logging/logger-middleware";
 import { dbQuery } from "@/utils/dbQuery";
 import { getServerSession } from "next-auth";
 import authOptions from "@/pages/api/auth/[...nextauth]";
+import { CombatStatsType } from "@/components/types/api-route-types";
 
 const submitCombatStatsData = async (
   req: NextApiRequest,
@@ -22,6 +23,8 @@ const submitCombatStatsData = async (
   }
 
   if (req.method === "POST") {
+    // Type the request body
+    const data: CombatStatsType = req.body;
 
     try {
       // Extract data from the request body
@@ -39,7 +42,7 @@ const submitCombatStatsData = async (
         spell_save,
         spell_attack,
         characterId,
-      } = req.body;
+      } = data;
 
       //Use the validator package to sanitize data for SQL querying
       const sanitizedData = {
@@ -87,9 +90,9 @@ const submitCombatStatsData = async (
 };
 
 export default loggerMiddleware(
-    headersMiddleware(
-      withCreateRateLimit(
-        validateWithSchema(combatStatsSchema, submitCombatStatsData)
-      )
+  headersMiddleware(
+    withCreateRateLimit(
+      validateWithSchema(combatStatsSchema, submitCombatStatsData)
     )
-  );
+  )
+);

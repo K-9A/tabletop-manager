@@ -8,6 +8,7 @@ import { loggerMiddleware } from "@/utils/logging/logger-middleware";
 import { dbQuery } from "@/utils/dbQuery";
 import { getServerSession } from "next-auth";
 import authOptions from "@/pages/api/auth/[...nextauth]";
+import { FeaturesTraitsTypes } from "@/components/types/api-route-types";
 
 const submitFeatsTraitsData = async (
   req: NextApiRequest,
@@ -22,6 +23,8 @@ const submitFeatsTraitsData = async (
   }
 
   if (req.method === "POST") {
+    // Type the request body
+    const data: FeaturesTraitsTypes = req.body;
 
     try {
       // Extract data from the request body
@@ -33,7 +36,7 @@ const submitFeatsTraitsData = async (
         debuffs,
         other_proficiency,
         characterId,
-      } = req.body;
+      } = data;
 
       //Use the validator package to sanitize data for SQL querying
       const sanitizedData = {
@@ -45,18 +48,18 @@ const submitFeatsTraitsData = async (
         other_proficiency: validator.escape(other_proficiency),
       };
 
-        await dbQuery(
-          "INSERT INTO feats_traits (character_id, weapon_proficiency, armor_proficiency, features_traits, buffs, debuffs, other_proficiency) VALUES (?, ?, ?, ?, ?, ?, ?)",
-          [
-            characterId,
-            sanitizedData.weapon_proficiency,
-            sanitizedData.armor_proficiency,
-            sanitizedData.feats_traits,
-            sanitizedData.buffs,
-            sanitizedData.debuffs,
-            sanitizedData.other_proficiency,
-          ]
-        );
+      await dbQuery(
+        "INSERT INTO feats_traits (character_id, weapon_proficiency, armor_proficiency, features_traits, buffs, debuffs, other_proficiency) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        [
+          characterId,
+          sanitizedData.weapon_proficiency,
+          sanitizedData.armor_proficiency,
+          sanitizedData.feats_traits,
+          sanitizedData.buffs,
+          sanitizedData.debuffs,
+          sanitizedData.other_proficiency,
+        ]
+      );
 
       res.status(200).json({ success: true });
     } catch (error) {
@@ -68,11 +71,10 @@ const submitFeatsTraitsData = async (
   }
 };
 
-
 export default loggerMiddleware(
-    headersMiddleware(
-      withCreateRateLimit(
-        validateWithSchema(featsTraitsSchema, submitFeatsTraitsData)
-      )
+  headersMiddleware(
+    withCreateRateLimit(
+      validateWithSchema(featsTraitsSchema, submitFeatsTraitsData)
     )
-  );
+  )
+);

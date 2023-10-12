@@ -8,6 +8,9 @@ import { loggerMiddleware } from "@/utils/logging/logger-middleware";
 import { dbQuery } from "@/utils/dbQuery";
 import { getServerSession } from "next-auth";
 import authOptions from "@/pages/api/auth/[...nextauth]";
+import { CoreProfileTypes } from "@/components/types/api-route-types";
+
+
 
 const submitCoreProfileData = async (
   req: NextApiRequest,
@@ -22,6 +25,9 @@ const submitCoreProfileData = async (
   }
 
   if (req.method === "POST") {
+    // Type the request body
+    const data: CoreProfileTypes = req.body;
+
     try {
       // Extract data from the request body
       const {
@@ -34,7 +40,7 @@ const submitCoreProfileData = async (
         next_level,
         affinity,
         characterId,
-      } = req.body;
+      } = data;
 
       //Use the validator package to sanitize data for SQL querying
       const sanitizedData = {
@@ -59,7 +65,7 @@ const submitCoreProfileData = async (
           sanitizedData.proficiency,
           sanitizedData.char_level,
           sanitizedData.experience,
-          sanitizedData.next_level
+          sanitizedData.next_level,
         ]
       );
 

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { skillsSchema } from "@/components/character-sheet/validation-schema/skills-schema";
+import { itemsSchema } from "@/components/character-sheet/validation-schema/items-schema";
 import validateWithSchema from "@/components/helper/validationMiddleware";
 import { withCreateRateLimit } from "@/components/character-sheet/create/create-subsections/submission/with-rate-limit";
 import validator from "validator";
@@ -8,9 +8,9 @@ import { loggerMiddleware } from "@/utils/logging/logger-middleware";
 import { dbQuery } from "@/utils/dbQuery";
 import { getServerSession } from "next-auth";
 import authOptions from "@/pages/api/auth/[...nextauth]";
-import { SkillTypes } from "@/components/types/api-route-types";
+import { ItemTypes } from "@/components/types/api-route-types";
 
-const submitSkillsData = async (req: NextApiRequest, res: NextApiResponse) => {
+const submitItemsData = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerSession(req, res, authOptions);
 
   if (!session) {
@@ -22,27 +22,27 @@ const submitSkillsData = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
     try {
       // Extract the characterId and the skills object from req.body.
-      const { characterId, ...skillsObject } = req.body;
+      const { characterId, ...itemsObject } = req.body;
 
       //Convert the object with numeric keys into an array of skills.
-      const skillsArray: SkillTypes[] = Object.values(skillsObject);
+      const itemsArray: ItemTypes[] = Object.values(itemsObject);
 
       //Use the validator package to sanitize data for SQL querying
-      const sanitizedSkills = skillsArray.map((skill) => [
+      const sanitizedItems = itemsArray.map((item) => [
         characterId,
-        validator.escape(skill.skill_name),
-        validator.escape(skill.skill_description),
-        validator.escape(skill.skill_cooldown),
-        validator.escape(skill.skill_available),
+        validator.escape(item.item_name),
+        validator.escape(item.item_description),
+        validator.escape(item.item_amount),
+        validator.escape(item.item_max),
       ]);
 
       //Doing bulk query insert. Faster than for looping.
-      const placeholders = sanitizedSkills.map(() => '(?, ?, ?, ?, ?)').join(', ');
+      const placeholders = sanitizedItems.map(() => '(?, ?, ?, ?, ?)').join(', ');
 
-      const query = `INSERT INTO skills (character_id, skill_name, skill_description, skill_cooldown, skill_available) VALUES ${placeholders}`;
+      const query = `INSERT INTO items (character_id, item_name, item_description, item_amount, item_max) VALUES ${placeholders}`;
       
       // Flatten the array of arrays to match the number of placeholders
-      const values = [].concat(...sanitizedSkills);
+      const values = [].concat(...sanitizedItems);
       
       await dbQuery(query, values);
 
@@ -58,6 +58,6 @@ const submitSkillsData = async (req: NextApiRequest, res: NextApiResponse) => {
 
 export default loggerMiddleware(
   headersMiddleware(
-    withCreateRateLimit(validateWithSchema(skillsSchema, submitSkillsData))
+    withCreateRateLimit(validateWithSchema(itemsSchema, submitItemsData))
   )
 );

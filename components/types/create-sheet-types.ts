@@ -4,4 +4,3 @@ export interface CoreProfileCreateValues {
     affinity: string;
     // ... other fields
   }
-  

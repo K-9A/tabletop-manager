@@ -15,8 +15,7 @@ const SubmitCharacterSheet = (props) => {
 
   //Check if all sections re valid
   const { allIsValid } = AllIsValid();
-  //purely for debugging
-  const alwaysValid = true;
+
 
 
   return (
@@ -40,8 +39,8 @@ const SubmitCharacterSheet = (props) => {
       {/*{loading && <Spinner />}*/} {/* Some loading spinner component */}
       <div className="mt-10 flex justify-center">
         <Button
-          disabled={!alwaysValid}
-          color={alwaysValid ? "green" : "red"}
+          disabled={!allIsValid}
+          color={allIsValid ? "green" : "red"}
           onClick={handleSubmit}
         >
           Submit Character Sheet

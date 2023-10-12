@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 
-
 const initialCreateCombatStatsState = {
 
     current_hp: "",
