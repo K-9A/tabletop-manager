@@ -2,7 +2,7 @@ import { useFormik,FormikErrors } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { createSkillsActions } from "@/store/create-sheet-store/skills-create-slice";
 import { RootState, AppDispatch } from "@/store";
-import { skillsSchema } from "@/components/character-sheet/validation-schema/skills-schema";
+import { skillsSchema } from "@/components/validation-schema/character-sheet/skills-schema";
 
 export const useSkillsCreate = (initialData) => {
   const isDarkMode = useSelector((state: RootState) => state.darkMode);

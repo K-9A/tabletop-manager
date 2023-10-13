@@ -1,5 +1,6 @@
 import { Typography } from "@material-tailwind/react";
 import { UserInfoProps } from "../types/dash-types";
+import formatDate from "../helper/format-date";
 
 
 const UserInfo: React.FC<UserInfoProps> = ({ user, labelBgColor }) => {
@@ -23,7 +24,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ user, labelBgColor }) => {
             <span className="font-bold">Email:</span> {user.email}
           </p>
           <p className="text-sm">
-            <span className="font-bold">Date Joined:</span> {user.created_at}
+            <span className="font-bold">Date Joined:</span> {formatDate(user.created_at)}
           </p>
           <p className="text-sm">
             <span className="font-bold">Campaigns Owned:</span>{" "}

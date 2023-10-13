@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { createBackgroundActions } from "@/store/create-sheet-store/background-create-slice";
 import { RootState, AppDispatch } from "@/store";
-import { backgroundSchema } from "@/components/character-sheet/validation-schema/background-schema";
+import { backgroundSchema } from "@/components/validation-schema/character-sheet/background-schema";
 
 
 export const useBackgroundCreate = (initialData) => {

@@ -1,87 +1,18 @@
 import React from "react";
 import Link from "next/link";
-import axios from "@/utils/axios-instance";
-import { useRouter } from "next/router";
-import { useFormik } from "formik";
+import { useRegister } from "./custom-hooks/auth-hooks/use-register";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
-import { useMemoizedAlert } from "./layout/alert";
-import { ErrorResponse, MessageError } from "./types/error-types";
-import * as Yup from "yup";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import AuthErrorMessage from "./helper/auth-error";
 
-const validationSchema = Yup.object({
-  username: Yup.string().required("Username is required"),
-  email: Yup.string()
-    .email("Invalid email format")
-    .required("Email is required"),
-  password: Yup.string()
-    .min(5, "Password must be at least 5 characters")
-    .required("Password is required"),
-});
 
 export default function Register() {
-  //Router used for redirecting user after registration.
-  const router = useRouter();
-
-  //Alert component
-  const addAlertMemo = useMemoizedAlert();
 
   //Darkmode state
   const isDarkMode = useSelector((state: RootState) => state.darkMode);
 
-  // Typeguard for error functions
-  function isErrorWithResponse(error: any): error is ErrorResponse {
-    return (
-      error && error.response && typeof error.response.data.error === "string"
-    );
-  }
-
-  function isErrorWithMessage(error: any): error is MessageError {
-    return error && typeof error.message === "string";
-  }
-
-  const formik = useFormik({
-    initialValues: {
-      username: "",
-      email: "",
-      password: "",
-    },
-    validationSchema: validationSchema,
-    onSubmit: async (values) => {
-      try {
-        //Point Axios to the Register API route.
-        const response = await axios.post("/register", {
-          username: values.username,
-          email: values.email,
-          password: values.password,
-        });
-
-        if (response.status === 201) {
-          console.log("Registration successful!");
-          addAlertMemo("Registration successful!", "success");
-          setTimeout(() => {
-            router.push("/login");
-          }, 1000); // Delay of 1 second
-        }
-      } catch (error) {
-        if (isErrorWithResponse(error)) {
-          console.error(
-            "Error during registration:",
-            error.response.data.error
-          );
-          addAlertMemo("Registration failed. Please try again.", "error");
-        } else if (isErrorWithMessage(error)) {
-          console.error("Error during registration:", error.message);
-          addAlertMemo("Registration failed. Please try again.", "error");
-        } else {
-          console.error("Error during registration: Unknown error");
-          addAlertMemo("Registration failed.", "error");
-        }
-      }
-    },
-  });
+  const { formik } = useRegister();
 
   return (
     <Card color="transparent" shadow={false} className="shadow-none">

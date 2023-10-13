@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
+import Head from "next/head";
 
 function AboutPage() {
   return (
@@ -10,6 +11,10 @@ function AboutPage() {
       variants={PageFade}
       transition={{ duration: 0.2 }}
     >
+      <Head>
+        <title>About</title>
+        <meta name="About Page" content="Tabletop Manager About Page" />
+      </Head>
       <h1> About Page</h1>
     </motion.main>
   );

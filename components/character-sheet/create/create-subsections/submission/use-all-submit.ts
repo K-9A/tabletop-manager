@@ -231,8 +231,6 @@ export const useAllHandleSubmit = (initialData) => {
         if (!responseItemsCreate.data.success)
           throw new Error(responseItemsCreate.data.error);
 
-
-
       //setData(combinedData);
     } catch (error) {
       setError(error.message);

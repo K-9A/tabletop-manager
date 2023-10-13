@@ -17,7 +17,6 @@ const SubmitCharacterSheet = (props) => {
   const { allIsValid } = AllIsValid();
 
 
-
   return (
     <motion.div
       initial="initial"

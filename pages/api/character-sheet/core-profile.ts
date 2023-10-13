@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { coreProfileSchema } from "@/components/character-sheet/validation-schema/core-profile-schema";
+import { coreProfileSchema } from "@/components/validation-schema/character-sheet/core-profile-schema";
 import validateWithSchema from "@/components/helper/validationMiddleware";
 import { withCreateRateLimit } from "@/components/character-sheet/create/create-subsections/submission/with-rate-limit";
 import validator from "validator";

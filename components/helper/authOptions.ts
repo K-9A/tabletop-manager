@@ -41,7 +41,6 @@ export const authOptions: NextAuthOptions = {
 
         //If submitted user doesn't exist.
         if (!user) {
-          console.log("User doesn't match");
           throw new Error(invalidMessage);
         }
 

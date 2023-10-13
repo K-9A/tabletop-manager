@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { createExplorationSkillsActions } from "@/store/create-sheet-store/exploration-skills-create-slice";
 import { RootState, AppDispatch } from "@/store";
-import { explorationSkillsSchema } from "@/components/character-sheet/validation-schema/explortation-skills-schema";
+import { explorationSkillsSchema } from "@/components/validation-schema/character-sheet/explortation-skills-schema";
 
 
 export const useExplorationSkillsCreate = (initialData) => {

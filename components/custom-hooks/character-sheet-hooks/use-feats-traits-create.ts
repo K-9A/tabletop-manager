@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { createFeatsTraitsActions } from "@/store/create-sheet-store/feats-traits-create-slice";
 import { RootState, AppDispatch } from "@/store";
-import { featsTraitsSchema } from "@/components/character-sheet/validation-schema/feats-traits-schema";
+import { featsTraitsSchema } from "@/components/validation-schema/character-sheet/feats-traits-schema";
 
 
 

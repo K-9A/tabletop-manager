@@ -7,8 +7,10 @@ import {
   Checkbox,
   Tooltip,
   Typography,
+  Select,
+  Option,
 } from "@material-tailwind/react";
-import { useSpellsCreate } from "./custom-hooks-create-sheet/use-spells-create";
+import { useSpellsCreate } from "../../../custom-hooks/character-sheet-hooks/use-spells-create";
 import { SpellsCreateTooltip } from "@/components/helper/tooltips";
 import { FormikErrors, FormikTouched } from "formik";
 
@@ -139,9 +141,7 @@ const SpellsCreate = (props) => {
                   }}
                   crossOrigin=""
                 />
-                <ErrorMessage
-                  message={getErrorMessage("spell_tier", index)}
-                />
+                <ErrorMessage message={getErrorMessage("spell_tier", index)} />
               </div>
             </div>
           ))}
@@ -169,7 +169,6 @@ const SpellsCreate = (props) => {
           </div>
         </div>
       </div>
-
 
       <div className="flex">
         <Checkbox

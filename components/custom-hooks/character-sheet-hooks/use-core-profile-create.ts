@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { createCoreProfileActions } from "@/store/create-sheet-store/core-profile-create-slice";
 import { RootState, AppDispatch } from "@/store";
-import { coreProfileSchema } from "@/components/character-sheet/validation-schema/core-profile-schema";
+import { coreProfileSchema } from "@/components/validation-schema/character-sheet/core-profile-schema";
 
 
 export const useCoreProfileCreate = (initialData) => {

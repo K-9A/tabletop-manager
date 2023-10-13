@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { explorationSkillsSchema } from "@/components/character-sheet/validation-schema/explortation-skills-schema";
+import { explorationSkillsSchema } from "@/components/validation-schema/character-sheet/explortation-skills-schema";
 import validateWithSchema from "@/components/helper/validationMiddleware";
 import { withCreateRateLimit } from "@/components/character-sheet/create/create-subsections/submission/with-rate-limit";
 import validator from "validator";

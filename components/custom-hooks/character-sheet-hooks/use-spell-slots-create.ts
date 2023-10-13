@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { createSpellSlotsActions } from "@/store/create-sheet-store/spell-slots-create-slice";
 import { RootState, AppDispatch } from "@/store";
-import { spellSlotsSchema } from "@/components/character-sheet/validation-schema/spell-slots-schema";
+import { spellSlotsSchema } from "@/components/validation-schema/character-sheet/spell-slots-schema";
 
 
 export const useSpellSlotsCreate = (initialData) => {

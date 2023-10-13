@@ -2,7 +2,7 @@ import { useFormik, FormikErrors } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { createEquipmentActions } from "@/store/create-sheet-store/equipment-create-slice";
 import { RootState, AppDispatch } from "@/store";
-import { equipmentSchema } from "@/components/character-sheet/validation-schema/equipment-schema";
+import { equipmentSchema } from "@/components/validation-schema/character-sheet/equipment-schema";
 
 
 export const useEquipmentCreate = (initialData) => {

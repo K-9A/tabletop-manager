@@ -1,4 +1,5 @@
 import { Typography, Button } from "@material-tailwind/react";
+import Link from "next/link";
 
 interface CampaignSectionProps {
   labelBgColor: string;
@@ -15,12 +16,16 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({ labelBgColor }) => {
         Campaign
       </Typography>
       <div className="flex flex-col items-center space-y-6 py-4">
-        <Button className="py-6" color="deep-purple" fullWidth>
+      <Link href="/campaign-view">
+        <Button className="py-6 px-8" color="deep-purple" fullWidth>
           View Campaign
         </Button>
+        </Link>
+        <Link href="/campaign-create">
         <Button className="py-6" color="deep-purple" fullWidth>
           Create Campaign
         </Button>
+        </Link>
       </div>
     </div>
   );

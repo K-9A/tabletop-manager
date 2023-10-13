@@ -1,5 +1,6 @@
 import Register from "@/components/register";
 import DisplayBox from "@/components/layout/containers/display-box";
+import Head from "next/head";
 import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext } from "next";
 import { motion } from "framer-motion";
@@ -16,6 +17,13 @@ function RegisterPage() {
       className="flex justify-center items-start mt-10"
     >
       <DisplayBox>
+      <Head>
+        <title>Register</title>
+        <meta
+          name="Register Page"
+          content="Tabletop Manager Register Page"
+        />
+      </Head>
         <Register />
       </DisplayBox>
     </motion.main>

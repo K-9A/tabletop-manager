@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
 import ErrorMessage from "@/components/helper/error-message";
-import { useSpellSlotsCreate } from "./custom-hooks-create-sheet/use-spell-slots-create";
+import { useSpellSlotsCreate } from "../../../custom-hooks/character-sheet-hooks/use-spell-slots-create";
 import { Input, Tooltip, Typography, Checkbox } from "@material-tailwind/react";
 import { MarkAsCompleteTooltip } from "@/components/helper/tooltips";
 

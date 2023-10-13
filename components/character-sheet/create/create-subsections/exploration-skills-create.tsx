@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
 import ErrorMessage from "@/components/helper/error-message";
-import { useExplorationSkillsCreate } from "./custom-hooks-create-sheet/use-exploration-skills-create";
+import { useExplorationSkillsCreate } from "../../../custom-hooks/character-sheet-hooks/use-exploration-skills-create";
 import { Input, Tooltip } from "@material-tailwind/react";
 
 const ExplorationSkillsCreate = (props) => {

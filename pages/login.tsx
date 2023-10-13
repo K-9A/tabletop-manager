@@ -1,4 +1,5 @@
 import Login from "@/components/login";
+import Head from "next/head";
 import DisplayBox from "@/components/layout/containers/display-box";
 import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext } from "next";
@@ -15,6 +16,13 @@ function LoginPage() {
       transition={{ duration: 0.2 }}
       className="flex justify-center items-start mt-10"
     >
+      <Head>
+        <title>Login</title>
+        <meta
+          name="Login Page"
+          content="Tabletop Manager Login Page"
+        />
+      </Head>
       <DisplayBox>
         <Login />
       </DisplayBox>

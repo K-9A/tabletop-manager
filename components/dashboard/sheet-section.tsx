@@ -22,7 +22,7 @@ const CharacterSheetSection: React.FC<CharacterSheetSectionProps> = ({
           View Character Sheet
         </Button>
 
-        <Link href={`/character-create`}>
+        <Link href="/character-create">
           <Button color="teal" fullWidth>
             Create Character Sheet
           </Button>

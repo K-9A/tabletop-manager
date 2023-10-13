@@ -2,7 +2,7 @@ import { useFormik, FormikErrors } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { createSpellsActions } from "@/store/create-sheet-store/spells-create-slice";
 import { RootState, AppDispatch } from "@/store";
-import { spellsSchema } from "@/components/character-sheet/validation-schema/spells-schema";
+import { spellsSchema } from "@/components/validation-schema/character-sheet/spells-schema";
 
 export const useSpellsCreate = (initialData) => {
   const isDarkMode = useSelector((state: RootState) => state.darkMode);

@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { createAbilityScoresActions } from "@/store/create-sheet-store/ability-scores-create-slice";
 import { RootState, AppDispatch } from "@/store";
-import { abilityScoresSchema } from "@/components/character-sheet/validation-schema/ability-scores-schema";
+import { abilityScoresSchema } from "@/components/validation-schema/character-sheet/ability-scores-schema";
 
 
 export const useAbilityScoresCreate = (initialData) => {

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { combatStatsSchema } from "@/components/character-sheet/validation-schema/combat-stats-schema";
+import { combatStatsSchema } from "@/components/validation-schema/character-sheet/combat-stats-schema";
 import validateWithSchema from "@/components/helper/validationMiddleware";
 import { withCreateRateLimit } from "@/components/character-sheet/create/create-subsections/submission/with-rate-limit";
 import validator from "validator";

@@ -5,12 +5,6 @@ import bcrypt from "bcrypt";
 import { customAlphabet } from "nanoid";
 import validator from "validator";
 
-// Define a custom nanoid alphabet function: 8-character length with the full alphabet and numbers
-const nanoid = customAlphabet(
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
-  8
-);
-
 // Tyepscript Interface for user data structure
 interface User {
   user_id: string;
@@ -42,7 +36,7 @@ const registerHandler = async (
     username: validator.escape(username),
     email: validator.escape(email),
     password: validator.escape(password),
-  }
+  };
 
   try {
     // Check if the username is already taken
@@ -57,7 +51,12 @@ const registerHandler = async (
     }
 
     //At this point we know that the registration submission is valid and will now be processed with necessary additions
-
+    
+    // Define a custom nanoid alphabet function: 8-character length with the full alphabet and numbers
+    const nanoid = customAlphabet(
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+      8
+    );
     // Generate a unique 8-character ID using nanoid
     const userId = nanoid();
 

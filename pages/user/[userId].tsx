@@ -1,13 +1,12 @@
 import DisplayBox from "@/components/layout/containers/display-box";
 import Dashboard from "@/components/dashboard/dashboard";
+import Head from "next/head";
 import { UserStaticProps } from "@/components/types/dash-types";
 import axios from "axios";
 import { Session } from "next-auth"; //For typescripting
 import { GetServerSidePropsContext } from "next";
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
-import authOptions from "@/pages/api/auth/[...nextauth]";
-import { getServerSession } from "next-auth";
 import { getSession } from "next-auth/react";
 
 type MySession = Session & {
@@ -24,6 +23,10 @@ function DashboardPage({ user }: UserStaticProps) {
       transition={{ duration: 0.2 }}
       className="flex justify-center items-start mt-6"
     >
+            <Head>
+        <title>Your Dashboard</title>
+        <meta name="Dashboard" content="Tabletop Manager Dashboard Page" />
+      </Head>
       <DisplayBox>
         <Dashboard user={user} />
       </DisplayBox>

@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { createCombatStatsActions } from "@/store/create-sheet-store/combat-stats-create-slice";
 import { RootState, AppDispatch } from "@/store";
-import { combatStatsSchema } from "@/components/character-sheet/validation-schema/combat-stats-schema";
+import { combatStatsSchema } from "@/components/validation-schema/character-sheet/combat-stats-schema";
 
 type CombatStats = {
   current_hp: number;
