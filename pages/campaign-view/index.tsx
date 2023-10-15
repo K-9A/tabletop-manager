@@ -1,4 +1,5 @@
 import DisplayBox from "@/components/layout/containers/display-box";
+import SheetForm from "@/components/layout/containers/sheet-box";
 import CampaignList from "@/components/campaign/view-campaign/campaign-list";
 import Head from "next/head";
 import { GetServerSidePropsContext } from "next";
@@ -27,9 +28,9 @@ const CreateCampaignPage: React.FC<CreateCampaignPageProps> = ({ session }) => {
           content="Tabletop Manager Campaign List Page"
         />
       </Head>
-      <DisplayBox>
+
         <CampaignList />
-      </DisplayBox>
+
     </motion.main>
   );
 };

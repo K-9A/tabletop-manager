@@ -34,12 +34,31 @@ const submitCreateSheet = async (req: NextApiRequest, res: NextApiResponse) => {
       // Generate a unique 12-character ID using nanoid
       const campaign_id = nanoid();
 
-      const result = (await dbQuery(
+      const result = await dbQuery(
         "INSERT INTO campaign (campaign_id, campaign_name, campaign_description, user_id) VALUES (?, ?, ?, ?)",
-        [campaign_id, sanitizedData.campaign_name, sanitizedData.campaign_description, userId]
-      ));
+        [
+          campaign_id,
+          sanitizedData.campaign_name,
+          sanitizedData.campaign_description,
+          userId,
+        ]
+      );
 
       res.status(200).json({ success: true });
+    } catch (error) {
+      //Something went wrong
+      res.status(500).json({ success: false, error: error.message });
+    }
+  } else if (req.method === "GET") {
+    const userId = req.query.userId; // You can pass the user ID as a query parameter or use a session/cookie
+
+    if (!userId) {
+      return res.status(400).json({ error: 'User ID is required' });
+    }
+
+    try {
+      const campaigns = await dbQuery('SELECT * FROM campaign WHERE userId = ?', [userId]);
+      return res.status(200).json({ success: true, data: campaigns });
     } catch (error) {
       //Something went wrong
       res.status(500).json({ success: false, error: error.message });
