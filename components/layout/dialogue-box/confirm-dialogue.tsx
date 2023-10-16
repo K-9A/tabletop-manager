@@ -5,19 +5,17 @@ import {
     DialogBody,
     DialogFooter,
   } from "@material-tailwind/react";
-  
 
-
-function ConfirmDialog({
+const ConfirmDialog: React.FC<any> = ({
     open,
     title,
     body,
     onConfirm,
     onCancel,
-  }) {
+  }) => {
     return (
-      <>
-        <Dialog open={open} onClose={onCancel} className="dark:bg-gray-800" >
+      // @ts-ignore
+        <Dialog open={open} onClose={onCancel as any} className="dark:bg-gray-800" >
           <DialogHeader className="dark:text-white">{title}</DialogHeader>
           <DialogBody className="dark:text-gray-300" divider>{body}</DialogBody >
           <DialogFooter>
@@ -34,7 +32,6 @@ function ConfirmDialog({
             </Button>
           </DialogFooter>
         </Dialog>
-      </>
     );
   }
   

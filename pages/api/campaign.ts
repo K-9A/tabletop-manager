@@ -44,23 +44,41 @@ const submitCreateSheet = async (req: NextApiRequest, res: NextApiResponse) => {
         ]
       );
 
-      res.status(200).json({ success: true });
+      res.status(200).json({ success: true, data: result });
     } catch (error) {
       //Something went wrong
       res.status(500).json({ success: false, error: error.message });
     }
   } else if (req.method === "GET") {
-    const userId = req.query.userId; // You can pass the user ID as a query parameter or use a session/cookie
+    const userId = req.query.userId;
 
     if (!userId) {
-      return res.status(400).json({ error: 'User ID is required' });
+      return res.status(400).json({ error: "User ID is required" });
     }
 
     try {
-      const campaigns = await dbQuery('SELECT * FROM campaign WHERE userId = ?', [userId]);
+      const campaigns = await dbQuery(
+        "SELECT campaign_id, campaign_name, date_created FROM campaign WHERE user_id = ?",
+        [userId]
+      );
       return res.status(200).json({ success: true, data: campaigns });
     } catch (error) {
       //Something went wrong
+      res.status(500).json({ success: false, error: error.message });
+    }
+  } else if (req.method === "DELETE") {
+    const { campaignId } = req.body;
+
+    if (!campaignId) {
+      return res.status(400).json({ error: "Campaign ID is required" });
+    }
+
+    try {
+      await dbQuery("DELETE FROM campaign WHERE campaign_id = ?", [campaignId]);
+      return res
+        .status(200)
+        .json({ success: true, message: "Campaign deleted successfully" });
+    } catch (error) {
       res.status(500).json({ success: false, error: error.message });
     }
   } else {

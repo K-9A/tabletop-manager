@@ -28,9 +28,7 @@ const CreateCampaignPage: React.FC<CreateCampaignPageProps> = ({ session }) => {
           content="Tabletop Manager Campaign List Page"
         />
       </Head>
-
         <CampaignList />
-
     </motion.main>
   );
 };
