@@ -4,17 +4,19 @@ import ListFooter from "@/components/view-list/list-footer";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { useSession } from "next-auth/react";
-import { useCampaignList } from "@/components/custom-hooks/campaign-hooks/use-campaign-list";
+import { useCharacterList } from "@/components/custom-hooks/character-sheet-hooks/use-character-list";
 import { Fragment } from "react";
 
 const TABLE_HEAD = [
-  { title: "Campaign Name", width: "w-1/2" },
-  { title: "Campaign Code", width: "w-1/4" },
+  { title: "Character Name", width: "w-1/2" },
+  { title: "Class", width: "w-1/4" },
+  { title: "Level", width: "w-1/4" },
   { title: "Date Created", width: "w-1/4" },
+  { title: "Campaign", width: "w-1/4" },
   { title: "Delete", width: "w-1/4" },
 ];
 
-const CampaignList = () => {
+const CharacterList = () => {
   //Darkmode state
   const isDarkMode = useSelector((state: RootState) => state.darkMode);
 
@@ -25,7 +27,7 @@ const CampaignList = () => {
   const {
     searchTerm,
     setSearchTerm,
-    handleCampaignDelete,
+    handleCharacterDelete,
     next,
     prev,
     totalPages,
@@ -33,14 +35,14 @@ const CampaignList = () => {
     active,
     isDialogOpen,
     setIsDialogOpen,
-    confirmCampaignDelete
-  } = useCampaignList(userId);
+    confirmCharacterDelete
+  } = useCharacterList(userId);
 
   return (
     <Fragment>
       <ListHeader
-        title="Campaign List"
-        subtitle="List of your Campaigns"
+        title="Character List"
+        subtitle="List of your Characters"
         searchPlaceholder="Search by Name"
         isDarkMode={isDarkMode}
         searchTerm={searchTerm}
@@ -50,11 +52,11 @@ const CampaignList = () => {
         headers={TABLE_HEAD}
         rows={currentRows}
         isDarkMode={isDarkMode}
-        onRowDelete={handleCampaignDelete}
-        noDataMessage="No Campaigns Found"
+        onRowDelete={handleCharacterDelete}
+        noDataMessage="No Characters Found"
         isDialogOpen={isDialogOpen}
         setIsDialogOpen={setIsDialogOpen}
-        confirmDelete={confirmCampaignDelete}
+        confirmDelete={confirmCharacterDelete}
       />
       <ListFooter
         activePage={active}
@@ -67,4 +69,4 @@ const CampaignList = () => {
   );
 };
 
-export default CampaignList;
+export default CharacterList;

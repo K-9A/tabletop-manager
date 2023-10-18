@@ -6,11 +6,11 @@ import { getSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
 
-interface CreateCampaignPageProps {
+interface CampaignListPageProps {
   session: any;
 }
 
-const CreateCampaignPage: React.FC<CreateCampaignPageProps> = ({ session }) => {
+const CampaignListPage: React.FC<CampaignListPageProps> = ({ session }) => {
   return (
     <motion.main
       initial="initial"
@@ -34,7 +34,7 @@ const CreateCampaignPage: React.FC<CreateCampaignPageProps> = ({ session }) => {
   );
 };
 
-export default CreateCampaignPage;
+export default CampaignListPage;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession({ req: context.req });

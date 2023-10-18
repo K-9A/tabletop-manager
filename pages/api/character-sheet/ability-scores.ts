@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { abilityScoresSchema } from "@/components/validation-schema/character-sheet/ability-scores-schema";
 import validateWithSchema from "@/components/helper/validationMiddleware";
-import { withCreateRateLimit } from "@/components/character-sheet/create/create-subsections/submission/with-rate-limit";
+import { withCreateRateLimit } from "@/components/custom-hooks/character-sheet-hooks/submission/with-rate-limit";
 import validator from "validator";
 import headersMiddleware from "@/utils/headers-middleware";
 import { loggerMiddleware } from "@/utils/logging/logger-middleware";
@@ -75,7 +75,7 @@ const submitAbilityScoresData = async (
       };
 
       await dbQuery(
-        "INSERT INTO ability_scores (character_id, strength_score, dexterity_score, con_score, int_score, wis_score, chr_score, str_mod, dex_mod, con_mod, int_mod, wis_mod, chr_mod, str_save, dex_save, con_save, int_save, wis_save, chr_save, passive_perception) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO ability_scores (character_id, str_score, dex_score, con_score, int_score, wis_score, chr_score, str_mod, dex_mod, con_mod, int_mod, wis_mod, chr_mod, str_save, dex_save, con_save, int_save, wis_save, chr_save, passive_perception) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           characterId,
           sanitizedData.str_score,

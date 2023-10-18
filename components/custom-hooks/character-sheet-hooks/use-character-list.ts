@@ -2,17 +2,17 @@ import { useState, useEffect, useCallback } from "react";
 import formatDate from "@/components/helper/format-date";
 import axios from "axios";
 
-export const useCampaignList = (userId) => {
+export const useCharacterList = (userId) => {
   const ROWS_PER_PAGE = 5; //Dictate how many entries go into each list page
 
-  const [campaigns, setCampaigns] = useState([]);
+  const [characters, setCharacters] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [active, setActive] = useState(1);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [campaignIdToDelete, setCampaignIdToDelete] = useState(null);
+  const [characterIdToDelete, setCharacterIdToDelete] = useState(null);
 
-  const filteredRows = campaigns.filter((row) =>
-    row.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredRows = characters.filter((row) =>
+    row.character_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
   //Pagination filtering based on page limit
   const totalPages = Math.ceil(filteredRows.length / ROWS_PER_PAGE);
@@ -22,44 +22,47 @@ export const useCampaignList = (userId) => {
   const currentRows = filteredRows.slice(startIndex, endIndex);
 
   //Fetch Campaigns
-  const fetchCampaigns = useCallback(() => {
+  const fetchCharacters = useCallback(() => {
     axios
-      .get(`/api/campaign?userId=${userId}`)
+      .get(`/api/character-list?userId=${userId}`)
       .then((response) => {
         if (response.data.success) {
-          const retrievedCampaigns = response.data.data.map((campaign) => ({
-            name: campaign.campaign_name,
-            code: campaign.campaign_id,
-            date: formatDate(campaign.date_created),
+          const retrievedCharacters = response.data.data.map((character) => ({
+            character_name: character.character_name,
+            class: character.class,
+            level: character.char_level,
+            date: formatDate(character.date_created),
+            campaign: character.campaign_id ? character.campaign_id : "Not Joined"
           }));
-          setCampaigns(retrievedCampaigns);
+          console.log("usehook", retrievedCharacters);
+          setCharacters(retrievedCharacters);
         }
       })
       .catch((error) => {
-        console.error("Error fetching campaigns:", error);
+        console.error("Error fetching character:", error);
       });
   }, [userId]);
 
   useEffect(() => {
-    fetchCampaigns();
-  }, [fetchCampaigns]); // runs when the component mounts and whenever userId changes
+    fetchCharacters();
+  }, [fetchCharacters]); // runs when the component mounts and whenever userId changes
 
-  const handleCampaignDelete = (campaignId) => {
-    setCampaignIdToDelete(campaignId);
+  const handleCharacterDelete = (characterId) => {
+    setCharacterIdToDelete(characterId);
     setIsDialogOpen(true);
   };
 
   //delete campaign api call
-  const confirmCampaignDelete = () => {
+  const confirmCharacterDelete = () => {
     axios
       .delete("/api/campaign", {
         data: {
-          campaignId: campaignIdToDelete.code,
+          characterId: characterIdToDelete.code,
         },
       })
       .then(() => {
         setIsDialogOpen(false);
-        fetchCampaigns(); // Fetch the updated list of campaigns after deletion
+        fetchCharacters(); // Fetch the updated list of campaigns after deletion
       })
       .catch((error) => {
         console.error("Error deleting campaign:", error);
@@ -81,13 +84,13 @@ export const useCampaignList = (userId) => {
   };
 
   return {
-    campaigns: currentRows,
+    characters: currentRows,
     searchTerm,
     setSearchTerm,
     isDialogOpen,
     setIsDialogOpen,
-    handleCampaignDelete,
-    confirmCampaignDelete,
+    handleCharacterDelete,
+    confirmCharacterDelete,
     next,
     prev,
     totalPages,

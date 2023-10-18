@@ -17,12 +17,12 @@ const CampaignSection: React.FC<CampaignSectionProps> = ({ labelBgColor }) => {
       </Typography>
       <div className="flex flex-col items-center space-y-6 py-4">
       <Link href="/campaign-view">
-        <Button className="py-6 px-8" color="deep-purple" fullWidth>
-          View Campaign
+        <Button className="py-5 px-8" color="deep-purple" fullWidth>
+          View Campaigns
         </Button>
         </Link>
         <Link href="/campaign-create">
-        <Button className="py-6" color="deep-purple" fullWidth>
+        <Button className="py-7" color="deep-purple" fullWidth>
           Create Campaign
         </Button>
         </Link>

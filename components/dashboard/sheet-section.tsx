@@ -17,10 +17,12 @@ const CharacterSheetSection: React.FC<CharacterSheetSectionProps> = ({
       >
         Character Sheet
       </Typography>
-      <div className="flex flex-col items-center space-y-6 py-4">
-        <Button color="teal" fullWidth>
-          View Character Sheet
-        </Button>
+      <div className="flex flex-col items-center space-y-6 py-5">
+        <Link href="/character-view">
+          <Button className="py-5" color="teal" fullWidth>
+            View Character Sheets
+          </Button>
+        </Link>
 
         <Link href="/character-create">
           <Button color="teal" fullWidth>

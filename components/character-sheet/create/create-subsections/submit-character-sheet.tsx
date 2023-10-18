@@ -1,8 +1,8 @@
 import { Button } from "@material-tailwind/react";
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
-import AllIsValid from "./submission/use-all-valid";
-import { useAllHandleSubmit } from "./submission/use-all-submit";
+import AllIsValid from "../../../custom-hooks/character-sheet-hooks/submission/use-all-valid";
+import { useAllHandleSubmit } from "../../../custom-hooks/character-sheet-hooks/submission/use-all-submit";
 
 const SubmitCharacterSheet = (props) => {
 

@@ -1,4 +1,5 @@
 import { TrashIcon } from "@heroicons/react/24/solid";
+import ConfirmDialog from "../layout/dialogue-box/confirm-dialogue";
 import {
   Typography,
   CardBody,
@@ -14,13 +15,16 @@ const truncateString = (str, num) => {
   };
 
 
-function ListBody({
+  function ListBody({
     headers,
     rows,
     isDarkMode,
     onRowDelete,
     noDataMessage = "No Data Found",
-    truncateLength = 40
+    truncateLength = 40,
+    isDialogOpen,
+    setIsDialogOpen,
+    confirmDelete
   }) {
     return (
       <CardBody className="px-0">
@@ -82,6 +86,13 @@ function ListBody({
                             <TrashIcon className="h-5 w-5" />
                           </IconButton>
                         </Tooltip>
+                        <ConfirmDialog
+                          open={isDialogOpen}
+                          title="Delete Campaign"
+                          body="Are you sure you want to delete this campaign? This action cannot be undone."
+                          onConfirm={confirmDelete}
+                          onCancel={() => setIsDialogOpen(false)}
+                        />
                         </IconButton>
                       </td>
                     </tr>

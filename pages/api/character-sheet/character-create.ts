@@ -7,7 +7,7 @@ import { getServerSession } from "next-auth";
 import authOptions from "@/pages/api/auth/[...nextauth]";
 import { OkPacketParams } from "mysql2"; //For Typescript
 
-const submitCreateSheet = async (req: NextApiRequest, res: NextApiResponse) => {
+const submitCharacter = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerSession(req, res, authOptions);
 
   if (!session) {
@@ -35,7 +35,7 @@ const submitCreateSheet = async (req: NextApiRequest, res: NextApiResponse) => {
 export default loggerMiddleware(
   headersMiddleware(
     withCreateRateLimit(
-      submitCreateSheet
+      submitCharacter
     )
   )
 );
