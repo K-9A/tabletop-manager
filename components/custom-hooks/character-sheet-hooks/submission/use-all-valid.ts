@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 
-//This helper file checks if all subsectons in character sheet create are valid
+//This helper file checks if all subsectons in character sheet create are valid using each redux store's "isValid"
 const AllIsValid = () => {
   //Grab all isValid from each subsection's slice
   const coreProfileIsValid = useSelector(
