@@ -21,20 +21,21 @@ export const useCharacterList = (userId) => {
   const endIndex = startIndex + ROWS_PER_PAGE;
   const currentRows = filteredRows.slice(startIndex, endIndex);
 
-  //Fetch Campaigns
+  //Fetch Characters
   const fetchCharacters = useCallback(() => {
     axios
       .get(`/api/character-list?userId=${userId}`)
       .then((response) => {
         if (response.data.success) {
           const retrievedCharacters = response.data.data.map((character) => ({
+            character_id: character.character_ID,
             character_name: character.character_name,
             class: character.class,
             level: character.char_level,
             date: formatDate(character.date_created),
             campaign: character.campaign_id ? character.campaign_id : "Not Joined"
           }));
-          console.log("usehook", retrievedCharacters);
+
           setCharacters(retrievedCharacters);
         }
       })
@@ -52,12 +53,12 @@ export const useCharacterList = (userId) => {
     setIsDialogOpen(true);
   };
 
-  //delete campaign api call
+  //delete character  api call
   const confirmCharacterDelete = () => {
     axios
-      .delete("/api/campaign", {
+      .delete("/api/character-list", {
         data: {
-          characterId: characterIdToDelete.code,
+          characterId: characterIdToDelete.character_id,
         },
       })
       .then(() => {
@@ -82,6 +83,8 @@ export const useCharacterList = (userId) => {
   const prev = () => {
     if (active > 1) setActive(active - 1);
   };
+
+  
 
   return {
     characters: currentRows,

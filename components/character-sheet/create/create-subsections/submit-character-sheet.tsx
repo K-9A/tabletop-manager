@@ -1,23 +1,28 @@
 import { Button } from "@material-tailwind/react";
+import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
 import AllIsValid from "../../../custom-hooks/character-sheet-hooks/submission/use-all-valid";
 import { useAllHandleSubmit } from "../../../custom-hooks/character-sheet-hooks/submission/use-all-submit";
 
 const SubmitCharacterSheet = (props) => {
-
-  const {
-    loading,
-    error,
-    data,
-    handleSubmit
-  } = useAllHandleSubmit(props.initialData);
+  const { loading, error, handleSubmit } = useAllHandleSubmit(
+    props.initialData
+  );
 
   //Check if all sections re valid
   const { allIsValid } = AllIsValid();
 
-  const alwaysValid = true;
+  const router = useRouter();
 
+  const handleSubmission = async () => {
+    try {
+        await handleSubmit();
+        router.push('/character-view');
+    } catch (err) {
+        // handle the error, maybe show a message to the user
+    }
+};
 
   return (
     <motion.div
@@ -39,13 +44,13 @@ const SubmitCharacterSheet = (props) => {
       </div>
       {/*{loading && <Spinner />}*/} {/* Some loading spinner component */}
       <div className="mt-10 flex justify-center">
-        <Button
-          disabled={!alwaysValid}
-          color={alwaysValid ? "green" : "red"}
-          onClick={handleSubmit}
-        >
-          Submit Character Sheet
-        </Button>
+          <Button
+            disabled={!allIsValid}
+            color={allIsValid ? "green" : "red"}
+            onClick={handleSubmission}
+          >
+            Submit Character Sheet
+          </Button>
       </div>
     </motion.div>
   );

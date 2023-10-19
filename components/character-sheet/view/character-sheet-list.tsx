@@ -8,12 +8,13 @@ import { useCharacterList } from "@/components/custom-hooks/character-sheet-hook
 import { Fragment } from "react";
 
 const TABLE_HEAD = [
+  { title: "ID", width: "w-1/6" },
   { title: "Character Name", width: "w-1/2" },
   { title: "Class", width: "w-1/4" },
-  { title: "Level", width: "w-1/4" },
+  { title: "Level", width: "w-1/6" },
   { title: "Date Created", width: "w-1/4" },
   { title: "Campaign", width: "w-1/4" },
-  { title: "Delete", width: "w-1/4" },
+  { title: "Delete", width: "w-1/6" },
 ];
 
 const CharacterList = () => {
@@ -35,8 +36,9 @@ const CharacterList = () => {
     active,
     isDialogOpen,
     setIsDialogOpen,
-    confirmCharacterDelete
+    confirmCharacterDelete,
   } = useCharacterList(userId);
+
 
   return (
     <Fragment>

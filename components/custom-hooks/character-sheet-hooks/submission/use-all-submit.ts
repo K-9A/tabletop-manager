@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { getSession } from "next-auth/react";
-import preparePayload from "@/components/helper/prepare-payload";
 import axios from "axios";
 
 //Functions to destructure the data, taking out the unnecessary bits from each subscetion while keeping the necessary fields.
@@ -94,21 +93,6 @@ export const useAllHandleSubmit = (initialData) => {
   const itemsObject = extractData(itemsRawData.items); //Extract useful data
   const itemsArray = convertRawObjToObjectArray(itemsObject); //Convert Object to Erray
 
-  //Bundle all the data.
-  // const combinedData = {
-  //   ...coreProfileData,
-  //   ...featsTraitsData,
-  //   ...backgroundData,
-  //   ...abilityScoresData,
-  //   ...combatStatsData,
-  //   ...explorationSkillsData,
-  //   ...skillsData,
-  //   ...spellsData,
-  //   ...spellSlotsData,
-  //   ...equipmentData,
-  //   ...itemsData,
-  // };
-
   const handleSubmit = async () => {
     setLoading(true);
     setError(null);
@@ -117,129 +101,29 @@ export const useAllHandleSubmit = (initialData) => {
     //Grab user id from getSession
     const userId = session.user.id;
 
-    //Submission will be done sequentially
+    //Submission will be done sequentially by using Database Transactions, meaning that if one thing doesn't go through
+    //The rest of the data isn't submitted either and appropriate rollbacks happen
     try {
-
       const responseCreateCharacterSheet = await axios.post(
-        "api/character-sheet/character-create",
-        { userId: userId,
-          coreProfile: coreProfileData }
+        "api/character-create",
+        {
+          userId: userId,
+          coreProfile: coreProfileData,
+          featsTraits: featsTraitsData,
+          background: backgroundData,
+          abilityScores: abilityScoresData,
+          combatStats: combatStatsData,
+          explorationSkills: explorationSkillsData,
+          skills: skillsArray,
+          spells: spellsArray,
+          spellSlots: spellSlotsData,
+          equipment: equipmentArray,
+          items: itemsArray
+        }
       );
       if (!responseCreateCharacterSheet.data.success)
         throw new Error(responseCreateCharacterSheet.data.error);
 
-      // //First create a parent table to house all the subsection table and create their links:
-      // const responseCreateCharacterSheet2 = await axios.post(
-      //   "api/character-sheet/parent-sheet",
-      //   { userId: userId }
-      // );
-      // if (!responseCreateCharacterSheet2.data.success)
-      //   throw new Error(responseCreateCharacterSheet2.data.error);
-
-      // // After the parent table data is created a new character sheet ID is made via auto increment, grab said
-      // // Id for the subsequent API insertions for the subsections
-      // const characterId = responseCreateCharacterSheet2.data.characterId;
-
-      // //Run a function that bundles the necessary data with the obtained character ID that was generated
-      // //From the create sheet API route
-      // const coreProfilePayload = preparePayload(coreProfileData, characterId);
-      // const featsTraitsPayload = preparePayload(featsTraitsData, characterId);
-      // const backgroundPayload = preparePayload(backgroundData, characterId);
-      // const abilityScoresPayload = preparePayload(
-      //   abilityScoresData,
-      //   characterId
-      // );
-      // const combatStatsPayload = preparePayload(combatStatsData, characterId);
-      // const explorationSkillsPayload = preparePayload(
-      //   explorationSkillsData,
-      //   characterId
-      // );
-      // const skillsPayload = preparePayload(skillsArray, characterId);
-      // const spellsPayload = preparePayload(spellsArray, characterId);
-      // const spellSlotsPayload = preparePayload(spellSlotsData, characterId);
-      // const equipmentPayload = preparePayload(equipmentArray, characterId);
-      // const itemsPayload = preparePayload(itemsArray, characterId);
-
-
-      // //This is for the subsection submissions themselves
-      // const responseCoreProfileCreate = await axios.post(
-      //   "api/character-sheet/core-profile",
-      //   coreProfilePayload
-      // );
-      // if (!responseCoreProfileCreate.data.success)
-      //   throw new Error(responseCoreProfileCreate.data.error);
-
-      // const responseFeatsTraitsCreate = await axios.post(
-      //   "api/character-sheet/features-traits",
-      //   featsTraitsPayload
-      // );
-      // if (!responseFeatsTraitsCreate.data.success)
-      //   throw new Error(responseFeatsTraitsCreate.data.error);
-
-      // const responseBackgroundCreate = await axios.post(
-      //   "api/character-sheet/background",
-      //   backgroundPayload
-      // );
-      // if (!responseBackgroundCreate.data.success)
-      //   throw new Error(responseBackgroundCreate.data.error);
-
-      // const responseAbilityScoresCreate = await axios.post(
-      //   "api/character-sheet/ability-scores",
-      //   abilityScoresPayload
-      // );
-      // if (!responseAbilityScoresCreate.data.success)
-      //   throw new Error(responseAbilityScoresCreate.data.error);
-
-      // const responseCombatStatsCreate = await axios.post(
-      //   "api/character-sheet/combat-stats",
-      //   combatStatsPayload
-      // );
-      // if (!responseCombatStatsCreate.data.success)
-      //   throw new Error(responseCombatStatsCreate.data.error);
-
-      // const responseExplorationSkillsCreate = await axios.post(
-      //   "api/character-sheet/exploration-skills",
-      //   explorationSkillsPayload
-      // );
-      // if (!responseExplorationSkillsCreate.data.success)
-      //   throw new Error(responseExplorationSkillsCreate.data.error);
-
-      // const responseSkillsCreate = await axios.post(
-      //   "api/character-sheet/skills",
-      //   skillsPayload
-      // );
-      // if (!responseSkillsCreate.data.success)
-      //   throw new Error(responseSkillsCreate.data.error);
-
-      // const responseSpellsCreate = await axios.post(
-      //   "api/character-sheet/spells",
-      //   spellsPayload
-      // );
-      // if (!responseSpellsCreate.data.success)
-      //   throw new Error(responseSpellsCreate.data.error);
-
-      // const responseSpellSlotsCreate = await axios.post(
-      //   "api/character-sheet/spell-slots",
-      //   spellSlotsPayload
-      // );
-      // if (!responseSpellSlotsCreate.data.success)
-      //   throw new Error(responseSpellSlotsCreate.data.error);
-
-      // const responseEquipmentCreate = await axios.post(
-      //   "api/character-sheet/equipment",
-      //   equipmentPayload
-      // );
-      // if (!responseEquipmentCreate.data.success)
-      //   throw new Error(responseEquipmentCreate.data.error);
-
-      //   const responseItemsCreate = await axios.post(
-      //     "api/character-sheet/items",
-      //     itemsPayload
-      //   );
-      //   if (!responseItemsCreate.data.success)
-      //     throw new Error(responseItemsCreate.data.error);
-
-      //setData(combinedData);
     } catch (error) {
       setError(error.message);
       // Handle network or other errors

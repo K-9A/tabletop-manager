@@ -1,86 +1,58 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { backgroundSchema } from "@/components/validation-schema/character-sheet/background-schema";
-import validateWithSchema from "@/components/helper/validationMiddleware";
-import { withCreateRateLimit } from "@/components/custom-hooks/character-sheet-hooks/submission/with-rate-limit";
 import validator from "validator";
-import headersMiddleware from "@/utils/headers-middleware";
-import { loggerMiddleware } from "@/utils/logging/logger-middleware";
-import { dbQuery } from "@/utils/dbQuery";
-import { getServerSession } from "next-auth";
-import authOptions from "@/pages/api/auth/[...nextauth]";
-import { BackgroundTypes } from "@/components/types/api-route-types";
+import { ValidationError } from "yup";
 
-const submitBackgroundData = async (
-  req: NextApiRequest,
-  res: NextApiResponse
+export const insertBackgroundData = async (
+  data,
+  characterId,
+  dbQuery: Function
 ) => {
-  const session = await getServerSession(req, res, authOptions);
-
-  if (!session) {
-    return res
-      .status(401)
-      .json({ success: false, message: "Not authenticated" });
-  }
-
-  if (req.method === "POST") {
-
-    const data: BackgroundTypes = req.body;
-
-    try {
-      // Extract data from the request body
-      const {
-        personality,
-        backstory,
-        bonds,
-        appearance,
-        ideals,
-        flaws,
-        valuables,
-        additional_traits,
-        characterId,
-      } = data;
-
-      const sanitizedData = {
-        personality: validator.escape(personality),
-        backstory: validator.escape(backstory),
-        bonds: validator.escape(bonds),
-        appearance: validator.escape(appearance),
-        ideals: validator.escape(ideals),
-        flaws: validator.escape(flaws),
-        valuables: validator.escape(valuables),
-        additional_traits: validator.escape(additional_traits),
-      };
-
-      await dbQuery(
-        "INSERT INTO background (character_id, personality, backstory, bonds, appearance, ideals, flaws, valuables, additional_traits) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [
-          characterId,
-          sanitizedData.personality,
-          sanitizedData.backstory,
-          sanitizedData.bonds,
-          sanitizedData.appearance,
-          sanitizedData.ideals,
-          sanitizedData.flaws,
-          sanitizedData.valuables,
-          sanitizedData.additional_traits,
-        ]
-      );
-
-      res.status(200).json({ success: true });
-    } catch (error) {
-      //Something went wrong
-      res.status(500).json({ success: false, error: error.message });
+  
+  //Use YUP schema validator to make sure data structure matches the Formik form front end
+  try {
+    await backgroundSchema.validate(data);
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      // Handle validation error (e.g., throw it to be caught in the main route)
+      throw new Error(error.message);
     }
-  } else {
-    res.status(405).end(); // Method Not Allowed
+    throw error; // For other types of errors
   }
+
+  const {
+    personality,
+    backstory,
+    bonds,
+    appearance,
+    ideals,
+    flaws,
+    valuables,
+    additional_traits,
+  } = data;
+
+  const sanitizedData = {
+    personality: validator.escape(personality),
+    backstory: validator.escape(backstory),
+    bonds: validator.escape(bonds),
+    appearance: validator.escape(appearance),
+    ideals: validator.escape(ideals),
+    flaws: validator.escape(flaws),
+    valuables: validator.escape(valuables),
+    additional_traits: validator.escape(additional_traits),
+  };
+
+  await dbQuery(
+    "INSERT INTO background (character_id, personality, backstory, bonds, appearance, ideals, flaws, valuables, additional_traits) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    [
+      characterId,
+      sanitizedData.personality,
+      sanitizedData.backstory,
+      sanitizedData.bonds,
+      sanitizedData.appearance,
+      sanitizedData.ideals,
+      sanitizedData.flaws,
+      sanitizedData.valuables,
+      sanitizedData.additional_traits,
+    ]
+  );
 };
-
-export default loggerMiddleware(
-  headersMiddleware(
-    withCreateRateLimit(
-      validateWithSchema(backgroundSchema, submitBackgroundData)
-    )
-  )
-);
-

@@ -24,7 +24,7 @@ const submitCreateSheet = async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
       const characters = await dbQuery(
-        "SELECT cp.character_name, cp.class, cp.char_level, cs.date_created, c.campaign_id FROM character_sheet cs JOIN core_profile cp ON cs.character_ID = cp.character_ID LEFT JOIN campaign c ON cs.campaign_id = c.campaign_id WHERE cs.user_id = ?",
+        "SELECT cp.character_ID, cp.character_name, cp.class, cp.char_level, cs.date_created, c.campaign_id FROM character_sheet cs JOIN core_profile cp ON cs.character_ID = cp.character_ID LEFT JOIN campaign c ON cs.campaign_id = c.campaign_id WHERE cs.user_id = ?",
         [userId]
       );
       return res.status(200).json({ success: true, data: characters });

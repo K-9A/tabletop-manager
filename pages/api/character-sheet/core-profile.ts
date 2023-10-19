@@ -2,19 +2,11 @@ import validator from "validator";
 import { coreProfileSchema } from "@/components/validation-schema/character-sheet/core-profile-schema";
 import { ValidationError } from "yup";
 
-
-export const insertCoreProfileData = async (data, characterId, dbQuery: Function) => {
-  const {
-    name,
-    char_class,
-    race,
-    proficiency,
-    char_level,
-    experience,
-    next_level,
-    affinity,
-  } = data;
-
+export const insertCoreProfileData = async (
+  data,
+  characterId,
+  dbQuery: Function
+) => {
   //Use YUP schema validator to make sure data structure matches the Formik form front end
   try {
     await coreProfileSchema.validate(data);
@@ -25,6 +17,17 @@ export const insertCoreProfileData = async (data, characterId, dbQuery: Function
     }
     throw error; // For other types of errors
   }
+
+  const {
+    name,
+    char_class,
+    race,
+    proficiency,
+    char_level,
+    experience,
+    next_level,
+    affinity,
+  } = data;
 
   //Use the validator package to sanitize data for SQL querying
   const sanitizedData = {
