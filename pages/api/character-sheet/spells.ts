@@ -1,4 +1,3 @@
-import validator from "validator";
 import { SpellTypes } from "@/components/types/api-route-types";
 
 export const insertSpellsData = async (
@@ -15,9 +14,9 @@ export const insertSpellsData = async (
   //Use the validator package to sanitize data for SQL querying
   const sanitizedSpells = spellsArray.map((spell) => [
     characterId,
-    validator.escape(spell.spell_name),
-    validator.escape(spell.spell_description),
-    validator.escape(spell.spell_tier),
+    spell.spell_name,
+    spell.spell_description,
+    spell.spell_tier,
   ]);
 
   //Doing bulk query insert. Faster than for looping.

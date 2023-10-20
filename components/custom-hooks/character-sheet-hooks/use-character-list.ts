@@ -1,9 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
+import { useMemoizedAlert } from "@/components/layout/alert";
 import formatDate from "@/components/helper/format-date";
 import axios from "axios";
 
 export const useCharacterList = (userId) => {
   const ROWS_PER_PAGE = 5; //Dictate how many entries go into each list page
+
+  //For the user alert messages
+  const addAlertMemo = useMemoizedAlert();
 
   const [characters, setCharacters] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -33,15 +37,20 @@ export const useCharacterList = (userId) => {
             class: character.class,
             level: character.char_level,
             date: formatDate(character.date_created),
-            campaign: character.campaign_id ? character.campaign_id : "Not Joined"
+            campaign: character.campaign_id
+              ? character.campaign_id
+              : "Not Joined",
           }));
 
           setCharacters(retrievedCharacters);
         }
       })
       .catch((error) => {
+        addAlertMemo("Error fetching data. Please try again.", "error");
         console.error("Error fetching character:", error);
       });
+    // Disabling the warning because addAlertMemo doesn't change and omitting it won't introduce bugs
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   useEffect(() => {
@@ -63,10 +72,16 @@ export const useCharacterList = (userId) => {
       })
       .then(() => {
         setIsDialogOpen(false);
+        addAlertMemo("Character deleted successfully.", "success");
+        setCharacterIdToDelete(null); // Reset the characterIdToDelete state
         fetchCharacters(); // Fetch the updated list of campaigns after deletion
       })
       .catch((error) => {
         console.error("Error deleting campaign:", error);
+        addAlertMemo(
+          "Something went wrong with the attempt to delete.",
+          "error"
+        );
         setIsDialogOpen(false);
       });
   };
@@ -83,8 +98,6 @@ export const useCharacterList = (userId) => {
   const prev = () => {
     if (active > 1) setActive(active - 1);
   };
-
-  
 
   return {
     characters: currentRows,

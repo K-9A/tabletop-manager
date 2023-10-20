@@ -1,9 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
+import { useMemoizedAlert } from "@/components/layout/alert";
 import formatDate from "@/components/helper/format-date";
 import axios from "axios";
 
 export const useCampaignList = (userId) => {
   const ROWS_PER_PAGE = 5; //Dictate how many entries go into each list page
+
+  //For the user alert messages
+  const addAlertMemo = useMemoizedAlert();
 
   const [campaigns, setCampaigns] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -36,8 +40,11 @@ export const useCampaignList = (userId) => {
         }
       })
       .catch((error) => {
+        addAlertMemo("Error fetching data. Please try again.", "error");
         console.error("Error fetching campaigns:", error);
       });
+// Disabling the warning because addAlertMemo doesn't change and omitting it won't introduce bugs
+// eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   useEffect(() => {
@@ -59,13 +66,17 @@ export const useCampaignList = (userId) => {
       })
       .then(() => {
         setIsDialogOpen(false);
+        addAlertMemo("Campaign deleted successfully.", "success");
+        setCampaignIdToDelete(null); // Reset the campaignIdToDelete state
         fetchCampaigns(); // Fetch the updated list of campaigns after deletion
       })
       .catch((error) => {
         console.error("Error deleting campaign:", error);
+        addAlertMemo("Something went wrong with the attempt to delete.", "error");
         setIsDialogOpen(false);
       });
   };
+
 
   useEffect(() => {
     setActive(1);

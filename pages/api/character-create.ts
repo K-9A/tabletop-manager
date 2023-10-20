@@ -1,11 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { withCreateRateLimit } from "@/components/custom-hooks/character-sheet-hooks/submission/with-rate-limit";
+import { withCreateRateLimit } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/with-rate-limit";
 import headersMiddleware from "@/utils/headers-middleware";
 import { loggerMiddleware } from "@/utils/logging/logger-middleware";
 import { dbQuery } from "@/utils/dbQuery";
 import { getServerSession } from "next-auth";
 import authOptions from "@/pages/api/auth/[...nextauth]";
-import { OkPacketParams } from "mysql2"; //For Typescript
 
 import { insertCoreProfileData } from "./character-sheet/core-profile";
 import { insertFeatsTraitsData } from "./character-sheet/features-traits";

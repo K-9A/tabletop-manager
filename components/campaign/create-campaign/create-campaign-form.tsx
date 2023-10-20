@@ -43,7 +43,7 @@ const CampaignCreate = () => {
           </div>
         </div>
 
-        <div className="flex flex-col mt-14 dark:text-white">
+        <div className="flex flex-col mt-10 mb-10 dark:text-white">
           <Textarea
             variant="static"
             name="campaign_description"

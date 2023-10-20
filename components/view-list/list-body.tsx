@@ -62,7 +62,7 @@ const truncateString = (str, num) => {
                   : "p-2 border-b border-blue-gray-100";
   
                 return (
-                  <tr key={row.name}>
+                  <tr key={index}>
                     {Object.values(row).map((value, idx) => (
                       <td className={classes} key={idx}>
                         <Typography
@@ -75,12 +75,11 @@ const truncateString = (str, num) => {
                       </td>
                     ))}
                     <td className={classes}>
-                      <IconButton variant="text">
                         <Tooltip content={`Delete ${row.name}`}>
                           <IconButton
                             variant="text"
                             // @ts-ignore
-                            color={isDarkMode && "white"}
+                            color={isDarkMode ? "white" : "black"}
                             onClick={() => onRowDelete(row)}
                           >
                             <TrashIcon className="h-5 w-5" />
@@ -93,7 +92,6 @@ const truncateString = (str, num) => {
                           onConfirm={confirmDelete}
                           onCancel={() => setIsDialogOpen(false)}
                         />
-                        </IconButton>
                       </td>
                     </tr>
                   );

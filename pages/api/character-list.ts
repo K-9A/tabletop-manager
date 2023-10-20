@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { withCreateRateLimit } from "@/components/custom-hooks/character-sheet-hooks/submission/with-rate-limit";
+import { withCreateRateLimit } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/with-rate-limit";
 import headersMiddleware from "@/utils/headers-middleware";
 import { loggerMiddleware } from "@/utils/logging/logger-middleware";
 import { dbQuery } from "@/utils/dbQuery";

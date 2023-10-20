@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { getSession } from "next-auth/react";
+import { useMemoizedAlert } from "@/components/layout/alert";
 import axios from "axios";
 
 //Functions to destructure the data, taking out the unnecessary bits from each subscetion while keeping the necessary fields.
@@ -28,6 +29,9 @@ function extractData(obj: any) {
   }
 }
 
+//conver the raw list of object to ojbect array needed to split the data up into submission.
+//Not all Store data collection will need this, but those that are a collection of things a user can add,
+//like skills, spells, items and equipment, will need additional prep before being shipped off to API
 function convertRawObjToObjectArray(skillsObj: any): any[] {
   // Extract all the skill objects from the skillsObj
   const dataArray = Object.values(skillsObj).filter(
@@ -37,10 +41,13 @@ function convertRawObjToObjectArray(skillsObj: any): any[] {
   return dataArray;
 }
 
-export const useAllHandleSubmit = (initialData) => {
+export const useHandleSubmitAll = (initialData) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
+
+  //For the user alert messages
+  const addAlertMemo = useMemoizedAlert();
 
   //Grab all the data from each subsection's slice
   const coreProfileRawData = useSelector(
@@ -118,15 +125,20 @@ export const useAllHandleSubmit = (initialData) => {
           spells: spellsArray,
           spellSlots: spellSlotsData,
           equipment: equipmentArray,
-          items: itemsArray
+          items: itemsArray,
         }
       );
       if (!responseCreateCharacterSheet.data.success)
         throw new Error(responseCreateCharacterSheet.data.error);
-
+      addAlertMemo("Character created successfully!", "success");
     } catch (error) {
       setError(error.message);
       // Handle network or other errors
+
+      addAlertMemo(
+        "Something went wrong with Character Sheet submission. Please try again.",
+        "error"
+      );
     } finally {
       setLoading(false);
     }

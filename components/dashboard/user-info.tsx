@@ -9,11 +9,11 @@ const UserInfo: React.FC<UserInfoProps> = ({ user, labelBgColor }) => {
       <Typography
         variant="h6"
         color="blue-gray"
-        className={`absolute -top-4 left-4 px-2 cursor-pointer inline-flex items-center ${labelBgColor}`}
+        className={`absolute -top-4 left-4 px-2 cursor-pointer inline-flex items-center dark:text-gray-300 ${labelBgColor}`}
       >
         User Information
       </Typography>
-      <div className="flex flex-col items-center space-y-3 py-6">
+      <div className="flex flex-col items-center space-y-3 py-6 dark:text-white">
       <p className="text-sm">
             <span className="font-bold">User ID:</span> {user.user_id}
           </p>

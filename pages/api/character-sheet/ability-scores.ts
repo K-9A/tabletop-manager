@@ -1,5 +1,4 @@
 import { abilityScoresSchema } from "@/components/validation-schema/character-sheet/ability-scores-schema";
-import validator from "validator";
 import { ValidationError } from "yup";
 
 export const insertAbilityScoresData = async (
@@ -42,25 +41,25 @@ export const insertAbilityScoresData = async (
 
   //Use the validator package to sanitize data for SQL querying
   const sanitizedData = {
-    str_score: validator.escape(str_score),
-    dex_score: validator.escape(dex_score),
-    con_score: validator.escape(con_score),
-    int_score: validator.escape(int_score),
-    wis_score: validator.escape(wis_score),
-    chr_score: validator.escape(chr_score),
-    str_mod: validator.escape(str_mod),
-    dex_mod: validator.escape(dex_mod),
-    con_mod: validator.escape(con_mod),
-    int_mod: validator.escape(int_mod),
-    wis_mod: validator.escape(wis_mod),
-    chr_mod: validator.escape(chr_mod),
-    str_save: validator.escape(str_save),
-    dex_save: validator.escape(dex_save),
-    con_save: validator.escape(con_save),
-    int_save: validator.escape(int_save),
-    wis_save: validator.escape(wis_save),
-    chr_save: validator.escape(chr_save),
-    passive_perception: validator.escape(passive_perception),
+    str_score: str_score,
+    dex_score: dex_score,
+    con_score: con_score,
+    int_score: int_score,
+    wis_score: wis_score,
+    chr_score: chr_score,
+    str_mod: str_mod,
+    dex_mod: dex_mod,
+    con_mod: con_mod,
+    int_mod: int_mod,
+    wis_mod: wis_mod,
+    chr_mod: chr_mod,
+    str_save: str_save,
+    dex_save: dex_save,
+    con_save: con_save,
+    int_save: int_save,
+    wis_save: wis_save,
+    chr_save: chr_save,
+    passive_perception: passive_perception
   };
 
   await dbQuery(

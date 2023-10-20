@@ -3,16 +3,20 @@ import UserInfo from "./user-info";
 import CampaignSection from "./campagin-section";
 import CharacterSheetSection from "./sheet-section";
 import axios from "axios";
+import { Button } from "@material-tailwind/react";
 import { DashboardProps } from "../types/dash-types";
 import { useEffect, useState } from "react";
-import { isErrorWithMessage, isErrorWithResponse } from "../types/error-typeguard";
+import {
+  isErrorWithMessage,
+  isErrorWithResponse,
+} from "../types/error-typeguard";
+import { Spinner } from "@material-tailwind/react";
 
 const Dashboard: React.FC<DashboardProps> = ({
   user,
-  labelBgColor = "bg-white",
+  labelBgColor = "bg-gray-200",
 }) => {
-
-
+  //MIGHT MOVE TO CUSTOM HOOK
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -25,7 +29,7 @@ const Dashboard: React.FC<DashboardProps> = ({
           setUserData(response.data);
         }
       } catch (err) {
-        console.error("Error fetching user data:", err); 
+        console.error("Error fetching user data:", err);
 
         if (isErrorWithResponse(err)) {
           setError(err.response.data.error);
@@ -45,13 +49,13 @@ const Dashboard: React.FC<DashboardProps> = ({
   }
 
   if (!userData) {
-    return <p>Loading...</p>;
+    return <Spinner className="h-12 w-12" />;
   }
 
   return (
     <div className="flex flex-col space-y-10 max-w-4xl mx-auto p-6 border-gray-500">
       {/* Welcome Heading */}
-      <h1 className="text-2xl font-bold text-center">
+      <h1 className="text-2xl font-bold text-center dark:text-white">
         Welcome to your Dashboard!
       </h1>
 
@@ -63,6 +67,9 @@ const Dashboard: React.FC<DashboardProps> = ({
         <CampaignSection labelBgColor="bg-white" />
         {/* Character Sheet Section */}
         <CharacterSheetSection labelBgColor="bg-white" />
+      </div>
+      <div className="flex justify-center items-center">
+        <Button color="red">Delete Account</Button>
       </div>
     </div>
   );

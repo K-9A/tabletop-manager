@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import NavBarMenu from "./navbarmenu";
 import Link from "next/link";
@@ -15,34 +15,36 @@ function NavList() {
   const { data: session } = useSession();
 
   return (
-    <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
+    <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1 items-center">
       {session ? (
-        <>
-          <Typography variant="small" color="black" className="font-normal">
-            <ListItem className="flex items-center gap-2 py-2 pr-4">
-              <CubeTransparentIcon className="h-[18px] w-[18px]" />
+        <Fragment>
+          <ListItem className="flex items-center gap-2 py-2 pr-4">
+            <div className="flex gap-1 text-base text-black dark:text-gray-300 items-center">
+              <CubeTransparentIcon className="flex h-[18px] w-[18px]" />
               Campaign
-            </ListItem>
-          </Typography>
-          <NavBarMenu />
-          <Typography variant="small" color="black" className="font-normal">
-            <ListItem className="flex items-center gap-2 py-2 pr-4">
-              <UserCircleIcon className="h-[18px] w-[18px]" />
-              Character Sheet
-            </ListItem>
-          </Typography>
+            </div>
+          </ListItem>
 
-          <Typography variant="small" color="black" className="font-normal">
-            <Link href={`/user/${(session?.user as any)?.id as any}`}>
-              <ListItem className="flex items-center gap-2 py-2 pr-4">
+          {/* <NavBarMenu /> */}
+
+          <ListItem className="flex items-center gap-2 py-2 pr-4">
+            <div className="flex gap-1 text-sm text-black dark:text-gray-300 items-center">
+              <UserCircleIcon className="h-[22px] w-[22px]" />
+              Character Sheet
+            </div>
+          </ListItem>
+
+          <Link href={`/user/${(session?.user as any)?.id as any}`}>
+            <ListItem className="flex items-center gap-2 py-2 pr-4">
+              <div className="flex gap-1 text-base text-black dark:text-gray-300 items-center">
                 <UserCircleIcon className="h-[18px] w-[18px]" />
                 Dashboard
-              </ListItem>
-            </Link>
-          </Typography>
-        </>
+              </div>
+            </ListItem>
+          </Link>
+        </Fragment>
       ) : (
-        <></>
+        <Fragment></Fragment>
       )}
     </List>
   );

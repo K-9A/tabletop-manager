@@ -21,7 +21,7 @@ function DashboardPage({ user }: UserStaticProps) {
       exit="out"
       variants={PageFade}
       transition={{ duration: 0.2 }}
-      className="flex justify-center items-start mt-6"
+      className="flex justify-center items-start"
     >
             <Head>
         <title>Your Dashboard</title>

@@ -1,4 +1,3 @@
-import validator from "validator";
 import { ItemTypes } from "@/components/types/api-route-types";
 
 export const insertItemsData = async (
@@ -14,10 +13,10 @@ export const insertItemsData = async (
   //Use the validator package to sanitize data for SQL querying
   const sanitizedItems = itemsArray.map((item) => [
     characterId,
-    validator.escape(item.item_name),
-    validator.escape(item.item_description),
-    validator.escape(item.item_amount),
-    validator.escape(item.item_max),
+    item.item_name,
+    item.item_description,
+    item.item_amount || null,  // If empty string, use null
+    item.item_max || null,    // If empty string, use null
   ]);
 
   //Doing bulk query insert. Faster than for looping.

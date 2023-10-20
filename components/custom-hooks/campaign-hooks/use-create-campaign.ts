@@ -47,10 +47,8 @@ export function useCreateCampaign() {
             error.response.data.error
           );
           addAlertMemo("Creating Campaign failed. Please try again.", "error");
-        } else if (isErrorWithMessage(error)) {
-          addAlertMemo("Creating Campaign failed. Please try again.", "error");
         } else {
-          addAlertMemo("Creating Campaign failed.", "error");
+          addAlertMemo("Creating Campaign failed. Please try again.", "error");
         }
       }
     },

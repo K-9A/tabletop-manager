@@ -70,9 +70,6 @@ export const useRedirectIfLoggedIn = (justLoggedInProp: boolean) => {
 
   //Client-side user redirection if the user is logged in. This works in tandem with getStaticProps on page level.
   useEffect(() => {
-    console.log("Effect running");
-    console.log("Session:", session);
-    console.log("localJustLoggedIn:", localJustLoggedIn);
     // If there's an active session and the user didn't just login
     if (session && !localJustLoggedIn) {
       addAlertMemo("Already logged in.", "info");
