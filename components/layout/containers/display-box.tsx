@@ -1,6 +1,7 @@
 import React from 'react';
 import { DisplayFormProps } from '@/components/types/display-types';
 
+
 const DisplayForm: React.FC<DisplayFormProps> = ({ children, bgColor = "bg-gray-200" }) => { //Default color is white shade
   const darkBgColor = bgColor === "bg-gray-200" ? "dark:bg-gray-700" : ""; // Handle dark mode if necessary
 

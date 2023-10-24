@@ -25,18 +25,6 @@ const initialCreateSpellSlotsState = {
     error: null
   };
   
-  
-export const saveSpellSlotsData = createAsyncThunk(
-    'createSpellSlots/save',
-    async (spellSlotsData, thunkAPI) => {
-      try {
-        const response = "todo";
-        return response;
-      } catch (error) {
-        return thunkAPI.rejectWithValue(error.message);
-      }
-    }
-  );
 
   const spellSlotsCreateSlice = createSlice({
     name: 'spellSlotsCreate',
@@ -55,6 +43,9 @@ export const saveSpellSlotsData = createAsyncThunk(
       },
       markSectionAsInvalid: (state) => {
         state.isValid = false;
+      },
+      resetSpellSlots: (state) => {
+        return initialCreateSpellSlotsState;
       },
     },
 })

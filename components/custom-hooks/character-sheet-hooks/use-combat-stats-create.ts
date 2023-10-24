@@ -153,7 +153,10 @@ export const useCombatStatsCreate = (initialData) => {
     );
   };
 
-
+  const resetCombatStats = () => {
+    dispatch(createCombatStatsActions.resetCombatStats());
+    formik.resetForm({ values: initialData});
+  };
 
   useEffect(() => {
     combatStatsSchema.isValid(formik.values).then((isValid) => {
@@ -164,6 +167,7 @@ export const useCombatStatsCreate = (initialData) => {
   return {
     ...formik,
     isDarkMode,
+
     updateCurrentHP,
     updateMaxHP,
     updateTempHP,
@@ -176,6 +180,7 @@ export const useCombatStatsCreate = (initialData) => {
     updateSpellCasting,
     updateSpellSave,
     updateSpellAttack,
+    resetCombatStats,
     getErrorMessage: (fieldName: keyof typeof formik.values) =>
       formik.errors[fieldName] && formik.touched[fieldName]
         ? formik.errors[fieldName]

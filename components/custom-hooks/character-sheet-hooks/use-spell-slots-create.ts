@@ -206,6 +206,13 @@ export const useSpellSlotsCreate = (initialData) => {
     );
   };
 
+
+  const resetSpellSlots = () => {
+    dispatch(createSpellSlotsActions.resetSpellSlots());
+    formik.resetForm({ values: initialData});
+  };
+
+
   const handleCheckboxChange = (e) => {
     if (e.target.checked) {
       dispatch(createSpellSlotsActions.markSectionAsValid());
@@ -238,6 +245,7 @@ export const useSpellSlotsCreate = (initialData) => {
     updateNinethAvailable,
     updateNinethMax,
     handleCheckboxChange,
+    resetSpellSlots,
     getErrorMessage: (fieldName: keyof typeof formik.values) =>
       formik.errors[fieldName] && formik.touched[fieldName]
         ? formik.errors[fieldName]

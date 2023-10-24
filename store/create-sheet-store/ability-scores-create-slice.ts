@@ -27,19 +27,6 @@ const initialCreateAbilityScoresState = {
 };
 
 
-export const saveAbilityScoresData = createAsyncThunk(
-    'createAbilityScores/save',
-    async (coreProfileData, thunkAPI) => {
-      try {
-        const response = "todo";
-        return response;
-      } catch (error) {
-        return thunkAPI.rejectWithValue(error.message);
-      }
-    }
-  );
-
-
   const abilityScoresCreateSlice = createSlice({
     name: 'abilityScoresCreate',
     initialState: initialCreateAbilityScoresState,
@@ -54,6 +41,9 @@ export const saveAbilityScoresData = createAsyncThunk(
       },
       setValidity: (state, action: PayloadAction<boolean>) => {
         state.isValid = action.payload;
+      },
+      resetAbilityScores: (state) => {
+        return initialCreateAbilityScoresState;
       },
     },
 })

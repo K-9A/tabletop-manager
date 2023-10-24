@@ -194,6 +194,12 @@ export const useExplorationSkillsCreate = (initialData) => {
       })
     );
   };
+  
+
+  const resetExplorationSkills = () => {
+    dispatch(createExplorationSkillsActions.resetExplorationSkills());
+    formik.resetForm({ values: initialData});
+  };
 
   const updateSurvival = async () => {
     dispatch(
@@ -233,6 +239,7 @@ export const useExplorationSkillsCreate = (initialData) => {
     updateSleight,
     updateStealth,
     updateSurvival,
+    resetExplorationSkills,
     getErrorMessage: (fieldName: keyof typeof formik.values) =>
       formik.errors[fieldName] && formik.touched[fieldName]
         ? formik.errors[fieldName]

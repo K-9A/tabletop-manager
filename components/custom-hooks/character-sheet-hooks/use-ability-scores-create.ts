@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { createAbilityScoresActions } from "@/store/create-sheet-store/ability-scores-create-slice";
@@ -40,6 +40,8 @@ export const useAbilityScoresCreate = (initialData) => {
     validationSchema: abilityScoresSchema,
     onSubmit: (values) => {},
   });
+
+
 
   //Store Update Handlers Section
   const updateStrScore = async () => {
@@ -214,6 +216,11 @@ export const useAbilityScoresCreate = (initialData) => {
       })
     );
   };
+  
+  const resetAbilityScores = () => {
+    dispatch(createAbilityScoresActions.resetAbilityScores());
+    formik.resetForm({ values: initialData});
+  };
 
   useEffect(() => {
     abilityScoresSchema.isValid(formik.values).then((isValid) => {
@@ -244,6 +251,7 @@ export const useAbilityScoresCreate = (initialData) => {
     updateWisSave,
     updateChrSave,
     updatePassivePerception,
+    resetAbilityScores,
     getErrorMessage: (fieldName: keyof typeof formik.values) =>
       formik.errors[fieldName] && formik.touched[fieldName]
         ? formik.errors[fieldName]

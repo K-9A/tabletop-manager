@@ -46,6 +46,11 @@ export const useEquipmentCreate = (initialData) => {
     }
   };
 
+  const resetEquipment = () => {
+    dispatch(createEquipmentActions.resetEquipment());
+    formik.resetForm({ values: initialData});
+  };
+
   const addNewEquipment = () => {
     dispatch(createEquipmentActions.addEquipment());
   };
@@ -61,6 +66,7 @@ export const useEquipmentCreate = (initialData) => {
     addNewEquipment,
     removeEquipment,
     updateEquipmentField,
+    resetEquipment,
     handleCheckboxChange,
     getErrorMessage: (fieldName: string, index?: number) => {
       if (index !== undefined) {

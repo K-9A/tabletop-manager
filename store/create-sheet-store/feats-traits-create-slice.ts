@@ -13,20 +13,6 @@ const initialFeatsTraitsCreateState = {
   error: null,
 };
 
-//TODO: For the submission process to be done later with Axios
-export const saveFeatsTraitsData = createAsyncThunk(
-  "createFeatsTraits/save",
-  async (backgroundData, thunkAPI) => {
-    try {
-      const response = "todo";
-      return response;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
-
-
 const featsTraitsCreateSlice = createSlice({
   name: "featsTraitsCreate",
   initialState: initialFeatsTraitsCreateState,
@@ -47,6 +33,9 @@ const featsTraitsCreateSlice = createSlice({
     },
     markSectionAsInvalid: (state) => {
       state.isValid = false;
+    },
+    resetFeatsTraits: (state) => {
+      return initialFeatsTraitsCreateState;
     },
   },
 });

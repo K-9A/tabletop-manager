@@ -38,20 +38,6 @@ interface CharacterType {
 
 }
 
-//TODO: For the submission process to be done later with Axios
-export const saveCoreProfileData = createAsyncThunk(
-  'createCoreProfile/save',
-  async (coreProfileData, thunkAPI) => {
-    try {
-      const response = "todo";
-      return response;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
-
-
 const coreProfileCreateSlice = createSlice({
     name: 'coreProfileCreate',
     initialState: initialCreateCoreProfileState,
@@ -66,6 +52,9 @@ const coreProfileCreateSlice = createSlice({
       },
       setValidity: (state, action: PayloadAction<boolean>) => {
         state.isValid = action.payload;
+      },
+      resetCoreProfile: (state) => {
+        return initialCreateCoreProfileState;
       },
     },
 })

@@ -1,10 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
+import { useRouter } from 'next/router';
 import { useMemoizedAlert } from "@/components/layout/alert";
 import formatDate from "@/components/helper/format-date";
 import axios from "axios";
 
 export const useCampaignList = (userId) => {
   const ROWS_PER_PAGE = 5; //Dictate how many entries go into each list page
+
+  const router = useRouter();
 
   //For the user alert messages
   const addAlertMemo = useMemoizedAlert();
@@ -28,7 +31,7 @@ export const useCampaignList = (userId) => {
   //Fetch Campaigns
   const fetchCampaigns = useCallback(() => {
     axios
-      .get(`/api/campaign?userId=${userId}`)
+      .get(`/api/campaign/campaign-list/?userId=${userId}`)
       .then((response) => {
         if (response.data.success) {
           const retrievedCampaigns = response.data.data.map((campaign) => ({
@@ -91,6 +94,11 @@ export const useCampaignList = (userId) => {
     if (active > 1) setActive(active - 1);
   };
 
+  //For the routing
+  const handleRowClick = (campaignId) => {
+    router.push(`/campaign-view/${campaignId}`);
+  };
+
   return {
     campaigns: currentRows,
     searchTerm,
@@ -104,6 +112,7 @@ export const useCampaignList = (userId) => {
     totalPages,
     filteredRows,
     currentRows,
+    handleRowClick,
     active,
   };
 };

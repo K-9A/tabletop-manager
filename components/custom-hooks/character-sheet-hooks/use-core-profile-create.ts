@@ -103,6 +103,11 @@ export const useCoreProfileCreate = (initialData) => {
     );
   };
 
+  const resetCoreProfile = () => {
+    dispatch(createCoreProfileActions.resetCoreProfile());
+    formik.resetForm({ values: initialData});
+  };
+
   useEffect(() => {
     coreProfileSchema.isValid(formik.values).then((isValid) => {
       dispatch(createCoreProfileActions.setValidity(isValid));
@@ -112,6 +117,7 @@ export const useCoreProfileCreate = (initialData) => {
   return {
     ...formik,
     isDarkMode,
+    resetCoreProfile,
     updateCharacterName,
     updateCharacterClass,
     updateRace,

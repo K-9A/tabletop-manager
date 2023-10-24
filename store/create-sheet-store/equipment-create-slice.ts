@@ -14,20 +14,6 @@ const initialEquipmentCreateState = {
     error: null,
   };
 
-
-//TODO: For the submission process to be done later with Axios
-export const saveEquipmentData = createAsyncThunk(
-    "createEquipment/save",
-    async (equipmentData, thunkAPI) => {
-      try {
-        const response = "todo";
-        return response;
-      } catch (error) {
-        return thunkAPI.rejectWithValue(error.message);
-      }
-    }
-  );
-
   const equipmentCreateSlice = createSlice({
     name: "equipmentCreate",
     initialState: initialEquipmentCreateState,
@@ -53,6 +39,9 @@ export const saveEquipmentData = createAsyncThunk(
       },
       markSectionAsInvalid: (state) => {
         state.isValid = false;
+      },
+      resetEquipment: (state) => {
+        return initialEquipmentCreateState;
       },
     },
   });

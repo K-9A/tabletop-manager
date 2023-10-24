@@ -86,6 +86,12 @@ export const useFeatsTraitsCreate = (initialData) => {
     );
   };
 
+  const resetFeatsTraits = () => {
+    dispatch(createFeatsTraitsActions.resetFeatsTraits());
+    formik.resetForm({ values: initialData});
+  };
+
+
   const handleCheckboxChange = (e) => {
     if (e.target.checked) {
       dispatch(createFeatsTraitsActions.markSectionAsValid());
@@ -103,6 +109,7 @@ export const useFeatsTraitsCreate = (initialData) => {
     updateBuffs,
     updateDebuffs,
     updateOtherProficiency,
+    resetFeatsTraits,
     handleCheckboxChange
   }
 

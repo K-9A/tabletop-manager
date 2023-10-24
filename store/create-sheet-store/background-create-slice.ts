@@ -31,21 +31,6 @@ const initialBackgroundCreateState = {
 };
 
 
-
-//TODO: For the submission process to be done later with Axios
-export const saveBackgroundData = createAsyncThunk(
-  'createBackgrond/save',
-  async (backgroundData, thunkAPI) => {
-    try {
-      const response = "todo";
-      return response;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
-
-
 const backgroundCreateSlice = createSlice({
     name: 'backgroundCreate',
     initialState: initialBackgroundCreateState,
@@ -63,6 +48,9 @@ const backgroundCreateSlice = createSlice({
       },
       markSectionAsInvalid: (state) => {
         state.isValid = false;
+      },
+      resetBackground: (state) => {
+        return initialBackgroundCreateState;
       },
     },
 

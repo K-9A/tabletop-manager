@@ -53,6 +53,12 @@ export const useSkillsCreate = (initialData) => {
     dispatch(createSkillsActions.removeSkill());
 };
 
+const resetSkills = () => {
+  dispatch(createSkillsActions.resetSkills());
+  formik.resetForm({ values: initialData});
+};
+
+
   return {
     ...formik,
     isValid,
@@ -61,6 +67,7 @@ export const useSkillsCreate = (initialData) => {
     removeSkill,
     updateSkillField,
     handleCheckboxChange,
+    resetSkills,
     getErrorMessage: (fieldName: string, index?: number) => {
       if (index !== undefined) {
         const skillErrors = formik.errors.skills as Array<FormikErrors<{ skill_name: string }>>;

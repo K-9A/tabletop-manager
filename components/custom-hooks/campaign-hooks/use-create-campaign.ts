@@ -2,7 +2,7 @@ import axios from "@/utils/axios-instance";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import { useMemoizedAlert } from "@/components/layout/alert";
-import { MessageError, ErrorResponse } from "@/components/types/error-types";
+import { ErrorResponse } from "@/components/types/error-types";
 import { useSession } from "next-auth/react";
 import { campaignSchema } from "@/components/validation-schema/campaign/campaign-schema";
 
@@ -18,9 +18,6 @@ export function useCreateCampaign() {
     );
   }
 
-  function isErrorWithMessage(error: any): error is MessageError {
-    return error && typeof error.message === "string";
-  }
 
   const formik = useFormik({
     initialValues: {

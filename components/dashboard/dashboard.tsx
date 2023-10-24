@@ -16,6 +16,8 @@ const Dashboard: React.FC<DashboardProps> = ({
   user,
   labelBgColor = "bg-gray-200",
 }) => {
+
+  
   //MIGHT MOVE TO CUSTOM HOOK
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState<string | null>(null);

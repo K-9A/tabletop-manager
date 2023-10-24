@@ -105,6 +105,11 @@ export const useBackgroundCreate = (initialData) => {
     );
   };
 
+  const resetBackground = () => {
+    dispatch(createBackgroundActions.resetBackground());
+    formik.resetForm({ values: initialData});
+  };
+
   const handleCheckboxChange = (e) => {
     if (e.target.checked) {
       dispatch(createBackgroundActions.markSectionAsValid());
@@ -124,6 +129,7 @@ export const useBackgroundCreate = (initialData) => {
     updateFlaws,
     updateValuables,
     updateAdditonalTraits,
+    resetBackground,
     handleCheckboxChange
   };
 };

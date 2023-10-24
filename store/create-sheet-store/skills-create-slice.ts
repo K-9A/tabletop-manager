@@ -15,19 +15,6 @@ const initialSkillsCreateState = {
   error: null,
 };
 
-//TODO: For the submission process to be done later with Axios
-export const saveSkillsData = createAsyncThunk(
-  "createSkills/save",
-  async (skillsData, thunkAPI) => {
-    try {
-      const response = "todo";
-      return response;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
-
 const skillsCreateSlice = createSlice({
   name: "skillsCreate",
   initialState: initialSkillsCreateState,
@@ -54,6 +41,9 @@ const skillsCreateSlice = createSlice({
     },
     markSectionAsInvalid: (state) => {
       state.isValid = false;
+    },
+    resetSkills: (state) => {
+      return initialSkillsCreateState;
     },
   },
 });

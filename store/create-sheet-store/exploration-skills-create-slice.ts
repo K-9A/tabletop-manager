@@ -24,19 +24,6 @@ const initialCreateExplorationSkillsState = {
     isValid: false,
     error: null
   };
-  
-  
-export const saveExplorationSkillsData = createAsyncThunk(
-    'createExplorationSkills/save',
-    async (coreProfileData, thunkAPI) => {
-      try {
-        const response = "todo";
-        return response;
-      } catch (error) {
-        return thunkAPI.rejectWithValue(error.message);
-      }
-    }
-  );
 
   const explorationSkillsCreateSlice = createSlice({
     name: 'explorationScoresCreate',
@@ -52,6 +39,9 @@ export const saveExplorationSkillsData = createAsyncThunk(
       },
       setValidity: (state, action: PayloadAction<boolean>) => {
         state.isValid = action.payload;
+      },
+      resetExplorationSkills: (state) => {
+        return initialCreateExplorationSkillsState;
       },
     },
 })

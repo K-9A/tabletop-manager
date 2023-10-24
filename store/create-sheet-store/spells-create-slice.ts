@@ -14,21 +14,6 @@ const initialSpellsCreateState = {
     error: null,
   };
   
-
-  //TODO: For the submission process to be done later with Axios
-export const saveSpellsData = createAsyncThunk(
-    "createSpells/save",
-    async (spellsData, thunkAPI) => {
-      try {
-        const response = "todo";
-        return response;
-      } catch (error) {
-        return thunkAPI.rejectWithValue(error.message);
-      }
-    }
-  );
-
-
   const spellsCreateSlice = createSlice({
     name: "spellsCreate",
     initialState: initialSpellsCreateState,
@@ -54,6 +39,9 @@ export const saveSpellsData = createAsyncThunk(
       },
       markSectionAsInvalid: (state) => {
         state.isValid = false;
+      },
+      resetSpells: (state) => {
+        return initialSpellsCreateState;
       },
     },
   });

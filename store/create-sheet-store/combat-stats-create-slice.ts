@@ -20,20 +20,6 @@ const initialCreateCombatStatsState = {
 
 };
 
-//TODO: For the submission process to be done later with Axios
-export const saveCombatStatsData = createAsyncThunk(
-    'createCombatStats/save',
-    async (combatStatsData, thunkAPI) => {
-      try {
-        const response = "todo";
-        return response;
-      } catch (error) {
-        return thunkAPI.rejectWithValue(error.message);
-      }
-    }
-  );
-
-
   const combatStatsCreateSlice = createSlice({
     name: 'combatStatsCreate',
     initialState: initialCreateCombatStatsState,
@@ -48,6 +34,9 @@ export const saveCombatStatsData = createAsyncThunk(
       },
       setValidity: (state, action: PayloadAction<boolean>) => {
         state.isValid = action.payload;
+      },
+      resetCombatStats: (state) => {
+        return initialCreateCombatStatsState;
       },
     },
 })

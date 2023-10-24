@@ -49,6 +49,12 @@ export const useSpellsCreate = (initialData) => {
     dispatch(createSpellsActions.removeSpell());
   };
 
+  const resetSpells = () => {
+    dispatch(createSpellsActions.resetSpells());
+    formik.resetForm({ values: initialData});
+  };
+
+
   return {
     ...formik,
     isValid,
@@ -57,6 +63,7 @@ export const useSpellsCreate = (initialData) => {
     removeSpell,
     updateSpellField,
     handleCheckboxChange,
+    resetSpells,
     getErrorMessage: (fieldName: string, index?: number) => {
       if (index !== undefined) {
         const spellErrors = formik.errors.spells as Array<

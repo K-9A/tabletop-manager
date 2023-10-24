@@ -22,14 +22,11 @@ const CampaignListPage: React.FC<CampaignListPageProps> = ({ session }) => {
     >
       <Head>
         <title>Campaign List</title>
-        <meta
-          name="Campaign List"
-          content="Tabletop Manager Campaign List Page"
-        />
+        <meta name="Campaign List" content="Tabletop Manager Campaign List" />
       </Head>
       <ListCard>
         <CampaignList />
-        </ListCard>
+      </ListCard>
     </motion.main>
   );
 };

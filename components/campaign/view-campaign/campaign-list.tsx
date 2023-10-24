@@ -33,6 +33,7 @@ const CampaignList = () => {
     active,
     isDialogOpen,
     setIsDialogOpen,
+    handleRowClick,
     confirmCampaignDelete
   } = useCampaignList(userId);
 
@@ -55,6 +56,7 @@ const CampaignList = () => {
         isDialogOpen={isDialogOpen}
         setIsDialogOpen={setIsDialogOpen}
         confirmDelete={confirmCampaignDelete}
+        onRowClick={handleRowClick}
       />
       <ListFooter
         activePage={active}

@@ -50,6 +50,11 @@ const removeItem = () => {
   dispatch(createItemsActions.removeItem());
 };
 
+const resetItems = () => {
+  dispatch(createItemsActions.resetItems());
+  formik.resetForm({ values: initialData});
+};
+
 return {
   ...formik,
   isValid,
@@ -58,6 +63,7 @@ return {
   removeItem,
   updateItemsField,
   handleCheckboxChange,
+  resetItems,
   getErrorMessage: (fieldName: string, index?: number) => {
     if (index !== undefined) {
       const itemErrors = formik.errors.items as Array<
