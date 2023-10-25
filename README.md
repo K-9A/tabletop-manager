@@ -1,38 +1,101 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+Description
 
-First, run the development server:
+This web application is an ongoing project that serves as a comprehensive platform for Dungeons and Dragons players and Dungeon Masters, providing tools to create, manage, and view character sheets and campaigns. Built with a modern tech stack including React, Next.js, and Tailwind CSS, the application offers a seamless and interactive user experience.
+Table of Contents
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+    Tech Stack
+    Project Status
+    Features
+    Getting Started
+    Usage
+    Contributing
+    License
+    Contact
+    Acknowledgements
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Tech Stack
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+    Frameworks: React, Next.JS
+    UI/Styling: Tailwind, Material UI Tailwind, Framer Motion
+    Languages & Linters: TypeScript, ESLint
+    Authentication: NextAuth (Traditional login, with plans for OAuth)
+    Libraries & Tools: bcrypt, NanoID, Redux + Toolkit + Thunk, Axios, Socket.Io, Formik, Yup, express rate limit micro, validator
+    Database: MySQL
+    Routing: File-based routing (Next.js)
+    Deployment: DigitalOcean
+    Logging: Winston, Sentry
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Project Status
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+The project is currently in active development, with essential packages installed and a ready MySQL schema. The application features a variety of pages and functionalities, including user authentication, character sheet creation, and very basic real-time chat.
+Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+    User Authentication (Registration, Login, Logout)
+    Character Sheet Creation and Viewing
+    Campaign Creation and Listing
+    Real-Time Chat
+    Basic Alerting System
+    Redux Store + Thunk Setup
+    MySQL + Schema Setup
+    Socket.IO Broadcasting
 
-## Learn More
+Getting Started
 
-To learn more about Next.js, take a look at the following resources:
+To get a local copy up and running, follow these simple steps:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    Clone the repo
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+    sh
 
-## Deploy on Vercel
+git clone https://github.com/your_username_/Project-Name.git
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Install NPM packages
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+sh
+
+npm install
+
+Enter your API in config.js
+
+JS
+
+    const API_KEY = 'ENTER YOUR API';
+
+Usage
+
+Use this space to show useful examples of how a project can be used. Additional screenshots, code examples, and demos work well in this space. You may also link to more resources.
+
+For more examples, please refer to the Documentation
+Contributing
+
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+
+    Fork the Project
+    Create your Feature Branch (git checkout -b feature/AmazingFeature)
+    Commit your Changes (git commit -m 'Add some AmazingFeature')
+    Push to the Branch (git push origin feature/AmazingFeature)
+    Open a Pull Request
+
+License
+
+Distributed under the MIT License. See LICENSE for more information.
+Contact
+
+Your Name - @your_twitter - email@example.com
+
+Project Link: https://github.com/your_username/repo_name
+Acknowledgements
+
+    Choose an Open Source License
+    GitHub Emoji Cheat Sheet
+    Img Shields
+    GitHub Pages
+    Animate.css
+    Loaders.css
+    Slick Carousel
+    Smooth Scroll
+    Sticky Kit
+    JVectorMap
+    Font Awesome
