@@ -38,7 +38,7 @@ The project is currently in active development, with essential packages installe
     Standard User Authentication (Registration, Login, Logout)
     Character Sheet Creation and Viewing
     Campaign Creation and Listing
-    Real-Time Chat
+    Very basic Real-Time Chat
     Basic Alerting System
     Redux Store + Thunk Setup
     MySQL + Schema Setup
