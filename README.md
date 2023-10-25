@@ -71,6 +71,10 @@ Performance and Security
     Optimization: Continuously optimizing the application for better performance.
     Security Enhancements: Implementing additional security measures to protect user data.
 
+Deploymment
+
+    When it'll come time for deployment, either Vercel or Digital Ocean will be considered as a host, depending on the overall project state,
+    and completed feature list, as well as expanding the project further beyond the currently listed roadmap.
 
 ## <a id="getting-started"></a>Getting Started
 
@@ -112,7 +116,6 @@ I would like to express my sincere gratitude to all the developers and contribut
     NextAuth.js: For providing a secure and easy-to-implement authentication solution.
     bcrypt, NanoID, Redux, Redux Toolkit, Redux Thunk, Axios, Socket.IO, Formik, Yup, express-rate-limit, micro, validator: Each of these libraries and tools has played a crucial role in various functionalities of the       application, from security to state management, and data validation.
     MySQL: For providing a reliable and scalable database solution.
-    DigitalOcean: For offering a platform that supports all the technologies used in this project, making deployment smooth and efficient.
     Winston: For assisting in implementing comprehensive logging throughout the application, ensuring that any issues can be quickly identified and resolved.
 
 And last but not least, a huge thank you to GitHub for hosting the code and providing a platform for version control.
