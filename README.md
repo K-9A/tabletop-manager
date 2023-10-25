@@ -1,19 +1,23 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-**Description**
+## Table of Contents
+- [Description](#description)
+- [Tech Stack](#tech-stack)
+- [Project Status](#project-status)
+- [Future Roadmap](#future-roadmap)
+- [Getting Started](#getting-started)
+- [License](#license)
+- [Acknowledgements](#acknowledgements)
+
+
+## <a id="description"></a>Description
 
 This web application is a solo-developed and designed, ongoing project that serves as a comprehensive platform for Dungeons and Dragons players and Dungeon Masters, providing tools to create, manage, and view character sheets and campaigns. Built with a modern tech stack including React, Next.js, and Tailwind CSS, the application offers a seamless and interactive user experience.
 Table of Contents
 
-    Tech Stack
-    Project Status
-    Features
-    Future Roadmap
-    Getting Started
-    License
-    Contact
 
-**Tech Stack**
+
+## <a id="tech-stack"></a>Tech Stack
 
     Frameworks: React, Next.JS
     UI/Styling: Tailwind, Material UI Tailwind, Framer Motion
@@ -25,10 +29,11 @@ Table of Contents
     Deployment: DigitalOcean
     Logging: Winston, Sentry
 
-**Project Status**
+## <a id="project-status"></a>Project Status
 
 The project is currently in active development, with essential packages installed and a ready MySQL schema. The application features a variety of pages and functionalities, including user authentication, character sheet creation, and very basic real-time chat.
-Features
+
+**Features**
 
     Standard User Authentication (Registration, Login, Logout)
     Character Sheet Creation and Viewing
@@ -39,7 +44,7 @@ Features
     MySQL + Schema Setup
     Socket.IO Broadcasting
 
-**Future Roadmap**
+## <a id="future-roadmap"></a>Future Roadmap
 
 Comprehensive Character Sheet Development
 
@@ -67,7 +72,7 @@ Performance and Security
     Security Enhancements: Implementing additional security measures to protect user data.
 
 
-**Getting Started**
+## <a id="getting-started"></a>Getting Started
 
 To get a local copy up and running, follow these simple steps:
 
@@ -85,10 +90,31 @@ npm install
 
 
 
-**License**
+## <a name="license"></a>License
 
 Distributed under the MIT License. See LICENSE for more information.
 Contact
 
 Kirill Antipov - kirill.antipov@gmail.com
 
+
+
+
+
+## <a id="acknowledgements"></a>Acknowledgements
+
+I would like to express my sincere gratitude to all the developers and contributors of the technologies I've used in this project. Your hard work and dedication have made it possible for developers like me to bring our ideas to life.
+
+    React and Next.js: Thank you for providing the robust frameworks that serve as the backbone of this application, enabling server-side rendering and efficient development practices.
+    Tailwind CSS, Material UI Tailwind, and Framer Motion: Your libraries have been instrumental in creating a seamless and visually appealing user interface.
+    TypeScript: Thank you for adding type safety to JavaScript, making the codebase more robust and maintainable.
+    ESLint: Your tool has been invaluable in maintaining code quality and consistency throughout the project.
+    NextAuth.js: For providing a secure and easy-to-implement authentication solution.
+    bcrypt, NanoID, Redux, Redux Toolkit, Redux Thunk, Axios, Socket.IO, Formik, Yup, express-rate-limit, micro, validator: Each of these libraries and tools has played a crucial role in various functionalities of the       application, from security to state management, and data validation.
+    MySQL: For providing a reliable and scalable database solution.
+    DigitalOcean: For offering a platform that supports all the technologies used in this project, making deployment smooth and efficient.
+    Winston: For assisting in implementing comprehensive logging throughout the application, ensuring that any issues can be quickly identified and resolved.
+
+And last but not least, a huge thank you to GitHub for hosting the code and providing a platform for version control.
+
+Your contributions to the open-source community are invaluable, and this project would not have been possible without your efforts.
