@@ -25,13 +25,13 @@ function Hero() {
         className={styles.carouselContent}
       >
         <div className={styles.carouselSlide}>
-          <h1 className={styles.carouselText}>Thing 1</h1>
+          <h1 className={styles.carouselText}>Character Sheet Management</h1>
         </div>
         <div className={styles.carouselSlide}>
-          <h1 className={styles.carouselText}>Thing 2</h1>
+          <h1 className={styles.carouselText}>Campaign Management</h1>
         </div>
         <div className={styles.carouselSlide}>
-          <h1 className={styles.carouselText}>Thing 3</h1>
+          <h1 className={styles.carouselText}>Realtime Updates</h1>
         </div>
       </Carousel>
     </div>

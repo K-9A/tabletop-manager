@@ -1,7 +1,9 @@
 import React, { Fragment, useState, useEffect } from "react";
 //Eventual Use custom hook
 import { useSelector } from "react-redux";
+import { useSession } from "next-auth/react";
 import axios from "axios";
+import useCampaignSocket from "@/components/custom-hooks/socket-hooks/use-campaign-socket";
 import { RootState } from "@/store";
 import { Input, Textarea } from "@material-tailwind/react";
 import { campaignSchema } from "@/components/validation-schema/campaign/campaign-schema";
@@ -26,6 +28,9 @@ const CampaignView: React.FC<CampaignViewProps> = ({ campaignId }) => {
   const [campaignData, setCampaignData] = useState<CampaignData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { data: session } = useSession();
+  console.log(campaignId, session)
+  const { sendMessage } = useCampaignSocket(campaignId, session);
 
   useEffect(() => {
     const fetchCampaignData = async () => {
@@ -56,6 +61,10 @@ const CampaignView: React.FC<CampaignViewProps> = ({ campaignId }) => {
   if (!campaignData) {
     return <p>No campaign data found</p>;
   }
+
+  const handleSendMessage = () => {
+    sendMessage("Hello, World!");
+  };
 
   return (
     <Fragment>
@@ -121,6 +130,7 @@ const CampaignView: React.FC<CampaignViewProps> = ({ campaignId }) => {
             {/* <ErrorMessage name="campaign_description" formik={formik} /> */}
           </div>
         </div>
+        <button onClick={handleSendMessage}>Send Message</button>
     </Fragment>
   );
 };

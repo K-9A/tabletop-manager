@@ -190,7 +190,7 @@ function CharacterSheetCreate() {
           </Tooltip>
           <Tooltip content="Homebrew" placement="bottom">
             <IconButton {...getItemProps(13)} className="dark:text-white">
-              HMB{<CheckCircleIcon />}
+              HMB
             </IconButton>
           </Tooltip>
           <Tooltip content="Submit Sheet" placement="bottom">

@@ -8,6 +8,7 @@ import { customAlphabet } from "nanoid";
 import { getServerSession } from "next-auth";
 import authOptions from "@/pages/api/auth/[...nextauth]";
 
+//THIS ROUTE IS RESPONSIBLE FOR BOTH, SUBMITTING CAMPAIGN DATA AND FETCHING TO A LIST
 const submitCreateSheet = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerSession(req, res, authOptions);
 

@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
+import DisplayForm from "@/components/layout/containers/display-box";
+import About from "@/components/about/about";
 import Head from "next/head";
 
 function AboutPage() {
@@ -15,7 +17,9 @@ function AboutPage() {
         <title>About</title>
         <meta name="About Page" content="Tabletop Manager About Page" />
       </Head>
-      <h1> About Page</h1>
+      <DisplayForm>
+        <About />
+      </DisplayForm>
     </motion.main>
   );
 }

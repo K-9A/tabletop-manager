@@ -62,13 +62,13 @@ const Dashboard: React.FC<DashboardProps> = ({
       </h1>
 
       {/* User Information */}
-      <UserInfo user={user} labelBgColor="bg-white" />
+      <UserInfo user={user} labelBgColor={labelBgColor} />
 
       <div className="flex space-x-8 py-2">
         {/* Campaign Section */}
-        <CampaignSection labelBgColor="bg-white" />
+        <CampaignSection labelBgColor={labelBgColor} />
         {/* Character Sheet Section */}
-        <CharacterSheetSection labelBgColor="bg-white" />
+        <CharacterSheetSection labelBgColor={labelBgColor} />
       </div>
       <div className="flex justify-center items-center">
         <Button color="red">Delete Account</Button>

@@ -27,7 +27,7 @@ export function useCreateCampaign() {
     validationSchema: campaignSchema,
     onSubmit: async (values) => {
       try {
-        const campaignResponse = await axios.post("/campaign", {
+        const campaignResponse = await axios.post("/campaign/campaign-list", {
           campaign_name: values.campaign_name,
           campaign_description: values.campaign_description,
           userId,

@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "@material-tailwind/react";
 import { DisplayFormProps } from "@/components/types/display-types";
 
-//This container is for the VIEW character sheet.
+//This container is for the LIST character/campaign.
 const ListCard: React.FC<DisplayFormProps> = ({
   children,
   bgColor = "bg-gray-200",
