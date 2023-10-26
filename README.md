@@ -47,7 +47,7 @@ The project is currently in active development, with essential packages installe
 
 ## <a id="screenshots"></a>Screenshots
 
-![Homepage Screenshot](/site-images/homepage)
+![Homepage Screenshot](./site-images/homepage.PNG)
 
 **Homepage**
 
