@@ -56,7 +56,7 @@ The homepage serves as the welcoming point for users, showcasing the essence of 
 Prominently displayed in the center of the page are three main buttons: ‘Login’, ‘Register’, and ‘About’. These provide straightforward navigation for new visitors, guiding them to start their journey or learn more about the platform. The hero banner at the top encapsulates the spirit of the site.
 
 
-[Register](/site-images/register)
+[Register](./site-images/register.PNG)
 
 
 **User Registration Page**
@@ -71,7 +71,7 @@ The registration page offers a clean and intuitive interface for new users to si
 **Future Implementations:** As the site evolves, there are plans to implement OAuth authentication for accounts like Google and Facebook in the future for even more flexibility and security.
 
 
-[Dashboard](/site-images/dashboard)
+[Dashboard](./site-images/dashboard.PNG)
 
 **User Dashboard**
 
@@ -87,7 +87,7 @@ Upon successful login, users are greeted with the Dashboard, designed to provide
 
 
 
-[Campaign Creator](/site-images/create-campaign)
+[Campaign Creator](./site-images/create-campaign.PNG)
 
 **Campaign Creator**
 
@@ -100,8 +100,8 @@ Embarking on a new adventure? The Campaign Creator is your starting point. Desig
 * Seamless Integration: Once all details are filled and the "CREATE CAMPAIGN" button is clicked, the magic happens in the background. Your campaign data is securely sent and stored in the database and stored for further use.
 
 
-[Campaign List](/site-images/campaign-list)
-[Delete](/site-images/delete)
+[Campaign List](./site-images/campaign-list.PNG)
+[Delete](./site-images/delete.PNG)
 
 
 **Campaign List**
@@ -125,8 +125,8 @@ Upon clicking the delete icon, a safety measure kicks in. The confirmation popup
 Functionally and visually, a character list and a campaign list share many characteristics. Indeed the component used to generate a campaign list, is the exact same one used to generate a character list, albeit with different fields such as character ID, Name, Level, Class, Date created and the delete icon that behaves in the exact same manner as its campaign counterpart.
 
 
-[Character Sheet Welcome](/site-images/char-create-welcome)
-[Character Sheet Creator](/site-images/char-create)
+[Character Sheet Welcome](./site-images/char-create-welcome.PNG)
+[Character Sheet Creator](./site-images/char-create.PNG)
 
 
 **Charactter Creator**
