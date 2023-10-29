@@ -30,13 +30,6 @@ const initialCreateCoreProfileState = {
 
 };
 
-interface CharacterType {
-    id: string;
-    name: string;
-    isValid: boolean;
-    error: string;
-
-}
 
 const coreProfileCreateSlice = createSlice({
     name: 'coreProfileCreate',

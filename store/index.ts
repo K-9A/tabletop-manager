@@ -6,6 +6,9 @@ import thunk from "redux-thunk";
 import darkModeReducer from "./dark-slice";
 import authReducer from "./auth-slice";
 
+// Campaign Imports
+import campaignViewReducer from "./campaign-store/campaign-view-slice";
+
 // View Sheet Slice Imports
 import coreProfileViewReducer from "./view-sheet-store/core-stats-view/core-profile-view-slice";
 
@@ -30,7 +33,8 @@ const store = configureStore({
         darkMode: darkModeReducer,
         auth: authReducer,
 
-        //Campaign Create Rducers
+        //Campaign Rducers
+        campaignView: campaignViewReducer,
 
         //View Sheet Reducers
         coreProfileView: coreProfileViewReducer,
@@ -51,10 +55,8 @@ const store = configureStore({
     middleware: [thunk, socketMiddleware]
 });
 
-
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-
 
 export default store;

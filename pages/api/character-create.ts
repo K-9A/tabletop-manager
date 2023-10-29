@@ -6,17 +6,17 @@ import { dbQuery } from "@/utils/dbQuery";
 import { getServerSession } from "next-auth";
 import authOptions from "@/pages/api/auth/[...nextauth]";
 
-import { insertCoreProfileData } from "./character-sheet/core-profile";
-import { insertFeatsTraitsData } from "./character-sheet/features-traits";
-import { insertBackgroundData } from "./character-sheet/background";
-import { insertAbilityScoresData } from "./character-sheet/ability-scores";
-import { insertCombatStatsData } from "./character-sheet/combat-stats";
-import { insertExplorationSkillsData } from "./character-sheet/exploration-skills";
-import { insertSkillsData } from "./character-sheet/skills";
-import { insertSpellsData } from "./character-sheet/spells";
-import { insertSpellSlotsData } from "./character-sheet/spell-slots";
-import { insertEquipmentData } from "./character-sheet/equipment";
-import { insertItemsData } from "./character-sheet/items";
+import { insertCoreProfileData } from "./character-sheet-create/core-profile";
+import { insertFeatsTraitsData } from "./character-sheet-create/features-traits";
+import { insertBackgroundData } from "./character-sheet-create/background";
+import { insertAbilityScoresData } from "./character-sheet-create/ability-scores";
+import { insertCombatStatsData } from "./character-sheet-create/combat-stats";
+import { insertExplorationSkillsData } from "./character-sheet-create/exploration-skills";
+import { insertSkillsData } from "./character-sheet-create/skills";
+import { insertSpellsData } from "./character-sheet-create/spells";
+import { insertSpellSlotsData } from "./character-sheet-create/spell-slots";
+import { insertEquipmentData } from "./character-sheet-create/equipment";
+import { insertItemsData } from "./character-sheet-create/items";
 
 
 const submitCharacter = async (req: NextApiRequest, res: NextApiResponse) => {

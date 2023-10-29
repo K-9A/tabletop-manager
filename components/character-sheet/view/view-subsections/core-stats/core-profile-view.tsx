@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import ErrorMessage from "@/components/helper/error-message";
 import { AppDispatch } from "@/store"; //For Typescript
-
+import { useRouter } from "next/router";
 import { RootState } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -20,19 +20,21 @@ import { HeartIcon } from "@heroicons/react/20/solid";
 
 import { AnyAction } from "@reduxjs/toolkit";
 
-
-
 const validationSchema = Yup.object({
   name: Yup.string().required("Character Name is required"),
 });
 
 const CoreProfile = () => {
   const dispatch: AppDispatch = useDispatch();
+  const router = useRouter();
 
-  const fetchName = useSelector((state: RootState) => state.coreProfileView.name);
+
+  const fetchName = useSelector(
+    (state: RootState) => state.coreProfileView.name
+  );
 
   const [lastDispatchedName, setLastDispatchedName] = useState("");
-  // State to track external updates
+  // State to track external updates for socket.io
   const [hasExternalUpdate, setHasExternalUpdate] = useState(false);
   // Ref to store the previous name
   const previousNameRef = useRef(fetchName);
@@ -54,12 +56,12 @@ const CoreProfile = () => {
       console.log(formik.values.name); // For debugging
       try {
         await dispatch(
-          submitCoreProfileData({ name: formik.values.name }) as unknown as AnyAction
+          submitCoreProfileData({
+            name: formik.values.name,
+          }) as unknown as AnyAction
         ).unwrap();
         socket.emit("client:name-update", formik.values.name);
-
         dispatch(fetchCoreProfileData() as unknown as AnyAction);
-
         setLastDispatchedName(formik.values.name);
       } catch (error) {
         console.error("Error submitting name:", error);
@@ -95,17 +97,16 @@ const CoreProfile = () => {
     }
   }, [hasExternalUpdate]);
 
-
-
+  //Socket listener
   useEffect(() => {
-    console.log('Setting up listener for server:name-update');
+    console.log("Setting up listener for server:name-update");
     socket.on("server:name-update", (updatedName) => {
-      console.log('Received name update:', updatedName);
+      console.log("Received name update:", updatedName);
       dispatch(coreProfileViewActions.updateField(updatedName));
       formik.setFieldValue("name", updatedName);
     });
     return () => {
-      console.log('Cleaning up listener');
+      console.log("Cleaning up listener");
       socket.off("server:name-update");
     };
   }, [dispatch, formik]);
@@ -137,7 +138,7 @@ const CoreProfile = () => {
               placeholder="Enter Name"
               crossOrigin=""
             />
-            <ErrorMessage<CoreProfileValues> name="name" formik={formik} />
+            <ErrorMessage name="name" formik={formik} />
 
             <div className="flex gap-4">
               <Input

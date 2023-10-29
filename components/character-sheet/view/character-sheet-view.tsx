@@ -20,7 +20,6 @@ const validationSchema = Yup.object({
      .min(1, "Strength should be at least 1")
      .max(20, "Strength cannot exceed 20")
      .required("Strength is required"),
-  // ... other validations
 });
 
 const CharacterSheetView = () => {
@@ -31,7 +30,6 @@ const CharacterSheetView = () => {
   const formik = useFormik<CoreProfileValues>({
     initialValues: {
       name: ""
-      // ... other initial values
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {

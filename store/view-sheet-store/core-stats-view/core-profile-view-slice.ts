@@ -32,7 +32,6 @@ export const submitCoreProfileData = createAsyncThunk(
     }
 );
 
-
 export const fetchCoreProfileData = createAsyncThunk(
     'coreProfileView/fetchCoreProfile',
     async () => {
@@ -40,7 +39,6 @@ export const fetchCoreProfileData = createAsyncThunk(
         return response.data;
     }
 );
-
 
 const coreProfileViewSlice = createSlice({
     name: 'coreProfileView',
