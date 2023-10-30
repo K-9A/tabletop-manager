@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { socketMiddleware } from "@/socket-middleware/core-stats-middleware/socket-middleware";
+//import { socketMiddleware } from "@/socket-middleware/core-stats-middleware/socket-middleware";
 import thunk from "redux-thunk";
 
 // Misc Imports
@@ -52,7 +52,8 @@ const store = configureStore({
         equipmentCreate: equipmentCreateReducer,
         itemsCreate: itemsCreateReducer,
     },
-    middleware: [thunk, socketMiddleware]
+    middleware: [thunk]
+    //middleware: [thunk, socketMiddleware]
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

@@ -4,7 +4,6 @@ import headersMiddleware from "@/utils/headers-middleware";
 import { loggerMiddleware } from "@/utils/logging/logger-middleware";
 import { dbQuery } from "@/utils/dbQuery";
 import { getServerSession } from "next-auth";
-import { getSession } from "next-auth/react";
 import authOptions from "@/pages/api/auth/[...nextauth]";
 
 const submitCreateSheet = async (req: NextApiRequest, res: NextApiResponse) => {

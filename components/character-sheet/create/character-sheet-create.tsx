@@ -86,8 +86,6 @@ function CharacterSheetCreate() {
       case 12:
         return <ItemsCreate />;
       case 13:
-        return null;
-      case 14:
         return <SubmitCharacterSheet />;
 
       default:
@@ -103,7 +101,7 @@ function CharacterSheetCreate() {
     } as any);
 
   const next = () => {
-    if (active === 14) return;
+    if (active === 13) return;
 
     setActive(active + 1);
   };
@@ -188,13 +186,13 @@ function CharacterSheetCreate() {
               ITM{itemsValid && <CheckCircleIcon />}
             </IconButton>
           </Tooltip>
-          <Tooltip content="Homebrew" placement="bottom">
+          {/* <Tooltip content="Homebrew" placement="bottom">
             <IconButton {...getItemProps(13)} className="dark:text-white">
               HMB
             </IconButton>
-          </Tooltip>
+          </Tooltip> */}
           <Tooltip content="Submit Sheet" placement="bottom">
-            <IconButton {...getItemProps(14)} className="dark:text-white">
+            <IconButton {...getItemProps(13)} className="dark:text-white">
               FIN
             </IconButton>
           </Tooltip>
@@ -204,7 +202,7 @@ function CharacterSheetCreate() {
           className="flex items-center gap-2 dark:text-white"
           onClick={next}
           size="sm"
-          disabled={active === 14}
+          disabled={active === 13}
         >
           Next
           <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />

@@ -4,8 +4,8 @@ export interface DashboardProps {
       name: string;
       email: string;
       dateJoined: string;
-      campaignsOwned: string;
-      characterSheetsOwned: string;
+      totalCampaigns: number;
+      totalCharacterSheets: number;
     };
     labelBgColor?: string;
   }
@@ -16,8 +16,8 @@ export interface DashboardProps {
       username?: string; // this property is now optional
       email: string;
       dateJoined: string;
-      campaignsOwned: string;
-      characterSheetsOwned: string;
+      totalCampaigns: number;
+      totalCharacterSheets: number;
       created_at?: string; // this property is now optional
    };
    labelBgColor: string;
@@ -31,8 +31,8 @@ export interface DashboardProps {
       username: string;
       email: string;
       dateJoined: string;
-      campaignsOwned: string;
-      characterSheetsOwned: string;
+      totalCampaigns: number;
+      totalCharacterSheets: number;
     };
   };
   

@@ -48,8 +48,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const campaignId = context.params?.campaignId as string;
 
-  console.log(campaignId)
-
   return {
     props: { campaignId },
   };
