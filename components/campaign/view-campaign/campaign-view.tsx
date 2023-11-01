@@ -3,7 +3,6 @@ import React, { Fragment } from "react";
 import { useDispatch } from "react-redux";
 import { useCampaignView } from "@/components/custom-hooks/campaign-hooks/use-campaign-view";
 import { generateFieldHandlers } from "@/components/helper/form-handlers-generator";
-import { handleBlur, handleKeyDown } from "@/components/helper/form-handlers";
 import { Input, Textarea } from "@material-tailwind/react";
 import AuthErrorMessage from "@/components/helper/auth-error";
 import { AppDispatch } from "@/store"; //For Typescript

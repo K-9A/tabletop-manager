@@ -1,30 +1,20 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-
-interface CreateCoreProfileState {
-    name: string;
-    char_class: number;
-    race: string;
-    proficiency: number;
-    char_level: number;
-    experience: number;
-    next_level: number;
-    affinity: string;
-    isValid: false;
-    error: string | null;
-}
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { CoreProfileTypes } from '@/components/types/sheet-types/view-types';
 
 
-const initialCreateCoreProfileState = {
+
+
+const initialCreateCoreProfileState:CoreProfileTypes = {
 
     name: "",
-    char_class: "",
+    char_class: null,
     race: "",
-    proficiency: "",
-    char_level: "",
-    experience: "",
-    next_level: "",
+    proficiency: null,
+    char_level: null,
+    experience: null,
+    next_level: null,
     affinity: "",
-    loading: false,
+    isLoading: false,
     isValid: false,
     error: null
 

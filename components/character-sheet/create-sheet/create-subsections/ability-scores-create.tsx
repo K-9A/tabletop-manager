@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
 import ErrorMessage from "@/components/helper/error-message";
-import { useAbilityScoresCreate } from "../../../custom-hooks/character-sheet-hooks/use-ability-scores-create";
+import { useAbilityScoresCreate } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-ability-scores-create";
 import { AbilityScoresTooltip } from "@/components/helper/tooltips";
 import { Input, Tooltip } from "@material-tailwind/react";
 

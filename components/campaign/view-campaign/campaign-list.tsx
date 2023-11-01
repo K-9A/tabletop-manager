@@ -11,7 +11,7 @@ const TABLE_HEAD = [
   { title: "Campaign Name", width: "w-1/2" },
   { title: "Campaign Code", width: "w-1/4" },
   { title: "Date Created", width: "w-1/4" },
-  { title: "Delete", width: "w-1/4" },
+  { title: "Delete", width: "w-1/6" },
 ];
 
 const CampaignList = () => {

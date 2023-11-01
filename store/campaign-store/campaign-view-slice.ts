@@ -1,21 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { CampaignViewDataState, UpdateFieldArgs } from "@/components/types/campaing-types";
+import { validCampaignFieldNames } from "@/components/helper/valid-campaign-fields";
 import axios from "axios";
-
-interface UpdateFieldArgs {
-  campaignId: string;
-  fieldName: string;
-  value: string;
-}
-
-interface CampaignViewDataState {
-  campaign_id: string;
-  campaign_name: string;
-  campaign_description: string;
-  user_id: string;
-  username: string;
-  isLoading: boolean;
-  error: string | null;
-}
 
 const initialCampaignDataView: CampaignViewDataState = {
   campaign_id: "",
@@ -49,7 +35,7 @@ export const updateCampaignField = createAsyncThunk(
     { campaignId, fieldName, value }: UpdateFieldArgs,
     { rejectWithValue }
   ) => {
-    if (fieldName !== "campaign_name" && fieldName !== "campaign_description") {
+    if (!validCampaignFieldNames.includes(fieldName)) {
       return rejectWithValue("Invalid field name");
     }
 

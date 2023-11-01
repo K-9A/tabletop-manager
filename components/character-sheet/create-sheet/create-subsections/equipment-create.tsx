@@ -8,7 +8,7 @@ import {
   Tooltip,
   Typography,
 } from "@material-tailwind/react";
-import { useEquipmentCreate } from "../../../custom-hooks/character-sheet-hooks/use-equipment-create";
+import { useEquipmentCreate } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-equipment-create";
 import { EquipmentCreateTooltip } from "@/components/helper/tooltips";
 import { FormikErrors, FormikTouched } from "formik";
 

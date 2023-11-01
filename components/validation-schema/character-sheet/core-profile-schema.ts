@@ -1,6 +1,16 @@
 import * as Yup from "yup";
 
-export const coreProfileSchema  = Yup.object({
+interface CoreProfileSchema {
+  name: Yup.StringSchema;
+  char_class: Yup.StringSchema;
+  race: Yup.StringSchema;
+  proficiency: Yup.NumberSchema;
+  char_level: Yup.NumberSchema;
+  experience: Yup.NumberSchema;
+  next_level: Yup.NumberSchema;
+}
+
+export const coreProfileRules: CoreProfileSchema = {
     name: Yup.string().required("Character Name is required"),
     char_class: Yup.string().required("Class is required"),
     race: Yup.string().required("Race is required"),
@@ -22,4 +32,6 @@ export const coreProfileSchema  = Yup.object({
       .typeError("Next Level must be a number")
       .min(0, "Next Level cannot be negative")
       .required("Next Level is required"),
-  });
+  };
+
+  export const coreProfileSchema = Yup.object({ ...coreProfileRules });

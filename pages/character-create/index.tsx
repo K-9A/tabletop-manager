@@ -1,5 +1,5 @@
 import CreateSheetForm from "@/components/layout/containers/create-sheet-box";
-import CharacterSheetCreate from "@/components/character-sheet/create/character-sheet-create";
+import CharacterSheetCreate from "@/components/character-sheet/create-sheet/character-sheet-create";
 import Head from "next/head";
 import { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";

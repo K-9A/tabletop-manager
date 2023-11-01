@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
 import ErrorMessage from "@/components/helper/error-message";
-import { useCombatStatsCreate } from "../../../custom-hooks/character-sheet-hooks/use-combat-stats-create";
+import { useCombatStatsCreate } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-combat-stats-create";
 import { Input, Tooltip } from "@material-tailwind/react";
 
 const CombatStatsCreate = (props) => {

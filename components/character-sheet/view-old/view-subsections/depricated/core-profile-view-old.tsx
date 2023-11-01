@@ -8,7 +8,7 @@ import {
   coreProfileViewActions,
   submitCoreProfileData,
   fetchCoreProfileData,
-} from "@/store/view-sheet-store/core-stats-view/core-profile-view-slice";
+} from "@/store/view-sheet-store/core-stats-view-old/core-profile-view-slice-old";
 import socket from "@/utils/socket-client";
 
 import { useFormik } from "formik";
@@ -24,7 +24,8 @@ const validationSchema = Yup.object({
   name: Yup.string().required("Character Name is required"),
 });
 
-const CoreProfile = () => {
+//This File is for reference ONLY and this isn't exported unless absolutely necessary.
+const CoreProfileOld = () => {
   const dispatch: AppDispatch = useDispatch();
   const router = useRouter();
 
@@ -138,7 +139,7 @@ const CoreProfile = () => {
               placeholder="Enter Name"
               crossOrigin=""
             />
-            <ErrorMessage name="name" formik={formik} />
+
 
             <div className="flex gap-4">
               <Input
@@ -179,4 +180,3 @@ const CoreProfile = () => {
   );
 };
 
-export default CoreProfile;

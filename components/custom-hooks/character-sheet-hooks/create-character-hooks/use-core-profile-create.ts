@@ -2,11 +2,17 @@ import { useEffect } from "react";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { createCoreProfileActions } from "@/store/create-sheet-store/core-profile-create-slice";
+import { updateCoreProfileField, fetchCoreProfileData } from "@/store/view-sheet-store/core-profile-view-slice";
+import { SheetOptions } from "@/components/types/sheet-types/view-types";
 import { RootState, AppDispatch } from "@/store";
 import { coreProfileSchema } from "@/components/validation-schema/character-sheet/core-profile-schema";
+import { AnyAction } from "@reduxjs/toolkit"; //for typescript
 
 
-export const useCoreProfileCreate = (initialData) => {
+
+export const useCoreProfileCreate = ( options: SheetOptions = {}) => {
+
+  const { initialData, characterId } = options;
 
   const isDarkMode = useSelector((state: RootState) => state.darkMode);
 
@@ -29,6 +35,20 @@ export const useCoreProfileCreate = (initialData) => {
     validationSchema: coreProfileSchema,
     onSubmit: (values) => {},
   });
+
+  useEffect(() => {
+    dispatch(fetchCoreProfileData(characterId) as unknown as AnyAction);
+  }, [dispatch, characterId]);
+
+  const updateViewField = (fieldName, value) => {
+    dispatch(
+      updateCoreProfileField({
+        characterId,
+        fieldName,
+        value,
+      }) as unknown as AnyAction
+    );
+  };
 
   //Store Update Handlers Section
   const updateCharacterName = async () => {
@@ -116,7 +136,9 @@ export const useCoreProfileCreate = (initialData) => {
 
   return {
     ...formik,
+    formik,
     isDarkMode,
+    updateViewField,
     resetCoreProfile,
     updateCharacterName,
     updateCharacterClass,

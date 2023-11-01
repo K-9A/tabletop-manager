@@ -5,7 +5,6 @@ import { RootState, AppDispatch } from "@/store";
 import { featsTraitsSchema } from "@/components/validation-schema/character-sheet/feats-traits-schema";
 
 
-
 export const useFeatsTraitsCreate = (initialData) => {
 
   const featsTraitsData = useSelector(

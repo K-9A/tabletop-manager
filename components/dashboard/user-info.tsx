@@ -3,7 +3,6 @@ import { UserInfoProps } from "../types/dash-types";
 import formatDate from "../helper/format-date";
 
 const UserInfo: React.FC<UserInfoProps> = ({ user, labelBgColor }) => {
-  console.log(user);
 
   return (
     <div className="border border-gray-500 p-4 py-2 relative rounded-lg">

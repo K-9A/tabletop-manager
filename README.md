@@ -43,7 +43,7 @@ The project is currently in active development, with essential packages installe
 * Basic Alerting System
 * Redux Store + Thunk Setup
 * MySQL + Schema Setup
-* Socket.IO Broadcasting
+* Socket.IO Broadcasting (Currently disabled)
 
 ## <a id="screenshots"></a>Screenshots
 
@@ -152,11 +152,9 @@ Profile Enhancements
 
 * Profile Customization: Allowing users to customize their profiles by uploading images of their characters for their character sheeet and/or their user profile. Ability to change user name.
 
-Chat Improvements
+Socket.IO Full Implementation
 
-* Rich Text Support: Implementing rich text support in the chat.
-    Tying chat to user account: Whenever a user posts in chat, that should be linked to their profile.
-    Chat notifications: Notifying those present in a chat session that a user has joined or left.
+* Implement Socket.IO to enable users to view each other's sheets and campaign data in real time as well as have chat functionality down the road.s
 
 Additional Features
 

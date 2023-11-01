@@ -1,10 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
 import { useMemoizedAlert } from "@/components/layout/alert";
+import { useRouter } from "next/router";
 import formatDate from "@/components/helper/format-date";
 import axios from "axios";
 
 export const useCharacterList = (userId) => {
   const ROWS_PER_PAGE = 5; //Dictate how many entries go into each list page
+
+  const router = useRouter();
 
   //For the user alert messages
   const addAlertMemo = useMemoizedAlert();
@@ -28,11 +31,11 @@ export const useCharacterList = (userId) => {
   //Fetch Characters
   const fetchCharacters = useCallback(() => {
     axios
-      .get(`/api/character-list?userId=${userId}`)
+      .get(`/api/character-sheet-view/character-list?userId=${userId}`)
       .then((response) => {
         if (response.data.success) {
           const retrievedCharacters = response.data.data.map((character) => ({
-            character_id: character.character_ID,
+            id: character.character_ID,
             character_name: character.character_name,
             class: character.class,
             level: character.char_level,
@@ -41,7 +44,6 @@ export const useCharacterList = (userId) => {
               ? character.campaign_id
               : "Not Joined",
           }));
-
           setCharacters(retrievedCharacters);
         }
       })
@@ -65,19 +67,19 @@ export const useCharacterList = (userId) => {
   //delete character  api call
   const confirmCharacterDelete = () => {
     axios
-      .delete("/api/character-list", {
+      .delete("/api/character-sheet-view/character-list/", {
         data: {
-          characterId: characterIdToDelete.character_id,
+          characterId: characterIdToDelete.characterId,
         },
       })
       .then(() => {
         setIsDialogOpen(false);
         addAlertMemo("Character deleted successfully.", "success");
         setCharacterIdToDelete(null); // Reset the characterIdToDelete state
-        fetchCharacters(); // Fetch the updated list of campaigns after deletion
+        fetchCharacters(); // Fetch the updated list of characterss after deletion
       })
       .catch((error) => {
-        console.error("Error deleting campaign:", error);
+        console.error("Error deleting character:", error);
         addAlertMemo(
           "Something went wrong with the attempt to delete.",
           "error"
@@ -99,6 +101,16 @@ export const useCharacterList = (userId) => {
     if (active > 1) setActive(active - 1);
   };
 
+  //For the routing
+  const handleRowClick = (id) => {
+    console.log("ID in handleRowClick:", id);
+    if (typeof id === 'undefined') {
+      console.error("ID is undefined");
+      return;
+    }
+    router.push(`/character-view/${id}`);
+  };
+
   return {
     characters: currentRows,
     searchTerm,
@@ -112,6 +124,7 @@ export const useCharacterList = (userId) => {
     totalPages,
     filteredRows,
     currentRows,
+    handleRowClick,
     active,
   };
 };

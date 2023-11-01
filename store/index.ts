@@ -10,7 +10,7 @@ import authReducer from "./auth-slice";
 import campaignViewReducer from "./campaign-store/campaign-view-slice";
 
 // View Sheet Slice Imports
-import coreProfileViewReducer from "./view-sheet-store/core-stats-view/core-profile-view-slice";
+import coreProfileViewReducer from "./view-sheet-store/core-profile-view-slice";
 
 // Create Sheet Slice Imports
 import coreProfileCreateReducer from "./create-sheet-store/core-profile-create-slice";

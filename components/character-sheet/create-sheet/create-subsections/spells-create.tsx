@@ -10,7 +10,7 @@ import {
   Select,
   Option,
 } from "@material-tailwind/react";
-import { useSpellsCreate } from "../../../custom-hooks/character-sheet-hooks/use-spells-create";
+import { useSpellsCreate } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-spells-create";
 import { SpellsCreateTooltip } from "@/components/helper/tooltips";
 import { FormikErrors, FormikTouched } from "formik";
 

@@ -26,6 +26,7 @@ function ListBody({
   onRowClick,
   confirmDelete,
 }) {
+
   return (
     <CardBody className="px-0">
       <table className="w-full min-w-max text-left table-fixed">
@@ -78,7 +79,7 @@ function ListBody({
                         }
                       >
                         <span className="cursor-pointer hover:underline transition-all"
-                        onClick={() => onRowClick(row.code)}>
+                        onClick={() => onRowClick(row.id)}>
                           {typeof value === "string" && idx === 0
                             ? truncateString(value, truncateLength)
                             : value}

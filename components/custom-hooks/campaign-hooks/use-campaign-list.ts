@@ -31,12 +31,12 @@ export const useCampaignList = (userId) => {
   //Fetch Campaigns
   const fetchCampaigns = useCallback(() => {
     axios
-      .get(`/api/campaign/campaign-list/?userId=${userId}`)
+      .get(`/api/campaign/campaign-list?userId=${userId}`)
       .then((response) => {
         if (response.data.success) {
           const retrievedCampaigns = response.data.data.map((campaign) => ({
             name: campaign.campaign_name,
-            code: campaign.campaign_id,
+            id: campaign.campaign_id,
             date: formatDate(campaign.date_created),
           }));
           setCampaigns(retrievedCampaigns);
@@ -94,11 +94,16 @@ export const useCampaignList = (userId) => {
     if (active > 1) setActive(active - 1);
   };
 
-  //For the routing
-  const handleRowClick = (campaignId) => {
-    router.push(`/campaign-view/${campaignId}`);
-  };
-
+    //For the routing
+    const handleRowClick = (id) => {
+      console.log("ID in handleRowClick:", id);
+      if (typeof id === 'undefined') {
+        console.error("ID is undefined");
+        return;
+      }
+      router.push(`/campaign-view/${id}`);
+    };
+  
   return {
     campaigns: currentRows,
     searchTerm,

@@ -1,5 +1,5 @@
 import ListCard from "@/components/layout/containers/list-card";
-import CharacterList from "@/components/character-sheet/view/character-sheet-list";
+import CharacterList from "@/components/character-sheet/view-sheet/character-sheet-list";
 import Head from "next/head";
 import { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";

@@ -6,7 +6,7 @@ import {
   Tooltip,
   Typography,
 } from "@material-tailwind/react";
-import { useFeatsTraitsCreate } from "../../../custom-hooks/character-sheet-hooks/use-feats-traits-create";
+import { useFeatsTraitsCreate } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-feats-traits-create";
 import { MarkAsCompleteTooltip } from "@/components/helper/tooltips";
 
 

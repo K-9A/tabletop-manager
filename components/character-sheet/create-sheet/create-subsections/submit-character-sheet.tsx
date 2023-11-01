@@ -4,17 +4,17 @@ import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
 import AllIsValid from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-all-valid";
 import { useHandleSubmitAll } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-create-character";
-import { useAbilityScoresCreate } from "../../../custom-hooks/character-sheet-hooks/use-ability-scores-create";
-import { useBackgroundCreate } from "@/components/custom-hooks/character-sheet-hooks/use-background-create";
-import { useCombatStatsCreate } from "@/components/custom-hooks/character-sheet-hooks/use-combat-stats-create";
-import { useCoreProfileCreate } from "@/components/custom-hooks/character-sheet-hooks/use-core-profile-create";
-import { useEquipmentCreate } from "@/components/custom-hooks/character-sheet-hooks/use-equipment-create";
-import { useExplorationSkillsCreate } from "@/components/custom-hooks/character-sheet-hooks/use-exploration-skills-create";
-import { useFeatsTraitsCreate } from "@/components/custom-hooks/character-sheet-hooks/use-feats-traits-create";
-import { useItemsCreate } from "@/components/custom-hooks/character-sheet-hooks/use-items-create";
-import { useSkillsCreate } from "@/components/custom-hooks/character-sheet-hooks/use-skills-create";
-import { useSpellSlotsCreate } from "@/components/custom-hooks/character-sheet-hooks/use-spell-slots-create";
-import { useSpellsCreate } from "@/components/custom-hooks/character-sheet-hooks/use-spells-create";
+import { useAbilityScoresCreate } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-ability-scores-create";
+import { useBackgroundCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-background-create";
+import { useCombatStatsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-combat-stats-create";
+import { useCoreProfileCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-core-profile-create";
+import { useEquipmentCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-equipment-create";
+import { useExplorationSkillsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-exploration-skills-create";
+import { useFeatsTraitsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-feats-traits-create";
+import { useItemsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-items-create";
+import { useSkillsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-skills-create";
+import { useSpellSlotsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-spell-slots-create";
+import { useSpellsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-spells-create";
 
 
 const SubmitCharacterSheet = (props) => {

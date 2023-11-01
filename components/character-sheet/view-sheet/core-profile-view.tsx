@@ -1,17 +1,18 @@
-import { motion } from "framer-motion";
-import { PageFade } from "@/components/animations/page-fade";
+import { Fragment } from "react";
 import ErrorMessage from "@/components/helper/error-message";
-import { useCoreProfileCreate } from "../../../custom-hooks/character-sheet-hooks/use-core-profile-create";
+import { useCoreProfileCreate } from "../../custom-hooks/character-sheet-hooks/create-character-hooks/use-core-profile-create";
 
 import { Input, Tooltip } from "@material-tailwind/react";
 import { ProficiencyTooltip } from "@/components/helper/tooltips";
 
-const CoreProfileCreate = (props) => {
+const CoreProfileView = (props) => {
   const {
     values,
     errors,
     touched,
     isDarkMode,
+    formik,
+    updateViewField,
     handleChange,
     handleBlur,
     updateCharacterName,
@@ -26,24 +27,12 @@ const CoreProfileCreate = (props) => {
   } = useCoreProfileCreate(props.initialData);
 
   return (
-    <motion.div
-      initial="initial"
-      animate="in"
-      exit="out"
-      variants={PageFade}
-      transition={{ duration: 0.2 }}
-      className="mt-3"
-    >
-      <h1 className="font-bold text-left w-full text-2xl dark:text-white">
-        Core Profile Section
-      </h1>
-      <div className="mt-16 flex gap-3">
+    <Fragment>
+      <div className="mt-4 flex gap-3">
         <div>
           <Input
-            variant="static"
             label="Character Name"
             name="name"
-            placeholder="Required"
             onBlur={(e) => {
               handleBlur(e);
               updateCharacterName();
@@ -59,10 +48,8 @@ const CoreProfileCreate = (props) => {
         </div>
         <div>
           <Input
-            variant="static"
             label="Class"
             name="char_class"
-            placeholder="Required"
             onBlur={(e) => {
               handleBlur(e);
               updateCharacterClass();
@@ -78,10 +65,8 @@ const CoreProfileCreate = (props) => {
         </div>
         <div>
           <Input
-            variant="static"
             label="Race"
             name="race"
-            placeholder="Required"
             onBlur={(e) => {
               handleBlur(e);
               updateRace();
@@ -100,10 +85,8 @@ const CoreProfileCreate = (props) => {
         <div>
           <Tooltip content={<ProficiencyTooltip />} placement="bottom">
             <Input
-              variant="static"
               label="Proficiency ℹ️"
               name="proficiency"
-              placeholder="Required"
               onBlur={(e) => {
                 handleBlur(e);
                 updateProficiency();
@@ -120,13 +103,11 @@ const CoreProfileCreate = (props) => {
         </div>
       </div>
 
-      <div className="mt-20 mb-12 flex gap-4">
+      <div className="mt-6 mb-4 flex gap-3">
         <div>
           <Input
-            variant="static"
             label="Character Level"
             name="char_level"
-            placeholder="Required"
             onBlur={(e) => {
               handleBlur(e);
               updateCharacterLevel();
@@ -142,10 +123,8 @@ const CoreProfileCreate = (props) => {
         </div>
         <div>
           <Input
-            variant="static"
             label="Experience"
             name="experience"
-            placeholder="Required"
             onBlur={(e) => {
               handleBlur(e);
               updateExperience();
@@ -161,10 +140,8 @@ const CoreProfileCreate = (props) => {
         </div>
         <div>
           <Input
-            variant="static"
             label="Next Level"
             name="next_level"
-            placeholder="Required"
             onBlur={(e) => {
               handleBlur(e);
               updateNextLevel();
@@ -180,10 +157,8 @@ const CoreProfileCreate = (props) => {
         </div>
         <div>
           <Input
-            variant="static"
             label="Affinity"
             name="affinity"
-            placeholder="Optional"
             onBlur={(e) => {
               handleBlur(e);
               updateAffinity();
@@ -196,8 +171,8 @@ const CoreProfileCreate = (props) => {
           />
         </div>
       </div>
-    </motion.div>
+    </Fragment>
   );
 };
 
-export default CoreProfileCreate;
+export default CoreProfileView;

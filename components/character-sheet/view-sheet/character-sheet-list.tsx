@@ -4,7 +4,7 @@ import ListFooter from "@/components/view-list/list-footer";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { useSession } from "next-auth/react";
-import { useCharacterList } from "@/components/custom-hooks/character-sheet-hooks/use-character-list";
+import { useCharacterList } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-character-list";
 import { Fragment } from "react";
 
 const TABLE_HEAD = [
@@ -36,6 +36,7 @@ const CharacterList = () => {
     active,
     isDialogOpen,
     setIsDialogOpen,
+    handleRowClick,
     confirmCharacterDelete,
   } = useCharacterList(userId);
 
@@ -59,6 +60,7 @@ const CharacterList = () => {
         isDialogOpen={isDialogOpen}
         setIsDialogOpen={setIsDialogOpen}
         confirmDelete={confirmCharacterDelete}
+        onRowClick={handleRowClick}
       />
       <ListFooter
         activePage={active}

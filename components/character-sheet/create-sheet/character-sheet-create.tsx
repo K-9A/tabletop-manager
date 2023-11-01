@@ -17,7 +17,6 @@ import SpellSlotsCreate from "./create-subsections/spell-slots-create";
 import SpellsCreate from "./create-subsections/spells-create";
 import EquipmentCreate from "./create-subsections/equipment-create";
 import ItemsCreate from "./create-subsections/items-create";
-//Homebrew Section
 import SubmitCharacterSheet from "./create-subsections/submit-character-sheet";
 
 function CharacterSheetCreate() {
