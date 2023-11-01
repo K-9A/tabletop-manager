@@ -1,11 +1,8 @@
 import React, { Fragment } from "react";
-//Eventual Use custom hook
-import { useDispatch } from "react-redux";
+import { handleUpdateBlur, handleUpdateKeyDown } from "@/components/helper/handle-field-updates";
 import { useCampaignView } from "@/components/custom-hooks/campaign-hooks/use-campaign-view";
-import { generateFieldHandlers } from "@/components/helper/form-handlers-generator";
 import { Input, Textarea } from "@material-tailwind/react";
 import AuthErrorMessage from "@/components/helper/auth-error";
-import { AppDispatch } from "@/store"; //For Typescript
 
 interface CampaignViewProps {
   campaignId: string;
@@ -15,12 +12,6 @@ const CampaignView: React.FC<CampaignViewProps> = ({ campaignId }) => {
   const { isDarkMode, campaign, formik, updateField } = useCampaignView({
     campaignId,
   });
-
-  const dispatch: AppDispatch = useDispatch();
-
-  const fieldNames = ['campaign_name', 'campaign_description'];
-  const handlers = generateFieldHandlers(formik, fieldNames, dispatch, updateField);
-
 
   if (campaign.isLoading) {
     return <p>Loading...</p>;
@@ -33,6 +24,7 @@ const CampaignView: React.FC<CampaignViewProps> = ({ campaignId }) => {
   if (!campaign.campaign_id) {
     return <p>No campaign data found</p>;
   }
+
 
   return (
     <Fragment>
@@ -66,8 +58,8 @@ const CampaignView: React.FC<CampaignViewProps> = ({ campaignId }) => {
           onChange={(e) => {
             formik.handleChange(e);
           }}
-          onBlur={handlers.campaign_nameBlur}
-          onKeyDown={handlers.campaign_nameKeyDown}
+          onBlur={(e) => handleUpdateBlur(formik, 'campaign_name', formik.values.campaign_name, updateField)}
+          onKeyDown={(e) => handleUpdateKeyDown(formik, 'campaign_name', formik.values.campaign_name, e, updateField)}
           error={
             !!(formik.errors.campaign_name && formik.touched.campaign_name)
           }
@@ -83,8 +75,12 @@ const CampaignView: React.FC<CampaignViewProps> = ({ campaignId }) => {
           name="campaign_description"
           label="Campaign Description"
           size="lg"
-          // onChange={formik.handleChange}
+          onChange={(e) => {
+            formik.handleChange(e);
+          }}
           value={formik.values.campaign_description}
+          onBlur={(e) => handleUpdateBlur(formik, 'campaign_description', formik.values.campaign_name, updateField)}
+          onKeyDown={(e) => handleUpdateKeyDown(formik, 'campaign_description', formik.values.campaign_name, e, updateField)}
           className="dark:text-white"
           error={
             !!(
@@ -101,7 +97,7 @@ const CampaignView: React.FC<CampaignViewProps> = ({ campaignId }) => {
           // }}
         />
         <div className="h-5">
-          {/* <ErrorMessage name="campaign_description" formik={formik} /> */}
+        <AuthErrorMessage name="campaign_description" formik={formik} />
         </div>
       </div>
     </Fragment>

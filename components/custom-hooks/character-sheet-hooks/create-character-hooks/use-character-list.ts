@@ -103,7 +103,6 @@ export const useCharacterList = (userId) => {
 
   //For the routing
   const handleRowClick = (id) => {
-    console.log("ID in handleRowClick:", id);
     if (typeof id === 'undefined') {
       console.error("ID is undefined");
       return;

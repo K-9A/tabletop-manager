@@ -22,6 +22,7 @@ export const useCampaignView = ({ campaignId }: UseCampaignProps) => {
   // Selector for campaign data
   const campaign = useSelector((state: RootState) => state.campaignView);
 
+  //Fetch data on page load
   useEffect(() => {
     dispatch(fetchCampaignData(campaignId) as unknown as AnyAction);
   }, [dispatch, campaignId]);
@@ -36,15 +37,18 @@ export const useCampaignView = ({ campaignId }: UseCampaignProps) => {
     enableReinitialize: true,
   });
 
+  //Function to update individual fields
 
-  const updateField = (fieldName, value) => {
-    dispatch(
-      updateCampaignField({
-        campaignId,
-        fieldName,
-        value,
-      }) as unknown as AnyAction
-    );
+
+
+  const updateField = async (fieldName, value) => {
+    try {
+      await dispatch(updateCampaignField({ campaignId, fieldName, value }) as unknown as AnyAction).unwrap();
+      // Handle success if necessary
+    } catch (error) {
+      // Handle error
+      console.error('Failed to update field', error);
+    }
   };
 
   return {

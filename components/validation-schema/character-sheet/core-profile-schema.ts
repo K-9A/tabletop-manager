@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
 interface CoreProfileSchema {
-  name: Yup.StringSchema;
+  character_name: Yup.StringSchema;
   char_class: Yup.StringSchema;
   race: Yup.StringSchema;
   proficiency: Yup.NumberSchema;
@@ -11,7 +11,7 @@ interface CoreProfileSchema {
 }
 
 export const coreProfileRules: CoreProfileSchema = {
-    name: Yup.string().required("Character Name is required"),
+    character_name: Yup.string().required("Character Name is required"),
     char_class: Yup.string().required("Class is required"),
     race: Yup.string().required("Race is required"),
     proficiency: Yup.number()

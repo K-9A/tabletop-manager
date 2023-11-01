@@ -2,8 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CoreProfileTypes } from '@/components/types/sheet-types/view-types';
 
 
-
-
 const initialCreateCoreProfileState:CoreProfileTypes = {
 
     name: "",
@@ -20,7 +18,6 @@ const initialCreateCoreProfileState:CoreProfileTypes = {
 
 };
 
-
 const coreProfileCreateSlice = createSlice({
     name: 'coreProfileCreate',
     initialState: initialCreateCoreProfileState,
@@ -29,14 +26,10 @@ const coreProfileCreateSlice = createSlice({
         const { name, value } = action.payload;
         state[name] = value;
       },
-      //Probably don't need this
-      updateCoreProfileCreate: (state, action: PayloadAction<Partial<typeof initialCreateCoreProfileState>>) => {
-        Object.assign(state, action.payload);
-      },
       setValidity: (state, action: PayloadAction<boolean>) => {
         state.isValid = action.payload;
       },
-      resetCoreProfile: (state) => {
+      resetCoreProfile: () => {
         return initialCreateCoreProfileState;
       },
     },

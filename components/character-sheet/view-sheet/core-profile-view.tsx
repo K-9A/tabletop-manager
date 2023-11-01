@@ -1,9 +1,10 @@
 import { Fragment } from "react";
 import ErrorMessage from "@/components/helper/error-message";
 import { useCoreProfileCreate } from "../../custom-hooks/character-sheet-hooks/create-character-hooks/use-core-profile-create";
-
+import { handleUpdateBlur, handleUpdateKeyDown } from "@/components/helper/handle-field-updates";
 import { Input, Tooltip } from "@material-tailwind/react";
 import { ProficiencyTooltip } from "@/components/helper/tooltips";
+import AuthErrorMessage from "@/components/helper/auth-error";
 
 const CoreProfileView = (props) => {
   const {
@@ -11,11 +12,10 @@ const CoreProfileView = (props) => {
     errors,
     touched,
     isDarkMode,
-    formik,
+    viewFormik,
     updateViewField,
     handleChange,
     handleBlur,
-    updateCharacterName,
     updateCharacterClass,
     updateRace,
     updateProficiency,
@@ -24,7 +24,9 @@ const CoreProfileView = (props) => {
     updateNextLevel,
     updateAffinity,
     getErrorMessage,
-  } = useCoreProfileCreate(props.initialData);
+  } = useCoreProfileCreate(props.characterId);
+
+
 
   return (
     <Fragment>
@@ -32,19 +34,19 @@ const CoreProfileView = (props) => {
         <div>
           <Input
             label="Character Name"
-            name="name"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateCharacterName();
+            name="character_name"
+            value={viewFormik.values.character_name}
+            onChange={(e) => {
+              viewFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.name}
-            error={!!(errors.name && touched.name)}
+            onBlur={(e) => handleUpdateBlur(viewFormik, 'character_name', viewFormik.values.character_name, updateViewField)}
+            onKeyDown={(e) => handleUpdateKeyDown(viewFormik, 'character_name', viewFormik.values.character_name, e, updateViewField)}
+            error={!!(viewFormik.errors.character_name && viewFormik.touched.character_name)}
             className={"dark:text-white"}
             color={isDarkMode ? "white" : "black"}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("name")} />
+          <AuthErrorMessage name="character_name" formik={viewFormik} />
         </div>
         <div>
           <Input

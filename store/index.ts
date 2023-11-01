@@ -28,7 +28,6 @@ import itemsCreateReducer from "./create-sheet-store/items-create-slice";
 
 const store = configureStore({
     reducer: { 
-
         //Misc Reducers
         darkMode: darkModeReducer,
         auth: authReducer,

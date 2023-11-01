@@ -10,11 +10,11 @@ import { validCoreProfileFieldNames } from "@/components/helper/valid-character-
 import { updateFieldValidator } from "@/components/helper/update-field-validator";
 import { coreProfileSchema } from "@/components/validation-schema/character-sheet/core-profile-schema";
 
-
 const updateCoreProfile = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerSession(req, res, authOptions);
 
   const { characterId, fieldName, value } = req.query;
+
 
   if (!session) {
     return res
@@ -50,7 +50,6 @@ const updateCoreProfile = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!characterId || !fieldName || !value) {
       return res.status(400).json({ error: "Missing parameters" });
     }
-
     // Check if the field name is valid
     if (!validCoreProfileFieldNames.includes(fieldName as string)) {
       return res

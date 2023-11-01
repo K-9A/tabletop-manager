@@ -1,14 +1,9 @@
-export interface SheetOptions{
-    initialData?: any; 
-    characterId?: string;
-}
-
 export interface CharacterIdType {
     characterId: string;
   }
 
 export interface CoreProfileTypes {
-    name: string;
+    character_name: string;
     char_class: number | null;
     race: string;
     proficiency: number | null;

@@ -22,7 +22,6 @@ const CharacterSheetView: React.FC<CharacterViewProps> = ({ characterId }) => {
         Character Sheet #{characterId}
       </Typography>
 
-      {/* Core Stats Section */}
       <div className="mt-5 border border-gray-400 p-4 py-2 relative rounded-lg">
         <Typography
           variant="h6"
@@ -46,7 +45,7 @@ const CharacterSheetView: React.FC<CharacterViewProps> = ({ characterId }) => {
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <CoreProfileView />
+              <CoreProfileView characterId={characterId} />
             </motion.div>
           )}
         </AnimatePresence>
