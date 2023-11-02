@@ -6,12 +6,12 @@ import axios from "axios";
 
 const initialViewCoreProfileState: CoreProfileTypes = {
   character_name: "",
-  char_class: null,
+  char_class: "",
   race: "",
-  proficiency: null,
-  char_level: null,
-  experience: null,
-  next_level: null,
+  proficiency: null || 0,
+  char_level: null || 0,
+  experience: null || 0,
+  next_level: null || 0,
   affinity: "",
   isLoading: false,
   error: null,
@@ -19,7 +19,7 @@ const initialViewCoreProfileState: CoreProfileTypes = {
 
 const baseURL = "/api/character-sheet-view/core-profile-view";
 
-//Fetch data
+//Fetch data for view sheet subsection
 export const fetchCoreProfileData = createAsyncThunk(
   "coreProfileView/fetchCoreProfileData",
   async (characterId: string, { rejectWithValue }) => {
@@ -32,7 +32,7 @@ export const fetchCoreProfileData = createAsyncThunk(
   }
 );
 
-//Handle user updates via PUT requests
+//Handle user updates via PUT requests for view sheet subsection
 export const updateCoreProfileField = createAsyncThunk(
   "coreProfileView/updateField",
   async (

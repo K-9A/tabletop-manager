@@ -47,7 +47,7 @@ export const insertCoreProfileData = async (
     };
 
     await dbQuery(
-      "INSERT INTO core_profile (character_id, character_name, race, class, affinity, proficiency, char_level, current_exp, next_level) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO core_profile (character_id, character_name, race, char_class, affinity, proficiency, char_level, current_exp, next_level) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         characterId,
         sanitizedData.name,

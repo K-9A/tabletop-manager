@@ -29,7 +29,7 @@ const updateCoreProfile = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     try {
       const coreProfileData = await dbQuery(
-        `SELECT character_name, race, class, affinity, proficiency, char_level, current_exp, next_level
+        `SELECT character_name, race, char_class, affinity, proficiency, char_level, experience, next_level
       FROM 
         core_profile
       WHERE 
@@ -50,6 +50,7 @@ const updateCoreProfile = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!characterId || !fieldName || !value) {
       return res.status(400).json({ error: "Missing parameters" });
     }
+
     // Check if the field name is valid
     if (!validCoreProfileFieldNames.includes(fieldName as string)) {
       return res
@@ -60,6 +61,7 @@ const updateCoreProfile = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       await updateFieldValidator(fieldName as string, coreProfileSchema, value);
       const sanitizedValue = validator.escape(value);
+
 
       await dbQuery(
         `UPDATE core_profile SET ${fieldName} = ? WHERE character_id = ?`,

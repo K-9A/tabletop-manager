@@ -1,29 +1,14 @@
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
 import ErrorMessage from "@/components/helper/error-message";
-import { useCoreProfileCreate } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-core-profile-create";
-
+import { useCoreProfile } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-core-profile";
+import { handleUpdateBlur } from "@/components/helper/handle-field-updates";
 import { Input, Tooltip } from "@material-tailwind/react";
 import { ProficiencyTooltip } from "@/components/helper/tooltips";
 
 const CoreProfileCreate = (props) => {
-  const {
-    values,
-    errors,
-    touched,
-    isDarkMode,
-    handleChange,
-    handleBlur,
-    updateCharacterName,
-    updateCharacterClass,
-    updateRace,
-    updateProficiency,
-    updateCharacterLevel,
-    updateExperience,
-    updateNextLevel,
-    updateAffinity,
-    getErrorMessage,
-  } = useCoreProfileCreate(props.initialData);
+  const { createFormik, isDarkMode, updateCreateField, getCreateErrorMessage } =
+    useCoreProfile(props.initialData);
 
   return (
     <motion.div
@@ -42,20 +27,31 @@ const CoreProfileCreate = (props) => {
           <Input
             variant="static"
             label="Character Name"
-            name="name"
+            name="character_name"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateCharacterName();
+            value={createFormik.values.character_name}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.name}
-            error={!!(errors.name && touched.name)}
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "character_name",
+                createFormik.values.character_name,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.character_name &&
+                createFormik.touched.character_name
+              )
+            }
             className={"dark:text-white"}
             color={isDarkMode ? "white" : "black"}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("name")} />
+          <ErrorMessage message={getCreateErrorMessage("character_name")} />
         </div>
         <div>
           <Input
@@ -63,18 +59,29 @@ const CoreProfileCreate = (props) => {
             label="Class"
             name="char_class"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateCharacterClass();
+            value={createFormik.values.character_name}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.char_class}
-            error={!!(errors.char_class && touched.char_class)}
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "char_class",
+                createFormik.values.char_class,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.char_class &&
+                createFormik.touched.char_class
+              )
+            }
             className={"dark:text-white"}
             color={isDarkMode ? "white" : "black"}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("char_class")} />
+          <ErrorMessage message={getCreateErrorMessage("char_class")} />
         </div>
         <div>
           <Input
@@ -82,19 +89,25 @@ const CoreProfileCreate = (props) => {
             label="Race"
             name="race"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateRace();
+            value={createFormik.values.race}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.race}
-            error={!!(errors.race && touched.race)}
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "race",
+                createFormik.values.race,
+                updateCreateField
+              )
+            }
+            error={!!(createFormik.errors.race && createFormik.touched.race)}
             className={"dark:text-white"}
             color={isDarkMode ? "white" : "black"}
             crossOrigin=""
           />
 
-          <ErrorMessage message={getErrorMessage("race")} />
+          <ErrorMessage message={getCreateErrorMessage("race")} />
         </div>
 
         <div>
@@ -104,19 +117,30 @@ const CoreProfileCreate = (props) => {
               label="Proficiency ℹ️"
               name="proficiency"
               placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateProficiency();
+              value={createFormik.values.race}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.proficiency}
-              error={!!(errors.proficiency && touched.proficiency)}
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "proficiency",
+                  createFormik.values.proficiency,
+                  updateCreateField
+                )
+              }
+              error={
+                !!(
+                  createFormik.errors.proficiency &&
+                  createFormik.touched.proficiency
+                )
+              }
               className={"dark:text-white"}
               color={isDarkMode ? "white" : "black"}
               crossOrigin=""
             />
           </Tooltip>
-          <ErrorMessage message={getErrorMessage("proficiency")} />
+          <ErrorMessage message={getCreateErrorMessage("proficiency")} />
         </div>
       </div>
 
@@ -127,18 +151,29 @@ const CoreProfileCreate = (props) => {
             label="Character Level"
             name="char_level"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateCharacterLevel();
+            value={createFormik.values.char_level}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.char_level}
-            error={!!(errors.char_level && touched.char_level)}
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "char_level",
+                createFormik.values.char_level,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.char_level &&
+                createFormik.touched.char_level
+              )
+            }
             className={"dark:text-white"}
             color={isDarkMode ? "white" : "black"}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("char_level")} />
+          <ErrorMessage message={getCreateErrorMessage("char_level")} />
         </div>
         <div>
           <Input
@@ -146,18 +181,29 @@ const CoreProfileCreate = (props) => {
             label="Experience"
             name="experience"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateExperience();
+            value={createFormik.values.experience}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.experience}
-            error={!!(errors.experience && touched.experience)}
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "experience",
+                createFormik.values.experience,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.experience &&
+                createFormik.touched.experience
+              )
+            }
             className={"dark:text-white"}
             color={isDarkMode ? "white" : "black"}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("experience")} />
+          <ErrorMessage message={getCreateErrorMessage("experience")} />
         </div>
         <div>
           <Input
@@ -165,18 +211,29 @@ const CoreProfileCreate = (props) => {
             label="Next Level"
             name="next_level"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateNextLevel();
+            value={createFormik.values.next_level}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.next_level}
-            error={!!(errors.next_level && touched.next_level)}
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "next_level",
+                createFormik.values.next_level,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.next_level &&
+                createFormik.touched.next_level
+              )
+            }
             className={"dark:text-white"}
             color={isDarkMode ? "white" : "black"}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("next_level")} />
+          <ErrorMessage message={getCreateErrorMessage("next_level")} />
         </div>
         <div>
           <Input
@@ -184,12 +241,18 @@ const CoreProfileCreate = (props) => {
             label="Affinity"
             name="affinity"
             placeholder="Optional"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateAffinity();
+            value={createFormik.values.affinity}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.affinity}
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "affinity",
+                createFormik.values.affinity,
+                updateCreateField
+              )
+            }
             className={"dark:text-white"}
             color={isDarkMode ? "white" : "black"}
             crossOrigin=""

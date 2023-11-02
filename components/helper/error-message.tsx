@@ -6,15 +6,15 @@ interface ErrorMessageProps {
 }
 
 //General error message function
-const ErrorMessage: React.FC<ErrorMessageProps> = ({ message }): JSX.Element | null => (
-  message ? (
+const ErrorMessage: React.FC<ErrorMessageProps> = ({ message }): JSX.Element | null => {
+  return message ? (
     <div className="h-0">
       <Typography color="red" className="text-sm">
         {message}
       </Typography>
     </div>
-  ) : null
-);
+  ) : null;
+};
 
 
 export default ErrorMessage;

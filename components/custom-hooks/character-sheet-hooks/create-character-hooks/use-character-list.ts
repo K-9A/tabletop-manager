@@ -37,7 +37,7 @@ export const useCharacterList = (userId) => {
           const retrievedCharacters = response.data.data.map((character) => ({
             id: character.character_ID,
             character_name: character.character_name,
-            class: character.class,
+            char_class: character.char_class,
             level: character.char_level,
             date: formatDate(character.date_created),
             campaign: character.campaign_id

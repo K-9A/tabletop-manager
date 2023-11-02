@@ -4,7 +4,7 @@ export interface CharacterIdType {
 
 export interface CoreProfileTypes {
     character_name: string;
-    char_class: number | null;
+    char_class: string;
     race: string;
     proficiency: number | null;
     char_level: number | null;
