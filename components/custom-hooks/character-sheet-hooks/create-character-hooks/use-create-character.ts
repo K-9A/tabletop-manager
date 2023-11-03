@@ -131,6 +131,7 @@ export const useHandleSubmitAll = (initialData) => {
       if (!responseCreateCharacterSheet.data.success)
         throw new Error(responseCreateCharacterSheet.data.error);
       addAlertMemo("Character created successfully!", "success");
+      return responseCreateCharacterSheet.data;
     } catch (error) {
       setError(error.message);
       // Handle network or other errors

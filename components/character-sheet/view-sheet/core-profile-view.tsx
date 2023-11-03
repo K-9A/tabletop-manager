@@ -10,7 +10,7 @@ import { ProficiencyTooltip } from "@/components/helper/tooltips";
 
 const CoreProfileView = (props) => {
   const { isDarkMode, viewFormik, updateViewField, getViewErrorMessage } =
-    useCoreProfile(props.characterId);
+    useCoreProfile('view', props.characterId);
 
   return (
     <Fragment>

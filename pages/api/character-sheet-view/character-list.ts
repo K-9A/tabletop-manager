@@ -34,7 +34,7 @@ const submitCreateSheet = async (req: NextApiRequest, res: NextApiResponse) => {
     }
   } else if (req.method === "DELETE") {
     const { characterId } = req.body;
-
+    
     if (!characterId) {
       return res.status(400).json({ error: "Character ID is required" });
     }

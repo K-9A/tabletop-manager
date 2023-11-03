@@ -8,7 +8,7 @@ import { ProficiencyTooltip } from "@/components/helper/tooltips";
 
 const CoreProfileCreate = (props) => {
   const { createFormik, isDarkMode, updateCreateField, getCreateErrorMessage } =
-    useCoreProfile(props.initialData);
+    useCoreProfile('create', props.initialData);
 
   return (
     <motion.div
@@ -59,7 +59,7 @@ const CoreProfileCreate = (props) => {
             label="Class"
             name="char_class"
             placeholder="Required"
-            value={createFormik.values.character_name}
+            value={createFormik.values.char_class}
             onChange={(e) => {
               createFormik.handleChange(e);
             }}
@@ -117,7 +117,7 @@ const CoreProfileCreate = (props) => {
               label="Proficiency ℹ️"
               name="proficiency"
               placeholder="Required"
-              value={createFormik.values.race}
+              value={createFormik.values.proficiency}
               onChange={(e) => {
                 createFormik.handleChange(e);
               }}

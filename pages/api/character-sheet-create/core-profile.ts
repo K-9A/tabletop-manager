@@ -15,7 +15,7 @@ export const insertCoreProfileData = async (
     });
 
     const {
-      name,
+      character_name,
       char_class,
       race,
       proficiency,
@@ -24,7 +24,7 @@ export const insertCoreProfileData = async (
       next_level,
       affinity,
     } = transformedData as {
-      name?: string;
+      character_name?: string;
       char_class?: string;
       race?: string;
       proficiency?: number;
@@ -36,7 +36,7 @@ export const insertCoreProfileData = async (
 
     //Use the validator package to sanitize data for SQL querying
     const sanitizedData = {
-      name: validator.escape(name),
+      character_name: validator.escape(character_name),
       char_class: validator.escape(char_class),
       race: validator.escape(race),
       proficiency: proficiency,
@@ -47,10 +47,10 @@ export const insertCoreProfileData = async (
     };
 
     await dbQuery(
-      "INSERT INTO core_profile (character_id, character_name, race, char_class, affinity, proficiency, char_level, current_exp, next_level) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      "INSERT INTO core_profile (character_id, character_name, race, char_class, affinity, proficiency, char_level, experience, next_level) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
         characterId,
-        sanitizedData.name,
+        sanitizedData.character_name,
         sanitizedData.race,
         sanitizedData.char_class,
         sanitizedData.affinity,

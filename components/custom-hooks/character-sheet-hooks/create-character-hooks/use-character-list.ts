@@ -19,7 +19,7 @@ export const useCharacterList = (userId) => {
   const [characterIdToDelete, setCharacterIdToDelete] = useState(null);
 
   const filteredRows = characters.filter((row) =>
-    row.character_name.toLowerCase().includes(searchTerm.toLowerCase())
+    row.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
   //Pagination filtering based on page limit
   const totalPages = Math.ceil(filteredRows.length / ROWS_PER_PAGE);
@@ -36,7 +36,7 @@ export const useCharacterList = (userId) => {
         if (response.data.success) {
           const retrievedCharacters = response.data.data.map((character) => ({
             id: character.character_ID,
-            character_name: character.character_name,
+            name: character.character_name,
             char_class: character.char_class,
             level: character.char_level,
             date: formatDate(character.date_created),
@@ -66,10 +66,11 @@ export const useCharacterList = (userId) => {
 
   //delete character  api call
   const confirmCharacterDelete = () => {
+    console.log("confirm delete", characterIdToDelete)
     axios
       .delete("/api/character-sheet-view/character-list/", {
         data: {
-          characterId: characterIdToDelete.characterId,
+          characterId: characterIdToDelete.id,
         },
       })
       .then(() => {

@@ -4,7 +4,7 @@ import { CoreProfileTypes } from '@/components/types/sheet-types/view-types';
 
 const initialCreateCoreProfileState:CoreProfileTypes = {
 
-    name: "",
+    character_name: "",
     char_class: null,
     race: "",
     proficiency: null,

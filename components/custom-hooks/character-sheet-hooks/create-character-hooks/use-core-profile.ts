@@ -10,7 +10,10 @@ import { RootState, AppDispatch } from "@/store";
 import { coreProfileSchema } from "@/components/validation-schema/character-sheet/core-profile-schema";
 import { AnyAction } from "@reduxjs/toolkit"; //for typescript
 
-export const useCoreProfile = (characterId: string) => {
+// Define a type for the mode, which helps control when a useEffect runs
+type Mode = "create" | "view";
+
+export const useCoreProfile = (mode: Mode, characterId: string) => {
   const isDarkMode = useSelector((state: RootState) => state.darkMode);
   const dispatch: AppDispatch = useDispatch();
 
@@ -23,10 +26,14 @@ export const useCoreProfile = (characterId: string) => {
   const coreProfileViewData = useSelector(
     (state: RootState) => state.coreProfileView
   );
-  //Fetch data on page load
+
+  //Fetch data on page load foor view component
   useEffect(() => {
-    dispatch(fetchCoreProfileData(characterId) as unknown as AnyAction);
-  }, [dispatch, characterId]);
+    // Only fetch data if in 'view' mode and a characterId is provided
+    if (mode === "view" && characterId) {
+      dispatch(fetchCoreProfileData(characterId) as unknown as AnyAction);
+    }
+  }, [dispatch, characterId, mode]);
 
   const createFormik = useFormik({
     initialValues: {
@@ -58,7 +65,6 @@ export const useCoreProfile = (characterId: string) => {
     onSubmit: () => {},
     enableReinitialize: true,
   });
-
 
   const updateViewField = async (fieldName, value) => {
     try {
@@ -95,22 +101,23 @@ export const useCoreProfile = (characterId: string) => {
 
   //Is Valid useEffect
   useEffect(() => {
-    coreProfileSchema.isValid(createFormik.values).then((isValid) => {
-      dispatch(createCoreProfileActions.setValidity(isValid));
-    });
-  }, [createFormik.values, dispatch]);
-
+    if (mode === "create") {
+      coreProfileSchema.isValid(createFormik.values).then((isValid) => {
+        dispatch(createCoreProfileActions.setValidity(isValid));
+      });
+    }
+  }, [createFormik.values, dispatch, mode]);
 
   //Error message for create and view sheet pages
   const getCreateErrorMessage = (fieldName: keyof typeof createFormik.values) =>
-  createFormik.errors[fieldName] && createFormik.touched[fieldName]
-    ? createFormik.errors[fieldName]
-    : null
+    createFormik.errors[fieldName] && createFormik.touched[fieldName]
+      ? createFormik.errors[fieldName]
+      : null;
 
   const getViewErrorMessage = (fieldName: keyof typeof viewFormik.values) =>
-  viewFormik.errors[fieldName] && viewFormik.touched[fieldName]
-    ? viewFormik.errors[fieldName]
-    : null
+    viewFormik.errors[fieldName] && viewFormik.touched[fieldName]
+      ? viewFormik.errors[fieldName]
+      : null;
 
   return {
     createFormik,
@@ -120,6 +127,6 @@ export const useCoreProfile = (characterId: string) => {
     updateViewField,
     resetCoreProfile,
     getCreateErrorMessage,
-    getViewErrorMessage
+    getViewErrorMessage,
   };
 };

@@ -7,7 +7,7 @@ import { useHandleSubmitAll } from "../../../custom-hooks/character-sheet-hooks/
 import { useAbilityScoresCreate } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-ability-scores-create";
 import { useBackgroundCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-background-create";
 import { useCombatStatsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-combat-stats-create";
-import { useCoreProfileCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-core-profile";
+import { useCoreProfile } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-core-profile";
 import { useEquipmentCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-equipment-create";
 import { useExplorationSkillsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-exploration-skills-create";
 import { useFeatsTraitsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-feats-traits-create";
@@ -33,7 +33,7 @@ const SubmitCharacterSheet = (props) => {
 
   const {
     resetCoreProfile
-  } = useCoreProfileCreate(props.initialData);
+  } = useCoreProfile('create',props.initialData);
 
   const {
     resetEquipment
@@ -75,29 +75,32 @@ const SubmitCharacterSheet = (props) => {
 
   const handleSubmission = async () => {
     try {
-      //Wait for handle submit to run
-      await handleSubmit();
-      //Programatically reroute user to character view list while also
-      //reseting all the formik data and redux slice data
-      resetAbilityScores();
-      resetBackground();
-      resetCombatStats();
-      resetCoreProfile();
-      resetEquipment();
-      resetExplorationSkills();
-      resetFeatsTraits();
-      resetItems();
-      resetSkills();
-      resetSpellSlots();
-      resetSpells();
-      router.push("/character-view");
-
+      // Wait for handleSubmit to run and check for its success
+      const submitResult = await handleSubmit();
+      // Assuming handleSubmit returns a truthy value on success
+      if (submitResult) {
+        // Reset all the formik data and redux slice data
+        resetAbilityScores();
+        resetBackground();
+        resetCombatStats();
+        resetCoreProfile();
+        resetEquipment();
+        resetExplorationSkills();
+        resetFeatsTraits();
+        resetItems();
+        resetSkills();
+        resetSpellSlots();
+        resetSpells();
+  
+        // Programmatically reroute user to character view list
+        router.push("/character-view");
+      }
     } catch (err) {
-      // handle the error, maybe show a message to the user
+      // Handle the error, maybe show a message to the user
       console.error("Submission failed:", err);
     }
   };
-
+  
   return (
     <motion.div
       initial="initial"
