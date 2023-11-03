@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import ErrorMessage from "@/components/helper/error-message";
-import { useCoreProfile } from "../../custom-hooks/character-sheet-hooks/create-character-hooks/use-core-profile";
+import { useCoreProfile } from "../../../custom-hooks/character-sheet-hooks/use-core-profile";
 import {
   handleUpdateBlur,
   handleUpdateKeyDown,

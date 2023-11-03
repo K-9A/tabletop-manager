@@ -6,6 +6,7 @@ import {
   updateCoreProfileField,
   fetchCoreProfileData,
 } from "@/store/view-sheet-store/core-profile-view-slice";
+import { useMemoizedAlert } from "@/components/layout/alert";
 import { RootState, AppDispatch } from "@/store";
 import { coreProfileSchema } from "@/components/validation-schema/character-sheet/core-profile-schema";
 import { AnyAction } from "@reduxjs/toolkit"; //for typescript
@@ -16,6 +17,7 @@ type Mode = "create" | "view";
 export const useCoreProfile = (mode: Mode, characterId: string) => {
   const isDarkMode = useSelector((state: RootState) => state.darkMode);
   const dispatch: AppDispatch = useDispatch();
+  const addAlertMemo = useMemoizedAlert();
 
   //Use selector for the create subsection
   const coreProfileCreateData = useSelector(
@@ -76,7 +78,7 @@ export const useCoreProfile = (mode: Mode, characterId: string) => {
         }) as unknown as AnyAction
       ).unwrap();
     } catch (error) {
-      // Handle error
+      addAlertMemo(`Error updating ${fieldName}`, "error");
       console.error("Failed to update field", error);
     }
   };
@@ -90,6 +92,7 @@ export const useCoreProfile = (mode: Mode, characterId: string) => {
         })
       );
     } catch (error) {
+      addAlertMemo(`Error updating ${fieldName}`, "error");
       console.error("Failed to update field", error);
     }
   };

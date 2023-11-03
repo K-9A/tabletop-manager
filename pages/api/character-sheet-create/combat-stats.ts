@@ -82,6 +82,6 @@ export const insertCombatStatsData = async (
     // Handle validation error (e.g., throw it to be caught in the main route)
     throw new Error(error.message);
   }
-  throw error; // For other types of errors
+  throw error;
 }
 };

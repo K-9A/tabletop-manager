@@ -3,7 +3,9 @@ import { Card, Typography } from "@material-tailwind/react";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/20/solid";
 import { motion, AnimatePresence } from "framer-motion";
 
-import CoreProfileView from "./core-profile-view";
+//Subsection imports
+import CoreProfileView from "./view-subsections/core-profile-view";
+import CombatStatsView from "./view-subsections/combat-stats-view";
 
 
 interface CharacterViewProps {
@@ -14,6 +16,7 @@ const CharacterSheetView: React.FC<CharacterViewProps> = ({ characterId }) => {
 
   //Piece of state for collapsing the subsection dividers
   const [isCoreStatsCollapsed, setCoreStatsCollapsed] = useState(false);
+  const [isCombatStatsCollapsed, setCombatStatsCollapsed] = useState(false);
   const [isAbilityScoresCollapsed, setAbilityScoresCollapsed] = useState(false);
 
   return (
@@ -46,6 +49,35 @@ const CharacterSheetView: React.FC<CharacterViewProps> = ({ characterId }) => {
               transition={{ duration: 0.3 }}
             >
               <CoreProfileView characterId={characterId} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      <div className="mt-5 border border-gray-400 p-4 py-2 relative rounded-lg">
+        <Typography
+          variant="h6"
+          color="blue-gray"
+          className="absolute -top-4 left-4 bg-gray-200 px-2 cursor-pointer inline-flex items-center"
+          onClick={() => setCombatStatsCollapsed(!isCombatStatsCollapsed)}
+        >
+          Combat Stats
+          {isCombatStatsCollapsed ? (
+            <ChevronUpIcon className="ml-2 h-5 w-5" />
+          ) : (
+            <ChevronDownIcon className="ml-2 h-5 w-5" />
+          )}
+
+        </Typography>
+        <AnimatePresence>
+          {!isCombatStatsCollapsed && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <CombatStatsView characterId={characterId} />
             </motion.div>
           )}
         </AnimatePresence>

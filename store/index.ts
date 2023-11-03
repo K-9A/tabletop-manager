@@ -11,6 +11,7 @@ import campaignViewReducer from "./campaign-store/campaign-view-slice";
 
 // View Sheet Slice Imports
 import coreProfileViewReducer from "./view-sheet-store/core-profile-view-slice";
+import combatStatsViewReducer from "./view-sheet-store/combat-stats-view-slice";
 
 // Create Sheet Slice Imports
 import coreProfileCreateReducer from "./create-sheet-store/core-profile-create-slice";
@@ -37,6 +38,7 @@ const store = configureStore({
 
         //View Sheet Reducers
         coreProfileView: coreProfileViewReducer,
+        combatStatsView: combatStatsViewReducer,
         
         //Create Sheet Reducers
         coreProfileCreate: coreProfileCreateReducer,

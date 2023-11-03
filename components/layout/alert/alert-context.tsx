@@ -1,9 +1,8 @@
-// AlertContext.tsx
 import React, { createContext, useContext, useState } from 'react';
 
 interface Alert {
   message: string;
-  type: 'success' | 'error' | 'info'; // add more types as needed
+  type: 'success' | 'error' | 'info';
 }
 
 interface AlertContextType {

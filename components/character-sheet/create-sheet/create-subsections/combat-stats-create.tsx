@@ -1,31 +1,13 @@
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
 import ErrorMessage from "@/components/helper/error-message";
-import { useCombatStatsCreate } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-combat-stats-create";
+import { useCombatStats } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-combat-stats";
+import { handleUpdateBlur } from "@/components/helper/handle-field-updates";
 import { Input, Tooltip } from "@material-tailwind/react";
 
 const CombatStatsCreate = (props) => {
-  const {
-    values,
-    errors,
-    touched,
-    isDarkMode,
-    handleChange,
-    handleBlur,
-    updateCurrentHP,
-    updateMaxHP,
-    updateTempHP,
-    updateArmorClass,
-    updateHitDice,
-    updateMaxHitDice,
-    updateSpeed,
-    updateInitiative,
-    updateInspiration,
-    updateSpellCasting,
-    updateSpellSave,
-    updateSpellAttack,
-    getErrorMessage,
-  } = useCombatStatsCreate(props.initialData);
+  const { createFormik, isDarkMode, updateCreateField, getCreateErrorMessage } =
+    useCombatStats("create", props.initialData);
 
   return (
     <motion.div
@@ -47,14 +29,24 @@ const CombatStatsCreate = (props) => {
             label="Current HP"
             name="current_hp"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateCurrentHP();
+            value={createFormik.values.current_hp}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.current_hp}
-            error={!!(errors.current_hp && touched.current_hp)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "current_hp",
+                createFormik.values.current_hp,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.current_hp &&
+                createFormik.touched.current_hp
+              )
+            }
             className={"dark:text-white !w-20"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -65,7 +57,7 @@ const CombatStatsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("current_hp")} />
+          <ErrorMessage message={getCreateErrorMessage("current_hp")} />
         </div>
 
         <div>
@@ -74,14 +66,21 @@ const CombatStatsCreate = (props) => {
             label="Max HP"
             name="max_hp"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateMaxHP();
+            value={createFormik.values.max_hp}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.max_hp}
-            error={!!(errors.max_hp && touched.max_hp)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "max_hp",
+                createFormik.values.max_hp,
+                updateCreateField
+              )
+            }
+            error={
+              !!(createFormik.errors.max_hp && createFormik.touched.max_hp)
+            }
             className={"dark:text-white !w-20"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -92,7 +91,7 @@ const CombatStatsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("max_hp")} />
+          <ErrorMessage message={getCreateErrorMessage("max_hp")} />
         </div>
 
         <div>
@@ -101,14 +100,21 @@ const CombatStatsCreate = (props) => {
             label="Temporary HP"
             name="temp_hp"
             placeholder="Optional"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateTempHP();
+            value={createFormik.values.temp_hp}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.temp_hp}
-            error={!!(errors.temp_hp && touched.temp_hp)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "temp_hp",
+                createFormik.values.temp_hp,
+                updateCreateField
+              )
+            }
+            error={
+              !!(createFormik.errors.temp_hp && createFormik.touched.temp_hp)
+            }
             className={"dark:text-white !w-20"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -119,7 +125,7 @@ const CombatStatsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("temp_hp")} />
+          <ErrorMessage message={getCreateErrorMessage("temp_hp")} />
         </div>
 
         <div>
@@ -128,14 +134,21 @@ const CombatStatsCreate = (props) => {
             label="Hit Dice"
             name="hit_dice"
             placeholder="Optional"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateHitDice();
+            value={createFormik.values.hit_dice}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.hit_dice}
-            error={!!(errors.hit_dice && touched.hit_dice)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "hit_dice",
+                createFormik.values.hit_dice,
+                updateCreateField
+              )
+            }
+            error={
+              !!(createFormik.errors.hit_dice && createFormik.touched.hit_dice)
+            }
             className={"dark:text-white !w-20"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -146,7 +159,7 @@ const CombatStatsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("hit_dice")} />
+          <ErrorMessage message={getCreateErrorMessage("hit_dice")} />
         </div>
 
         <div>
@@ -155,14 +168,24 @@ const CombatStatsCreate = (props) => {
             label="Max Hit Dice"
             name="max_hit_dice"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateMaxHitDice();
+            value={createFormik.values.max_hit_dice}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.max_hit_dice}
-            error={!!(errors.max_hit_dice && touched.max_hit_dice)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "max_hit_dice",
+                createFormik.values.max_hit_dice,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.max_hit_dice &&
+                createFormik.touched.max_hit_dice
+              )
+            }
             className={"dark:text-white !w-20"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -173,11 +196,9 @@ const CombatStatsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("max_hit_dice")} />
+          <ErrorMessage message={getCreateErrorMessage("max_hit_dice")} />
         </div>
       </div>
-
-
 
       <div className="mt-16 flex gap-36">
         <div>
@@ -186,14 +207,24 @@ const CombatStatsCreate = (props) => {
             label="Armor Class"
             name="armor_class"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateArmorClass();
+            value={createFormik.values.armor_class}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.armor_class}
-            error={!!(errors.armor_class && touched.armor_class)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "armor_class",
+                createFormik.values.armor_class,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.armor_class &&
+                createFormik.touched.armor_class
+              )
+            }
             className={"dark:text-white !w-20"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -204,7 +235,7 @@ const CombatStatsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("armor_class")} />
+          <ErrorMessage message={getCreateErrorMessage("armor_class")} />
         </div>
 
         <div>
@@ -214,14 +245,21 @@ const CombatStatsCreate = (props) => {
               label="Speed ℹ️"
               name="speed"
               placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateSpeed();
+              value={createFormik.values.speed}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.speed}
-              error={!!(errors.speed && touched.speed)}
-              size="md"
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "speed",
+                  createFormik.values.speed,
+                  updateCreateField
+                )
+              }
+              error={
+                !!(createFormik.errors.speed && createFormik.touched.speed)
+              }
               className={"dark:text-white !w-20"}
               color={isDarkMode ? "white" : "black"}
               labelProps={{
@@ -233,7 +271,7 @@ const CombatStatsCreate = (props) => {
               crossOrigin=""
             />
           </Tooltip>
-          <ErrorMessage message={getErrorMessage("speed")} />
+          <ErrorMessage message={getCreateErrorMessage("speed")} />
         </div>
 
         <div>
@@ -242,14 +280,24 @@ const CombatStatsCreate = (props) => {
             label="Initiative"
             name="initiative"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateInitiative();
+            value={createFormik.values.initiative}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.initiative}
-            error={!!(errors.initiative && touched.initiative)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "initiative",
+                createFormik.values.initiative,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.initiative &&
+                createFormik.touched.initiative
+              )
+            }
             className={"dark:text-white !w-20"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -260,7 +308,7 @@ const CombatStatsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("initiative")} />
+          <ErrorMessage message={getCreateErrorMessage("initiative")} />
         </div>
 
         <div>
@@ -269,14 +317,24 @@ const CombatStatsCreate = (props) => {
             label="Inspiration"
             name="inspiration"
             placeholder="Optional"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateInspiration();
+            value={createFormik.values.inspiration}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.inspiration}
-            error={!!(errors.inspiration && touched.inspiration)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "inspiration",
+                createFormik.values.inspiration,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.inspiration &&
+                createFormik.touched.inspiration
+              )
+            }
             className={"dark:text-white !w-24"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -287,11 +345,9 @@ const CombatStatsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("inspiration")} />
+          <ErrorMessage message={getCreateErrorMessage("inspiration")} />
         </div>
       </div>
-
-
 
       <div className="mt-16 flex gap-36">
         <div>
@@ -300,14 +356,24 @@ const CombatStatsCreate = (props) => {
             label="Spell Casting Ability"
             name="spell_casting"
             placeholder="Optional"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateSpellCasting();
+            value={createFormik.values.spell_casting}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.spell_casting}
-            error={!!(errors.spell_casting && touched.spell_casting)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "spell_casting",
+                createFormik.values.spell_casting,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.spell_casting &&
+                createFormik.touched.spell_casting
+              )
+            }
             className={"dark:text-white !w-36"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -318,36 +384,44 @@ const CombatStatsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("spell_casting")} />
+          <ErrorMessage message={getCreateErrorMessage("spell_casting")} />
         </div>
 
         <div>
-          <Tooltip content="In Feet (ft.)" placement="top">
-            <Input
-              variant="static"
-              label="Spell Save DC"
-              name="spell_save"
-              placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateSpellSave();
-              }}
-              onChange={handleChange}
-              value={values.spell_save}
-              error={!!(errors.spell_save && touched.spell_save)}
-              size="md"
-              className={"dark:text-white !w-36"}
-              color={isDarkMode ? "white" : "black"}
-              labelProps={{
-                className: "!w-36",
-              }}
-              containerProps={{
-                className: "!min-w-0",
-              }}
-              crossOrigin=""
-            />
-          </Tooltip>
-          <ErrorMessage message={getErrorMessage("spell_save")} />
+          <Input
+            variant="static"
+            label="Spell Save DC"
+            name="spell_save"
+            placeholder="Required"
+            value={createFormik.values.spell_save}
+            onChange={(e) => {
+              createFormik.handleChange(e);
+            }}
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "spell_save",
+                createFormik.values.spell_save,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.spell_save &&
+                createFormik.touched.spell_save
+              )
+            }
+            className={"dark:text-white !w-36"}
+            color={isDarkMode ? "white" : "black"}
+            labelProps={{
+              className: "!w-36",
+            }}
+            containerProps={{
+              className: "!min-w-0",
+            }}
+            crossOrigin=""
+          />
+          <ErrorMessage message={getCreateErrorMessage("spell_save")} />
         </div>
 
         <div>
@@ -356,14 +430,24 @@ const CombatStatsCreate = (props) => {
             label="Spell Attack Bonus"
             name="spell_attack"
             placeholder="Optional"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateSpellAttack();
+            value={createFormik.values.spell_attack}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.spell_attack}
-            error={!!(errors.spell_attack && touched.spell_attack)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "spell_attack",
+                createFormik.values.spell_attack,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.spell_attack &&
+                createFormik.touched.spell_attack
+              )
+            }
             className={"dark:text-white !w-36"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -374,7 +458,7 @@ const CombatStatsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("spell_attack")} />
+          <ErrorMessage message={getCreateErrorMessage("spell_attack")} />
         </div>
       </div>
     </motion.div>

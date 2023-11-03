@@ -5,6 +5,7 @@ import {
   updateCampaignField,
 } from "@/store/campaign-store/campaign-view-slice";
 import { useFormik } from "formik";
+import { useMemoizedAlert } from "@/components/layout/alert";
 import { RootState } from "@/store";
 import { campaignSchema } from "@/components/validation-schema/campaign/campaign-schema";
 import { AnyAction } from "@reduxjs/toolkit"; //for typescript
@@ -18,6 +19,8 @@ export const useCampaignView = ({ campaignId }: UseCampaignProps) => {
   //Darkmode state
   const isDarkMode = useSelector((state: RootState) => state.darkMode);
   const dispatch: AppDispatch = useDispatch();
+  const addAlertMemo = useMemoizedAlert();
+
 
   // Selector for campaign data
   const campaign = useSelector((state: RootState) => state.campaignView);
@@ -38,15 +41,12 @@ export const useCampaignView = ({ campaignId }: UseCampaignProps) => {
   });
 
   //Function to update individual fields
-
-
-
   const updateField = async (fieldName, value) => {
     try {
       await dispatch(updateCampaignField({ campaignId, fieldName, value }) as unknown as AnyAction).unwrap();
       // Handle success if necessary
     } catch (error) {
-      // Handle error
+      addAlertMemo(`Error updating ${fieldName}`, "error");
       console.error('Failed to update field', error);
     }
   };

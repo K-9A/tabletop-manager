@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
 import ErrorMessage from "@/components/helper/error-message";
-import { useCoreProfile } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-core-profile";
+import { useCoreProfile } from "../../../custom-hooks/character-sheet-hooks/use-core-profile";
 import { handleUpdateBlur } from "@/components/helper/handle-field-updates";
 import { Input, Tooltip } from "@material-tailwind/react";
 import { ProficiencyTooltip } from "@/components/helper/tooltips";
