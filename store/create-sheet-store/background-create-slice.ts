@@ -1,20 +1,8 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-
-interface BackgroundCreateState {
-    personality: string;
-    backstory: string;
-    bonds: string;
-    appearance: string;
-    ideals: string;
-    flaws: string;
-    valuables: string;
-    additional_traits: string;
-    isValid: false;
-    error: string | null;
-}
+import { createSlice } from '@reduxjs/toolkit';
+import { BackgroundTypes } from '@/components/types/sheet-types/field-types';
 
 
-const initialBackgroundCreateState = {
+const initialBackgroundCreateState:BackgroundTypes = {
 
     personality: "",
     backstory: "",
@@ -24,7 +12,7 @@ const initialBackgroundCreateState = {
     flaws: "",
     valuables: "",
     additional_traits: "",
-    loading: false,
+    isLoading: false,
     isValid: false,
     error: null
 
@@ -39,17 +27,13 @@ const backgroundCreateSlice = createSlice({
         const { name, value } = action.payload;
         state[name] = value;
       },
-      //Probably don't need this
-      updateBackgroundCreate: (state, action: PayloadAction<Partial<typeof initialBackgroundCreateState>>) => {
-        Object.assign(state, action.payload);
-      },
       markSectionAsValid: (state) => {
         state.isValid = true;
       },
       markSectionAsInvalid: (state) => {
         state.isValid = false;
       },
-      resetBackground: (state) => {
+      resetBackground: () => {
         return initialBackgroundCreateState;
       },
     },

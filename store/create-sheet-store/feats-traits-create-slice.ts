@@ -1,16 +1,18 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { FeatsTraitsTypes } from "@/components/types/sheet-types/field-types";
 
-const initialFeatsTraitsCreateState = {
+const initialFeatsTraitsCreateState: FeatsTraitsTypes = {
+
   feats_traits: "",
   weapon_proficiency: "",
   armor_proficiency: "",
   other_proficiency: "",
   buffs: "",
   debuffs: "",
-
-  loading: false,
+  isLoading: false,
   isValid: false,
   error: null,
+
 };
 
 const featsTraitsCreateSlice = createSlice({
@@ -21,20 +23,13 @@ const featsTraitsCreateSlice = createSlice({
       const { name, value } = action.payload;
       state[name] = value;
     },
-    //Probably don't need this
-    updateFeatsTraitsCreate: (
-      state,
-      action: PayloadAction<Partial<typeof initialFeatsTraitsCreateState>>
-    ) => {
-      Object.assign(state, action.payload);
-    },
     markSectionAsValid: (state) => {
       state.isValid = true;
     },
     markSectionAsInvalid: (state) => {
       state.isValid = false;
     },
-    resetFeatsTraits: (state) => {
+    resetFeatsTraits: () => {
       return initialFeatsTraitsCreateState;
     },
   },

@@ -1,26 +1,26 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { SpellSlotTypes } from "@/components/types/sheet-types/field-types";
 
-
-const initialCreateSpellSlotsState = {
-    first_available: "",
-    first_max: "",
-    second_available: "",
-    second_max: "",
-    third_available: "",
-    third_max: "",
-    fourth_available: "",
-    fourth_max: "",
-    fifth_available: "",
-    fifth_max: "",
-    sixth_available: "",
-    sixth_max: "",
-    seventh_available: "",
-    seventh_max: "",
-    eighth_available: "",
-    eighth_max: "",
-    nineth_available: "",
-    nineth_max: "",
-    loading: false,
+const initialCreateSpellSlotsState: SpellSlotTypes = {
+    first_available: null,
+    first_max: null,
+    second_available: null,
+    second_max: null,
+    third_available: null,
+    third_max: null,
+    fourth_available: null,
+    fourth_max: null,
+    fifth_available: null,
+    fifth_max: null,
+    sixth_available: null,
+    sixth_max: null,
+    seventh_available: null,
+    seventh_max: null,
+    eighth_available: null,
+    eighth_max: null,
+    nineth_available: null,
+    nineth_max: null,
+    isLoading: false,
     isValid: false,
     error: null
   };
@@ -34,17 +34,13 @@ const initialCreateSpellSlotsState = {
         const { name, value } = action.payload;
         state[name] = value;
       },
-      //Probably don't need this
-      updateSpellSlotsCreate: (state, action: PayloadAction<Partial<typeof initialCreateSpellSlotsState>>) => {
-        Object.assign(state, action.payload);
-      },
       markSectionAsValid: (state) => {
         state.isValid = true;
       },
       markSectionAsInvalid: (state) => {
         state.isValid = false;
       },
-      resetSpellSlots: (state) => {
+      resetSpellSlots: () => {
         return initialCreateSpellSlotsState;
       },
     },

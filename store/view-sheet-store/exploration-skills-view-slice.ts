@@ -1,27 +1,38 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { CoreProfileTypes } from "@/components/types/sheet-types/field-types";
+import { ExplorationSkillsTypes } from "@/components/types/sheet-types/field-types";
 import { UpdateSheetFieldArgs } from "@/components/types/sheet-types/update-args";
-import { validCoreProfileFieldNames } from "@/components/helper/valid-character-fields";
+import { validExplorationSkillsFieldNames } from "@/components/helper/valid-character-fields";
 import axios from "axios";
 
-const initialViewCoreProfileState: CoreProfileTypes = {
-  character_name: "",
-  char_class: "",
-  race: "",
-  proficiency: null || 0,
-  char_level: null || 0,
-  experience: null || 0,
-  next_level: null || 0,
-  affinity: "",
-  isLoading: false,
-  error: null,
-};
+const initialViewExplorationSkillsState: ExplorationSkillsTypes = {
+    acrobatics: null || 0,
+    animal: null || 0,
+    arcana: null || 0,
+    athletics: null || 0,
+    deception: null || 0,
+    history: null || 0,
+    insight: null || 0,
+    intimidation: null || 0,
+    investigation: null || 0,
+    medicine: null || 0,
+    nature: null || 0,
+    perception: null || 0,
+    performance: null || 0,
+    persuasion: null || 0,
+    religion: null || 0,
+    sleight: null || 0,
+    stealth: null || 0,
+    survival: null || 0,
+    isLoading: false,
+    error: null,
+  };
 
-const baseURL = "/api/character-sheet-view/core-profile-view";
+
+const baseURL = "/api/character-sheet-view/exploration-skills-view";
 
 //Fetch data for view sheet subsection
-export const fetchCoreProfileData = createAsyncThunk(
-  "coreProfileView/fetchCoreProfileData",
+export const fetchExplorationSkillsData = createAsyncThunk(
+  "explorationSkillsView/fetchExplorationSkillsData",
   async (characterId: string, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${baseURL}?characterId=${characterId}`);
@@ -33,13 +44,13 @@ export const fetchCoreProfileData = createAsyncThunk(
 );
 
 //Handle user updates via PUT requests for view sheet subsection
-export const updateCoreProfileField = createAsyncThunk(
-  "coreProfileView/updateField",
+export const updateExplorationSkillsField = createAsyncThunk(
+  "explorationSkillsView/updateField",
   async (
     { characterId, fieldName, value }: UpdateSheetFieldArgs,
     { rejectWithValue }
   ) => {
-    if (!validCoreProfileFieldNames.includes(fieldName)) {
+    if (!validExplorationSkillsFieldNames.includes(fieldName)) {
       return rejectWithValue("Invalid field");
     }
 
@@ -59,9 +70,9 @@ export const updateCoreProfileField = createAsyncThunk(
   }
 );
 
-const coreProfileViewSlice = createSlice({
-  name: "coreProfileView",
-  initialState: initialViewCoreProfileState,
+const explorationSkillsViewSlice = createSlice({
+  name: "explorationSkillsView",
+  initialState: initialViewExplorationSkillsState,
   reducers: {
     updateField: (state, action) => {
       const { name, value } = action.payload;
@@ -71,28 +82,28 @@ const coreProfileViewSlice = createSlice({
   extraReducers: (builder) => {
     builder
       //For data fetching
-      .addCase(fetchCoreProfileData.pending, (state) => {
+      .addCase(fetchExplorationSkillsData.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchCoreProfileData.fulfilled, (state, action) => {
+      .addCase(fetchExplorationSkillsData.fulfilled, (state, action) => {
         state.isLoading = false;
         Object.assign(state, action.payload.data);
       })
-      .addCase(fetchCoreProfileData.rejected, (state, action) => {
+      .addCase(fetchExplorationSkillsData.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       })
 
       //For data sending
-      .addCase(updateCoreProfileField.fulfilled, (state, action) => {
+      .addCase(updateExplorationSkillsField.fulfilled, (state, action) => {
         const { fieldName, value } = action.payload;
         state[fieldName] = value;
       })
-      .addCase(updateCoreProfileField.rejected, (state, action) => {
+      .addCase(updateExplorationSkillsField.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },
 });
 
-export const viewCoreProfileActions = coreProfileViewSlice.actions;
-export default coreProfileViewSlice.reducer;
+export const viewExplorationSkillsActions = explorationSkillsViewSlice.actions;
+export default explorationSkillsViewSlice.reducer;

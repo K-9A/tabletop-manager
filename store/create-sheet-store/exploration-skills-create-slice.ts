@@ -1,46 +1,43 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { ExplorationSkillsTypes } from "@/components/types/sheet-types/field-types";
 
 
-const initialCreateExplorationSkillsState = {
-    acrobatics: "",
-    animal: "",
-    arcana: "",
-    athletics: "",
-    deception: "",
-    history: "",
-    insight: "",
-    intimidation: "",
-    investigation: "",
-    medicine: "",
-    nature: "",
-    perception: "",
-    performance: "",
-    persuasion: "",
-    religion: "",
-    sleight: "",
-    stealth: "",
-    survival: "",
-    loading: false,
+const initialCreateExplorationSkillsState: ExplorationSkillsTypes = {
+    acrobatics: null,
+    animal: null,
+    arcana: null,
+    athletics: null,
+    deception: null,
+    history: null,
+    insight: null,
+    intimidation: null,
+    investigation: null,
+    medicine: null,
+    nature: null,
+    perception: null,
+    performance: null,
+    persuasion: null,
+    religion: null,
+    sleight: null,
+    stealth: null,
+    survival: null,
+    isLoading: false,
     isValid: false,
     error: null
   };
 
   const explorationSkillsCreateSlice = createSlice({
-    name: 'explorationScoresCreate',
+    name: 'explorationSkillsCreate',
     initialState: initialCreateExplorationSkillsState,
     reducers: {
       updateField: (state, action) => {
         const { name, value } = action.payload;
         state[name] = value;
       },
-      //Probably don't need this
-      updateCoreProfileCreate: (state, action: PayloadAction<Partial<typeof initialCreateExplorationSkillsState>>) => {
-        Object.assign(state, action.payload);
-      },
       setValidity: (state, action: PayloadAction<boolean>) => {
         state.isValid = action.payload;
       },
-      resetExplorationSkills: (state) => {
+      resetExplorationSkills: () => {
         return initialCreateExplorationSkillsState;
       },
     },

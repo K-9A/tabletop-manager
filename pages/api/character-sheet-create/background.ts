@@ -1,4 +1,5 @@
-import validator from "validator";
+import { backgroundSchema } from "@/components/validation-schema/character-sheet/background-schema";
+import { ValidationError } from "yup";
 
 export const insertBackgroundData = async (
   data,
@@ -6,7 +7,11 @@ export const insertBackgroundData = async (
   dbQuery: Function
 ) => {
   //Use YUP schema validator to make sure data structure matches the Formik form front end
-
+  try {
+    const transformedData = backgroundSchema.validateSync(data, {
+      abortEarly: false,
+      stripUnknown: true,
+    });
 
     const {
       personality,
@@ -17,7 +22,7 @@ export const insertBackgroundData = async (
       flaws,
       valuables,
       additional_traits,
-    } = data as {
+    } = transformedData as {
       personality?: string;
       backstory?: string;
       bonds?: string;
@@ -53,4 +58,11 @@ export const insertBackgroundData = async (
         sanitizedData.additional_traits,
       ]
     );
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      // Handle validation error (e.g., throw it to be caught in the main route)
+      throw new Error(error.message);
+    }
+    throw error;
   }
+};

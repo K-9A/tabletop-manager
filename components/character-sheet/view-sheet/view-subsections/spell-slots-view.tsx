@@ -1,63 +1,53 @@
-import { motion } from "framer-motion";
-import { PageFade } from "@/components/animations/page-fade";
+import { Fragment } from "react";
 import ErrorMessage from "@/components/helper/error-message";
 import { useSpellSlots } from "../../../custom-hooks/character-sheet-hooks/use-spell-slots";
-import { handleUpdateBlur } from "@/components/helper/handle-field-updates";
-import { Input, Tooltip, Typography, Checkbox } from "@material-tailwind/react";
-import { MarkAsCompleteTooltip } from "@/components/helper/tooltips";
+import {
+  handleUpdateBlur,
+  handleUpdateKeyDown,
+} from "@/components/helper/handle-field-updates";
+import { Input } from "@material-tailwind/react";
 
-const SpellSlotsCreate = (props) => {
-  const {
-    createFormik,
-    isValid,
-    isDarkMode,
-    updateCreateField,
-    handleCheckboxChange,
-    getCreateErrorMessage,
-  } = useSpellSlots("create", props.initialData);
+const SpellSlotsView = (props) => {
+  const { isDarkMode, viewFormik, updateViewField, getViewErrorMessage } =
+    useSpellSlots("view", props.characterId);
 
-  const spacingOddRow = "mr-4";
-  const spacingEvenRow = "mr-20";
-  const inputSize = "!w-16";
+  const spacingOddRow = "mr-3";
+  const spacingEvenRow = "mr-16";
+  const inputSize = "!w-20";
 
   return (
-    <motion.div
-      initial="initial"
-      animate="in"
-      exit="out"
-      variants={PageFade}
-      transition={{ duration: 0.2 }}
-      className="mt-3"
-    >
-      <h1 className="font-bold text-left w-full text-2xl dark:text-white mr-8">
-        <Tooltip content={<MarkAsCompleteTooltip />} placement="top">
-          Spell Slots Section ℹ️
-        </Tooltip>
-      </h1>
-
-      <div className="mt-12 flex mr-2">
+    <Fragment>
+      <div className="ml-3 mt-5 justify-center flex">
         <div className={spacingOddRow}>
           <Input
-            variant="static"
             label="1st Tier"
             name="first_available"
             placeholder="Optional"
-            value={createFormik.values.first_available}
+            value={viewFormik.values.first_available}
             onChange={(e) => {
-              createFormik.handleChange(e);
+              viewFormik.handleChange(e);
             }}
             onBlur={() =>
               handleUpdateBlur(
-                createFormik,
+                viewFormik,
                 "first_available",
-                createFormik.values.first_available,
-                updateCreateField
+                viewFormik.values.first_available,
+                updateViewField
+              )
+            }
+            onKeyDown={(e) =>
+              handleUpdateKeyDown(
+                viewFormik,
+                "first_available",
+                viewFormik.values.first_available,
+                e,
+                updateViewField
               )
             }
             error={
               !!(
-                createFormik.errors.first_available &&
-                createFormik.touched.first_available
+                viewFormik.errors.first_available &&
+                viewFormik.touched.first_available
               )
             }
             className={`dark:text-white ${inputSize}`}
@@ -70,31 +60,37 @@ const SpellSlotsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getCreateErrorMessage("first_available")} />
+          <ErrorMessage message={getViewErrorMessage("first_available")} />
         </div>
 
         <div className={spacingEvenRow}>
           <Input
-            variant="static"
             label="1st Max"
             name="first_max"
             placeholder="Optional"
-            value={createFormik.values.first_max}
+            value={viewFormik.values.first_max}
             onChange={(e) => {
-              createFormik.handleChange(e);
+              viewFormik.handleChange(e);
             }}
             onBlur={() =>
               handleUpdateBlur(
-                createFormik,
+                viewFormik,
                 "first_max",
-                createFormik.values.first_max,
-                updateCreateField
+                viewFormik.values.first_max,
+                updateViewField
+              )
+            }
+            onKeyDown={(e) =>
+              handleUpdateKeyDown(
+                viewFormik,
+                "first_max",
+                viewFormik.values.first_max,
+                e,
+                updateViewField
               )
             }
             error={
-              !!(
-                createFormik.errors.first_max && createFormik.touched.first_max
-              )
+              !!(viewFormik.errors.first_max && viewFormik.touched.first_max)
             }
             className={`dark:text-white ${inputSize}`}
             color={isDarkMode ? "white" : "black"}
@@ -106,31 +102,39 @@ const SpellSlotsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getCreateErrorMessage("first_max")} />
+          <ErrorMessage message={getViewErrorMessage("first_max")} />
         </div>
 
         <div className={spacingOddRow}>
           <Input
-            variant="static"
             label="2nd Tier"
             name="second_available"
             placeholder="Optional"
-            value={createFormik.values.second_available}
+            value={viewFormik.values.second_available}
             onChange={(e) => {
-              createFormik.handleChange(e);
+              viewFormik.handleChange(e);
             }}
             onBlur={() =>
               handleUpdateBlur(
-                createFormik,
+                viewFormik,
                 "second_available",
-                createFormik.values.second_available,
-                updateCreateField
+                viewFormik.values.second_available,
+                updateViewField
+              )
+            }
+            onKeyDown={(e) =>
+              handleUpdateKeyDown(
+                viewFormik,
+                "second_available",
+                viewFormik.values.second_available,
+                e,
+                updateViewField
               )
             }
             error={
               !!(
-                createFormik.errors.second_available &&
-                createFormik.touched.second_available
+                viewFormik.errors.second_available &&
+                viewFormik.touched.second_available
               )
             }
             className={`dark:text-white ${inputSize}`}
@@ -143,32 +147,37 @@ const SpellSlotsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getCreateErrorMessage("second_available")} />
+          <ErrorMessage message={getViewErrorMessage("second_available")} />
         </div>
 
         <div className={spacingEvenRow}>
           <Input
-            variant="static"
             label="2nd Max"
             name="second_max"
             placeholder="Optional"
-            value={createFormik.values.second_max}
+            value={viewFormik.values.second_max}
             onChange={(e) => {
-              createFormik.handleChange(e);
+              viewFormik.handleChange(e);
             }}
             onBlur={() =>
               handleUpdateBlur(
-                createFormik,
+                viewFormik,
                 "second_max",
-                createFormik.values.second_max,
-                updateCreateField
+                viewFormik.values.second_max,
+                updateViewField
+              )
+            }
+            onKeyDown={(e) =>
+              handleUpdateKeyDown(
+                viewFormik,
+                "second_max",
+                viewFormik.values.second_max,
+                e,
+                updateViewField
               )
             }
             error={
-              !!(
-                createFormik.errors.second_max &&
-                createFormik.touched.second_max
-              )
+              !!(viewFormik.errors.second_max && viewFormik.touched.second_max)
             }
             className={`dark:text-white ${inputSize}`}
             color={isDarkMode ? "white" : "black"}
@@ -180,31 +189,39 @@ const SpellSlotsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getCreateErrorMessage("second_max")} />
+          <ErrorMessage message={getViewErrorMessage("second_max")} />
         </div>
 
         <div className={spacingOddRow}>
           <Input
-            variant="static"
             label="3rd Tier"
             name="third_available"
             placeholder="Optional"
-            value={createFormik.values.third_available}
+            value={viewFormik.values.third_available}
             onChange={(e) => {
-              createFormik.handleChange(e);
+              viewFormik.handleChange(e);
             }}
             onBlur={() =>
               handleUpdateBlur(
-                createFormik,
+                viewFormik,
                 "third_available",
-                createFormik.values.third_available,
-                updateCreateField
+                viewFormik.values.third_available,
+                updateViewField
+              )
+            }
+            onKeyDown={(e) =>
+              handleUpdateKeyDown(
+                viewFormik,
+                "third_available",
+                viewFormik.values.third_available,
+                e,
+                updateViewField
               )
             }
             error={
               !!(
-                createFormik.errors.third_available &&
-                createFormik.touched.third_available
+                viewFormik.errors.third_available &&
+                viewFormik.touched.third_available
               )
             }
             className={`dark:text-white ${inputSize}`}
@@ -217,31 +234,37 @@ const SpellSlotsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getCreateErrorMessage("third_available")} />
+          <ErrorMessage message={getViewErrorMessage("third_available")} />
         </div>
 
         <div className={spacingEvenRow}>
           <Input
-            variant="static"
             label="3rd Max"
             name="third_max"
             placeholder="Optional"
-            value={createFormik.values.third_max}
+            value={viewFormik.values.third_max}
             onChange={(e) => {
-              createFormik.handleChange(e);
+              viewFormik.handleChange(e);
             }}
             onBlur={() =>
               handleUpdateBlur(
-                createFormik,
+                viewFormik,
                 "third_max",
-                createFormik.values.third_max,
-                updateCreateField
+                viewFormik.values.third_max,
+                updateViewField
+              )
+            }
+            onKeyDown={(e) =>
+              handleUpdateKeyDown(
+                viewFormik,
+                "third_max",
+                viewFormik.values.third_max,
+                e,
+                updateViewField
               )
             }
             error={
-              !!(
-                createFormik.errors.third_max && createFormik.touched.third_max
-              )
+              !!(viewFormik.errors.third_max && viewFormik.touched.third_max)
             }
             className={`dark:text-white ${inputSize}`}
             color={isDarkMode ? "white" : "black"}
@@ -253,33 +276,41 @@ const SpellSlotsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getCreateErrorMessage("third_max")} />
+          <ErrorMessage message={getViewErrorMessage("third_max")} />
         </div>
       </div>
 
-      <div className="mt-14 flex">
+      <div className="ml-3 mt-10 justify-center flex">
         <div className={spacingOddRow}>
           <Input
-            variant="static"
             label="4th Tier"
             name="fourth_available"
             placeholder="Optional"
-            value={createFormik.values.fourth_available}
+            value={viewFormik.values.fourth_available}
             onChange={(e) => {
-              createFormik.handleChange(e);
+              viewFormik.handleChange(e);
             }}
             onBlur={() =>
               handleUpdateBlur(
-                createFormik,
+                viewFormik,
                 "fourth_available",
-                createFormik.values.fourth_available,
-                updateCreateField
+                viewFormik.values.fourth_available,
+                updateViewField
+              )
+            }
+            onKeyDown={(e) =>
+              handleUpdateKeyDown(
+                viewFormik,
+                "fourth_available",
+                viewFormik.values.fourth_available,
+                e,
+                updateViewField
               )
             }
             error={
               !!(
-                createFormik.errors.fourth_available &&
-                createFormik.touched.fourth_available
+                viewFormik.errors.fourth_available &&
+                viewFormik.touched.fourth_available
               )
             }
             className={`dark:text-white ${inputSize}`}
@@ -292,32 +323,37 @@ const SpellSlotsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getCreateErrorMessage("fourth_available")} />
+          <ErrorMessage message={getViewErrorMessage("fourth_available")} />
         </div>
 
         <div className={spacingEvenRow}>
           <Input
-            variant="static"
             label="4th Max"
             name="fourth_max"
             placeholder="Optional"
-            value={createFormik.values.fourth_max}
+            value={viewFormik.values.fourth_max}
             onChange={(e) => {
-              createFormik.handleChange(e);
+              viewFormik.handleChange(e);
             }}
             onBlur={() =>
               handleUpdateBlur(
-                createFormik,
+                viewFormik,
                 "fourth_max",
-                createFormik.values.fourth_max,
-                updateCreateField
+                viewFormik.values.fourth_max,
+                updateViewField
+              )
+            }
+            onKeyDown={(e) =>
+              handleUpdateKeyDown(
+                viewFormik,
+                "fourth_max",
+                viewFormik.values.fourth_max,
+                e,
+                updateViewField
               )
             }
             error={
-              !!(
-                createFormik.errors.fourth_max &&
-                createFormik.touched.fourth_max
-              )
+              !!(viewFormik.errors.fourth_max && viewFormik.touched.fourth_max)
             }
             className={`dark:text-white ${inputSize}`}
             color={isDarkMode ? "white" : "black"}
@@ -329,31 +365,39 @@ const SpellSlotsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getCreateErrorMessage("fourth_max")} />
+          <ErrorMessage message={getViewErrorMessage("fourth_max")} />
         </div>
 
         <div className={spacingOddRow}>
           <Input
-            variant="static"
             label="5th Tier"
             name="fifth_available"
             placeholder="Optional"
-            value={createFormik.values.fifth_available}
+            value={viewFormik.values.fifth_available}
             onChange={(e) => {
-              createFormik.handleChange(e);
+              viewFormik.handleChange(e);
             }}
             onBlur={() =>
               handleUpdateBlur(
-                createFormik,
+                viewFormik,
                 "fifth_available",
-                createFormik.values.fifth_available,
-                updateCreateField
+                viewFormik.values.fifth_available,
+                updateViewField
+              )
+            }
+            onKeyDown={(e) =>
+              handleUpdateKeyDown(
+                viewFormik,
+                "fifth_available",
+                viewFormik.values.fifth_available,
+                e,
+                updateViewField
               )
             }
             error={
               !!(
-                createFormik.errors.fifth_available &&
-                createFormik.touched.fifth_available
+                viewFormik.errors.fifth_available &&
+                viewFormik.touched.fifth_available
               )
             }
             className={`dark:text-white ${inputSize}`}
@@ -366,31 +410,37 @@ const SpellSlotsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getCreateErrorMessage("fifth_available")} />
+          <ErrorMessage message={getViewErrorMessage("fifth_available")} />
         </div>
 
         <div className={spacingEvenRow}>
           <Input
-            variant="static"
             label="5th Max"
             name="fifth_max"
             placeholder="Optional"
-            value={createFormik.values.fifth_max}
+            value={viewFormik.values.fifth_max}
             onChange={(e) => {
-              createFormik.handleChange(e);
+              viewFormik.handleChange(e);
             }}
             onBlur={() =>
               handleUpdateBlur(
-                createFormik,
+                viewFormik,
                 "fifth_max",
-                createFormik.values.fifth_max,
-                updateCreateField
+                viewFormik.values.fifth_max,
+                updateViewField
+              )
+            }
+            onKeyDown={(e) =>
+              handleUpdateKeyDown(
+                viewFormik,
+                "fifth_max",
+                viewFormik.values.fifth_max,
+                e,
+                updateViewField
               )
             }
             error={
-              !!(
-                createFormik.errors.fifth_max && createFormik.touched.fifth_max
-              )
+              !!(viewFormik.errors.fifth_max && viewFormik.touched.fifth_max)
             }
             className={`dark:text-white ${inputSize}`}
             color={isDarkMode ? "white" : "black"}
@@ -402,31 +452,39 @@ const SpellSlotsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getCreateErrorMessage("fifth_max")} />
+          <ErrorMessage message={getViewErrorMessage("fifth_max")} />
         </div>
 
         <div className={spacingOddRow}>
           <Input
-            variant="static"
             label="6th Tier"
             name="sixth_available"
             placeholder="Optional"
-            value={createFormik.values.sixth_available}
+            value={viewFormik.values.sixth_available}
             onChange={(e) => {
-              createFormik.handleChange(e);
+              viewFormik.handleChange(e);
             }}
             onBlur={() =>
               handleUpdateBlur(
-                createFormik,
+                viewFormik,
                 "sixth_available",
-                createFormik.values.sixth_available,
-                updateCreateField
+                viewFormik.values.sixth_available,
+                updateViewField
+              )
+            }
+            onKeyDown={(e) =>
+              handleUpdateKeyDown(
+                viewFormik,
+                "sixth_available",
+                viewFormik.values.sixth_available,
+                e,
+                updateViewField
               )
             }
             error={
               !!(
-                createFormik.errors.sixth_available &&
-                createFormik.touched.sixth_available
+                viewFormik.errors.sixth_available &&
+                viewFormik.touched.sixth_available
               )
             }
             className={`dark:text-white ${inputSize}`}
@@ -439,31 +497,37 @@ const SpellSlotsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getCreateErrorMessage("sixth_available")} />
+          <ErrorMessage message={getViewErrorMessage("sixth_available")} />
         </div>
 
         <div className={spacingEvenRow}>
           <Input
-            variant="static"
             label="6th Max"
             name="sixth_max"
             placeholder="Optional"
-            value={createFormik.values.sixth_max}
+            value={viewFormik.values.sixth_max}
             onChange={(e) => {
-              createFormik.handleChange(e);
+              viewFormik.handleChange(e);
             }}
             onBlur={() =>
               handleUpdateBlur(
-                createFormik,
+                viewFormik,
                 "sixth_max",
-                createFormik.values.sixth_max,
-                updateCreateField
+                viewFormik.values.sixth_max,
+                updateViewField
+              )
+            }
+            onKeyDown={(e) =>
+              handleUpdateKeyDown(
+                viewFormik,
+                "sixth_max",
+                viewFormik.values.sixth_max,
+                e,
+                updateViewField
               )
             }
             error={
-              !!(
-                createFormik.errors.sixth_max && createFormik.touched.sixth_max
-              )
+              !!(viewFormik.errors.sixth_max && viewFormik.touched.sixth_max)
             }
             className={`dark:text-white ${inputSize}`}
             color={isDarkMode ? "white" : "black"}
@@ -475,33 +539,41 @@ const SpellSlotsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getCreateErrorMessage("sixth_max")} />
+          <ErrorMessage message={getViewErrorMessage("sixth_max")} />
         </div>
       </div>
 
-      <div className="mt-14 flex">
+      <div className="ml-3 mt-10 justify-center mb-8 flex">
         <div className={spacingOddRow}>
           <Input
-            variant="static"
             label="7th Tier"
             name="seventh_available"
             placeholder="Optional"
-            value={createFormik.values.seventh_available}
+            value={viewFormik.values.seventh_available}
             onChange={(e) => {
-              createFormik.handleChange(e);
+              viewFormik.handleChange(e);
             }}
             onBlur={() =>
               handleUpdateBlur(
-                createFormik,
+                viewFormik,
                 "seventh_available",
-                createFormik.values.seventh_available,
-                updateCreateField
+                viewFormik.values.seventh_available,
+                updateViewField
+              )
+            }
+            onKeyDown={(e) =>
+              handleUpdateKeyDown(
+                viewFormik,
+                "seventh_available",
+                viewFormik.values.seventh_available,
+                e,
+                updateViewField
               )
             }
             error={
               !!(
-                createFormik.errors.seventh_available &&
-                createFormik.touched.seventh_available
+                viewFormik.errors.seventh_available &&
+                viewFormik.touched.seventh_available
               )
             }
             className={`dark:text-white ${inputSize}`}
@@ -514,31 +586,38 @@ const SpellSlotsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getCreateErrorMessage("seventh_available")} />
+          <ErrorMessage message={getViewErrorMessage("seventh_available")} />
         </div>
 
         <div className={spacingEvenRow}>
           <Input
-            variant="static"
             label="7th Max"
             name="seventh_max"
             placeholder="Optional"
-            value={createFormik.values.seventh_max}
+            value={viewFormik.values.seventh_max}
             onChange={(e) => {
-              createFormik.handleChange(e);
+              viewFormik.handleChange(e);
             }}
             onBlur={() =>
               handleUpdateBlur(
-                createFormik,
+                viewFormik,
                 "seventh_max",
-                createFormik.values.seventh_max,
-                updateCreateField
+                viewFormik.values.seventh_max,
+                updateViewField
+              )
+            }
+            onKeyDown={(e) =>
+              handleUpdateKeyDown(
+                viewFormik,
+                "seventh_max",
+                viewFormik.values.seventh_max,
+                e,
+                updateViewField
               )
             }
             error={
               !!(
-                createFormik.errors.seventh_max &&
-                createFormik.touched.seventh_max
+                viewFormik.errors.seventh_max && viewFormik.touched.seventh_max
               )
             }
             className={`dark:text-white ${inputSize}`}
@@ -551,31 +630,39 @@ const SpellSlotsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getCreateErrorMessage("seventh_max")} />
+          <ErrorMessage message={getViewErrorMessage("seventh_max")} />
         </div>
 
         <div className={spacingOddRow}>
           <Input
-            variant="static"
             label="8th Tier"
             name="eighth_available"
             placeholder="Optional"
-            value={createFormik.values.eighth_available}
+            value={viewFormik.values.eighth_available}
             onChange={(e) => {
-              createFormik.handleChange(e);
+              viewFormik.handleChange(e);
             }}
             onBlur={() =>
               handleUpdateBlur(
-                createFormik,
+                viewFormik,
                 "eighth_available",
-                createFormik.values.eighth_available,
-                updateCreateField
+                viewFormik.values.eighth_available,
+                updateViewField
+              )
+            }
+            onKeyDown={(e) =>
+              handleUpdateKeyDown(
+                viewFormik,
+                "eighth_available",
+                viewFormik.values.eighth_available,
+                e,
+                updateViewField
               )
             }
             error={
               !!(
-                createFormik.errors.eighth_available &&
-                createFormik.touched.eighth_available
+                viewFormik.errors.eighth_available &&
+                viewFormik.touched.eighth_available
               )
             }
             className={`dark:text-white ${inputSize}`}
@@ -588,32 +675,37 @@ const SpellSlotsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getCreateErrorMessage("eighth_available")} />
+          <ErrorMessage message={getViewErrorMessage("eighth_available")} />
         </div>
 
         <div className={spacingEvenRow}>
           <Input
-            variant="static"
             label="8th Max"
             name="eighth_max"
             placeholder="Optional"
-            value={createFormik.values.eighth_max}
+            value={viewFormik.values.eighth_max}
             onChange={(e) => {
-              createFormik.handleChange(e);
+              viewFormik.handleChange(e);
             }}
             onBlur={() =>
               handleUpdateBlur(
-                createFormik,
+                viewFormik,
                 "eighth_max",
-                createFormik.values.eighth_max,
-                updateCreateField
+                viewFormik.values.eighth_max,
+                updateViewField
+              )
+            }
+            onKeyDown={(e) =>
+              handleUpdateKeyDown(
+                viewFormik,
+                "eighth_max",
+                viewFormik.values.eighth_max,
+                e,
+                updateViewField
               )
             }
             error={
-              !!(
-                createFormik.errors.eighth_max &&
-                createFormik.touched.eighth_max
-              )
+              !!(viewFormik.errors.eighth_max && viewFormik.touched.eighth_max)
             }
             className={`dark:text-white ${inputSize}`}
             color={isDarkMode ? "white" : "black"}
@@ -625,31 +717,39 @@ const SpellSlotsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getCreateErrorMessage("eighth_max")} />
+          <ErrorMessage message={getViewErrorMessage("eighth_max")} />
         </div>
 
         <div className={spacingOddRow}>
           <Input
-            variant="static"
             label="9th Tier"
             name="nineth_available"
             placeholder="Optional"
-            value={createFormik.values.nineth_available}
+            value={viewFormik.values.nineth_available}
             onChange={(e) => {
-              createFormik.handleChange(e);
+              viewFormik.handleChange(e);
             }}
             onBlur={() =>
               handleUpdateBlur(
-                createFormik,
+                viewFormik,
                 "nineth_available",
-                createFormik.values.nineth_available,
-                updateCreateField
+                viewFormik.values.nineth_available,
+                updateViewField
+              )
+            }
+            onKeyDown={(e) =>
+              handleUpdateKeyDown(
+                viewFormik,
+                "nineth_available",
+                viewFormik.values.nineth_available,
+                e,
+                updateViewField
               )
             }
             error={
               !!(
-                createFormik.errors.nineth_available &&
-                createFormik.touched.nineth_available
+                viewFormik.errors.nineth_available &&
+                viewFormik.touched.nineth_available
               )
             }
             className={`dark:text-white ${inputSize}`}
@@ -662,32 +762,37 @@ const SpellSlotsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getCreateErrorMessage("nineth_available")} />
+          <ErrorMessage message={getViewErrorMessage("nineth_available")} />
         </div>
 
         <div className={spacingEvenRow}>
           <Input
-            variant="static"
             label="9th Max"
             name="nineth_max"
             placeholder="Optional"
-            value={createFormik.values.nineth_max}
+            value={viewFormik.values.nineth_max}
             onChange={(e) => {
-              createFormik.handleChange(e);
+              viewFormik.handleChange(e);
             }}
             onBlur={() =>
               handleUpdateBlur(
-                createFormik,
+                viewFormik,
                 "nineth_max",
-                createFormik.values.nineth_max,
-                updateCreateField
+                viewFormik.values.nineth_max,
+                updateViewField
+              )
+            }
+            onKeyDown={(e) =>
+              handleUpdateKeyDown(
+                viewFormik,
+                "nineth_max",
+                viewFormik.values.nineth_max,
+                e,
+                updateViewField
               )
             }
             error={
-              !!(
-                createFormik.errors.nineth_max &&
-                createFormik.touched.nineth_max
-              )
+              !!(viewFormik.errors.nineth_max && viewFormik.touched.nineth_max)
             }
             className={`dark:text-white ${inputSize}`}
             color={isDarkMode ? "white" : "black"}
@@ -699,30 +804,11 @@ const SpellSlotsCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getCreateErrorMessage("nineth_max")} />
+          <ErrorMessage message={getViewErrorMessage("nineth_max")} />
         </div>
       </div>
-
-      <div className="mt-10 flex gap-4">
-        <Checkbox
-          id="complete"
-          label={
-            <Typography className="dark:text-white">
-              Mark as Complete
-            </Typography>
-          }
-          ripple={true}
-          onChange={handleCheckboxChange}
-          checked={isValid}
-          crossOrigin=""
-          className="dark:text-white"
-          labelProps={{
-            className: "!text-black dark:!text-white",
-          }}
-        />
-      </div>
-    </motion.div>
+    </Fragment>
   );
 };
 
-export default SpellSlotsCreate;
+export default SpellSlotsView;

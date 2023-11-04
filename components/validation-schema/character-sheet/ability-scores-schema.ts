@@ -2,12 +2,34 @@ import * as Yup from "yup";
 
 const scoreTypeError = "Score must be a number";
 const scoreReqError = "Score required";
-const modTypeError = "Modifier must be a number";
-const modReqError = "Modifier required";
-const saveTypeError = "Saving Throw must be a number";
-const saveReqError = "Saving Throw required";
+const modTypeError = "Mod must be a number";
+const modReqError = "Mod required";
+const saveTypeError = "Save must be a number";
+const saveReqError = "Save required";
 
-export const abilityScoresSchema = Yup.object({
+interface AbilityScoresSchema {
+  str_score: Yup.NumberSchema;
+  dex_score: Yup.NumberSchema;
+  con_score: Yup.NumberSchema;
+  int_score: Yup.NumberSchema;
+  wis_score: Yup.NumberSchema;
+  chr_score: Yup.NumberSchema;
+  str_mod: Yup.NumberSchema;
+  dex_mod: Yup.NumberSchema;
+  con_mod: Yup.NumberSchema;
+  int_mod: Yup.NumberSchema;
+  wis_mod: Yup.NumberSchema;
+  chr_mod: Yup.NumberSchema;
+  str_save: Yup.NumberSchema;
+  dex_save: Yup.NumberSchema;
+  con_save: Yup.NumberSchema;
+  int_save: Yup.NumberSchema;
+  wis_save: Yup.NumberSchema;
+  chr_save: Yup.NumberSchema;
+  passive_perception: Yup.NumberSchema;
+}
+
+export const abilityScoresRules: AbilityScoresSchema = {
   str_score: Yup.number().typeError(scoreTypeError).required(scoreReqError),
   dex_score: Yup.number().typeError(scoreTypeError).required(scoreReqError),
   con_score: Yup.number().typeError(scoreTypeError).required(scoreReqError),
@@ -29,4 +51,6 @@ export const abilityScoresSchema = Yup.object({
   passive_perception: Yup.number()
     .typeError("Perception must be a number")
     .required("Perception is required"),
-});
+};
+
+export const abilityScoresSchema = Yup.object({ ...abilityScoresRules });

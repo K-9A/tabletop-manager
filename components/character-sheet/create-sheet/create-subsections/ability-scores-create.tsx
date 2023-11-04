@@ -1,39 +1,14 @@
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
 import ErrorMessage from "@/components/helper/error-message";
-import { useAbilityScoresCreate } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-ability-scores-create";
+import { useAbilityScores } from "@/components/custom-hooks/character-sheet-hooks/use-ability-scores";
+import { handleUpdateBlur } from "@/components/helper/handle-field-updates";
 import { AbilityScoresTooltip } from "@/components/helper/tooltips";
 import { Input, Tooltip } from "@material-tailwind/react";
 
 const AbilityScoresCreate = (props) => {
-  const {
-    values,
-    errors,
-    touched,
-    isDarkMode,
-    handleChange,
-    handleBlur,
-    updateStrScore,
-    updateDexScore,
-    updateConScore,
-    updateIntScore,
-    updateWisScore,
-    updateChrScore,
-    updateStrMod,
-    updateDexMod,
-    updateConMod,
-    updateIntMod,
-    updateWisMod,
-    updateChrMod,
-    updateStrSave,
-    updateDexSave,
-    updateConSave,
-    updateIntSave,
-    updateWisSave,
-    updateChrSave,
-    updatePassivePerception,
-    getErrorMessage,
-  } = useAbilityScoresCreate(props.initialData);
+  const { createFormik, isDarkMode, updateCreateField, getCreateErrorMessage } =
+  useAbilityScores('create', props.initialData);
 
   const inputSpacing = "px-10";
 
@@ -57,14 +32,24 @@ const AbilityScoresCreate = (props) => {
             label="Strength Score"
             name="str_score"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateStrScore();
+            value={createFormik.values.str_score}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.str_score}
-            error={!!(errors.str_score && touched.str_score)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "str_score",
+                createFormik.values.str_score,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.str_score &&
+                createFormik.touched.str_score
+              )
+            }
             className={"dark:text-white !w-16"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -75,7 +60,7 @@ const AbilityScoresCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("str_score")} />
+          <ErrorMessage message={getCreateErrorMessage("str_score")} />
         </div>
 
         <div className={inputSpacing}>
@@ -84,14 +69,24 @@ const AbilityScoresCreate = (props) => {
             label="Dexterity Score"
             name="dex_score"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateDexScore();
+            value={createFormik.values.dex_score}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.dex_score}
-            error={!!(errors.dex_score && touched.dex_score)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "dex_score",
+                createFormik.values.dex_score,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.dex_score &&
+                createFormik.touched.dex_score
+              )
+            }
             className={"dark:text-white !w-16"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -102,7 +97,7 @@ const AbilityScoresCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("dex_score")} />
+          <ErrorMessage message={getCreateErrorMessage("dex_score")} />
         </div>
 
         <div className={inputSpacing}>
@@ -111,14 +106,24 @@ const AbilityScoresCreate = (props) => {
             label="Constitution Score"
             name="con_score"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateConScore();
+            value={createFormik.values.con_score}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.con_score}
-            error={!!(errors.con_score && touched.con_score)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "con_score",
+                createFormik.values.con_score,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.con_score &&
+                createFormik.touched.con_score
+              )
+            }
             className={"dark:text-white !w-16"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -129,7 +134,7 @@ const AbilityScoresCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("con_score")} />
+          <ErrorMessage message={getCreateErrorMessage("con_score")} />
         </div>
 
         <div className={inputSpacing}>
@@ -138,14 +143,24 @@ const AbilityScoresCreate = (props) => {
             label="Intelligence Score"
             name="int_score"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateIntScore();
+            value={createFormik.values.int_score}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.int_score}
-            error={!!(errors.int_score && touched.int_score)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "int_score",
+                createFormik.values.int_score,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.int_score &&
+                createFormik.touched.int_score
+              )
+            }
             className={"dark:text-white !w-16"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -156,7 +171,7 @@ const AbilityScoresCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("int_score")} />
+          <ErrorMessage message={getCreateErrorMessage("int_score")} />
         </div>
 
         <div className={inputSpacing}>
@@ -165,14 +180,24 @@ const AbilityScoresCreate = (props) => {
             label="Wisdom Score"
             name="wis_score"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateWisScore();
+            value={createFormik.values.wis_score}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.wis_score}
-            error={!!(errors.wis_score && touched.wis_score)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "wis_score",
+                createFormik.values.wis_score,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.wis_score &&
+                createFormik.touched.wis_score
+              )
+            }
             className={"dark:text-white !w-16"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -183,7 +208,7 @@ const AbilityScoresCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("wis_score")} />
+          <ErrorMessage message={getCreateErrorMessage("wis_score")} />
         </div>
 
         <div className={inputSpacing}>
@@ -192,14 +217,24 @@ const AbilityScoresCreate = (props) => {
             label="Charisma Score"
             name="chr_score"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateChrScore();
+            value={createFormik.values.chr_score}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.chr_score}
-            error={!!(errors.chr_score && touched.chr_score)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "chr_score",
+                createFormik.values.chr_score,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.chr_score &&
+                createFormik.touched.chr_score
+              )
+            }
             className={"dark:text-white !w-16"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -210,7 +245,7 @@ const AbilityScoresCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("chr_score")} />
+          <ErrorMessage message={getCreateErrorMessage("chr_score")} />
         </div>
       </div>
 
@@ -218,17 +253,27 @@ const AbilityScoresCreate = (props) => {
         <div className={inputSpacing}>
           <Input
             variant="static"
-            label="Strength Modifier"
+            label="Strength Mod"
             name="str_mod"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateStrMod();
+            value={createFormik.values.str_mod}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.str_mod}
-            error={!!(errors.str_mod && touched.str_mod)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "str_mod",
+                createFormik.values.str_mod,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.str_mod &&
+                createFormik.touched.str_mod
+              )
+            }
             className={"dark:text-white !w-16"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -239,23 +284,33 @@ const AbilityScoresCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("str_mod")} />
+          <ErrorMessage message={getCreateErrorMessage("str_mod")} />
         </div>
 
         <div className={inputSpacing}>
           <Input
             variant="static"
-            label="Dexterity Modifier"
+            label="Dexterity Mod"
             name="dex_mod"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateDexMod();
+            value={createFormik.values.dex_mod}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.dex_mod}
-            error={!!(errors.dex_mod && touched.dex_mod)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "dex_mod",
+                createFormik.values.dex_mod,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.dex_mod &&
+                createFormik.touched.dex_mod
+              )
+            }
             className={"dark:text-white !w-16"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -266,23 +321,33 @@ const AbilityScoresCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("dex_mod")} />
+          <ErrorMessage message={getCreateErrorMessage("dex_mod")} />
         </div>
 
         <div className={inputSpacing}>
           <Input
             variant="static"
-            label="Constitution Modifier"
+            label="Constitution Mod"
             name="con_mod"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateConMod();
+            value={createFormik.values.con_mod}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.con_mod}
-            error={!!(errors.con_mod && touched.con_mod)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "con_mod",
+                createFormik.values.con_mod,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.con_mod &&
+                createFormik.touched.con_mod
+              )
+            }
             className={"dark:text-white !w-16"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -293,23 +358,33 @@ const AbilityScoresCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("con_mod")} />
+          <ErrorMessage message={getCreateErrorMessage("con_mod")} />
         </div>
 
         <div className={inputSpacing}>
           <Input
             variant="static"
-            label="Intelligence Modifier"
+            label="Intelligence Mod"
             name="int_mod"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateIntMod();
+            value={createFormik.values.int_mod}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.int_mod}
-            error={!!(errors.int_mod && touched.int_mod)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "int_mod",
+                createFormik.values.int_mod,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.int_mod &&
+                createFormik.touched.int_mod
+              )
+            }
             className={"dark:text-white !w-16"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -320,23 +395,33 @@ const AbilityScoresCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("int_mod")} />
+          <ErrorMessage message={getCreateErrorMessage("int_mod")} />
         </div>
 
         <div className={inputSpacing}>
           <Input
             variant="static"
-            label="Wisdom Modifier"
+            label="Wisdom Mod"
             name="wis_mod"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateWisMod();
+            value={createFormik.values.wis_mod}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.wis_mod}
-            error={!!(errors.wis_mod && touched.wis_mod)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "wis_mod",
+                createFormik.values.wis_mod,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.wis_mod &&
+                createFormik.touched.wis_mod
+              )
+            }
             className={"dark:text-white !w-16"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -347,23 +432,33 @@ const AbilityScoresCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("wis_mod")} />
+          <ErrorMessage message={getCreateErrorMessage("wis_mod")} />
         </div>
 
         <div className={inputSpacing}>
           <Input
             variant="static"
-            label="Charisma Modifier"
+            label="Charisma Mod"
             name="chr_mod"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateChrMod();
+            value={createFormik.values.chr_mod}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.chr_mod}
-            error={!!(errors.chr_mod && touched.chr_mod)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "chr_mod",
+                createFormik.values.chr_mod,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.chr_mod &&
+                createFormik.touched.chr_mod
+              )
+            }
             className={"dark:text-white !w-16"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -374,7 +469,7 @@ const AbilityScoresCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("chr_mod")} />
+          <ErrorMessage message={getCreateErrorMessage("chr_mod")} />
         </div>
       </div>
 
@@ -385,14 +480,24 @@ const AbilityScoresCreate = (props) => {
             label="Strength Save"
             name="str_save"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateStrSave();
+            value={createFormik.values.str_save}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.str_save}
-            error={!!(errors.str_save && touched.str_save)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "str_save",
+                createFormik.values.str_save,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.str_save &&
+                createFormik.touched.str_save
+              )
+            }
             className={"dark:text-white !w-16"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -403,7 +508,7 @@ const AbilityScoresCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("str_save")} />
+          <ErrorMessage message={getCreateErrorMessage("str_save")} />
         </div>
 
         <div className={inputSpacing}>
@@ -412,14 +517,24 @@ const AbilityScoresCreate = (props) => {
             label="Dexterity Save"
             name="dex_save"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateDexSave();
+            value={createFormik.values.dex_save}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.dex_save}
-            error={!!(errors.dex_save && touched.dex_save)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "dex_save",
+                createFormik.values.dex_save,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.dex_save &&
+                createFormik.touched.dex_save
+              )
+            }
             className={"dark:text-white !w-16"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -430,7 +545,7 @@ const AbilityScoresCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("dex_save")} />
+          <ErrorMessage message={getCreateErrorMessage("dex_save")} />
         </div>
 
         <div className={inputSpacing}>
@@ -439,14 +554,24 @@ const AbilityScoresCreate = (props) => {
             label="Constitution Save"
             name="con_save"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateConSave();
+            value={createFormik.values.con_save}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.con_save}
-            error={!!(errors.con_save && touched.con_save)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "con_save",
+                createFormik.values.con_save,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.con_save &&
+                createFormik.touched.con_save
+              )
+            }
             className={"dark:text-white !w-16"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -457,7 +582,7 @@ const AbilityScoresCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("con_save")} />
+          <ErrorMessage message={getCreateErrorMessage("con_save")} />
         </div>
 
         <div className={inputSpacing}>
@@ -466,14 +591,24 @@ const AbilityScoresCreate = (props) => {
             label="Intelligence Save"
             name="int_save"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateIntSave();
+            value={createFormik.values.int_save}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.int_save}
-            error={!!(errors.int_save && touched.int_save)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "int_save",
+                createFormik.values.int_save,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.int_save &&
+                createFormik.touched.int_save
+              )
+            }
             className={"dark:text-white !w-16"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -484,7 +619,7 @@ const AbilityScoresCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("int_save")} />
+          <ErrorMessage message={getCreateErrorMessage("int_save")} />
         </div>
 
         <div className={inputSpacing}>
@@ -493,14 +628,24 @@ const AbilityScoresCreate = (props) => {
             label="Wisdom Save"
             name="wis_save"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateWisSave();
+            value={createFormik.values.wis_save}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.wis_save}
-            error={!!(errors.wis_save && touched.wis_save)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "wis_save",
+                createFormik.values.wis_save,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.wis_save &&
+                createFormik.touched.wis_save
+              )
+            }
             className={"dark:text-white !w-16"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -511,7 +656,7 @@ const AbilityScoresCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("wis_save")} />
+          <ErrorMessage message={getCreateErrorMessage("wis_save")} />
         </div>
 
         <div className={inputSpacing}>
@@ -520,14 +665,24 @@ const AbilityScoresCreate = (props) => {
             label="Charisma Save"
             name="chr_save"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateChrSave();
+            value={createFormik.values.chr_save}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.chr_save}
-            error={!!(errors.chr_save && touched.chr_save)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "chr_save",
+                createFormik.values.chr_save,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.chr_save &&
+                createFormik.touched.chr_save
+              )
+            }
             className={"dark:text-white !w-16"}
             color={isDarkMode ? "white" : "black"}
             labelProps={{
@@ -538,7 +693,7 @@ const AbilityScoresCreate = (props) => {
             }}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("chr_save")} />
+          <ErrorMessage message={getCreateErrorMessage("chr_save")} />
         </div>
       </div>
 
@@ -549,19 +704,29 @@ const AbilityScoresCreate = (props) => {
             label="Passive Perception"
             name="passive_perception"
             placeholder="Required"
-            onBlur={(e) => {
-              handleBlur(e);
-              updatePassivePerception();
+            value={createFormik.values.passive_perception}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.passive_perception}
-            error={!!(errors.passive_perception && touched.passive_perception)}
-            size="md"
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "passive_perception",
+                createFormik.values.passive_perception,
+                updateCreateField
+              )
+            }
+            error={
+              !!(
+                createFormik.errors.passive_perception &&
+                createFormik.touched.passive_perception
+              )
+            }
             className={"dark:text-white"}
             color={isDarkMode ? "white" : "black"}
             crossOrigin=""
           />
-          <ErrorMessage message={getErrorMessage("passive_perception")} />
+          <ErrorMessage message={getCreateErrorMessage("passive_perception")} />
         </div>
         <div className="px-36 mt-2">
         <Tooltip content={<AbilityScoresTooltip />} placement="top">

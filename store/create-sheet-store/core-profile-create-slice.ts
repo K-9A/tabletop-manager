@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CoreProfileTypes } from '@/components/types/sheet-types/view-types';
+import { CoreProfileTypes } from '@/components/types/sheet-types/field-types';
 
 
 const initialCreateCoreProfileState:CoreProfileTypes = {

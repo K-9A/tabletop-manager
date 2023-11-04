@@ -1,9 +1,30 @@
 import * as Yup from "yup";
 
-const skillTypeError = "Skill must be a number";
+const skillTypeError = "Must be a number";
 const skillReqError = "Skill required";
 
-export const explorationSkillsSchema = Yup.object({
+interface ExplorationSkillsSchema {
+  acrobatics: Yup.NumberSchema;
+  animal: Yup.NumberSchema;
+  arcana: Yup.NumberSchema;
+  athletics: Yup.NumberSchema;
+  deception: Yup.NumberSchema;
+  history: Yup.NumberSchema;
+  insight: Yup.NumberSchema;
+  intimidation: Yup.NumberSchema;
+  investigation: Yup.NumberSchema;
+  medicine: Yup.NumberSchema;
+  nature: Yup.NumberSchema;
+  perception: Yup.NumberSchema;
+  performance: Yup.NumberSchema;
+  persuasion: Yup.NumberSchema;
+  religion: Yup.NumberSchema;
+  sleight: Yup.NumberSchema;
+  stealth: Yup.NumberSchema;
+  survival: Yup.NumberSchema;
+}
+
+export const explorationSkillsRules: ExplorationSkillsSchema = {
   acrobatics: Yup.number().typeError(skillTypeError).required(skillReqError),
   animal: Yup.number().typeError(skillTypeError).required(skillReqError),
   arcana: Yup.number().typeError(skillTypeError).required(skillReqError),
@@ -22,4 +43,6 @@ export const explorationSkillsSchema = Yup.object({
   sleight: Yup.number().typeError(skillTypeError).required(skillReqError),
   stealth: Yup.number().typeError(skillTypeError).required(skillReqError),
   survival: Yup.number().typeError(skillTypeError).required(skillReqError),
-});
+};
+
+export const explorationSkillsSchema = Yup.object({ ...explorationSkillsRules });

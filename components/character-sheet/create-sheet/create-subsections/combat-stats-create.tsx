@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
 import ErrorMessage from "@/components/helper/error-message";
-import { useCombatStats } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-combat-stats";
+import { useCombatStats } from "../../../custom-hooks/character-sheet-hooks/use-combat-stats";
 import { handleUpdateBlur } from "@/components/helper/handle-field-updates";
 import { Input, Tooltip } from "@material-tailwind/react";
 

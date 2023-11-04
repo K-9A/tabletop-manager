@@ -73,6 +73,7 @@ export const useCombatStats = (mode: Mode, characterId: string) => {
     },
     validationSchema: combatStatsSchema,
     onSubmit: () => {},
+    enableReinitialize: true,
   });
 
 

@@ -1,27 +1,28 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AbilityScoreTypes } from "@/components/types/sheet-types/field-types";
 
 
-const initialCreateAbilityScoresState = {
-  str_score: "",
-  dex_score: "",
-  con_score: "",
-  int_score: "",
-  wis_score: "",
-  chr_score: "",
-  str_mod: "",
-  dex_mod: "",
-  con_mod: "",
-  int_mod: "",
-  wis_mod: "",
-  chr_mod: "",
-  str_save: "",
-  dex_save: "",
-  con_save: "",
-  int_save: "",
-  wis_save: "",
-  chr_save: "",
-  passive_perception: "",
-  loading: false,
+const initialCreateAbilityScoresState: AbilityScoreTypes = {
+  str_score: null,
+  dex_score: null,
+  con_score: null,
+  int_score: null,
+  wis_score: null,
+  chr_score: null,
+  str_mod: null,
+  dex_mod: null,
+  con_mod: null,
+  int_mod: null,
+  wis_mod: null,
+  chr_mod: null,
+  str_save: null,
+  dex_save: null,
+  con_save: null,
+  int_save: null,
+  wis_save: null,
+  chr_save: null,
+  passive_perception: null,
+  isLoading: false,
   isValid: false,
   error: null
 };
@@ -35,14 +36,10 @@ const initialCreateAbilityScoresState = {
         const { name, value } = action.payload;
         state[name] = value;
       },
-      //Probably don't need this
-      updateCoreProfileCreate: (state, action: PayloadAction<Partial<typeof initialCreateAbilityScoresState>>) => {
-        Object.assign(state, action.payload);
-      },
       setValidity: (state, action: PayloadAction<boolean>) => {
         state.isValid = action.payload;
       },
-      resetAbilityScores: (state) => {
+      resetAbilityScores: () => {
         return initialCreateAbilityScoresState;
       },
     },

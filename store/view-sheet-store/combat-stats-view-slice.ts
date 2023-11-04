@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { CombatStatsTypes } from "@/components/types/sheet-types/view-types";
+import { CombatStatsTypes } from "@/components/types/sheet-types/field-types";
 import { UpdateSheetFieldArgs } from "@/components/types/sheet-types/update-args";
 import { validCombatStatsFieldNames } from "@/components/helper/valid-character-fields";
 import axios from "axios";

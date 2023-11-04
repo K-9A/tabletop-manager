@@ -1,37 +1,13 @@
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
 import ErrorMessage from "@/components/helper/error-message";
-import { useExplorationSkillsCreate } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-exploration-skills-create";
+import { handleUpdateBlur } from "@/components/helper/handle-field-updates";
+import { useExplorationSkills } from "../../../custom-hooks/character-sheet-hooks/use-exploration-skills";
 import { Input, Tooltip } from "@material-tailwind/react";
 
 const ExplorationSkillsCreate = (props) => {
-  const {
-    values,
-    errors,
-    touched,
-    isDarkMode,
-    handleChange,
-    handleBlur,
-    updateAcrobatics,
-    updateAnimal,
-    updateArcana,
-    updateAthletics,
-    updateDeception,
-    updateHistory,
-    updateInsight,
-    updateIntimidation,
-    updateInvestigation,
-    updateMedicine,
-    updateNature,
-    updatePerception,
-    updatePerformance,
-    updatePersuasion,
-    updateReligion,
-    updateSleight,
-    updateStealth,
-    updateSurvival,
-    getErrorMessage,
-  } = useExplorationSkillsCreate(props.initialData);
+  const { createFormik, isDarkMode, updateCreateField, getCreateErrorMessage } =
+  useExplorationSkills('create', props.initialData);
 
   const inputSpacing = "px-10";
 
@@ -56,14 +32,24 @@ const ExplorationSkillsCreate = (props) => {
               label="Acrobatics"
               name="acrobatics"
               placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateAcrobatics();
+              value={createFormik.values.acrobatics}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.acrobatics}
-              error={!!(errors.acrobatics && touched.acrobatics)}
-              size="md"
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "acrobatics",
+                  createFormik.values.acrobatics,
+                  updateCreateField
+                )
+              }
+              error={
+                !!(
+                  createFormik.errors.acrobatics &&
+                  createFormik.touched.acrobatics
+                )
+              }
               className={"dark:text-white !w-16"}
               color={isDarkMode ? "white" : "black"}
               labelProps={{
@@ -75,7 +61,7 @@ const ExplorationSkillsCreate = (props) => {
               crossOrigin=""
             />
           </Tooltip>
-          <ErrorMessage message={getErrorMessage("acrobatics")} />
+          <ErrorMessage message={getCreateErrorMessage("acrobatics")} />
         </div>
 
         <div className={inputSpacing}>
@@ -85,14 +71,24 @@ const ExplorationSkillsCreate = (props) => {
               label="Animal"
               name="animal"
               placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateAnimal();
+              value={createFormik.values.animal}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.animal}
-              error={!!(errors.animal && touched.animal)}
-              size="md"
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "animal",
+                  createFormik.values.animal,
+                  updateCreateField
+                )
+              }
+              error={
+                !!(
+                  createFormik.errors.animal &&
+                  createFormik.touched.animal
+                )
+              }
               className={"dark:text-white !w-16"}
               color={isDarkMode ? "white" : "black"}
               labelProps={{
@@ -104,7 +100,7 @@ const ExplorationSkillsCreate = (props) => {
               crossOrigin=""
             />
           </Tooltip>
-          <ErrorMessage message={getErrorMessage("animal")} />
+          <ErrorMessage message={getCreateErrorMessage("animal")} />
         </div>
 
         <div className={inputSpacing}>
@@ -114,14 +110,24 @@ const ExplorationSkillsCreate = (props) => {
               label="Arcana"
               name="arcana"
               placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateArcana();
+              value={createFormik.values.arcana}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.arcana}
-              error={!!(errors.arcana && touched.arcana)}
-              size="md"
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "arcana",
+                  createFormik.values.arcana,
+                  updateCreateField
+                )
+              }
+              error={
+                !!(
+                  createFormik.errors.arcana &&
+                  createFormik.touched.arcana
+                )
+              }
               className={"dark:text-white !w-16"}
               color={isDarkMode ? "white" : "black"}
               labelProps={{
@@ -133,7 +139,7 @@ const ExplorationSkillsCreate = (props) => {
               crossOrigin=""
             />
           </Tooltip>
-          <ErrorMessage message={getErrorMessage("arcana")} />
+          <ErrorMessage message={getCreateErrorMessage("arcana")} />
         </div>
 
         <div className={inputSpacing}>
@@ -143,14 +149,24 @@ const ExplorationSkillsCreate = (props) => {
               label="Athletics"
               name="athletics"
               placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateAthletics();
+              value={createFormik.values.athletics}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.athletics}
-              error={!!(errors.athletics && touched.athletics)}
-              size="md"
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "athletics",
+                  createFormik.values.athletics,
+                  updateCreateField
+                )
+              }
+              error={
+                !!(
+                  createFormik.errors.athletics &&
+                  createFormik.touched.athletics
+                )
+              }
               className={"dark:text-white !w-16"}
               color={isDarkMode ? "white" : "black"}
               labelProps={{
@@ -162,7 +178,7 @@ const ExplorationSkillsCreate = (props) => {
               crossOrigin=""
             />
           </Tooltip>
-          <ErrorMessage message={getErrorMessage("athletics")} />
+          <ErrorMessage message={getCreateErrorMessage("athletics")} />
         </div>
 
         <div className={inputSpacing}>
@@ -172,14 +188,24 @@ const ExplorationSkillsCreate = (props) => {
               label="Deception"
               name="deception"
               placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateDeception();
+              value={createFormik.values.deception}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.deception}
-              error={!!(errors.deception && touched.deception)}
-              size="md"
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "deception",
+                  createFormik.values.deception,
+                  updateCreateField
+                )
+              }
+              error={
+                !!(
+                  createFormik.errors.deception &&
+                  createFormik.touched.deception
+                )
+              }
               className={"dark:text-white !w-16"}
               color={isDarkMode ? "white" : "black"}
               labelProps={{
@@ -191,7 +217,7 @@ const ExplorationSkillsCreate = (props) => {
               crossOrigin=""
             />
           </Tooltip>
-          <ErrorMessage message={getErrorMessage("deception")} />
+          <ErrorMessage message={getCreateErrorMessage("deception")} />
         </div>
 
         <div className={inputSpacing}>
@@ -201,14 +227,24 @@ const ExplorationSkillsCreate = (props) => {
               label="History"
               name="history"
               placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateHistory();
+              value={createFormik.values.history}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.history}
-              error={!!(errors.history && touched.history)}
-              size="md"
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "history",
+                  createFormik.values.history,
+                  updateCreateField
+                )
+              }
+              error={
+                !!(
+                  createFormik.errors.history &&
+                  createFormik.touched.history
+                )
+              }
               className={"dark:text-white !w-16"}
               color={isDarkMode ? "white" : "black"}
               labelProps={{
@@ -220,7 +256,7 @@ const ExplorationSkillsCreate = (props) => {
               crossOrigin=""
             />
           </Tooltip>
-          <ErrorMessage message={getErrorMessage("history")} />
+          <ErrorMessage message={getCreateErrorMessage("history")} />
         </div>
       </div>
 
@@ -232,14 +268,24 @@ const ExplorationSkillsCreate = (props) => {
               label="Insight"
               name="insight"
               placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateInsight();
+              value={createFormik.values.insight}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.insight}
-              error={!!(errors.insight && touched.insight)}
-              size="md"
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "insight",
+                  createFormik.values.insight,
+                  updateCreateField
+                )
+              }
+              error={
+                !!(
+                  createFormik.errors.insight &&
+                  createFormik.touched.insight
+                )
+              }
               className={"dark:text-white !w-16"}
               color={isDarkMode ? "white" : "black"}
               labelProps={{
@@ -251,7 +297,7 @@ const ExplorationSkillsCreate = (props) => {
               crossOrigin=""
             />
           </Tooltip>
-          <ErrorMessage message={getErrorMessage("insight")} />
+          <ErrorMessage message={getCreateErrorMessage("insight")} />
         </div>
 
         <div className={inputSpacing}>
@@ -261,14 +307,24 @@ const ExplorationSkillsCreate = (props) => {
               label="Intimidation"
               name="intimidation"
               placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateIntimidation();
+              value={createFormik.values.intimidation}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.intimidation}
-              error={!!(errors.intimidation && touched.intimidation)}
-              size="md"
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "intimidation",
+                  createFormik.values.intimidation,
+                  updateCreateField
+                )
+              }
+              error={
+                !!(
+                  createFormik.errors.intimidation &&
+                  createFormik.touched.intimidation
+                )
+              }
               className={"dark:text-white !w-16"}
               color={isDarkMode ? "white" : "black"}
               labelProps={{
@@ -280,7 +336,7 @@ const ExplorationSkillsCreate = (props) => {
               crossOrigin=""
             />
           </Tooltip>
-          <ErrorMessage message={getErrorMessage("intimidation")} />
+          <ErrorMessage message={getCreateErrorMessage("intimidation")} />
         </div>
 
 
@@ -291,14 +347,24 @@ const ExplorationSkillsCreate = (props) => {
               label="Investigation"
               name="investigation"
               placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateInvestigation();
+              value={createFormik.values.investigation}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.investigation}
-              error={!!(errors.investigation && touched.investigation)}
-              size="md"
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "investigation",
+                  createFormik.values.investigation,
+                  updateCreateField
+                )
+              }
+              error={
+                !!(
+                  createFormik.errors.investigation &&
+                  createFormik.touched.investigation
+                )
+              }
               className={"dark:text-white !w-16"}
               color={isDarkMode ? "white" : "black"}
               labelProps={{
@@ -310,7 +376,7 @@ const ExplorationSkillsCreate = (props) => {
               crossOrigin=""
             />
           </Tooltip>
-          <ErrorMessage message={getErrorMessage("investigation")} />
+          <ErrorMessage message={getCreateErrorMessage("investigation")} />
         </div>
 
         <div className={inputSpacing}>
@@ -320,14 +386,24 @@ const ExplorationSkillsCreate = (props) => {
               label="Medicine"
               name="medicine"
               placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateMedicine();
+              value={createFormik.values.medicine}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.medicine}
-              error={!!(errors.medicine && touched.medicine)}
-              size="md"
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "medicine",
+                  createFormik.values.medicine,
+                  updateCreateField
+                )
+              }
+              error={
+                !!(
+                  createFormik.errors.medicine &&
+                  createFormik.touched.medicine
+                )
+              }
               className={"dark:text-white !w-16"}
               color={isDarkMode ? "white" : "black"}
               labelProps={{
@@ -339,7 +415,7 @@ const ExplorationSkillsCreate = (props) => {
               crossOrigin=""
             />
           </Tooltip>
-          <ErrorMessage message={getErrorMessage("medicine")} />
+          <ErrorMessage message={getCreateErrorMessage("medicine")} />
         </div>
 
 
@@ -350,14 +426,24 @@ const ExplorationSkillsCreate = (props) => {
               label="Nature"
               name="nature"
               placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateNature();
+              value={createFormik.values.nature}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.nature}
-              error={!!(errors.nature && touched.nature)}
-              size="md"
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "nature",
+                  createFormik.values.nature,
+                  updateCreateField
+                )
+              }
+              error={
+                !!(
+                  createFormik.errors.nature &&
+                  createFormik.touched.nature
+                )
+              }
               className={"dark:text-white !w-16"}
               color={isDarkMode ? "white" : "black"}
               labelProps={{
@@ -369,7 +455,7 @@ const ExplorationSkillsCreate = (props) => {
               crossOrigin=""
             />
           </Tooltip>
-          <ErrorMessage message={getErrorMessage("nature")} />
+          <ErrorMessage message={getCreateErrorMessage("nature")} />
         </div>
 
         <div className={inputSpacing}>
@@ -379,14 +465,24 @@ const ExplorationSkillsCreate = (props) => {
               label="Perception"
               name="perception"
               placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updatePerception();
+              value={createFormik.values.perception}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.perception}
-              error={!!(errors.perception && touched.perception)}
-              size="md"
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "perception",
+                  createFormik.values.perception,
+                  updateCreateField
+                )
+              }
+              error={
+                !!(
+                  createFormik.errors.perception &&
+                  createFormik.touched.perception
+                )
+              }
               className={"dark:text-white !w-16"}
               color={isDarkMode ? "white" : "black"}
               labelProps={{
@@ -398,7 +494,7 @@ const ExplorationSkillsCreate = (props) => {
               crossOrigin=""
             />
           </Tooltip>
-          <ErrorMessage message={getErrorMessage("perception")} />
+          <ErrorMessage message={getCreateErrorMessage("perception")} />
         </div>
 
       </div>
@@ -413,14 +509,24 @@ const ExplorationSkillsCreate = (props) => {
               label="Performance"
               name="performance"
               placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updatePerformance();
+              value={createFormik.values.performance}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.performance}
-              error={!!(errors.performance && touched.performance)}
-              size="md"
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "performance",
+                  createFormik.values.performance,
+                  updateCreateField
+                )
+              }
+              error={
+                !!(
+                  createFormik.errors.performance &&
+                  createFormik.touched.performance
+                )
+              }
               className={"dark:text-white !w-16"}
               color={isDarkMode ? "white" : "black"}
               labelProps={{
@@ -432,7 +538,7 @@ const ExplorationSkillsCreate = (props) => {
               crossOrigin=""
             />
           </Tooltip>
-          <ErrorMessage message={getErrorMessage("performance")} />
+          <ErrorMessage message={getCreateErrorMessage("performance")} />
         </div>
 
         <div className={inputSpacing}>
@@ -442,14 +548,24 @@ const ExplorationSkillsCreate = (props) => {
               label="Persuasion"
               name="persuasion"
               placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updatePersuasion();
+              value={createFormik.values.persuasion}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.persuasion}
-              error={!!(errors.persuasion && touched.persuasion)}
-              size="md"
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "persuasion",
+                  createFormik.values.persuasion,
+                  updateCreateField
+                )
+              }
+              error={
+                !!(
+                  createFormik.errors.persuasion &&
+                  createFormik.touched.persuasion
+                )
+              }
               className={"dark:text-white !w-16"}
               color={isDarkMode ? "white" : "black"}
               labelProps={{
@@ -461,7 +577,7 @@ const ExplorationSkillsCreate = (props) => {
               crossOrigin=""
             />
           </Tooltip>
-          <ErrorMessage message={getErrorMessage("persuasion")} />
+          <ErrorMessage message={getCreateErrorMessage("persuasion")} />
         </div>
 
         <div className={inputSpacing}>
@@ -471,14 +587,24 @@ const ExplorationSkillsCreate = (props) => {
               label="Religion"
               name="religion"
               placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateReligion();
+              value={createFormik.values.religion}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.religion}
-              error={!!(errors.religion && touched.religion)}
-              size="md"
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "religion",
+                  createFormik.values.religion,
+                  updateCreateField
+                )
+              }
+              error={
+                !!(
+                  createFormik.errors.religion &&
+                  createFormik.touched.religion
+                )
+              }
               className={"dark:text-white !w-16"}
               color={isDarkMode ? "white" : "black"}
               labelProps={{
@@ -490,7 +616,7 @@ const ExplorationSkillsCreate = (props) => {
               crossOrigin=""
             />
           </Tooltip>
-          <ErrorMessage message={getErrorMessage("religion")} />
+          <ErrorMessage message={getCreateErrorMessage("religion")} />
         </div>
 
         <div className={inputSpacing}>
@@ -500,14 +626,24 @@ const ExplorationSkillsCreate = (props) => {
               label="Sleight of Hand"
               name="sleight"
               placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateSleight();
+              value={createFormik.values.sleight}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.sleight}
-              error={!!(errors.sleight && touched.sleight)}
-              size="md"
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "sleight",
+                  createFormik.values.sleight,
+                  updateCreateField
+                )
+              }
+              error={
+                !!(
+                  createFormik.errors.sleight &&
+                  createFormik.touched.sleight
+                )
+              }
               className={"dark:text-white !w-16"}
               color={isDarkMode ? "white" : "black"}
               labelProps={{
@@ -519,7 +655,7 @@ const ExplorationSkillsCreate = (props) => {
               crossOrigin=""
             />
           </Tooltip>
-          <ErrorMessage message={getErrorMessage("sleight")} />
+          <ErrorMessage message={getCreateErrorMessage("sleight")} />
         </div>
 
 
@@ -530,14 +666,24 @@ const ExplorationSkillsCreate = (props) => {
               label="Stealth"
               name="stealth"
               placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateStealth();
+              value={createFormik.values.stealth}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.stealth}
-              error={!!(errors.stealth && touched.stealth)}
-              size="md"
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "stealth",
+                  createFormik.values.stealth,
+                  updateCreateField
+                )
+              }
+              error={
+                !!(
+                  createFormik.errors.stealth &&
+                  createFormik.touched.stealth
+                )
+              }
               className={"dark:text-white !w-16"}
               color={isDarkMode ? "white" : "black"}
               labelProps={{
@@ -549,7 +695,7 @@ const ExplorationSkillsCreate = (props) => {
               crossOrigin=""
             />
           </Tooltip>
-          <ErrorMessage message={getErrorMessage("stealth")} />
+          <ErrorMessage message={getCreateErrorMessage("stealth")} />
         </div>
 
         <div className={inputSpacing}>
@@ -559,14 +705,24 @@ const ExplorationSkillsCreate = (props) => {
               label="Survival"
               name="survival"
               placeholder="Required"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateSurvival();
+              value={createFormik.values.survival}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.survival}
-              error={!!(errors.survival && touched.survival)}
-              size="md"
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "survival",
+                  createFormik.values.survival,
+                  updateCreateField
+                )
+              }
+              error={
+                !!(
+                  createFormik.errors.survival &&
+                  createFormik.touched.survival
+                )
+              }
               className={"dark:text-white !w-16"}
               color={isDarkMode ? "white" : "black"}
               labelProps={{
@@ -578,7 +734,7 @@ const ExplorationSkillsCreate = (props) => {
               crossOrigin=""
             />
           </Tooltip>
-          <ErrorMessage message={getErrorMessage("survival")} />
+          <ErrorMessage message={getCreateErrorMessage("survival")} />
         </div>
 
       </div>

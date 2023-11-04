@@ -1,27 +1,39 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { CoreProfileTypes } from "@/components/types/sheet-types/field-types";
+import { SpellSlotTypes } from "@/components/types/sheet-types/field-types";
 import { UpdateSheetFieldArgs } from "@/components/types/sheet-types/update-args";
-import { validCoreProfileFieldNames } from "@/components/helper/valid-character-fields";
+import { validSpellSlotsFieldNames } from "@/components/helper/valid-character-fields";
 import axios from "axios";
 
-const initialViewCoreProfileState: CoreProfileTypes = {
-  character_name: "",
-  char_class: "",
-  race: "",
-  proficiency: null || 0,
-  char_level: null || 0,
-  experience: null || 0,
-  next_level: null || 0,
-  affinity: "",
-  isLoading: false,
-  error: null,
-};
 
-const baseURL = "/api/character-sheet-view/core-profile-view";
+const initialViewSpellSlotsState: SpellSlotTypes = {
+    first_available: null || 0,
+    first_max: null || 0,
+    second_available: null || 0,
+    second_max: null || 0,
+    third_available: null || 0,
+    third_max: null || 0,
+    fourth_available: null || 0,
+    fourth_max: null || 0,
+    fifth_available: null || 0,
+    fifth_max: null || 0,
+    sixth_available: null || 0,
+    sixth_max: null || 0,
+    seventh_available: null || 0,
+    seventh_max: null || 0,
+    eighth_available: null || 0,
+    eighth_max: null || 0,
+    nineth_available: null || 0,
+    nineth_max: null || 0,
+    isLoading: false,
+    error: null
+  };
+  
+
+const baseURL = "/api/character-sheet-view/spell-slots-view";
 
 //Fetch data for view sheet subsection
-export const fetchCoreProfileData = createAsyncThunk(
-  "coreProfileView/fetchCoreProfileData",
+export const fetchSpellSlotsData = createAsyncThunk(
+  "spellSlotsView/fetchSpellSlotsData",
   async (characterId: string, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${baseURL}?characterId=${characterId}`);
@@ -33,13 +45,13 @@ export const fetchCoreProfileData = createAsyncThunk(
 );
 
 //Handle user updates via PUT requests for view sheet subsection
-export const updateCoreProfileField = createAsyncThunk(
-  "coreProfileView/updateField",
+export const updateSpellSlotsField = createAsyncThunk(
+  "spellSlotsView/updateField",
   async (
     { characterId, fieldName, value }: UpdateSheetFieldArgs,
     { rejectWithValue }
   ) => {
-    if (!validCoreProfileFieldNames.includes(fieldName)) {
+    if (!validSpellSlotsFieldNames.includes(fieldName)) {
       return rejectWithValue("Invalid field");
     }
 
@@ -59,9 +71,9 @@ export const updateCoreProfileField = createAsyncThunk(
   }
 );
 
-const coreProfileViewSlice = createSlice({
-  name: "coreProfileView",
-  initialState: initialViewCoreProfileState,
+const spellSlotsViewSlice = createSlice({
+  name: "spellSlotsView",
+  initialState: initialViewSpellSlotsState,
   reducers: {
     updateField: (state, action) => {
       const { name, value } = action.payload;
@@ -71,28 +83,28 @@ const coreProfileViewSlice = createSlice({
   extraReducers: (builder) => {
     builder
       //For data fetching
-      .addCase(fetchCoreProfileData.pending, (state) => {
+      .addCase(fetchSpellSlotsData.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchCoreProfileData.fulfilled, (state, action) => {
+      .addCase(fetchSpellSlotsData.fulfilled, (state, action) => {
         state.isLoading = false;
         Object.assign(state, action.payload.data);
       })
-      .addCase(fetchCoreProfileData.rejected, (state, action) => {
+      .addCase(fetchSpellSlotsData.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       })
 
       //For data sending
-      .addCase(updateCoreProfileField.fulfilled, (state, action) => {
+      .addCase(updateSpellSlotsField.fulfilled, (state, action) => {
         const { fieldName, value } = action.payload;
         state[fieldName] = value;
       })
-      .addCase(updateCoreProfileField.rejected, (state, action) => {
+      .addCase(updateSpellSlotsField.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },
 });
 
-export const viewCoreProfileActions = coreProfileViewSlice.actions;
-export default coreProfileViewSlice.reducer;
+export const viewSpellSlotsActions = spellSlotsViewSlice.actions;
+export default spellSlotsViewSlice.reducer;

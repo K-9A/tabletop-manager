@@ -4,16 +4,16 @@ import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
 import AllIsValid from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-all-valid";
 import { useHandleSubmitAll } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-create-character";
-import { useAbilityScoresCreate } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-ability-scores-create";
-import { useBackgroundCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-background-create";
-import { useCombatStatsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-combat-stats";
+import { useAbilityScores } from "../../../custom-hooks/character-sheet-hooks/use-ability-scores";
+import { useBackground } from "@/components/custom-hooks/character-sheet-hooks/use-background";
+import { useCombatStats } from "@/components/custom-hooks/character-sheet-hooks/use-combat-stats";
 import { useCoreProfile } from "@/components/custom-hooks/character-sheet-hooks/use-core-profile";
 import { useEquipmentCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-equipment-create";
-import { useExplorationSkillsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-exploration-skills-create";
-import { useFeatsTraitsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-feats-traits-create";
+import { useExplorationSkills } from "@/components/custom-hooks/character-sheet-hooks/use-exploration-skills";
+import { useFeatsTraits } from "@/components/custom-hooks/character-sheet-hooks/use-feats-traits";
 import { useItemsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-items-create";
 import { useSkillsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-skills-create";
-import { useSpellSlotsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-spell-slots-create";
+import { useSpellSlots } from "@/components/custom-hooks/character-sheet-hooks/use-spell-slots";
 import { useSpellsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-spells-create";
 
 
@@ -21,15 +21,15 @@ const SubmitCharacterSheet = (props) => {
 
   const {
     resetAbilityScores
-  } = useAbilityScoresCreate(props.initialData);
+  } = useAbilityScores('create',props.initialData);
 
   const {
     resetBackground
-  } = useBackgroundCreate(props.initialData);
+  } = useBackground('create',props.initialData);
 
   const {
     resetCombatStats
-  } = useCombatStatsCreate(props.initialData);
+  } = useCombatStats('create',props.initialData);
 
   const {
     resetCoreProfile
@@ -41,11 +41,11 @@ const SubmitCharacterSheet = (props) => {
 
   const {
     resetExplorationSkills
-  } = useExplorationSkillsCreate(props.initialData);
+  } = useExplorationSkills('create',props.initialData);
 
   const {
     resetFeatsTraits
-  } = useFeatsTraitsCreate(props.initialData);
+  } = useFeatsTraits('create',props.initialData);
 
   const {
     resetItems
@@ -57,7 +57,7 @@ const SubmitCharacterSheet = (props) => {
 
   const {
     resetSpellSlots
-  } = useSpellSlotsCreate(props.initialData);
+  } = useSpellSlots('create',props.initialData);
 
   const {
     resetSpells

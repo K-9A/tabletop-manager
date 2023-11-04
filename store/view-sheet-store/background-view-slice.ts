@@ -1,27 +1,31 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { CoreProfileTypes } from "@/components/types/sheet-types/field-types";
+import { BackgroundTypes } from "@/components/types/sheet-types/field-types";
 import { UpdateSheetFieldArgs } from "@/components/types/sheet-types/update-args";
-import { validCoreProfileFieldNames } from "@/components/helper/valid-character-fields";
+import { validBackgroundFieldNames } from "@/components/helper/valid-character-fields";
 import axios from "axios";
 
-const initialViewCoreProfileState: CoreProfileTypes = {
-  character_name: "",
-  char_class: "",
-  race: "",
-  proficiency: null || 0,
-  char_level: null || 0,
-  experience: null || 0,
-  next_level: null || 0,
-  affinity: "",
-  isLoading: false,
-  error: null,
+
+const initialBackgroundViewState:BackgroundTypes = {
+
+    personality: "",
+    backstory: "",
+    bonds: "",
+    appearance: "",
+    ideals: "",
+    flaws: "",
+    valuables: "",
+    additional_traits: "",
+    isLoading: false,
+    error: null,
+
 };
 
-const baseURL = "/api/character-sheet-view/core-profile-view";
+
+const baseURL = "/api/character-sheet-view/background-view";
 
 //Fetch data for view sheet subsection
-export const fetchCoreProfileData = createAsyncThunk(
-  "coreProfileView/fetchCoreProfileData",
+export const fetchBackgroundData = createAsyncThunk(
+  "backgroundView/fetchBackgroundData",
   async (characterId: string, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${baseURL}?characterId=${characterId}`);
@@ -33,13 +37,13 @@ export const fetchCoreProfileData = createAsyncThunk(
 );
 
 //Handle user updates via PUT requests for view sheet subsection
-export const updateCoreProfileField = createAsyncThunk(
-  "coreProfileView/updateField",
+export const updateBackgroundField = createAsyncThunk(
+  "backgroundView/updateField",
   async (
     { characterId, fieldName, value }: UpdateSheetFieldArgs,
     { rejectWithValue }
   ) => {
-    if (!validCoreProfileFieldNames.includes(fieldName)) {
+    if (!validBackgroundFieldNames.includes(fieldName)) {
       return rejectWithValue("Invalid field");
     }
 
@@ -59,9 +63,9 @@ export const updateCoreProfileField = createAsyncThunk(
   }
 );
 
-const coreProfileViewSlice = createSlice({
-  name: "coreProfileView",
-  initialState: initialViewCoreProfileState,
+const backgroundViewSlice = createSlice({
+  name: "backgroundView",
+  initialState: initialBackgroundViewState,
   reducers: {
     updateField: (state, action) => {
       const { name, value } = action.payload;
@@ -71,28 +75,28 @@ const coreProfileViewSlice = createSlice({
   extraReducers: (builder) => {
     builder
       //For data fetching
-      .addCase(fetchCoreProfileData.pending, (state) => {
+      .addCase(fetchBackgroundData.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchCoreProfileData.fulfilled, (state, action) => {
+      .addCase(fetchBackgroundData.fulfilled, (state, action) => {
         state.isLoading = false;
         Object.assign(state, action.payload.data);
       })
-      .addCase(fetchCoreProfileData.rejected, (state, action) => {
+      .addCase(fetchBackgroundData.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       })
 
       //For data sending
-      .addCase(updateCoreProfileField.fulfilled, (state, action) => {
+      .addCase(updateBackgroundField.fulfilled, (state, action) => {
         const { fieldName, value } = action.payload;
         state[fieldName] = value;
       })
-      .addCase(updateCoreProfileField.rejected, (state, action) => {
+      .addCase(updateBackgroundField.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },
 });
 
-export const viewCoreProfileActions = coreProfileViewSlice.actions;
-export default coreProfileViewSlice.reducer;
+export const viewBackgroundActions = backgroundViewSlice.actions;
+export default backgroundViewSlice.reducer;

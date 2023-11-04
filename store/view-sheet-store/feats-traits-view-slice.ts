@@ -1,27 +1,29 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { CoreProfileTypes } from "@/components/types/sheet-types/field-types";
+import { FeatsTraitsTypes } from "@/components/types/sheet-types/field-types";
 import { UpdateSheetFieldArgs } from "@/components/types/sheet-types/update-args";
-import { validCoreProfileFieldNames } from "@/components/helper/valid-character-fields";
+import { validFeatsTraitsFieldNames } from "@/components/helper/valid-character-fields";
 import axios from "axios";
 
-const initialViewCoreProfileState: CoreProfileTypes = {
-  character_name: "",
-  char_class: "",
-  race: "",
-  proficiency: null || 0,
-  char_level: null || 0,
-  experience: null || 0,
-  next_level: null || 0,
-  affinity: "",
-  isLoading: false,
-  error: null,
+
+const initialFeatsTraitsViewState:FeatsTraitsTypes = {
+
+    feats_traits: "",
+    weapon_proficiency: "",
+    armor_proficiency: "",
+    other_proficiency: "",
+    buffs: "",
+    debuffs: "",
+    isLoading: false,
+    error: null,
+
 };
 
-const baseURL = "/api/character-sheet-view/core-profile-view";
+
+const baseURL = "/api/character-sheet-view/feats-traits-view";
 
 //Fetch data for view sheet subsection
-export const fetchCoreProfileData = createAsyncThunk(
-  "coreProfileView/fetchCoreProfileData",
+export const fetchFeatsTraitsData = createAsyncThunk(
+  "featsTraitsView/fetchFeatsTraitsData",
   async (characterId: string, { rejectWithValue }) => {
     try {
       const response = await axios.get(`${baseURL}?characterId=${characterId}`);
@@ -33,13 +35,13 @@ export const fetchCoreProfileData = createAsyncThunk(
 );
 
 //Handle user updates via PUT requests for view sheet subsection
-export const updateCoreProfileField = createAsyncThunk(
-  "coreProfileView/updateField",
+export const updateFeatsTraitsField = createAsyncThunk(
+  "featsTraitsView/updateField",
   async (
     { characterId, fieldName, value }: UpdateSheetFieldArgs,
     { rejectWithValue }
   ) => {
-    if (!validCoreProfileFieldNames.includes(fieldName)) {
+    if (!validFeatsTraitsFieldNames.includes(fieldName)) {
       return rejectWithValue("Invalid field");
     }
 
@@ -59,9 +61,9 @@ export const updateCoreProfileField = createAsyncThunk(
   }
 );
 
-const coreProfileViewSlice = createSlice({
-  name: "coreProfileView",
-  initialState: initialViewCoreProfileState,
+const featsTraitsViewSlice = createSlice({
+  name: "featsTraitsView",
+  initialState: initialFeatsTraitsViewState,
   reducers: {
     updateField: (state, action) => {
       const { name, value } = action.payload;
@@ -71,28 +73,28 @@ const coreProfileViewSlice = createSlice({
   extraReducers: (builder) => {
     builder
       //For data fetching
-      .addCase(fetchCoreProfileData.pending, (state) => {
+      .addCase(fetchFeatsTraitsData.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchCoreProfileData.fulfilled, (state, action) => {
+      .addCase(fetchFeatsTraitsData.fulfilled, (state, action) => {
         state.isLoading = false;
         Object.assign(state, action.payload.data);
       })
-      .addCase(fetchCoreProfileData.rejected, (state, action) => {
+      .addCase(fetchFeatsTraitsData.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       })
 
       //For data sending
-      .addCase(updateCoreProfileField.fulfilled, (state, action) => {
+      .addCase(updateFeatsTraitsField.fulfilled, (state, action) => {
         const { fieldName, value } = action.payload;
         state[fieldName] = value;
       })
-      .addCase(updateCoreProfileField.rejected, (state, action) => {
+      .addCase(updateFeatsTraitsField.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },
 });
 
-export const viewCoreProfileActions = coreProfileViewSlice.actions;
-export default coreProfileViewSlice.reducer;
+export const viewBackgroundActions = featsTraitsViewSlice.actions;
+export default featsTraitsViewSlice.reducer;

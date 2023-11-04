@@ -1,10 +1,18 @@
+import { featsTraitsSchema } from "@/components/validation-schema/character-sheet/feats-traits-schema";
+import { ValidationError } from "yup";
+
 export const insertFeatsTraitsData = async (
   data,
   characterId,
   dbQuery: Function
 ) => {
+  //Use YUP schema validator to make sure data structure matches the Formik form front end
+  try {
+    const transformedData = featsTraitsSchema.validateSync(data, {
+      abortEarly: false,
+      stripUnknown: true,
+    });
 
-    // Extract data
     const {
       weapon_proficiency,
       armor_proficiency,
@@ -12,7 +20,7 @@ export const insertFeatsTraitsData = async (
       buffs,
       debuffs,
       other_proficiency,
-    } = data 
+    } = transformedData;
     //Use the validator package to sanitize data for SQL querying
     const sanitizedData = {
       weapon_proficiency: weapon_proficiency,
@@ -23,7 +31,6 @@ export const insertFeatsTraitsData = async (
       other_proficiency: other_proficiency,
     };
 
-   
     await dbQuery(
       "INSERT INTO feats_traits (character_id, weapon_proficiency, armor_proficiency, feats_traits, buffs, debuffs, other_proficiency) VALUES (?, ?, ?, ?, ?, ?, ?)",
       [
@@ -36,4 +43,11 @@ export const insertFeatsTraitsData = async (
         sanitizedData.other_proficiency,
       ]
     );
+  } catch (error) {
+    if (error instanceof ValidationError) {
+      // Handle validation error (e.g., throw it to be caught in the main route)
+      throw new Error(error.message);
+    }
+    throw error;
   }
+};

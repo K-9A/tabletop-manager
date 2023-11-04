@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CombatStatsTypes } from "@/components/types/sheet-types/view-types";
+import { CombatStatsTypes } from "@/components/types/sheet-types/field-types";
 
 const initialCreateCombatStatsState: CombatStatsTypes = {
   current_hp: null,
@@ -29,7 +29,7 @@ const combatStatsCreateSlice = createSlice({
     setValidity: (state, action: PayloadAction<boolean>) => {
       state.isValid = action.payload;
     },
-    resetCombatStats: (state) => {
+    resetCombatStats: () => {
       return initialCreateCombatStatsState;
     },
   },

@@ -6,24 +6,21 @@ import {
   Tooltip,
   Typography,
 } from "@material-tailwind/react";
-import { useFeatsTraitsCreate } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-feats-traits-create";
+import { useFeatsTraits } from "../../../custom-hooks/character-sheet-hooks/use-feats-traits";
+import { handleUpdateBlur } from "@/components/helper/handle-field-updates";
 import { MarkAsCompleteTooltip } from "@/components/helper/tooltips";
 
 
 const FeatsTraitsCreate = (props) => {
-    const {
-      values,
-      isValid,
-      handleChange,
-      handleBlur,
-      updateFeatsTraits,
-      updateWeaponProficiency,
-      updateArmorProficiency,
-      updateBuffs,
-      updateDebuffs,
-      updateOtherProficiency,
-      handleCheckboxChange
-    } = useFeatsTraitsCreate(props.initialData);
+  const {
+    createFormik,
+    isDarkMode,
+    updateCreateField,
+    getCreateErrorMessage,
+    isValid,
+    handleCheckboxChange,
+  } = useFeatsTraits("create", props.initialData);
+
   
     return (
       <motion.div
@@ -47,13 +44,18 @@ const FeatsTraitsCreate = (props) => {
               name="feats_traits"
               label="Features and Traits"
               placeholder="Optional"
-              size="md"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateFeatsTraits();
+              value={createFormik.values.feats_traits}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.feats_traits}
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "feats_traits",
+                  createFormik.values.feats_traits,
+                  updateCreateField
+                )
+              }
               className="dark:text-white"
               labelProps={{
                 className: "!text-black dark:!text-white !mb-8",
@@ -67,13 +69,18 @@ const FeatsTraitsCreate = (props) => {
               name="weapon_proficiency"
               label="Weapon Proficiency"
               placeholder="Optional"
-              size="md"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateWeaponProficiency();
+              value={createFormik.values.weapon_proficiency}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.weapon_proficiency}
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "weapon_proficiency",
+                  createFormik.values.weapon_proficiency,
+                  updateCreateField
+                )
+              }
               className="dark:text-white"
               labelProps={{
                 className: "!text-black dark:!text-white !mb-8",
@@ -87,13 +94,18 @@ const FeatsTraitsCreate = (props) => {
               name="armor_proficiency"
               label="Armor Proficiency"
               placeholder="Optional"
-              size="md"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateArmorProficiency();
+              value={createFormik.values.armor_proficiency}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.armor_proficiency}
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "armor_proficiency",
+                  createFormik.values.armor_proficiency,
+                  updateCreateField
+                )
+              }
               className="dark:text-white"
               labelProps={{
                 className: "!text-black dark:!text-white !mb-8",
@@ -109,13 +121,18 @@ const FeatsTraitsCreate = (props) => {
               name="buffs"
               label="Buffs"
               placeholder="Optional"
-              size="md"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateBuffs();
+              value={createFormik.values.buffs}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.buffs}
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "buffs",
+                  createFormik.values.buffs,
+                  updateCreateField
+                )
+              }
               className="dark:text-white"
               labelProps={{
                 className: "!text-black dark:!text-white !mb-8",
@@ -129,13 +146,18 @@ const FeatsTraitsCreate = (props) => {
               name="debuffs"
               label="Debuffs"
               placeholder="Optional"
-              size="md"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateDebuffs();
+              value={createFormik.values.debuffs}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.debuffs}
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "debuffs",
+                  createFormik.values.debuffs,
+                  updateCreateField
+                )
+              }
               className="dark:text-white"
               labelProps={{
                 className: "!text-black dark:!text-white !mb-8",
@@ -149,13 +171,18 @@ const FeatsTraitsCreate = (props) => {
               name="other_proficiency"
               label="Other Proficiencies"
               placeholder="Optional"
-              size="md"
-              onBlur={(e) => {
-                handleBlur(e);
-                updateOtherProficiency();
+              value={createFormik.values.other_proficiency}
+              onChange={(e) => {
+                createFormik.handleChange(e);
               }}
-              onChange={handleChange}
-              value={values.other_proficiency}
+              onBlur={() =>
+                handleUpdateBlur(
+                  createFormik,
+                  "other_proficiency",
+                  createFormik.values.other_proficiency,
+                  updateCreateField
+                )
+              }
               className="dark:text-white"
               labelProps={{
                 className: "!text-black dark:!text-white !mb-8",

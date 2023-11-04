@@ -12,6 +12,12 @@ import campaignViewReducer from "./campaign-store/campaign-view-slice";
 // View Sheet Slice Imports
 import coreProfileViewReducer from "./view-sheet-store/core-profile-view-slice";
 import combatStatsViewReducer from "./view-sheet-store/combat-stats-view-slice";
+import abilityScoresViewReducer from "./view-sheet-store/ability-scores-view-slice";
+import backgroundViewReducer from "./view-sheet-store/background-view-slice";
+import featsTraitsViewReducer from "./view-sheet-store/feats-traits-view-slice";
+import explorationSkillsViewReducer from "./view-sheet-store/exploration-skills-view-slice";
+import spellSlotsViewReducer from "./view-sheet-store/spell-slots-view-slice";
+
 
 // Create Sheet Slice Imports
 import coreProfileCreateReducer from "./create-sheet-store/core-profile-create-slice";
@@ -39,6 +45,12 @@ const store = configureStore({
         //View Sheet Reducers
         coreProfileView: coreProfileViewReducer,
         combatStatsView: combatStatsViewReducer,
+        abilityScoresView: abilityScoresViewReducer,
+        backgroundView: backgroundViewReducer,
+        featsTraitsView: featsTraitsViewReducer,
+        explorationSkillsView: explorationSkillsViewReducer,
+        spellSlotsView: spellSlotsViewReducer,
+
         
         //Create Sheet Reducers
         coreProfileCreate: coreProfileCreateReducer,

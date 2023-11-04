@@ -6,25 +6,19 @@ import {
   Tooltip,
   Typography,
 } from "@material-tailwind/react";
-import { useBackgroundCreate } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-background-create";
+import { useBackground } from "../../../custom-hooks/character-sheet-hooks/use-background";
+import { handleUpdateBlur } from "@/components/helper/handle-field-updates";
 import { MarkAsCompleteTooltip } from "@/components/helper/tooltips";
 
 const BackgroundCreate = (props) => {
   const {
-    values,
+    createFormik,
+    isDarkMode,
+    updateCreateField,
+    getCreateErrorMessage,
     isValid,
-    handleChange,
-    handleBlur,
-    updatePersonality,
-    updateBackstory,
-    updateBonds,
-    updateAppearance,
-    updateIdeals,
-    updateFlaws,
-    updateValuables,
-    updateAdditonalTraits,
     handleCheckboxChange,
-  } = useBackgroundCreate(props.initialData);
+  } = useBackground("create", props.initialData);
 
   return (
     <motion.div
@@ -48,13 +42,18 @@ const BackgroundCreate = (props) => {
             name="personality"
             label="Personality"
             placeholder="Optional"
-            size="md"
-            onBlur={(e) => {
-              handleBlur(e);
-              updatePersonality();
+            value={createFormik.values.personality}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.personality}
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "personality",
+                createFormik.values.personality,
+                updateCreateField
+              )
+            }
             className="dark:text-white"
             labelProps={{
               className: "!text-black dark:!text-white !mb-8",
@@ -67,13 +66,18 @@ const BackgroundCreate = (props) => {
             name="backstory"
             label="Backstory"
             placeholder="Optional"
-            size="md"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateBackstory();
+            value={createFormik.values.backstory}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.backstory}
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "backstory",
+                createFormik.values.backstory,
+                updateCreateField
+              )
+            }
             className="dark:text-white"
             labelProps={{
               className: "!text-black dark:!text-white",
@@ -86,13 +90,18 @@ const BackgroundCreate = (props) => {
             name="bonds"
             label="Bonds"
             placeholder="Optional"
-            size="md"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateBonds();
+            value={createFormik.values.bonds}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.bonds}
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "bonds",
+                createFormik.values.bonds,
+                updateCreateField
+              )
+            }
             className="dark:text-white"
             labelProps={{
               className: "!text-black dark:!text-white",
@@ -105,13 +114,18 @@ const BackgroundCreate = (props) => {
             name="appearance"
             label="Appearance"
             placeholder="Optional"
-            size="md"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateAppearance();
+            value={createFormik.values.appearance}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.appearance}
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "appearance",
+                createFormik.values.appearance,
+                updateCreateField
+              )
+            }
             className="dark:text-white"
             labelProps={{
               className: "!text-black dark:!text-white",
@@ -127,13 +141,18 @@ const BackgroundCreate = (props) => {
             name="ideals"
             label="Ideals"
             placeholder="Optional"
-            size="md"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateIdeals();
+            value={createFormik.values.ideals}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.ideals}
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "ideals",
+                createFormik.values.ideals,
+                updateCreateField
+              )
+            }
             className="dark:text-white"
             labelProps={{
               className: "!text-black dark:!text-white",
@@ -146,13 +165,18 @@ const BackgroundCreate = (props) => {
             name="flaws"
             label="Flaws"
             placeholder="Optional"
-            size="md"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateFlaws();
+            value={createFormik.values.flaws}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.flaws}
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "flaws",
+                createFormik.values.flaws,
+                updateCreateField
+              )
+            }
             className="dark:text-white"
             labelProps={{
               className: "!text-black dark:!text-white",
@@ -165,13 +189,18 @@ const BackgroundCreate = (props) => {
             name="valuables"
             label="Valuabes"
             placeholder="Optional"
-            size="md"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateValuables();
+            value={createFormik.values.valuables}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.valuables}
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "valuables",
+                createFormik.values.valuables,
+                updateCreateField
+              )
+            }
             className="dark:text-white"
             labelProps={{
               className: "!text-black dark:!text-white",
@@ -184,13 +213,18 @@ const BackgroundCreate = (props) => {
             name="additional_traits"
             label="Additional Features & Traits"
             placeholder="Optional"
-            size="md"
-            onBlur={(e) => {
-              handleBlur(e);
-              updateAdditonalTraits();
+            value={createFormik.values.additional_traits}
+            onChange={(e) => {
+              createFormik.handleChange(e);
             }}
-            onChange={handleChange}
-            value={values.additional_traits}
+            onBlur={() =>
+              handleUpdateBlur(
+                createFormik,
+                "additional_traits",
+                createFormik.values.additional_traits,
+                updateCreateField
+              )
+            }
             className="dark:text-white"
             labelProps={{
               className: "!text-black dark:!text-white",
