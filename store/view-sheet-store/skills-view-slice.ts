@@ -5,15 +5,7 @@ import { validSkillsFieldNames } from "@/components/helper/valid-character-field
 import axios from "axios";
 
 const initialSkillsViewState: SkillsTypes = {
-  skills: [
-    {
-      skill_id: null,
-      skill_name: "",
-      skill_description: "",
-      skill_cooldown: "",
-      skill_available: "",
-    },
-  ],
+  skills: [],
   isLoading: false,
   error: null,
 };
@@ -27,21 +19,20 @@ export const fetchSkillsData = createAsyncThunk(
     try {
       const response = await axios.get(`${baseURL}?characterId=${characterId}`);
       // Assuming the API returns an array of skills
-      if (Array.isArray(response.data)) {
-        // Normalize data if necessary or return directly
-        return response.data.map((skill) => ({
-          ...skill,
-          // Include the id from the response
-          id: skill.id,
 
-          // Ensure all fields are present or provide defaults
+      // Check if the response has a 'data' property and it is an array
+      if (response.data && Array.isArray(response.data.data)) {
+        // Map over the array inside the 'data' property
+        return response.data.data.map((skill) => ({
+          skill_id: skill.skill_id,
           skill_name: skill.skill_name || "",
           skill_description: skill.skill_description || "",
           skill_cooldown: skill.skill_cooldown || "",
           skill_available: skill.skill_available || "",
         }));
       } else {
-        return rejectWithValue("Invalid data format received from API");
+        // Handle the case where the data is not in the expected format
+        throw new Error("Invalid data format received from API");
       }
     } catch (error) {
       console.error(error);
@@ -55,7 +46,7 @@ export const addSkill = createAsyncThunk(
   "skillsView/addSkill",
   async (characterId: string, { rejectWithValue }) => {
     try {
-      const response = await axios.post(`${baseURL}`, { characterId });
+      const response = await axios.post(`${baseURL}?characterId=${characterId}`);
       if (response.status === 201) {
         return response.data; // The new skill, including its ID
       } else {
@@ -64,6 +55,34 @@ export const addSkill = createAsyncThunk(
     } catch (error) {
       console.error(error);
       return rejectWithValue("Failed to add skill");
+    }
+  }
+);
+
+//Handle user updates via PUT requests for view sheet subsection
+export const updateSkillsField = createAsyncThunk(
+  "skillsView/updateField",
+  async (
+    { characterId, skillId, fieldName, value }: UpdateSkillFieldArgs, // Include skillId in the arguments
+    { rejectWithValue }
+  ) => {
+
+    if (!validSkillsFieldNames.includes(fieldName)) {
+      return rejectWithValue("Invalid field");
+    }
+
+    try {
+      const response = await axios.put(
+        `${baseURL}?characterId=${characterId}&skillId=${skillId}&fieldName=${fieldName}&value=${value}` // Use RESTful convention by including skillId in the URL
+      );
+      if (response.status === 200) {
+        return { skillId, fieldName, value }; // Include skillId in the return value
+      } else {
+        return rejectWithValue("Failed to update field");
+      }
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue("Failed to update field");
     }
   }
 );
@@ -91,37 +110,7 @@ export const removeSkill = createAsyncThunk(
   }
 );
 
-//Handle user updates via PUT requests for view sheet subsection
-export const updateSkillsField = createAsyncThunk(
-  "skillsView/updateField",
-  async (
-    { characterId, skillId, fieldName, value }: UpdateSkillFieldArgs, // Include skillId in the arguments
-    { rejectWithValue }
-  ) => {
-    if (!validSkillsFieldNames.includes(fieldName)) {
-      return rejectWithValue("Invalid field");
-    }
 
-    try {
-      const response = await axios.put(
-        `${baseURL}/${skillId}`, // Use RESTful convention by including skillId in the URL
-        {
-          characterId,
-          fieldName,
-          value,
-        }
-      );
-      if (response.status === 200) {
-        return { skillId, fieldName, value }; // Include skillId in the return value
-      } else {
-        return rejectWithValue("Failed to update field");
-      }
-    } catch (error) {
-      console.error(error);
-      return rejectWithValue("Failed to update field");
-    }
-  }
-);
 
 const skillsViewSlice = createSlice({
   name: "skillsView",
@@ -140,6 +129,7 @@ const skillsViewSlice = createSlice({
       })
       .addCase(fetchSkillsData.fulfilled, (state, action) => {
         state.isLoading = false;
+        // If no skills are returned, the state.skills will just be an empty array
         state.skills = action.payload; // Set the fetched skills into the state
       })
       .addCase(fetchSkillsData.rejected, (state, action) => {
@@ -149,21 +139,27 @@ const skillsViewSlice = createSlice({
 
       //For data insertion
       .addCase(addSkill.fulfilled, (state, action) => {
+        // Add the new skill to the skills array
         state.skills.push(action.payload);
       })
 
       //For data removal
       .addCase(removeSkill.fulfilled, (state, action) => {
-        const skillId = action.payload;
+        // Remove the skill with the given skill_id
         state.skills = state.skills.filter(
-          (skill) => skill.skill_id !== skillId
+          (skill) => skill.skill_id !== action.payload
         );
       })
 
       //For data updates
       .addCase(updateSkillsField.fulfilled, (state, action) => {
-        const { fieldName, value } = action.payload;
-        state[fieldName] = value;
+        const { skillId, fieldName, value } = action.payload;
+        const skillIndex = state.skills.findIndex(
+          (skill) => skill.skill_id === skillId
+        );
+        if (skillIndex !== -1) {
+          state.skills[skillIndex][fieldName] = value;
+        }
       })
       .addCase(updateSkillsField.rejected, (state, action) => {
         state.error = action.error.message;

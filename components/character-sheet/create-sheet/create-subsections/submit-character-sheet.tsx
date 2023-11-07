@@ -80,20 +80,20 @@ const SubmitCharacterSheet = (props) => {
       // Assuming handleSubmit returns a truthy value on success
       if (submitResult) {
         // Reset all the formik data and redux slice data
-        // resetAbilityScores();
-        // resetBackground();
-        // resetCombatStats();
-        // resetCoreProfile();
-        // resetEquipment();
-        // resetExplorationSkills();
-        // resetFeatsTraits();
-        // resetItems();
-        // resetSkills();
-        // resetSpellSlots();
-        // resetSpells();
+        resetAbilityScores();
+        resetBackground();
+        resetCombatStats();
+        resetCoreProfile();
+        resetEquipment();
+        resetExplorationSkills();
+        resetFeatsTraits();
+        resetItems();
+        resetSkills();
+        resetSpellSlots();
+        resetSpells();
   
         // Programmatically reroute user to character view list
-        //router.push("/character-view");
+        router.push("/character-view");
       }
     } catch (err) {
       // Handle the error, maybe show a message to the user
@@ -116,7 +116,7 @@ const SubmitCharacterSheet = (props) => {
       <div className="mt-12 flex gap-4 px-4 py-6 rounded-lg border border-blue-gray-100 max-h-[290px] max-w-[860px]">
         <p>
           The character sheet process is done. If all sections are finished, hit
-          Submit. If not, button is greyed out.
+          Submit. The button will be red until all required fields in all filled out.
         </p>
       </div>
       {/*{loading && <Spinner />}*/} {/* Some loading spinner component */}

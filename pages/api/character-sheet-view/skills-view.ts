@@ -44,7 +44,7 @@ const updateSkills = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(404).json({ error: "Skills data not found" });
       }
 
-      res.status(200).json({ success: true, data: skillsData[0] });
+      res.status(200).json({ success: true, data: skillsData });
     } catch (error) {
       res.status(500).json({ success: false, error: error.message });
     }
@@ -52,22 +52,15 @@ const updateSkills = async (req: NextApiRequest, res: NextApiResponse) => {
   //Insert method
   else if (req.method === "POST") {
     try {
-      // Assuming you're sending the skill data in the body of the request
-      const { skill_name, skill_description, skill_cooldown, skill_available } =
-        req.body;
-
-      // You might want to validate the input here as well
-
+      // Extract the characterId from the request body or query, depending on how you're sending it
+  
+      console.log("insert character Id", characterId)
+      // Insert a new skill with empty fields for this character
       const result = (await dbQuery(
-        `INSERT INTO skills (character_id, skill_name, skill_description, skill_cooldown, skill_available) VALUES (?, ?, ?, ?, ?)`,
-        [
-          characterId,
-          skill_name,
-          skill_description,
-          skill_cooldown,
-          skill_available,
-        ]
+        `INSERT INTO skills (character_id, skill_name, skill_description, skill_cooldown, skill_available) VALUES (?, '', '', '', '')`,
+        [characterId]
       )) as InsertResult;
+  
       // Send back the ID of the newly created skill
       res.status(201).json({ success: true, skill_id: result.insertId });
     } catch (error) {
@@ -79,7 +72,6 @@ const updateSkills = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!characterId || !fieldName || !value) {
       return res.status(400).json({ error: "Missing parameters" });
     }
-
     // Check if the field name is valid
     if (!validSkillsFieldNames.includes(fieldName as string)) {
       return res

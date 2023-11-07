@@ -2,14 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { SkillsTypes } from "@/components/types/sheet-types/field-types";
 
 const initialSkillsCreateState:SkillsTypes = {
-  skills: [
-    {
-      skill_name: "",
-      skill_description: "",
-      skill_cooldown: "",
-      skill_available: "",
-    },
-  ],
+  skills: [],
   isLoading: false,
   isValid: false,
   error: null,
@@ -45,8 +38,8 @@ const skillsCreateSlice = createSlice({
     markSectionAsInvalid: (state) => {
       state.isValid = false;
     },
-    resetSkills: () => {
-      return initialSkillsCreateState;
+    resetSkills: (state) => {
+      state.skills = [];
     },
   },
 });

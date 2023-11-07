@@ -114,18 +114,18 @@ export const useHandleSubmitAll = (initialData) => {
       const responseCreateCharacterSheet = await axios.post(
         "api/character-create",
         {
-          // userId: userId,
-          // coreProfile: coreProfileData,
-          // featsTraits: featsTraitsData,
-          // background: backgroundData,
-          // abilityScores: abilityScoresData,
-          // combatStats: combatStatsData,
-          // explorationSkills: explorationSkillsData,
-           skills: skillsArray,
-          // spells: spellsArray,
-          // spellSlots: spellSlotsData,
-          // equipment: equipmentArray,
-          // items: itemsArray,
+          userId: userId,
+          coreProfile: coreProfileData,
+          featsTraits: featsTraitsData,
+          background: backgroundData,
+          abilityScores: abilityScoresData,
+          combatStats: combatStatsData,
+          explorationSkills: explorationSkillsData,
+          skills: skillsArray,
+          spells: spellsArray,
+          spellSlots: spellSlotsData,
+          equipment: equipmentArray,
+          items: itemsArray,
         }
       );
       if (!responseCreateCharacterSheet.data.success)

@@ -18,7 +18,6 @@ import { insertSpellSlotsData } from "./character-sheet-create/spell-slots";
 import { insertEquipmentData } from "./character-sheet-create/equipment";
 import { insertItemsData } from "./character-sheet-create/items";
 
-
 const submitCharacter = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerSession(req, res, authOptions);
 
@@ -47,9 +46,12 @@ const submitCharacter = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       // Start database transaction
       await dbQuery("START TRANSACTION");
-      
+
       //Create the parent table in the MySQL schema, and grab a character_id for other sections to use
-      const result = await dbQuery("INSERT INTO character_sheet (user_id) VALUES (?)", [userId]);
+      const result = await dbQuery(
+        "INSERT INTO character_sheet (user_id) VALUES (?)",
+        [userId]
+      );
       const characterId = (result as any).insertId;
 
       //Insert data for each subsection and run its query
@@ -58,12 +60,32 @@ const submitCharacter = async (req: NextApiRequest, res: NextApiResponse) => {
       await insertBackgroundData(background, characterId, dbQuery);
       await insertAbilityScoresData(abilityScores, characterId, dbQuery);
       await insertCombatStatsData(combatStats, characterId, dbQuery);
-      await insertExplorationSkillsData(explorationSkills, characterId, dbQuery);
-      await insertSkillsData(skills, characterId, dbQuery);
-      await insertSpellsData(spells, characterId, dbQuery);
       await insertSpellSlotsData(spellSlots, characterId, dbQuery);
-      await insertEquipmentData(equipment, characterId, dbQuery);
-      await insertItemsData(items, characterId, dbQuery);
+      await insertExplorationSkillsData(
+        explorationSkills,
+        characterId,
+        dbQuery
+      );
+
+      // Only call insertSkillsData if there are skills to insert
+      if (skills.length > 0) {
+        await insertSkillsData(skills, characterId, dbQuery);
+      }
+
+      // Only call insertSpellsData if there are skills to insert
+      if (spells.length > 0) {
+        await insertSpellsData(spells, characterId, dbQuery);
+      }
+
+      // Only call insertEquipmentData if there are skills to insert
+      if (equipment.length > 0) {
+        await insertEquipmentData(equipment, characterId, dbQuery);
+      }
+
+      // Only call insertItemsData if there are skills to insert
+      if (items.length > 0) {
+        await insertItemsData(items, characterId, dbQuery);
+      }
 
       // If all above subsections go through, commit the transaction
       await dbQuery("COMMIT");
@@ -72,7 +94,7 @@ const submitCharacter = async (req: NextApiRequest, res: NextApiResponse) => {
     } catch (error) {
       // If an error occurs, rollback the transaction
       await dbQuery("ROLLBACK");
-      
+
       if (error.message.includes("Validation Error")) {
         // Send a specific response for validation errors
         res.status(400).json({ success: false, error: error.message });
@@ -84,12 +106,8 @@ const submitCharacter = async (req: NextApiRequest, res: NextApiResponse) => {
   } else {
     res.status(405).end(); // Method Not Allowed
   }
-}
+};
 
 export default loggerMiddleware(
-  headersMiddleware(
-    withCreateRateLimit(
-      submitCharacter
-    )
-  )
+  headersMiddleware(withCreateRateLimit(submitCharacter))
 );

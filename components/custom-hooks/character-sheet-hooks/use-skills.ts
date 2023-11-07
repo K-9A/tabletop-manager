@@ -45,9 +45,11 @@ export const useSkills = (
     }
   }, [dispatch, characterId, mode]);
 
+
+
   const createFormik = useFormik({
     initialValues: {
-      skills: [skillsCreateData.skills],
+      skills: skillsCreateData.skills,
     },
     validationSchema: skillsSchema,
     onSubmit: () => {},
@@ -62,6 +64,7 @@ export const useSkills = (
     onSubmit: () => {},
     enableReinitialize: true,
   });
+
 
 
   //Update create skill field handlers
@@ -80,24 +83,26 @@ export const useSkills = (
       console.error("Failed to update field", error);
     }
   };
-  const updateViewField = async (fieldName, value) => {
+
+  const updateViewField = async (skillId, fieldName, value) => {
     if (skillId !== undefined) {
       try {
-        await dispatch(
-          updateSkillsField({
-            skillId,
-            characterId,
-            fieldName,
-            value,
-          }) as unknown as AnyAction
-        ).unwrap();
+        // Dispatch the updateSkillsField thunk action and unwrap the result
+        await dispatch(updateSkillsField({
+          skillId,
+          characterId,
+          fieldName,
+          value,
+        })as unknown as AnyAction).unwrap();
+        // Optionally, show a success message to the user
       } catch (error) {
-        addAlertMemo(`Error updating ${fieldName}`, "error");
+        // Log the error and show an error message to the user
         console.error("Failed to update field", error);
+        addAlertMemo(`Error updating ${fieldName}`, "error");
       }
     } else {
+      // Log the error and handle it, such as showing a user-friendly message
       console.error("Skill ID is required to update a skill.");
-      // Handle the error case appropriately
     }
   };
 
@@ -122,12 +127,29 @@ export const useSkills = (
     dispatch(addSkill(characterId) as unknown as AnyAction);
   };
 
-  const removeViewSkill = () => {
+  const removeViewSkill = (index) => {
+    // Assuming viewFormik.values.skills is an array of skills
+    // and each skill has a skill_id property
+    const skillId = viewFormik.values.skills[index].skill_id;
+  
     if (skillId !== undefined) {
-      dispatch(removeSkill({ characterId, skillId }) as unknown as AnyAction);
+      dispatch(removeSkill({ characterId, skillId }) as unknown as AnyAction)
+        .unwrap()
+        .then(() => {
+          viewFormik.setFieldValue(
+            `skills`,
+            viewFormik.values.skills.filter((_, i) => i !== index),
+            false
+          );
+        })
+        .catch((error) => {
+          // Handle error
+          addAlertMemo(`Error removing skill: ${error.message}`, "error");
+          console.error("Skill ID is required to remove a skill.", error);
+        });
     } else {
+      addAlertMemo(`Error removing skill.`, "error");
       console.error("Skill ID is required to remove a skill.");
-      // Handle the error case appropriately
     }
   };
 
@@ -135,6 +157,7 @@ export const useSkills = (
     dispatch(createSkillsActions.resetSkills());
     createFormik.resetForm();
   };
+
 
   const getCreateErrorMessage = (fieldName: string, index?: number) => {
     if (index !== undefined) {
@@ -167,7 +190,6 @@ export const useSkills = (
   };
 
   return {
-    skillsCreateData,
     createFormik,
     viewFormik,
     isValid,

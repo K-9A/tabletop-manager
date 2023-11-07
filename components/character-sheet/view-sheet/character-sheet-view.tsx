@@ -11,6 +11,7 @@ import BackgroundView from "./view-subsections/background-view";
 import FeatsTraitsView from "./view-subsections/feats-traits-view";
 import ExplorationSkillsView from "./view-subsections/exploration-skills-view";
 import SpellSlotsView from "./view-subsections/spell-slots-view";
+import SkillsView from "./view-subsections/skills-view";
 
 
 interface CharacterViewProps {
@@ -27,6 +28,7 @@ const CharacterSheetView: React.FC<CharacterViewProps> = ({ characterId }) => {
   const [isBackgroundCollapsed, setBackgroundCollapsed] = useState(true);
   const [isExplorationSkillsCollapsed, setExplorationSkillsCollapsed] = useState(true);
   const [isSpellSlotsCollapsed, setSpellSlotsCollapsed] = useState(true);
+  const [isSkillsCollapsed, setSkillsCollapsed] = useState(true);
 
 
   return (
@@ -207,6 +209,33 @@ const CharacterSheetView: React.FC<CharacterViewProps> = ({ characterId }) => {
         </AnimatePresence>
       </div>
 
+      <div className="dark:text-white mt-6 border border-gray-500 p-4 py-2 relative rounded-lg">
+        <Typography
+          variant="h6"
+          color="blue-gray"
+          className="dark:text-white absolute -top-4 left-4 bg-gray-200 dark:bg-gray-700 px-2 cursor-pointer inline-flex items-center"
+          onClick={() => setSkillsCollapsed(!isSkillsCollapsed)}
+        >
+          Offensive Skills
+          {isSkillsCollapsed ? (
+            <ChevronUpIcon className="ml-2 h-5 w-5" />
+          ) : (
+            <ChevronDownIcon className="ml-2 h-5 w-5" />
+          )}
+        </Typography>
+        <AnimatePresence>
+          {!isSkillsCollapsed && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <SkillsView characterId={characterId} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       <div className="dark:text-white mt-6 border border-gray-500 p-4 py-2 relative rounded-lg">
         <Typography
@@ -235,8 +264,6 @@ const CharacterSheetView: React.FC<CharacterViewProps> = ({ characterId }) => {
           )}
         </AnimatePresence>
       </div>
-
-
     </Card>
   );
 };
