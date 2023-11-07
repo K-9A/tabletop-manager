@@ -70,9 +70,10 @@ const Dashboard: React.FC<DashboardProps> = ({
         {/* Character Sheet Section */}
         <CharacterSheetSection labelBgColor={labelBgColor} />
       </div>
+      {/* Delete account button to be added later. Probably alongside edit account 
       <div className="flex justify-center items-center">
         <Button color="red">Delete Account</Button>
-      </div>
+      </div> */}
     </div>
   );
 };

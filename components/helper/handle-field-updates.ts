@@ -1,4 +1,6 @@
-//These 2 functions are generif functions used to update individual fields in View sheet/campaign pages
+//These 4 functions are generif functions used to update individual fields in View sheet/campaign pages
+//First two are designed to handle regular, singular input fields
+//Second two are designed to handle input fields in an array. These are for the skills/spells/equipment/items subsections
 
 export const handleUpdateBlur = async (
   formik,
@@ -20,6 +22,39 @@ export const handleUpdateBlur = async (
   }
 };
 
+export const handleArrayFieldBlur = async (
+  formik,
+  fieldPath, // e.g., "skills[0].skill_name"
+  value,
+  updateField
+) => {
+  // Extract the index and field name from the fieldPath
+  const match = fieldPath.match(/(\w+)\[(\d+)\]\.(\w+)/);
+  if (!match) {
+    console.error("Invalid field path");
+    return;
+  }
+
+  const [, arrayFieldName, index, fieldName] = match;
+
+  // Set the field as touched
+  formik.setFieldTouched(fieldPath, true);
+
+  // Check if the current value is different from the initial value
+  if (formik.values[arrayFieldName][parseInt(index, 10)][fieldName] !== formik.initialValues[arrayFieldName][parseInt(index, 10)][fieldName]) {
+    try {
+      // Call updateField with index and fieldName
+      await updateField(parseInt(index, 10), fieldName, value);
+      // If you want to show a success message, do it here
+    } catch (error) {
+      // Handle error
+      console.error("Failed to update field", error);
+      // If you want to show an error message, do it here
+    }
+  }
+};
+
+
 export const handleUpdateKeyDown = async (
   formik,
   fieldName,
@@ -39,6 +74,43 @@ export const handleUpdateKeyDown = async (
       } catch (error) {
         // Handle error
         console.error("Failed to update field", error);
+      }
+    }
+  }
+};
+
+export const handleArrayFieldKeyDown = async (
+  formik,
+  fieldPath, // e.g., "skills[0].skill_name"
+  value,
+  event,
+  updateField
+) => {
+  // Extract the index and field name from the fieldPath
+  const match = fieldPath.match(/(\w+)\[(\d+)\]\.(\w+)/);
+  if (!match) {
+    console.error("Invalid field path");
+    return;
+  }
+
+  const [, arrayFieldName, index, fieldName] = match;
+
+  // Set the field as touched
+  formik.setFieldTouched(fieldPath, true);
+
+  if (event.key === "Enter") {
+    event.preventDefault(); // Prevent the default Enter key behavior
+
+    // Check if the current value is different from the initial value
+    if (formik.values[arrayFieldName][parseInt(index, 10)][fieldName] !== formik.initialValues[arrayFieldName][parseInt(index, 10)][fieldName]) {
+      try {
+        // Call updateField with index and fieldName
+        await updateField(parseInt(index, 10), fieldName, value);
+        // If you want to show a success message, do it here
+      } catch (error) {
+        // Handle error
+        console.error("Failed to update field", error);
+        // If you want to show an error message, do it here
       }
     }
   }

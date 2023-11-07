@@ -1,4 +1,4 @@
-import { SkillTypes } from "@/components/types/api-route-types";
+import { SkillType } from "@/components/types/sheet-types/field-types";
 
 export const insertSkillsData = async (
   data,
@@ -8,7 +8,7 @@ export const insertSkillsData = async (
   const { ...skillsObject } = data;
 
   //Convert the object with numeric keys into an array of skills.
-  const skillsArray: SkillTypes[] = Object.values(skillsObject);
+  const skillsArray: SkillType[] = Object.values(skillsObject);
 
   //Use the validator package to sanitize data for SQL querying
   const sanitizedSkills = skillsArray.map((skill) => [

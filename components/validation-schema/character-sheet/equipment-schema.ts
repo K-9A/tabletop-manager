@@ -1,7 +1,15 @@
 import * as Yup from "yup";
 
-export const equipmentSchema = Yup.object({
-    equipment: Yup.array().of(
-      Yup.object({ equipment_name: Yup.string().required("Name is required") })
-    ),
-  });
+interface EquipmentSchema {
+  equipment_name: Yup.StringSchema;
+  equipment_category: Yup.StringSchema;
+  equipment_properties: Yup.StringSchema;
+}
+
+export const equipmentRules: EquipmentSchema = {
+  equipment_name: Yup.string().notRequired(),
+  equipment_category: Yup.string().notRequired(),
+  equipment_properties: Yup.string().notRequired(),
+};
+
+export const equipmenSchema = Yup.object({ ...equipmentRules });

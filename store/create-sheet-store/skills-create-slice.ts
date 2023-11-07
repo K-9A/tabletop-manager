@@ -1,6 +1,7 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { SkillsTypes } from "@/components/types/sheet-types/field-types";
 
-const initialSkillsCreateState = {
+const initialSkillsCreateState:SkillsTypes = {
   skills: [
     {
       skill_name: "",
@@ -9,8 +10,7 @@ const initialSkillsCreateState = {
       skill_available: "",
     },
   ],
-
-  loading: false,
+  isLoading: false,
   isValid: false,
   error: null,
 };
@@ -29,9 +29,12 @@ const skillsCreateSlice = createSlice({
         });
       }
     },
-    removeSkill: (state) => {
-      state.skills.pop();
-  },
+    removeSkill: (state, action) => {
+      const index = action.payload; // Get the index from the action payload
+      if (index >= 0 && index < state.skills.length) {
+        state.skills.splice(index, 1); // Remove the skill at the specified index
+      }
+    },
     updateSkillField: (state, action) => {
       const { index, name, value } = action.payload;
       state.skills[index][name] = value;
@@ -42,7 +45,7 @@ const skillsCreateSlice = createSlice({
     markSectionAsInvalid: (state) => {
       state.isValid = false;
     },
-    resetSkills: (state) => {
+    resetSkills: () => {
       return initialSkillsCreateState;
     },
   },

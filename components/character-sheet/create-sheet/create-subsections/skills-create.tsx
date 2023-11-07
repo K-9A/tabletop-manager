@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
+import { handleArrayFieldBlur } from "@/components/helper/handle-field-updates";
 import ErrorMessage from "@/components/helper/error-message";
 import {
   Input,
@@ -7,30 +8,30 @@ import {
   Checkbox,
   Tooltip,
   Typography,
+  IconButton
 } from "@material-tailwind/react";
-import { useSkillsCreate } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-skills-create";
+import { TrashIcon } from "@heroicons/react/24/solid";
+import { useSkills } from "../../../custom-hooks/character-sheet-hooks/use-skills";
 import { SkillsCreateTooltip } from "@/components/helper/tooltips";
 import { FormikErrors, FormikTouched } from "formik";
 
 const SkillsCreate = (props) => {
   const {
-    values,
-    errors,
-    touched,
+    skillsCreateData,
+    createFormik,
     isValid,
     isDarkMode,
-    handleChange,
-    handleBlur,
-    addNewSkill,
-    removeSkill,
-    updateSkillField,
-    getErrorMessage,
+    addCreateSkill,
+    removeCreateSkill,
+    updateCreateField,
+    getCreateErrorMessage,
     handleCheckboxChange,
-  } = useSkillsCreate(props.initialData);
+  } = useSkills('create', props.initialData);
+
 
   const isSkillNameError = (index: number) => {
-    const skillErrors = errors.skills as FormikErrors<{ skill_name: string }>[];
-    const skillTouched = touched.skills as FormikTouched<{
+    const skillErrors = createFormik.errors.skills as FormikErrors<{ skill_name: string }>[];
+    const skillTouched = createFormik.touched.skills as FormikTouched<{
       skill_name: boolean;
     }>[];
     return !!(
@@ -59,21 +60,32 @@ const SkillsCreate = (props) => {
       </h1>
 
       <div className="mt-10 flex">
-        <div className="flex flex-col gap-4 px-4 py-6 rounded-lg border border-blue-gray-100 max-h-[290px] max-w-[860px]  overflow-y-auto">
-          {values.skills.map((skill, index) => (
+      <div className="flex flex-col gap-3 px-2 py-6 rounded-lg border border-blue-gray-100 max-h-[290px] max-w-[860px]  overflow-y-auto">
+        {skillsCreateData.skills.length === 0 ? (
+      <div className="text-center">
+        Skill list empty. Click &quot;Add&quot; to add more skills to a maximum of 30.
+      </div>
+    ) : (
+          createFormik.values.skills.map((skill, index) => (
             <div key={index} className="flex gap-4">
               <div className="mt-3">
                 <Input
                   variant="static"
                   label="Skill Name"
                   name={`skills[${index}].skill_name`}
-                  placeholder="Required"
-                  onBlur={(e) => {
-                    handleBlur(e);
-                    updateSkillField(index, "skill_name");
+                  placeholder="Optional"
+                  onChange={(e) => {
+                    createFormik.handleChange(e);
                   }}
-                  onChange={handleChange}
-                  value={values.skills[index].skill_name}
+                  onBlur={() =>
+                    handleArrayFieldBlur(
+                      createFormik,
+                      `skills[${index}].skill_name`,
+                      createFormik.values.skills[index].skill_name,
+                      updateCreateField
+                    )
+                  }
+                  value={createFormik.values.skills[index].skill_name}
                   error={isSkillNameError(index)}
                   className={"dark:text-white !w-28"}
                   color={isDarkMode ? "white" : "black"}
@@ -85,7 +97,7 @@ const SkillsCreate = (props) => {
                   }}
                   crossOrigin=""
                 />
-                <ErrorMessage message={getErrorMessage("skill_name", index)} />
+                <ErrorMessage message={getCreateErrorMessage("skill_name", index)} />
               </div>
 
               <div className="mt-3">
@@ -94,12 +106,18 @@ const SkillsCreate = (props) => {
                   label="Skill Description"
                   name={`skills[${index}].skill_description`}
                   placeholder="Optional"
-                  onBlur={(e) => {
-                    handleBlur(e);
-                    updateSkillField(index, "skill_description");
+                  onChange={(e) => {
+                    createFormik.handleChange(e);
                   }}
-                  onChange={handleChange}
-                  value={values.skills[index].skill_description}
+                  onBlur={() =>
+                    handleArrayFieldBlur(
+                      createFormik,
+                      `skills[${index}].skill_description`,
+                      createFormik.values.skills[index].skill_description,
+                      updateCreateField
+                    )
+                  }
+                  value={createFormik.values.skills[index].skill_description}
                   error={isSkillNameError(index)}
                   className={"dark:text-white !w-72"}
                   color={isDarkMode ? "white" : "black"}
@@ -112,7 +130,7 @@ const SkillsCreate = (props) => {
                   crossOrigin=""
                 />
                 <ErrorMessage
-                  message={getErrorMessage("skill_description", index)}
+                  message={getCreateErrorMessage("skill_description", index)}
                 />
               </div>
 
@@ -122,12 +140,18 @@ const SkillsCreate = (props) => {
                   label="Availability"
                   name={`skills[${index}].skill_available`}
                   placeholder="Optional"
-                  onBlur={(e) => {
-                    handleBlur(e);
-                    updateSkillField(index, "skill_available");
+                  onChange={(e) => {
+                    createFormik.handleChange(e);
                   }}
-                  onChange={handleChange}
-                  value={values.skills[index].skill_available}
+                  onBlur={() =>
+                    handleArrayFieldBlur(
+                      createFormik,
+                      `skills[${index}].skill_available`,
+                      createFormik.values.skills[index].skill_available,
+                      updateCreateField
+                    )
+                  }
+                  value={createFormik.values.skills[index].skill_available}
                   error={isSkillNameError(index)}
                   className={"dark:text-white !w-20"}
                   color={isDarkMode ? "white" : "black"}
@@ -140,7 +164,7 @@ const SkillsCreate = (props) => {
                   crossOrigin=""
                 />
                 <ErrorMessage
-                  message={getErrorMessage("skill_available", index)}
+                  message={getCreateErrorMessage("skill_available", index)}
                 />
               </div>
 
@@ -150,12 +174,18 @@ const SkillsCreate = (props) => {
                   label="Cooldown"
                   name={`skills[${index}].skill_cooldown`}
                   placeholder="Optional"
-                  onBlur={(e) => {
-                    handleBlur(e);
-                    updateSkillField(index, "skill_cooldown");
+                  onChange={(e) => {
+                    createFormik.handleChange(e);
                   }}
-                  onChange={handleChange}
-                  value={values.skills[index].skill_cooldown}
+                  onBlur={() =>
+                    handleArrayFieldBlur(
+                      createFormik,
+                      `skills[${index}].skill_cooldown`,
+                      createFormik.values.skills[index].skill_cooldown,
+                      updateCreateField
+                    )
+                  }
+                  value={createFormik.values.skills[index].skill_cooldown}
                   error={isSkillNameError(index)}
                   className={"dark:text-white !w-20"}
                   color={isDarkMode ? "white" : "black"}
@@ -168,38 +198,38 @@ const SkillsCreate = (props) => {
                   crossOrigin=""
                 />
                 <ErrorMessage
-                  message={getErrorMessage("skill_cooldown", index)}
+                  message={getCreateErrorMessage("skill_cooldown", index)}
                 />
               </div>
+              <div>
+                <Tooltip content={"Delete Skill"}>
+                  <IconButton
+                    variant="text"
+                    // @ts-ignore
+                    color={isDarkMode ? "white" : "black"}
+                    onClick={() => removeCreateSkill(index)}
+                  >
+                    <TrashIcon className="h-5 w-5" />
+                  </IconButton>
+                </Tooltip>
+              </div>
             </div>
-          ))}
+          ))
+        )}
         </div>
         <div className="ml-3">
           <div>
             <Button
-              className="rounded-full text-xs px-7 !py-2"
+              className="rounded-full text-xs px-4 !py-2"
               size="md"
-              onClick={addNewSkill}
-              disabled={values.skills.length >= 30}
+              onClick={addCreateSkill}
+              disabled={createFormik.values.skills.length >= 30}
             >
-              Add Skill
-            </Button>
-          </div>
-          <div className="mt-4">
-            <Button
-              className="rounded-full text-xs"
-              size="sm"
-              onClick={removeSkill}
-              disabled={values.skills.length === 1}
-            >
-              Remove Skill
+              Add
             </Button>
           </div>
         </div>
       </div>
-
-
-
 
       <div className="flex">
         <Checkbox

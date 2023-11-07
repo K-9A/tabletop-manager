@@ -16,6 +16,7 @@ import abilityScoresViewReducer from "./view-sheet-store/ability-scores-view-sli
 import backgroundViewReducer from "./view-sheet-store/background-view-slice";
 import featsTraitsViewReducer from "./view-sheet-store/feats-traits-view-slice";
 import explorationSkillsViewReducer from "./view-sheet-store/exploration-skills-view-slice";
+import skillsViewReducer from "./view-sheet-store/skills-view-slice";
 import spellSlotsViewReducer from "./view-sheet-store/spell-slots-view-slice";
 
 
@@ -49,6 +50,7 @@ const store = configureStore({
         backgroundView: backgroundViewReducer,
         featsTraitsView: featsTraitsViewReducer,
         explorationSkillsView: explorationSkillsViewReducer,
+        skillsView: skillsViewReducer,
         spellSlotsView: spellSlotsViewReducer,
 
         

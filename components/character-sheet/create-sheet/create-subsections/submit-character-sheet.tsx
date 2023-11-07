@@ -12,7 +12,7 @@ import { useEquipmentCreate } from "@/components/custom-hooks/character-sheet-ho
 import { useExplorationSkills } from "@/components/custom-hooks/character-sheet-hooks/use-exploration-skills";
 import { useFeatsTraits } from "@/components/custom-hooks/character-sheet-hooks/use-feats-traits";
 import { useItemsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-items-create";
-import { useSkillsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-skills-create";
+import { useSkills } from "@/components/custom-hooks/character-sheet-hooks/use-skills";
 import { useSpellSlots } from "@/components/custom-hooks/character-sheet-hooks/use-spell-slots";
 import { useSpellsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-spells-create";
 
@@ -21,19 +21,19 @@ const SubmitCharacterSheet = (props) => {
 
   const {
     resetAbilityScores
-  } = useAbilityScores('create',props.initialData);
+  } = useAbilityScores('create', props.initialData);
 
   const {
     resetBackground
-  } = useBackground('create',props.initialData);
+  } = useBackground('create', props.initialData);
 
   const {
     resetCombatStats
-  } = useCombatStats('create',props.initialData);
+  } = useCombatStats('create', props.initialData);
 
   const {
     resetCoreProfile
-  } = useCoreProfile('create',props.initialData);
+  } = useCoreProfile('create', props.initialData);
 
   const {
     resetEquipment
@@ -41,11 +41,11 @@ const SubmitCharacterSheet = (props) => {
 
   const {
     resetExplorationSkills
-  } = useExplorationSkills('create',props.initialData);
+  } = useExplorationSkills('create', props.initialData);
 
   const {
     resetFeatsTraits
-  } = useFeatsTraits('create',props.initialData);
+  } = useFeatsTraits('create', props.initialData);
 
   const {
     resetItems
@@ -53,11 +53,11 @@ const SubmitCharacterSheet = (props) => {
 
   const {
     resetSkills
-  } = useSkillsCreate(props.initialData);
+  } = useSkills('create', props.initialData);
 
   const {
     resetSpellSlots
-  } = useSpellSlots('create',props.initialData);
+  } = useSpellSlots('create', props.initialData);
 
   const {
     resetSpells
@@ -80,20 +80,20 @@ const SubmitCharacterSheet = (props) => {
       // Assuming handleSubmit returns a truthy value on success
       if (submitResult) {
         // Reset all the formik data and redux slice data
-        resetAbilityScores();
-        resetBackground();
-        resetCombatStats();
-        resetCoreProfile();
-        resetEquipment();
-        resetExplorationSkills();
-        resetFeatsTraits();
-        resetItems();
-        resetSkills();
-        resetSpellSlots();
-        resetSpells();
+        // resetAbilityScores();
+        // resetBackground();
+        // resetCombatStats();
+        // resetCoreProfile();
+        // resetEquipment();
+        // resetExplorationSkills();
+        // resetFeatsTraits();
+        // resetItems();
+        // resetSkills();
+        // resetSpellSlots();
+        // resetSpells();
   
         // Programmatically reroute user to character view list
-        router.push("/character-view");
+        //router.push("/character-view");
       }
     } catch (err) {
       // Handle the error, maybe show a message to the user

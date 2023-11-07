@@ -14,7 +14,7 @@ export interface CoreProfileTypes {
     isLoading?: boolean;
     isValid?: boolean;
     error: string | null;
-}
+};
 
 export interface  CombatStatsTypes {
   current_hp: number;
@@ -57,7 +57,7 @@ export interface AbilityScoreTypes {
   isLoading?: boolean;
   isValid?: boolean;
   error: string | null;
-}
+};
 
 export interface BackgroundTypes {
     personality: string;
@@ -71,7 +71,7 @@ export interface BackgroundTypes {
     isLoading?: boolean;
     isValid?: boolean;
     error: string | null;
-  }
+  };
   
   export interface ExplorationSkillsTypes {
     acrobatics: number;
@@ -95,7 +95,7 @@ export interface BackgroundTypes {
     isLoading?: boolean;
     isValid?: boolean;
     error: string | null;
-  }
+  };
 
   export interface FeatsTraitsTypes {
     weapon_proficiency: string;
@@ -107,28 +107,8 @@ export interface BackgroundTypes {
     isLoading?: boolean;
     isValid?: boolean;
     error: string | null;
-  }
-
-  export type SkillTypes = {
-    skill_name: string;
-    skill_description: string;
-    skill_cooldown: string;
-    skill_available: string;
-    isLoading?: boolean;
-    isValid?: boolean;
-    error: string | null;
   };
   
-  export type SpellTypes = {
-    spell_name: string;
-    spell_description: string;
-    spell_tier: string;
-    isLoading?: boolean;
-    isValid?: boolean;
-    error: string | null;
-  };
-  
-
   export interface SpellSlotTypes {
     first_available: number;
     first_max: number;
@@ -151,22 +131,61 @@ export interface BackgroundTypes {
     isLoading?: boolean;
     isValid?: boolean;
     error: string | null;
-  }
+  };
 
-  export type EquipmentTypes = {
-    equipment_name: string;
-    equipment_category: string;
-    equipment_properties: string;
+  export interface SkillType {
+    skill_id?: number;
+    skill_name: string;
+    skill_description: string;
+    skill_cooldown: string;
+    skill_available: string;
+  };
+
+  export interface SkillsTypes {
+    skills: SkillType[];
     isLoading?: boolean;
     isValid?: boolean;
     error: string | null;
   };
 
-  export type ItemTypes = {
+  export interface SpellType {
+    spell_id?: number;
+    spell_name: string;
+    spell_description: string;
+    spell_tier: string;
+  };
+  
+  export type SpellsTypes = {
+    spells: SpellType[];
+    isLoading?: boolean;
+    isValid?: boolean;
+    error: string | null;
+  };
+
+  export type EquipmentType = {
+    equipment_id?: number;
+    equipment_name: string;
+    equipment_category: string;
+    equipment_properties: string;
+  };
+
+  export type EquipmentTypes = {
+    equipment: EquipmentType[];
+    isLoading?: boolean;
+    isValid?: boolean;
+    error: string | null;
+  };
+
+  export type ItemType = {
+    item_id?: number;
     item_name: string;
     item_description: string;
     item_amount: number;
     item_max: number;
+  };
+
+  export type ItemTypes = {
+    items: ItemType[];
     isLoading?: boolean;
     isValid?: boolean;
     error: string | null;

@@ -108,3 +108,33 @@ export const validExplorationSkillsFieldNames = [
     "nineth_max",
   ];
   
+  export const validSkillsFieldNames = [
+    "skill_id",
+    "skill_name",
+    "skill_description",
+    "skill_cooldown",
+    "skill_available",
+  ];
+  
+  export const validSpellsFieldNames = [
+    "spell_id",
+    "spell_name",
+    "spell_description",
+    "spell_tier",
+  ];
+  
+  export const validEquipmentFieldNames = [
+    "equipment_id",
+    "equipment_name",
+    "equipment_category",
+    "equipment_properties",
+  ];
+  
+  export const validItemFieldNames = [
+    "item_id",
+    "item_name",
+    "item_description",
+    "item_amount",
+    "item_max",
+  ];
+  

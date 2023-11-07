@@ -13,9 +13,8 @@ export const MarkAsCompleteTooltip = () => {
 export const SkillsCreateTooltip = () => {
   return (
     <div>
-      <Typography variant="small">You may add up to 30 skills maximum. Add as many as you want</Typography>
-      <Typography variant="small">but name is required for each. Mark as Complete when finished.</Typography>
-      <Typography variant="small">Skills without a name in the name field will not be submitted.</Typography>
+      <Typography variant="small">You may add up to 30 skills maximum. Add as many</Typography>
+      <Typography variant="small">as you want and Mark as Complete when finished.</Typography>
     </div>
   );
 };
@@ -23,9 +22,8 @@ export const SkillsCreateTooltip = () => {
 export const SpellsCreateTooltip = () => {
   return (
     <div>
-      <Typography variant="small">You may add up to 40 cantrips/spells maximum. Add as many as you want</Typography>
-      <Typography variant="small">but name is required for each. Mark as Complete when finished.</Typography>
-      <Typography variant="small">Cantrips/Spells without a name in the name field will not be submitted.</Typography>
+      <Typography variant="small">You may add up to 40 cantrips/spells maximum. Add as many</Typography>
+      <Typography variant="small">as you want and Mark as Complete when finished.</Typography>
     </div>
   );
 };
@@ -46,9 +44,8 @@ export const ProficiencyTooltip = () => {
 export const EquipmentCreateTooltip = () => {
   return (
     <div>
-      <Typography variant="small">You may add up to 20 pieces of equipment maximum. Add as many as you want</Typography>
-      <Typography variant="small">but name is required for each. Mark as Complete when finished.</Typography>
-      <Typography variant="small">Equipment without a name in the name field will not be submitted.</Typography>
+      <Typography variant="small">You may add up to 20 pieces of equipment maximum. Add as many</Typography>
+      <Typography variant="small">as you want and Mark as Complete when finished.</Typography>
     </div>
   );
 };
@@ -56,9 +53,8 @@ export const EquipmentCreateTooltip = () => {
 export const ItemsCreateTooltip = () => {
   return (
     <div>
-      <Typography variant="small">You may add up to 40 items maximum. Add as many as you want</Typography>
-      <Typography variant="small">but name is required for each. Mark as Complete when finished.</Typography>
-      <Typography variant="small">Items without a name in the name field will not be submitted.</Typography>
+      <Typography variant="small">You may add up to 40 items maximum. Add as many</Typography>
+      <Typography variant="small">as you want and Mark as Complete when finished.</Typography>
     </div>
   );
 };
