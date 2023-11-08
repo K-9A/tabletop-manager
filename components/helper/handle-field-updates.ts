@@ -1,4 +1,4 @@
-//These 4 functions are generif functions used to update individual fields in View sheet/campaign pages
+//These functions are generif functions used to update individual fields in View sheet/campaign pages
 //First two are designed to handle regular, singular input fields
 //Second two are designed to handle input fields in an array. These are for the skills/spells/equipment/items subsections
 
@@ -59,7 +59,7 @@ export const handleViewArrayFieldBlur = async (
   formik,
   fieldPath, // e.g., "skills[0].skill_name"
   value,
-  skillId, // skillId is required for the view component,
+  fieldId, // fieldId is required for the view component,
   updateField
 ) => {
   // Extract the index and field name from the fieldPath
@@ -77,8 +77,8 @@ export const handleViewArrayFieldBlur = async (
   // Check if the current value is different from the initial value
   if (formik.values[arrayFieldName][parseInt(index, 10)][fieldName] !== formik.initialValues[arrayFieldName][parseInt(index, 10)][fieldName]) {
     try {
-      // Call updateField with skillId and fieldName
-      await updateField(skillId, fieldName, value);
+      // Call updateField with fieldId and fieldName
+      await updateField(fieldId, fieldName, value);
       // If you want to show a success message, do it here
     } catch (error) {
       // Handle error
@@ -112,10 +112,11 @@ export const handleUpdateKeyDown = async (
   }
 };
 
-export const handleArrayFieldKeyDown = async (
+export const handleViewArrayUpdateKeyDown = async (
   formik,
   fieldPath, // e.g., "skills[0].skill_name"
   value,
+  fieldId, // fieldId is now required for the key down component,
   event,
   updateField
 ) => {
@@ -137,8 +138,8 @@ export const handleArrayFieldKeyDown = async (
     // Check if the current value is different from the initial value
     if (formik.values[arrayFieldName][parseInt(index, 10)][fieldName] !== formik.initialValues[arrayFieldName][parseInt(index, 10)][fieldName]) {
       try {
-        // Call updateField with index and fieldName
-        await updateField(parseInt(index, 10), fieldName, value);
+        // Call updateField with fieldId and fieldName
+        await updateField(fieldId, fieldName, value);
         // If you want to show a success message, do it here
       } catch (error) {
         // Handle error
@@ -148,3 +149,4 @@ export const handleArrayFieldKeyDown = async (
     }
   }
 };
+

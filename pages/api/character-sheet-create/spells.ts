@@ -1,4 +1,4 @@
-import { SpellTypes } from "@/components/types/api-route-types";
+import { SpellType } from "@/components/types/sheet-types/field-types";
 
 export const insertSpellsData = async (
   data,
@@ -9,7 +9,7 @@ export const insertSpellsData = async (
   const { ...spellsObject } = data;
 
   //Convert the object with numeric keys into an array of skills.
-  const spellsArray: SpellTypes[] = Object.values(spellsObject);
+  const spellsArray: SpellType[] = Object.values(spellsObject);
 
   //Use the validator package to sanitize data for SQL querying
   const sanitizedSpells = spellsArray.map((spell) => [

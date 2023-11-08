@@ -130,7 +130,7 @@ export const validExplorationSkillsFieldNames = [
     "equipment_properties",
   ];
   
-  export const validItemFieldNames = [
+  export const validItemsFieldNames = [
     "item_id",
     "item_name",
     "item_description",

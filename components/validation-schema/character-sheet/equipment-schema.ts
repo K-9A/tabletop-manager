@@ -12,4 +12,4 @@ export const equipmentRules: EquipmentSchema = {
   equipment_properties: Yup.string().notRequired(),
 };
 
-export const equipmenSchema = Yup.object({ ...equipmentRules });
+export const equipmentSchema = Yup.object({ ...equipmentRules });

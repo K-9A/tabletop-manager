@@ -1,23 +1,17 @@
 import * as Yup from "yup";
 
-interface ItemSchema {
+interface ItemsSchema {
   item_name: Yup.StringSchema;
   item_description: Yup.StringSchema;
-  item_amount: Yup.NumberSchema | null;
-  item_max: Yup.NumberSchema | null;
+  item_amount: Yup.StringSchema;
+  item_max: Yup.StringSchema;
 }
 
-export const itemRules: ItemSchema = {
+export const itemsRules: ItemsSchema = {
   item_name: Yup.string().notRequired(),
   item_description: Yup.string().notRequired(),
-  item_amount: Yup.number()
-    .typeError("Must be a number")
-    .nullable()
-    .transform((_, val) => (val !== "" ? Number(val) : null)),
-  item_max: Yup.number()
-    .typeError("Must be a number")
-    .nullable()
-    .transform((_, val) => (val !== "" ? Number(val) : null)),
+  item_amount: Yup.string().notRequired(),
+  item_max: Yup.string().notRequired(),
 };
 
-export const itemSchema = Yup.object({ ...itemRules });
+export const itemsSchema = Yup.object({ ...itemsRules });

@@ -8,13 +8,13 @@ import { useAbilityScores } from "../../../custom-hooks/character-sheet-hooks/us
 import { useBackground } from "@/components/custom-hooks/character-sheet-hooks/use-background";
 import { useCombatStats } from "@/components/custom-hooks/character-sheet-hooks/use-combat-stats";
 import { useCoreProfile } from "@/components/custom-hooks/character-sheet-hooks/use-core-profile";
-import { useEquipmentCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-equipment-create";
+import { useEquipment } from "@/components/custom-hooks/character-sheet-hooks/use-equipment";
 import { useExplorationSkills } from "@/components/custom-hooks/character-sheet-hooks/use-exploration-skills";
 import { useFeatsTraits } from "@/components/custom-hooks/character-sheet-hooks/use-feats-traits";
-import { useItemsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-items-create";
+import { useItems } from "@/components/custom-hooks/character-sheet-hooks/use-items";
 import { useSkills } from "@/components/custom-hooks/character-sheet-hooks/use-skills";
 import { useSpellSlots } from "@/components/custom-hooks/character-sheet-hooks/use-spell-slots";
-import { useSpellsCreate } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-spells-create";
+import { useSpells } from "@/components/custom-hooks/character-sheet-hooks/use-spells";
 
 
 const SubmitCharacterSheet = (props) => {
@@ -37,7 +37,7 @@ const SubmitCharacterSheet = (props) => {
 
   const {
     resetEquipment
-  } = useEquipmentCreate(props.initialData);
+  } = useEquipment('create', props.initialData);
 
   const {
     resetExplorationSkills
@@ -49,7 +49,7 @@ const SubmitCharacterSheet = (props) => {
 
   const {
     resetItems
-  } = useItemsCreate(props.initialData);
+  } = useItems('create', props.initialData);
 
   const {
     resetSkills
@@ -61,7 +61,7 @@ const SubmitCharacterSheet = (props) => {
 
   const {
     resetSpells
-  } = useSpellsCreate(props.initialData);
+  } = useSpells('create',props.initialData);
 
 
   const { loading, error, handleSubmit } = useHandleSubmitAll(

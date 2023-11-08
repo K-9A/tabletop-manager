@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
 import { handleCreateArrayFieldBlur } from "@/components/helper/handle-field-updates";
-import ErrorMessage from "@/components/helper/error-message";
 import {
   Input,
   Button,
@@ -22,7 +21,6 @@ const SkillsCreate = (props) => {
     addCreateSkill,
     removeCreateSkill,
     updateCreateField,
-    getCreateErrorMessage,
     handleCheckboxChange,
   } = useSkills("create", props.initialData);
 
@@ -42,7 +40,7 @@ const SkillsCreate = (props) => {
       </h1>
 
       <div className="mt-10 flex">
-        <div className="flex flex-col gap-3 px-2 py-6 rounded-lg border border-blue-gray-100 max-h-[290px] max-w-[860px]  overflow-y-auto">
+        <div className="flex flex-col gap-3 px-2 py-6 rounded-lg border border-blue-gray-100 max-h-[290px] max-w-[860px] overflow-y-auto">
           {createFormik.values.skills.length === 0 ? (
             <div className="text-center w-[664px]">
               Skill List empty. Click &quot;Add&quot; to add more skills to a
@@ -79,9 +77,6 @@ const SkillsCreate = (props) => {
                     }}
                     crossOrigin=""
                   />
-                  <ErrorMessage
-                    message={getCreateErrorMessage("skill_name", index)}
-                  />
                 </div>
 
                 <div className="mt-3">
@@ -111,9 +106,6 @@ const SkillsCreate = (props) => {
                       className: "!min-w-0",
                     }}
                     crossOrigin=""
-                  />
-                  <ErrorMessage
-                    message={getCreateErrorMessage("skill_description", index)}
                   />
                 </div>
 
@@ -145,9 +137,6 @@ const SkillsCreate = (props) => {
                     }}
                     crossOrigin=""
                   />
-                  <ErrorMessage
-                    message={getCreateErrorMessage("skill_available", index)}
-                  />
                 </div>
 
                 <div className="mt-3">
@@ -178,11 +167,8 @@ const SkillsCreate = (props) => {
                     }}
                     crossOrigin=""
                   />
-                  <ErrorMessage
-                    message={getCreateErrorMessage("skill_cooldown", index)}
-                  />
                 </div>
-                <div>
+                <div className="mt-2">
                   <Tooltip content={"Delete Skill"}>
                     <IconButton
                       variant="text"
@@ -207,7 +193,7 @@ const SkillsCreate = (props) => {
                 onClick={addCreateSkill}
                 disabled={createFormik.values.skills.length >= 30}
               >
-                Add
+                Add Skill
               </Button>
             </Tooltip>
           </div>

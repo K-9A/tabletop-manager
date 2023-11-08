@@ -180,11 +180,11 @@ export interface BackgroundTypes {
     item_id?: number;
     item_name: string;
     item_description: string;
-    item_amount: number;
-    item_max: number;
+    item_amount: string;
+    item_max: string;
   };
 
-  export type ItemTypes = {
+  export type ItemsTypes = {
     items: ItemType[];
     isLoading?: boolean;
     isValid?: boolean;

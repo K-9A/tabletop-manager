@@ -10,8 +10,11 @@ import AbilityScoresView from "./view-subsections/ability-scores-view";
 import BackgroundView from "./view-subsections/background-view";
 import FeatsTraitsView from "./view-subsections/feats-traits-view";
 import ExplorationSkillsView from "./view-subsections/exploration-skills-view";
+import SpellsView from "./view-subsections/spells-view";
 import SpellSlotsView from "./view-subsections/spell-slots-view";
 import SkillsView from "./view-subsections/skills-view";
+import EquipmentView from "./view-subsections/equipment-view";
+import ItemsView from "./view-subsections/items-view";
 
 
 interface CharacterViewProps {
@@ -27,9 +30,11 @@ const CharacterSheetView: React.FC<CharacterViewProps> = ({ characterId }) => {
   const [isFeatsTraitsCollapsed, setFeatsTraitsCollapsed] = useState(true);
   const [isBackgroundCollapsed, setBackgroundCollapsed] = useState(true);
   const [isExplorationSkillsCollapsed, setExplorationSkillsCollapsed] = useState(true);
+  const [isSpellsCollapsed, setSpellsCollapsed] = useState(true);
   const [isSpellSlotsCollapsed, setSpellSlotsCollapsed] = useState(true);
   const [isSkillsCollapsed, setSkillsCollapsed] = useState(true);
-
+  const [isEquipmentCollapsed, setEquipmentCollapsed] = useState(true);
+  const [isItemsCollapsed, setItemsCollapsed] = useState(true);
 
   return (
     <Card color="transparent" shadow={false} className="dark:text-white">
@@ -242,6 +247,34 @@ const CharacterSheetView: React.FC<CharacterViewProps> = ({ characterId }) => {
           variant="h6"
           color="blue-gray"
           className="dark:text-white absolute -top-4 left-4 bg-gray-200 dark:bg-gray-700 px-2 cursor-pointer inline-flex items-center"
+          onClick={() => setSpellsCollapsed(!isSpellsCollapsed)}
+        >
+          Spells and Cantrips
+          {isSpellsCollapsed ? (
+            <ChevronUpIcon className="ml-2 h-5 w-5" />
+          ) : (
+            <ChevronDownIcon className="ml-2 h-5 w-5" />
+          )}
+        </Typography>
+        <AnimatePresence>
+          {!isSpellsCollapsed && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <SpellsView characterId={characterId} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      <div className="dark:text-white mt-6 border border-gray-500 p-4 py-2 relative rounded-lg">
+        <Typography
+          variant="h6"
+          color="blue-gray"
+          className="dark:text-white absolute -top-4 left-4 bg-gray-200 dark:bg-gray-700 px-2 cursor-pointer inline-flex items-center"
           onClick={() => setSpellSlotsCollapsed(!isSpellSlotsCollapsed)}
         >
           Spell Slots
@@ -264,6 +297,64 @@ const CharacterSheetView: React.FC<CharacterViewProps> = ({ characterId }) => {
           )}
         </AnimatePresence>
       </div>
+
+      <div className="dark:text-white mt-6 border border-gray-500 p-4 py-2 relative rounded-lg">
+        <Typography
+          variant="h6"
+          color="blue-gray"
+          className="dark:text-white absolute -top-4 left-4 bg-gray-200 dark:bg-gray-700 px-2 cursor-pointer inline-flex items-center"
+          onClick={() => setEquipmentCollapsed(!isEquipmentCollapsed)}
+        >
+          Equipment
+          {isEquipmentCollapsed ? (
+            <ChevronUpIcon className="ml-2 h-5 w-5" />
+          ) : (
+            <ChevronDownIcon className="ml-2 h-5 w-5" />
+          )}
+        </Typography>
+        <AnimatePresence>
+          {!isEquipmentCollapsed && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <EquipmentView characterId={characterId} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+
+      <div className="dark:text-white mt-6 border border-gray-500 p-4 py-2 relative rounded-lg">
+        <Typography
+          variant="h6"
+          color="blue-gray"
+          className="dark:text-white absolute -top-4 left-4 bg-gray-200 dark:bg-gray-700 px-2 cursor-pointer inline-flex items-center"
+          onClick={() => setItemsCollapsed(!isItemsCollapsed)}
+        >
+          Items
+          {isItemsCollapsed ? (
+            <ChevronUpIcon className="ml-2 h-5 w-5" />
+          ) : (
+            <ChevronDownIcon className="ml-2 h-5 w-5" />
+          )}
+        </Typography>
+        <AnimatePresence>
+          {!isItemsCollapsed && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <ItemsView characterId={characterId} />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
     </Card>
   );
 };

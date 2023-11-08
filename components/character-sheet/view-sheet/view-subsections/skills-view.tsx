@@ -1,6 +1,5 @@
 import { Fragment } from "react";
-import { handleViewArrayFieldBlur } from "@/components/helper/handle-field-updates";
-import ErrorMessage from "@/components/helper/error-message";
+import { handleViewArrayFieldBlur, handleViewArrayUpdateKeyDown } from "@/components/helper/handle-field-updates";
 import {
   Input,
   Button,
@@ -10,7 +9,6 @@ import {
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { useSkills } from "../../../custom-hooks/character-sheet-hooks/use-skills";
 
-
 const SkillsView = (props) => {
   const {
     viewFormik,
@@ -18,7 +16,6 @@ const SkillsView = (props) => {
     addViewSkill,
     removeViewSkill,
     updateViewField,
-    getViewErrorMessage,
   } = useSkills("view", props.characterId);
 
   return (
@@ -49,6 +46,16 @@ const SkillsView = (props) => {
                         updateViewField
                       )
                     }
+                    onKeyDown={(e) =>
+                      handleViewArrayUpdateKeyDown(
+                        viewFormik,
+                        `skills[${index}].skill_name`,
+                        viewFormik.values.skills[index].skill_name,
+                        viewFormik.values.skills[index].skill_id,
+                        e,
+                        updateViewField
+                      )
+                    }
                     value={viewFormik.values.skills[index].skill_name}
                     className={"dark:text-white !w-28"}
                     color={isDarkMode ? "white" : "black"}
@@ -59,9 +66,6 @@ const SkillsView = (props) => {
                       className: "!min-w-0",
                     }}
                     crossOrigin=""
-                  />
-                  <ErrorMessage
-                    message={getViewErrorMessage("skill_name", index)}
                   />
                 </div>
 
@@ -81,6 +85,16 @@ const SkillsView = (props) => {
                         updateViewField
                       )
                     }
+                    onKeyDown={(e) =>
+                      handleViewArrayUpdateKeyDown(
+                        viewFormik,
+                        `skills[${index}].skill_description`,
+                        viewFormik.values.skills[index].skill_description,
+                        viewFormik.values.skills[index].skill_id,
+                        e,
+                        updateViewField
+                      )
+                    }
                     value={viewFormik.values.skills[index].skill_description}
                     className={"dark:text-white !w-72"}
                     color={isDarkMode ? "white" : "black"}
@@ -91,9 +105,6 @@ const SkillsView = (props) => {
                       className: "!min-w-0",
                     }}
                     crossOrigin=""
-                  />
-                  <ErrorMessage
-                    message={getViewErrorMessage("skill_description", index)}
                   />
                 </div>
 
@@ -113,6 +124,16 @@ const SkillsView = (props) => {
                         updateViewField
                       )
                     }
+                    onKeyDown={(e) =>
+                      handleViewArrayUpdateKeyDown(
+                        viewFormik,
+                        `skills[${index}].skill_available`,
+                        viewFormik.values.skills[index].skill_available,
+                        viewFormik.values.skills[index].skill_id,
+                        e,
+                        updateViewField
+                      )
+                    }
                     value={viewFormik.values.skills[index].skill_available}
                     className={"dark:text-white !w-20"}
                     color={isDarkMode ? "white" : "black"}
@@ -123,9 +144,6 @@ const SkillsView = (props) => {
                       className: "!min-w-0",
                     }}
                     crossOrigin=""
-                  />
-                  <ErrorMessage
-                    message={getViewErrorMessage("skill_available", index)}
                   />
                 </div>
 
@@ -155,9 +173,6 @@ const SkillsView = (props) => {
                       className: "!min-w-0",
                     }}
                     crossOrigin=""
-                  />
-                  <ErrorMessage
-                    message={getViewErrorMessage("skill_cooldown", index)}
                   />
                 </div>
                 <div>

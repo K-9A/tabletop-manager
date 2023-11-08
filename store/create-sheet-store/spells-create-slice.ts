@@ -1,15 +1,10 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { SpellsTypes } from "@/components/types/sheet-types/field-types";
 
-const initialSpellsCreateState = {
-    spells: [
-      {
-        spell_name: "",
-        spell_description: "",
-        spell_tier: "",
-      },
-    ],
-  
-    loading: false,
+
+const initialSpellsCreateState:SpellsTypes = {
+    spells: [],
+    isLoading: false,
     isValid: false,
     error: null,
   };
@@ -19,7 +14,7 @@ const initialSpellsCreateState = {
     initialState: initialSpellsCreateState,
     reducers: {
       addSpell: (state) => {
-        if (state.spells.length < 50) {
+        if (state.spells.length < 40) {
           state.spells.push({
             spell_name: "",
             spell_description: "",
@@ -27,9 +22,12 @@ const initialSpellsCreateState = {
           });
         }
       },
-      removeSpell: (state) => {
-        state.spells.pop();
-    },
+      removeSpells: (state, action) => {
+        const index = action.payload; // Get the index from the action payload
+        if (index >= 0 && index < state.spells.length) {
+          state.spells.splice(index, 1); // Remove the spell at the specified index
+        }
+      },
       updateSpellsField: (state, action) => {
         const { index, name, value } = action.payload;
         state.spells[index][name] = value;
@@ -41,7 +39,7 @@ const initialSpellsCreateState = {
         state.isValid = false;
       },
       resetSpells: (state) => {
-        return initialSpellsCreateState;
+        state.spells = [];
       },
     },
   });

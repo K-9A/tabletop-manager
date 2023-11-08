@@ -6,18 +6,18 @@ import { dbQuery } from "@/utils/dbQuery";
 import { getServerSession } from "next-auth";
 import authOptions from "@/pages/api/auth/[...nextauth]";
 import validator from "validator";
-import { validSkillsFieldNames } from "@/components/helper/valid-character-fields";
+import { validItemsFieldNames } from "@/components/helper/valid-character-fields";
 import { updateFieldValidator } from "@/components/helper/update-field-validator";
-import { skillsSchema } from "@/components/validation-schema/character-sheet/skills-schema";
+import { itemsSchema } from "@/components/validation-schema/character-sheet/items-schema";
 
 interface InsertResult {
   insertId: number;
 }
 
-const updateSkills = async (req: NextApiRequest, res: NextApiResponse) => {
+const updateItems = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerSession(req, res, authOptions);
 
-  const { characterId, skillId, fieldName, value } = req.query;
+  const { characterId, itemId, fieldName, value } = req.query;
 
   if (!session) {
     return res
@@ -31,20 +31,20 @@ const updateSkills = async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (req.method === "GET") {
     try {
-      const skillsData = await dbQuery(
-        `SELECT skill_id, character_id, skill_name, skill_description, skill_cooldown, skill_available
+      const itemsData = await dbQuery(
+        `SELECT item_id, character_id, item_name, item_description, item_amount, item_max
       FROM 
-      skills
+      items
       WHERE 
         character_id = ?`,
         [characterId]
       );
 
-      if (skillsData.length === 0) {
-        return res.status(404).json({ error: "Skills data not found" });
+      if (itemsData.length === 0) {
+        return res.status(404).json({ error: "Items data not found" });
       }
 
-      res.status(200).json({ success: true, data: skillsData });
+      res.status(200).json({ success: true, data: itemsData });
     } catch (error) {
       res.status(500).json({ success: false, error: error.message });
     }
@@ -52,14 +52,14 @@ const updateSkills = async (req: NextApiRequest, res: NextApiResponse) => {
   //Insert method
   else if (req.method === "POST") {
     try {
-      // Insert a new skill with empty fields for this character
+      // Insert a new item with empty fields for this character
       const result = (await dbQuery(
-        `INSERT INTO skills (character_id, skill_name, skill_description, skill_cooldown, skill_available) VALUES (?, '', '', '', '')`,
+        `INSERT INTO items (character_id, item_name, item_description, item_amount, item_max) VALUES (?, '', '', '', '')`,
         [characterId]
       )) as InsertResult;
   
-      // Send back the ID of the newly created skill
-      res.status(201).json({ success: true, skill_id: result.insertId });
+      // Send back the ID of the newly created item
+      res.status(201).json({ success: true, item_id: result.insertId });
     } catch (error) {
       res.status(500).json({ success: false, error: error.message });
     }
@@ -70,19 +70,19 @@ const updateSkills = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(400).json({ error: "Missing parameters" });
     }
     // Check if the field name is valid
-    if (!validSkillsFieldNames.includes(fieldName as string)) {
+    if (!validItemsFieldNames.includes(fieldName as string)) {
       return res
         .status(400)
         .json({ success: false, error: "Invalid field name" });
     }
 
     try {
-      await updateFieldValidator(fieldName as string, skillsSchema, value);
+      await updateFieldValidator(fieldName as string, itemsSchema, value);
       const sanitizedValue = validator.escape(value);
 
       await dbQuery(
-        `UPDATE skills SET ${fieldName} = ? WHERE character_id = ? AND skill_id = ?`,
-        [sanitizedValue, characterId, skillId]
+        `UPDATE items SET ${fieldName} = ? WHERE character_id = ? AND item_id = ?`,
+        [sanitizedValue, characterId, itemId]
       );
       return res.status(200).json({ success: true });
     } catch (error) {
@@ -91,14 +91,14 @@ const updateSkills = async (req: NextApiRequest, res: NextApiResponse) => {
   }
   //Delete method
   else if (req.method === "DELETE") {
-    if (!skillId) {
-      return res.status(400).json({ error: "Skill ID not provided" });
+    if (!itemId) {
+      return res.status(400).json({ error: "Item ID not provided" });
     }
 
     try {
       await dbQuery(
-        `DELETE FROM skills WHERE character_id = ? AND skill_id = ?`,
-        [characterId, skillId]
+        `DELETE FROM items WHERE character_id = ? AND item_id = ?`,
+        [characterId, itemId]
       );
 
       res.status(200).json({ success: true });
@@ -111,5 +111,5 @@ const updateSkills = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 export default loggerMiddleware(
-  headersMiddleware(withCreateRateLimit(updateSkills))
+  headersMiddleware(withCreateRateLimit(updateItems))
 );

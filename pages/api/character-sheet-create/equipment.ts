@@ -1,5 +1,5 @@
 import validator from "validator";
-import { EquipmentTypes } from "@/components/types/api-route-types";
+import { EquipmentType } from "@/components/types/sheet-types/field-types";
 
 export const insertEquipmentData = async (
   data,
@@ -10,7 +10,7 @@ export const insertEquipmentData = async (
   const { ...equipmentObject } = data;
 
   //Convert the object with numeric keys into an array of skills.
-  const equipmentArray: EquipmentTypes[] = Object.values(equipmentObject);
+  const equipmentArray: EquipmentType[] = Object.values(equipmentObject);
 
   //Use the validator package to sanitize data for SQL querying
   const sanitizedEquipment = equipmentArray.map((equipment) => [

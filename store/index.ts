@@ -18,12 +18,14 @@ import featsTraitsViewReducer from "./view-sheet-store/feats-traits-view-slice";
 import explorationSkillsViewReducer from "./view-sheet-store/exploration-skills-view-slice";
 import skillsViewReducer from "./view-sheet-store/skills-view-slice";
 import spellSlotsViewReducer from "./view-sheet-store/spell-slots-view-slice";
-
+import spellsViewReducer from "./view-sheet-store/spells-view-slice";
+import equipmentViewReducer from "./view-sheet-store/equipment-view-slice";
+import itemsViewReducer from "./view-sheet-store/items-view-slice";
 
 // Create Sheet Slice Imports
 import coreProfileCreateReducer from "./create-sheet-store/core-profile-create-slice";
 import featsTraitsCreateReducer from "./create-sheet-store/feats-traits-create-slice";
-import backgroundCreateReducer from "./create-sheet-store/background-create-slice"
+import backgroundCreateReducer from "./create-sheet-store/background-create-slice";
 import abilityScoresCreateReducer from "./create-sheet-store/ability-scores-create-slice";
 import combatStatsCreateReducer from "./create-sheet-store/combat-stats-create-slice";
 import explorationSkillsCreateReducer from "./create-sheet-store/exploration-skills-create-slice";
@@ -33,42 +35,43 @@ import spellsCreateReducer from "./create-sheet-store/spells-create-slice";
 import equipmentCreateReducer from "./create-sheet-store/equipment-create-slice";
 import itemsCreateReducer from "./create-sheet-store/items-create-slice";
 
-
 const store = configureStore({
-    reducer: { 
-        //Misc Reducers
-        darkMode: darkModeReducer,
-        auth: authReducer,
+  reducer: {
+    //Misc Reducers
+    darkMode: darkModeReducer,
+    auth: authReducer,
 
-        //Campaign Rducers
-        campaignView: campaignViewReducer,
+    //Campaign Rducers
+    campaignView: campaignViewReducer,
 
-        //View Sheet Reducers
-        coreProfileView: coreProfileViewReducer,
-        combatStatsView: combatStatsViewReducer,
-        abilityScoresView: abilityScoresViewReducer,
-        backgroundView: backgroundViewReducer,
-        featsTraitsView: featsTraitsViewReducer,
-        explorationSkillsView: explorationSkillsViewReducer,
-        skillsView: skillsViewReducer,
-        spellSlotsView: spellSlotsViewReducer,
+    //View Sheet Reducers
+    coreProfileView: coreProfileViewReducer,
+    combatStatsView: combatStatsViewReducer,
+    abilityScoresView: abilityScoresViewReducer,
+    backgroundView: backgroundViewReducer,
+    featsTraitsView: featsTraitsViewReducer,
+    explorationSkillsView: explorationSkillsViewReducer,
+    skillsView: skillsViewReducer,
+    spellSlotsView: spellSlotsViewReducer,
+    spellsView: spellsViewReducer,
+    equipmentView: equipmentViewReducer,
+    itemsView: itemsViewReducer,
 
-        
-        //Create Sheet Reducers
-        coreProfileCreate: coreProfileCreateReducer,
-        featsTraitsCreate: featsTraitsCreateReducer,
-        backgroundCreate: backgroundCreateReducer,
-        abilityScoresCreate: abilityScoresCreateReducer,
-        combatStatsCreate: combatStatsCreateReducer,
-        explorationSkillsCreate: explorationSkillsCreateReducer,
-        skillsCreate: skillsCreateReducer,
-        spellSlotsCreate: spellSlotsReducer,
-        spellsCreate: spellsCreateReducer,
-        equipmentCreate: equipmentCreateReducer,
-        itemsCreate: itemsCreateReducer,
-    },
-    middleware: [thunk]
-    //middleware: [thunk, socketMiddleware]
+    //Create Sheet Reducers
+    coreProfileCreate: coreProfileCreateReducer,
+    featsTraitsCreate: featsTraitsCreateReducer,
+    backgroundCreate: backgroundCreateReducer,
+    abilityScoresCreate: abilityScoresCreateReducer,
+    combatStatsCreate: combatStatsCreateReducer,
+    explorationSkillsCreate: explorationSkillsCreateReducer,
+    skillsCreate: skillsCreateReducer,
+    spellSlotsCreate: spellSlotsReducer,
+    spellsCreate: spellsCreateReducer,
+    equipmentCreate: equipmentCreateReducer,
+    itemsCreate: itemsCreateReducer,
+  },
+  middleware: [thunk],
+  //middleware: [thunk, socketMiddleware]
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

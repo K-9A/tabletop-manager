@@ -111,7 +111,6 @@ export const removeSkill = createAsyncThunk(
 );
 
 
-
 const skillsViewSlice = createSlice({
   name: "skillsView",
   initialState: initialSkillsViewState,

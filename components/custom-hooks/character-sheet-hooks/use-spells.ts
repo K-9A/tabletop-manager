@@ -1,48 +1,48 @@
 import { useEffect } from "react";
 import { useFormik, FormikErrors } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { createSkillsActions } from "@/store/create-sheet-store/skills-create-slice";
+import { createSpellsActions } from "@/store/create-sheet-store/spells-create-slice";
 import {
-  fetchSkillsData,
-  updateSkillsField,
-  addSkill,
-  removeSkill,
-} from "@/store/view-sheet-store/skills-view-slice";
+  fetchSpellsData,
+  updateSpellsField,
+  addSpell,
+  removeSpell,
+} from "@/store/view-sheet-store/spells-view-slice";
 import { useMemoizedAlert } from "@/components/layout/alert";
 import { RootState, AppDispatch } from "@/store";
-import { skillsSchema } from "@/components/validation-schema/character-sheet/skills-schema";
+import { spellsSchema } from "@/components/validation-schema/character-sheet/spells-schema";
 import { AnyAction } from "@reduxjs/toolkit"; //for typescript
 
 // Define a type for the mode, which helps control when a useEffect runs
 type Mode = "create" | "view";
-const MAX_SKILLS = 30; // Set the maximum number of skills allowed
+const MAX_SPELLS = 40; // Set the maximum number of spells allowed
 
-export const useSkills = (
+export const useSpells = (
   mode: Mode,
   characterId: string,
-  skillId?: number
+  spellId?: number
 ) => {
   const isDarkMode = useSelector((state: RootState) => state.darkMode);
   const dispatch: AppDispatch = useDispatch();
   const addAlertMemo = useMemoizedAlert();
 
   //Use selector for the create subsection
-  const skillsCreateData = useSelector(
-    (state: RootState) => state.skillsCreate
+  const spellsCreateData = useSelector(
+    (state: RootState) => state.spellsCreate
   );
 
   //Use selector for the view subsection
-  const skillsViewData = useSelector((state: RootState) => state.skillsView);
+  const spellsViewData = useSelector((state: RootState) => state.spellsView);
 
   //isValid selector for subcomponents that have the "Mark as Complete" checkbox instead of checking to see if
   //all "required" fields are filled out.
-  const isValid = useSelector((state: RootState) => state.skillsCreate.isValid);
+  const isValid = useSelector((state: RootState) => state.spellsCreate.isValid);
 
   //Fetch data on page load for view component
   useEffect(() => {
     // Only fetch data if in 'view' mode and a characterId is provided
     if (mode === "view" && characterId) {
-      dispatch(fetchSkillsData(characterId) as unknown as AnyAction);
+      dispatch(fetchSpellsData(characterId) as unknown as AnyAction);
     }
   }, [dispatch, characterId, mode]);
 
@@ -50,31 +50,30 @@ export const useSkills = (
 
   const createFormik = useFormik({
     initialValues: {
-      skills: skillsCreateData.skills,
+      spells: spellsCreateData.spells,
     },
-    validationSchema: skillsSchema,
+    validationSchema: spellsSchema,
     onSubmit: () => {},
     enableReinitialize: true,
   });
 
   const viewFormik = useFormik({
     initialValues: {
-      skills: skillsViewData.skills,
+      spells: spellsViewData.spells,
     },
-    validationSchema: skillsSchema,
+    validationSchema: spellsSchema,
     onSubmit: () => {},
     enableReinitialize: true,
   });
 
 
 
-  //Update create skill field handlers
+  //Update create spell field handlers
   const updateCreateField = async (index, fieldName) => {
-
-    const fieldValue = createFormik.values.skills[index][fieldName];
+    const fieldValue = createFormik.values.spells[index][fieldName];
     try {
       await dispatch(
-        createSkillsActions.updateSkillField({
+        createSpellsActions.updateSpellsField({
           index: index,
           name: fieldName,
           value: fieldValue,
@@ -86,12 +85,12 @@ export const useSkills = (
     }
   };
 
-  const updateViewField = async (skillId, fieldName, value) => {
-    if (skillId !== undefined) {
+  const updateViewField = async (spellId, fieldName, value) => {
+    if (spellId !== undefined) {
       try {
-        // Dispatch the updateSkillsField thunk action and unwrap the result
-        await dispatch(updateSkillsField({
-          skillId,
+        // Dispatch the updateSpellsField thunk action and unwrap the result
+        await dispatch(updateSpellsField({
+          spellId,
           characterId,
           fieldName,
           value,
@@ -104,86 +103,82 @@ export const useSkills = (
       }
     } else {
       // Log the error and handle it, such as showing a user-friendly message
-      console.error("Skill ID is required to update a skill.");
+      console.error("Spell ID is required to update a spell.");
     }
   };
 
   //For the create sheet "section complete" checkbox.
   const handleCheckboxChange = (e) => {
     if (e.target.checked) {
-      dispatch(createSkillsActions.markSectionAsValid());
+      dispatch(createSpellsActions.markSectionAsValid());
     } else {
-      dispatch(createSkillsActions.markSectionAsInvalid());
+      dispatch(createSpellsActions.markSectionAsInvalid());
     }
   };
 
-
-
-  const addCreateSkill = () => {
-    if (createFormik.values.skills.length >= MAX_SKILLS) {
-      // Handle the error case when the maximum number of skills is reached
-      addAlertMemo(`You can only add up to ${MAX_SKILLS} skills.`, "error");
+  const addCreateSpell = () => {
+    if (createFormik.values.spells.length >= MAX_SPELLS) {
+      // Handle the error case when the maximum number of spells is reached
+      addAlertMemo(`You can only add up to ${MAX_SPELLS} spells.`, "error");
       return; // Exit the function to prevent adding a new skill
     }
   
-    dispatch(createSkillsActions.addSkill());
+    dispatch(createSpellsActions.addSpell());
   };
 
-  const removeCreateSkill = (index) => {
-    dispatch(createSkillsActions.removeSkill(index));
+  const removeCreateSpell = (index) => {
+    dispatch(createSpellsActions.removeSpells(index));
   };
 
-
-  const addViewSkill = () => {
-    if (viewFormik.values.skills.length >= MAX_SKILLS) {
-      // Handle the error case when the maximum number of skills is reached
-      addAlertMemo(`You can only add up to ${MAX_SKILLS} skills.`, "error");
+  const addViewSpell = () => {
+    if (viewFormik.values.spells.length >= MAX_SPELLS) {
+      // Handle the error case when the maximum number of spells is reached
+      addAlertMemo(`You can only add up to ${MAX_SPELLS} spells.`, "error");
       return; // Exit the function to prevent adding a new skill
     }
   
-    dispatch(addSkill(characterId) as unknown as AnyAction);
+    dispatch(addSpell(characterId) as unknown as AnyAction);
   };
-  
 
-  const removeViewSkill = (index) => {
-    // Assuming viewFormik.values.skills is an array of skills
-    // and each skill has a skill_id property
-    const skillId = viewFormik.values.skills[index].skill_id;
+  const removeViewSpell = (index) => {
+    // Assuming viewFormik.values.spells is an array of spells
+    // and each spell has a spell_id property
+    const spellId = viewFormik.values.spells[index].spell_id;
   
-    if (skillId !== undefined) {
-      dispatch(removeSkill({ characterId, skillId }) as unknown as AnyAction)
+    if (spellId !== undefined) {
+      dispatch(removeSpell({ characterId, spellId }) as unknown as AnyAction)
         .unwrap()
         .then(() => {
           viewFormik.setFieldValue(
-            `skills`,
-            viewFormik.values.skills.filter((_, i) => i !== index),
+            `spells`,
+            viewFormik.values.spells.filter((_, i) => i !== index),
             false
           );
         })
         .catch((error) => {
           // Handle error
-          addAlertMemo(`Error removing skill: ${error.message}`, "error");
-          console.error("Skill ID is required to remove a skill.", error);
+          addAlertMemo(`Error removing spell: ${error.message}`, "error");
+          console.error("Spell ID is required to remove a spell.", error);
         });
     } else {
-      addAlertMemo(`Error removing skill.`, "error");
-      console.error("Skill ID is required to remove a skill.");
+      addAlertMemo(`Error removing spell.`, "error");
+      console.error("Spell ID is required to remove a spell.");
     }
   };
 
-  const resetSkills = () => {
-    dispatch(createSkillsActions.resetSkills());
+  const resetSpells = () => {
+    dispatch(createSpellsActions.resetSpells());
     createFormik.resetForm();
   };
 
 
   const getCreateErrorMessage = (fieldName: string, index?: number) => {
     if (index !== undefined) {
-      const skillErrors = createFormik.errors.skills as Array<
-        FormikErrors<{ skill_name: string }>
+      const spellErrors = createFormik.errors.spells as Array<
+        FormikErrors<{ spell_name: string }>
       >;
-      return skillErrors && skillErrors[index] && skillErrors[index][fieldName]
-        ? skillErrors[index][fieldName]
+      return spellErrors && spellErrors[index] && spellErrors[index][fieldName]
+        ? spellErrors[index][fieldName]
         : null;
     } else {
       return createFormik.errors[fieldName] && createFormik.touched[fieldName]
@@ -194,11 +189,11 @@ export const useSkills = (
 
   const getViewErrorMessage = (fieldName: string, index?: number) => {
     if (index !== undefined) {
-      const skillErrors = viewFormik.errors.skills as Array<
-        FormikErrors<{ skill_name: string }>
+      const spellErrors = viewFormik.errors.spells as Array<
+        FormikErrors<{ spell_name: string }>
       >;
-      return skillErrors && skillErrors[index] && skillErrors[index][fieldName]
-        ? skillErrors[index][fieldName]
+      return spellErrors && spellErrors[index] && spellErrors[index][fieldName]
+        ? spellErrors[index][fieldName]
         : null;
     } else {
       return viewFormik.errors[fieldName] && viewFormik.touched[fieldName]
@@ -212,14 +207,14 @@ export const useSkills = (
     viewFormik,
     isValid,
     isDarkMode,
-    addCreateSkill,
-    removeCreateSkill,
-    addViewSkill,
-    removeViewSkill,
+    addCreateSpell,
+    removeCreateSpell,
+    addViewSpell,
+    removeViewSpell,
     updateCreateField,
     updateViewField,
     handleCheckboxChange,
-    resetSkills,
+    resetSpells,
     getCreateErrorMessage,
     getViewErrorMessage,
   };

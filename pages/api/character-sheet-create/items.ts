@@ -1,4 +1,4 @@
-import { ItemTypes } from "@/components/types/api-route-types";
+import { ItemType } from "@/components/types/sheet-types/field-types";
 
 export const insertItemsData = async (
   data,
@@ -7,16 +7,16 @@ export const insertItemsData = async (
 ) => {
   const { ...itemsObject } = data;
 
-  //Convert the object with numeric keys into an array of skills.
-  const itemsArray: ItemTypes[] = Object.values(itemsObject);
+  //Convert the object with numeric keys into an array of items.
+  const itemsArray: ItemType[] = Object.values(itemsObject);
 
   //Use the validator package to sanitize data for SQL querying
   const sanitizedItems = itemsArray.map((item) => [
     characterId,
     item.item_name,
     item.item_description,
-    item.item_amount || null,  // If empty string, use null
-    item.item_max || null,    // If empty string, use null
+    item.item_amount, 
+    item.item_max,
   ]);
 
   //Doing bulk query insert. Faster than for looping.
