@@ -14,8 +14,8 @@ function About() {
         </p>
         <ul className="list-disc pl-5 mb-4 dark:text-white">
           <li>User authentication</li>
-          <li>Character and campaign management</li>
-          <li>Campaign & Character View</li>
+          <li>Character & Campaign creation</li>
+          <li>Campaign & Character view</li>
           <li>User dashboard</li>
         </ul>
         <p className="text-lg mb-4 dark:text-white">
