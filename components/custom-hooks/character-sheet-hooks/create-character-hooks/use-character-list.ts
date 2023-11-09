@@ -66,7 +66,6 @@ export const useCharacterList = (userId) => {
 
   //delete character  api call
   const confirmCharacterDelete = () => {
-    console.log("confirm delete", characterIdToDelete)
     axios
       .delete("/api/character-sheet-view/character-list/", {
         data: {

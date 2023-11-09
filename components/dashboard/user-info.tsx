@@ -3,13 +3,12 @@ import { UserInfoProps } from "../types/dash-types";
 import formatDate from "../helper/format-date";
 
 const UserInfo: React.FC<UserInfoProps> = ({ user, labelBgColor }) => {
-
   return (
     <div className="border border-gray-500 p-4 py-2 relative rounded-lg">
       <Typography
         variant="h6"
         color="blue-gray"
-        className={`absolute -top-4 left-4 px-2 cursor-pointer inline-flex items-center dark:text-gray-300 ${labelBgColor}`}
+        className={`absolute -top-4 left-4 px-2 cursor-pointer inline-flex items-center dark:text-gray-300 ${labelBgColor} dark:bg-gray-700`}
       >
         User Information
       </Typography>

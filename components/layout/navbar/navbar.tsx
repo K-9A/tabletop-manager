@@ -37,7 +37,7 @@ export function NavBar() {
   }, []);
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl px-4 py-4">
+    <Navbar className="mx-auto max-w-screen-xl px-4 py-4 dark:bg-black">
       <div className="flex items-center justify-between text-black">
         <Link href="/">
           <NavLogo />

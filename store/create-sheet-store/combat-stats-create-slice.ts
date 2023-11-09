@@ -14,6 +14,7 @@ const initialCreateCombatStatsState: CombatStatsTypes = {
   spell_casting: "",
   spell_save: null,
   spell_attack: null,
+  isLoading: false,
   isValid: false,
   error: null,
 };

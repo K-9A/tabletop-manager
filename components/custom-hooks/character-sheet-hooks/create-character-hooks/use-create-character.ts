@@ -7,23 +7,23 @@ import axios from "axios";
 
 //Functions to destructure the data, taking out the unnecessary bits from each subscetion while keeping the necessary fields.
 function extractData(obj: any) {
+
   if (Array.isArray(obj)) {
-    // If the passed object is an array, return it directly
     return obj;
   } else {
-    // If the passed object is not an array, destructure and exclude unwanted properties
-    const { loading, isValid, error, ...rest } = obj;
+    const { isLoading, isValid, error, ...rest } = obj;
 
-    // Check if the rest object contains nested objects or flat key-value pairs
     const hasNestedObjects = Object.values(rest).some(
-      (item) => typeof item === "object"
+      (item) => typeof item === "object" && item !== null
     );
 
     if (hasNestedObjects) {
-      // Convert the rest object with numeric keys into an array of skill objects
-      return Object.values(rest).filter((item) => typeof item === "object");
+      const filtered = Object.values(rest).filter(
+        (item) => typeof item === "object"
+      );
+
+      return filtered;
     } else {
-      // If there are no nested objects, return the rest object directly
       return rest;
     }
   }

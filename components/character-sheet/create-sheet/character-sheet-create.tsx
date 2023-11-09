@@ -132,64 +132,59 @@ function CharacterSheetCreate() {
           </Tooltip>
           <Tooltip content="Core Profile" placement="bottom">
             <IconButton {...getItemProps(2)} className="dark:text-white">
-              PRF{coreProfileValid && <CheckCircleIcon />}
+              PRF{coreProfileValid && <CheckCircleIcon className="w-7 h-7" />}
             </IconButton>
           </Tooltip>
           <Tooltip content="Feats and Traits" placement="bottom">
-            <IconButton {...getItemProps(3)} className="dark:text-white">
-              FTS{featsTraitsValid && <CheckCircleIcon />}
+            <IconButton {...getItemProps(3)} className="dark:text-white text-xs">
+              FTS{featsTraitsValid && <CheckCircleIcon className="w-7 h-7" />}
             </IconButton>
           </Tooltip>
           <Tooltip content="Character Background" placement="bottom">
-            <IconButton {...getItemProps(4)} className="dark:text-white">
-              BGR{backgroundValid && <CheckCircleIcon />}
+            <IconButton {...getItemProps(4)} className="dark:text-white text-xs">
+              BGR{backgroundValid && <CheckCircleIcon className="w-7 h-7" />}
             </IconButton>
           </Tooltip>
           <Tooltip content="Ability Scores" placement="bottom">
             <IconButton {...getItemProps(5)} className="dark:text-white">
-              ABS{abilityScoresValid && <CheckCircleIcon />}
+              ABS{abilityScoresValid && <CheckCircleIcon className="w-7 h-7" />}
             </IconButton>
           </Tooltip>
           <Tooltip content="Combat Stats" placement="bottom">
             <IconButton {...getItemProps(6)} className="dark:text-white">
-              CMB{combatStatsValid && <CheckCircleIcon />}
+              CMB{combatStatsValid && <CheckCircleIcon className="w-7 h-7" />}
             </IconButton>
           </Tooltip>
           <Tooltip content="Exploration Skills" placement="bottom">
             <IconButton {...getItemProps(7)} className="dark:text-white">
-              EXL{explorationSkillsValid && <CheckCircleIcon />}
+              EXL{explorationSkillsValid && <CheckCircleIcon className="w-7 h-7" />}
             </IconButton>
           </Tooltip>
           <Tooltip content="Offensive Skills" placement="bottom">
             <IconButton {...getItemProps(8)} className="dark:text-white">
-              OFL{skillsValid && <CheckCircleIcon />}
+              OFL{skillsValid && <CheckCircleIcon className="w-7 h-7" />}
             </IconButton>
           </Tooltip>
           <Tooltip content="Spell Slots" placement="bottom">
             <IconButton {...getItemProps(9)} className="dark:text-white">
-              SPS{spellSlotsValid && <CheckCircleIcon />}
+              SPS{spellSlotsValid && <CheckCircleIcon className="w-7 h-7" />}
             </IconButton>
           </Tooltip>
           <Tooltip content="Cantrips & Spells" placement="bottom">
             <IconButton {...getItemProps(10)} className="dark:text-white">
-              SPL{spellsValid && <CheckCircleIcon />}
+              SPL{spellsValid && <CheckCircleIcon className="w-7 h-7" />}
             </IconButton>
           </Tooltip>
           <Tooltip content="Equipment" placement="bottom">
             <IconButton {...getItemProps(11)} className="dark:text-white">
-              EQP{equipmentValid && <CheckCircleIcon />}
+              EQP{equipmentValid && <CheckCircleIcon className="w-7 h-7" />}
             </IconButton>
           </Tooltip>
           <Tooltip content="Items & Consumables" placement="bottom">
             <IconButton {...getItemProps(12)} className="dark:text-white">
-              ITM{itemsValid && <CheckCircleIcon />}
+              ITM{itemsValid && <CheckCircleIcon className="w-7 h-7" />}
             </IconButton>
           </Tooltip>
-          {/* <Tooltip content="Homebrew" placement="bottom">
-            <IconButton {...getItemProps(13)} className="dark:text-white">
-              HMB
-            </IconButton>
-          </Tooltip> */}
           <Tooltip content="Submit Sheet" placement="bottom">
             <IconButton {...getItemProps(13)} className="dark:text-white">
               FIN

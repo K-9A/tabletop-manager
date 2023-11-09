@@ -61,13 +61,10 @@ const Dashboard: React.FC<DashboardProps> = ({
         Welcome to your Dashboard!
       </h1>
 
-      {/* User Information */}
       <UserInfo user={user} labelBgColor={labelBgColor} />
 
       <div className="flex space-x-8 py-2">
-        {/* Campaign Section */}
         <CampaignSection labelBgColor={labelBgColor} />
-        {/* Character Sheet Section */}
         <CharacterSheetSection labelBgColor={labelBgColor} />
       </div>
       {/* Delete account button to be added later. Probably alongside edit account 

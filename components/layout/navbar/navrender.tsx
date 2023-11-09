@@ -10,7 +10,6 @@ import {
     ChatBubbleOvalLeftIcon,
     UsersIcon,
     FolderIcon,
-    Square3Stack3DIcon,
     RocketLaunchIcon,
   } from "@heroicons/react/24/outline";
 

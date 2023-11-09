@@ -6,7 +6,7 @@ export default function NavLogo() {
   return (
     <Typography
       variant="h6"
-      className="mr-4 cursor-pointer py-1.5 lg:ml-2"
+      className="mr-4 cursor-pointer py-1.5 lg:ml-2 dark:text-white"
     >
       Tabletop Manager
     </Typography>

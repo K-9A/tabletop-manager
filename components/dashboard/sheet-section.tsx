@@ -13,7 +13,7 @@ const CharacterSheetSection: React.FC<CharacterSheetSectionProps> = ({
       <Typography
         variant="h6"
         color="blue-gray"
-        className={`absolute -top-4 left-4 px-2 cursor-pointer inline-flex items-center ${labelBgColor}`}
+        className={`absolute -top-4 left-4 px-2 cursor-pointer inline-flex items-center ${labelBgColor} dark:bg-gray-700 dark:text-gray-300`}
       >
         Character Sheet
       </Typography>

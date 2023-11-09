@@ -58,6 +58,7 @@ export const insertCombatStatsData = async (
     spell_save: spell_save,
     spell_attack: spell_attack,
   };
+  
 
   await dbQuery(
     "INSERT INTO combat_stats (character_id, current_hp, max_hp, temp_hp, armor_class, hit_dice, max_hit_dice, speed, initiative, inspiration, spell_casting, spell_save, spell_attack) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -67,7 +68,7 @@ export const insertCombatStatsData = async (
       sanitizedData.max_hp,
       sanitizedData.temp_hp,
       sanitizedData.armor_class,
-      sanitizedData.hit_dice || 0,
+      sanitizedData.hit_dice,
       sanitizedData.max_hit_dice,
       sanitizedData.speed,
       sanitizedData.initiative,
