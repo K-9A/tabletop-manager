@@ -27,7 +27,7 @@ Table of Contents
 * Libraries & Tools: Bcrypt, NanoID, Redux + Toolkit + Thunk, Axios, Socket.Io, Formik, Yup, express rate limit micro, validator
 * Database: MySQL
 * Routing: File-based routing (Next.js)
-* Deployment: DigitalOcean
+* Deployment: Vercel and AWS RDS
 * Logging: Winston, Sentry
 
 ## <a id="project-status"></a>Project Status
@@ -47,7 +47,7 @@ The project is currently in active development, with essential packages installe
 
 **Deployment Strategy**
 
-This project leverages the efficiency and scalability of Vercel for front-end deployment , ensuring seamless delivery and optimal performance given the Next.JS framework. For database management, PlanetScale's serverless approach offers robust, maintenance-free operations, providing a solid backbone for real-time data handling.
+This project leverages the efficiency and scalability of Vercel for front-end deployment, ensuring seamless delivery and optimal performance given the Next.JS framework. For database management, Amazon's AWS RDS offers robust, maintenance-free operations, providing a solid backbone for real-time data handling.
 
 
 ## <a id="screenshots"></a>Screenshots
