@@ -1,9 +1,21 @@
 //Api to fetch user data for the dashboard
 import { NextApiRequest, NextApiResponse } from "next";
+import { getServerSession } from "next-auth";
 import { dbQuery } from "@/utils/dbQuery";
 import { isErrorWithMessage } from "@/components/types/error-typeguard";
+import authOptions from "@/pages/api/auth/[...nextauth]";
 
 const getUserData = async (req: NextApiRequest, res: NextApiResponse) => {
+
+  const session = await getServerSession(req, res, authOptions);
+  
+  if (!session) {
+    return res
+      .status(401)
+      .json({ success: false, message: "Not authenticated" });
+  }
+
+
   if (req.method === "GET") {
     const userId = req.query.userId;
 

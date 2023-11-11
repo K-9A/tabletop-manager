@@ -11,7 +11,7 @@ export interface DashboardProps {
   }
 
   export interface UserInfoProps {
-   user: {
+    userData: {
       user_id: string;
       username?: string; // this property is now optional
       email: string;
