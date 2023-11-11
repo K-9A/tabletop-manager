@@ -13,6 +13,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## <a id="description"></a>Description
 
+URL: tabletop-manager-ashen.vercel.app
+
+Important note! For the time being, this site supports only Chrome-based browsers. There are plans to support other browsers in the future, like Firefox as development and refinements on UI progresses.
+
 This web application is a solo-developed and designed, ongoing project that serves as a comprehensive platform for Dungeons and Dragons players and Dungeon Masters, providing tools to create, manage, and view character sheets and campaigns. Built with a modern tech stack including React, Next.js, and Tailwind CSS, the application offers a seamless and interactive user experience.
 Table of Contents
 
@@ -168,6 +172,9 @@ This thoughtful design supports both novice and seasoned players in maintaining 
 
 ## <a id="future-roadmap"></a>Future Roadmap
 
+Additional Browser and Device Support
+
+* As of now, only Chrome-based browsers are fully supported. There are plans to improve the UI so that it works well on other browsers like Firefox and is better optimized for smaller screens like phones and tablets.
 
 UX Refinement and enhancements
 
