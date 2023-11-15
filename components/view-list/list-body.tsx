@@ -29,7 +29,7 @@ function ListBody({
 
   return (
     <CardBody className="px-0">
-      <table className="w-full min-w-max text-left table-fixed">
+      <table className="text-left table-auto">
         <thead>
           <tr>
             {headers.map((head) => (

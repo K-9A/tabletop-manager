@@ -17,7 +17,7 @@ function ListHeader({
       <CardHeader
         floated={false}
         shadow={false}
-        className="rounded-none bg-gray-200 dark:bg-gray-700 mb-4"
+        className="rounded-none bg-gray-200 dark:bg-gray-700"
       >
         <div className="mb-4 mx-12 flex flex-col justify-between gap-12 md:flex-row md:items-center bg-gray-200 dark:bg-gray-700">
           <div className="pr-32 bg-gray-200 dark:bg-gray-700">
