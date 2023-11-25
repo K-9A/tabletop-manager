@@ -50,6 +50,11 @@ export const useHandleSubmitAll = (initialData) => {
   const addAlertMemo = useMemoizedAlert();
 
   //Grab all the data from each subsection's slice
+
+  const campaignIdData = useSelector(
+    (state: RootState) => state.linkCampaign
+  );
+
   const coreProfileRawData = useSelector(
     (state: RootState) => state.coreProfileCreate
   );
@@ -115,6 +120,7 @@ export const useHandleSubmitAll = (initialData) => {
         "api/character-create",
         {
           userId: userId,
+          campaignId: campaignIdData.campaignId,
           coreProfile: coreProfileData,
           featsTraits: featsTraitsData,
           background: backgroundData,

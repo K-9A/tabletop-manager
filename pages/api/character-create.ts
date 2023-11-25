@@ -30,6 +30,7 @@ const submitCharacter = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
     const {
       userId,
+      campaignId,
       coreProfile,
       featsTraits,
       background,
@@ -49,8 +50,8 @@ const submitCharacter = async (req: NextApiRequest, res: NextApiResponse) => {
 
       //Create the parent table in the MySQL schema, and grab a character_id for other sections to use
       const result = await dbQuery(
-        "INSERT INTO character_sheet (user_id) VALUES (?)",
-        [userId]
+        "INSERT INTO character_sheet (user_id, campaign_id) VALUES (?, ?)",
+        [userId, campaignId]
       );
       const characterId = (result as any).insertId;
 

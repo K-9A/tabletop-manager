@@ -34,6 +34,9 @@ import spellSlotsReducer from "./create-sheet-store/spell-slots-create-slice";
 import spellsCreateReducer from "./create-sheet-store/spells-create-slice";
 import equipmentCreateReducer from "./create-sheet-store/equipment-create-slice";
 import itemsCreateReducer from "./create-sheet-store/items-create-slice";
+import linkCampaignReducer from "./create-sheet-store/link-campaign-slice";
+
+
 
 const store = configureStore({
   reducer: {
@@ -69,6 +72,7 @@ const store = configureStore({
     spellsCreate: spellsCreateReducer,
     equipmentCreate: equipmentCreateReducer,
     itemsCreate: itemsCreateReducer,
+    linkCampaign: linkCampaignReducer
   },
   middleware: [thunk],
   //middleware: [thunk, socketMiddleware]

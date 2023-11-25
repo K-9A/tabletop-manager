@@ -190,3 +190,10 @@ export interface BackgroundTypes {
     isValid?: boolean;
     error: string | null;
   };
+
+  export type CampaignLinkTypes = {
+    campaignId: string,
+    isValid: boolean;
+    isLoading: boolean;
+    error: string | null;
+  }
