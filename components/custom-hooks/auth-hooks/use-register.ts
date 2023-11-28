@@ -1,3 +1,4 @@
+import { useState } from "react";
 import axios from "@/utils/axios-instance";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
@@ -6,11 +7,12 @@ import { ErrorResponse, MessageError } from "@/components/types/error-types";
 import { registerSchema } from "@/components/validation-schema/auth-schema";
 
 export const useRegister = () => {
+  const router = useRouter();
+  const addAlertMemo = useMemoizedAlert();
 
-    const router = useRouter();
-    const addAlertMemo = useMemoizedAlert();
+  const [isLoading, setIsLoading] = useState(false);
 
-    // Typeguard for error functions
+  // Typeguard for error functions
   function isErrorWithResponse(error: any): error is ErrorResponse {
     return (
       error && error.response && typeof error.response.data.error === "string"
@@ -30,6 +32,8 @@ export const useRegister = () => {
     validationSchema: registerSchema,
     onSubmit: async (values) => {
       try {
+
+        setIsLoading(true); // Start loading
         //Point Axios to the Register API route.
         const response = await axios.post("/register", {
           username: values.username,
@@ -39,20 +43,21 @@ export const useRegister = () => {
 
         if (response.status === 201) {
           addAlertMemo("Registration successful!", "success");
-            router.push("/login");
+          router.push("/login");
         }
+        setIsLoading(false); // Stop loading on success
       } catch (error) {
         if (isErrorWithResponse(error)) {
           addAlertMemo("Registration failed. Please try again.", "error");
         } else if (isErrorWithMessage(error)) {
           addAlertMemo("Registration failed. Please try again.", "error");
         } else {
-          addAlertMemo("Registration failed.", "error");
+          addAlertMemo("Registration failed. Please try again.", "error");
         }
+        setIsLoading(false); // Stop loading on failure
       }
     },
   });
 
-  return { formik };
-
-}
+  return { formik, isLoading };
+};

@@ -4,6 +4,7 @@ import { useRegister } from "./custom-hooks/auth-hooks/use-register";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
+import { Spinner } from "@material-tailwind/react";
 import AuthErrorMessage from "./helper/auth-error";
 
 
@@ -12,7 +13,7 @@ export default function Register() {
   //Darkmode state
   const isDarkMode = useSelector((state: RootState) => state.darkMode);
 
-  const { formik } = useRegister();
+  const { formik, isLoading } = useRegister();
 
   return (
     <Card color="transparent" shadow={false} className="shadow-none">
@@ -68,8 +69,8 @@ export default function Register() {
           />
         </div>
 
-        <Button type="submit" className="mt-6" fullWidth>
-          Register
+        <Button type="submit" className="mt-6" fullWidth disabled={isLoading}>
+        {isLoading ? "Registering..." : "Register"}
         </Button>
         <Typography
           color="gray"

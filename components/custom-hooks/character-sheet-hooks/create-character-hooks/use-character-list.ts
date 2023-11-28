@@ -12,6 +12,7 @@ export const useCharacterList = (userId) => {
   //For the user alert messages
   const addAlertMemo = useMemoizedAlert();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [characters, setCharacters] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [active, setActive] = useState(1);
@@ -30,6 +31,7 @@ export const useCharacterList = (userId) => {
 
   //Fetch Characters
   const fetchCharacters = useCallback(() => {
+    setIsLoading(true); // Start loading
     axios
       .get(`/api/character-sheet-view/character-list?userId=${userId}`)
       .then((response) => {
@@ -45,11 +47,12 @@ export const useCharacterList = (userId) => {
               : "Not Joined",
           }));
           setCharacters(retrievedCharacters);
+          setIsLoading(false); // Stop loading 
         }
       })
       .catch((error) => {
         addAlertMemo("Error fetching data. Please try again.", "error");
-        console.error("Error fetching character:", error);
+        setIsLoading(false); // Stop loading 
       });
     // Disabling the warning because addAlertMemo doesn't change and omitting it won't introduce bugs
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -115,6 +118,7 @@ export const useCharacterList = (userId) => {
     searchTerm,
     setSearchTerm,
     isDialogOpen,
+    isLoading,
     setIsDialogOpen,
     handleCharacterDelete,
     confirmCharacterDelete,

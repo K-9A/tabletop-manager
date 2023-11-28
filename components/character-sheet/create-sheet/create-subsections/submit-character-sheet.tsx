@@ -2,6 +2,7 @@ import { Button } from "@material-tailwind/react";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";
 import { PageFade } from "@/components/animations/page-fade";
+import { Spinner } from "@material-tailwind/react";
 import AllIsValid from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-all-valid";
 
 import { useHandleSubmitAll } from "../../../custom-hooks/character-sheet-hooks/create-character-hooks/use-create-character";
@@ -19,6 +20,7 @@ import { useSpells } from "@/components/custom-hooks/character-sheet-hooks/use-s
 
 import LinkCampaign from "./link-campaign";
 
+
 const SubmitCharacterSheet = (props) => {
   const { resetAbilityScores } = useAbilityScores("create", props.initialData);
   const { resetBackground } = useBackground("create", props.initialData);
@@ -35,7 +37,7 @@ const SubmitCharacterSheet = (props) => {
   const { resetSkills } = useSkills("create", props.initialData);
   const { resetSpellSlots } = useSpellSlots("create", props.initialData);
   const { resetSpells } = useSpells("create", props.initialData);
-  const { loading, error, handleSubmit } = useHandleSubmitAll(
+  const { isLoading, error, handleSubmit } = useHandleSubmitAll(
     props.initialData
   );
 
@@ -97,10 +99,11 @@ const SubmitCharacterSheet = (props) => {
       {/*{loading && <Spinner />}*/} {/* Some loading spinner component */}
       <div className="mt-5 flex justify-center">
         <Button
-          disabled={!allIsValid}
+          disabled={!allIsValid || isLoading}
           color={allIsValid ? "green" : "red"}
           onClick={handleSubmission}
         >
+          {isLoading ? "Submitting Sheet...": "Submit Character Sheet"}
           Submit Character Sheet
         </Button>
       </div>

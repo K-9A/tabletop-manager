@@ -5,12 +5,11 @@ import { RootState } from "@/store";
 import { Input, Button, Textarea } from "@material-tailwind/react";
 import ErrorMessage from "@/components/helper/auth-error";
 
-
 const CampaignCreate = () => {
   //Darkmode state
   const isDarkMode = useSelector((state: RootState) => state.darkMode);
 
-  const formik = useCreateCampaign();
+  const { formik, isLoading } = useCreateCampaign();
 
   return (
     <Fragment>
@@ -54,22 +53,25 @@ const CampaignCreate = () => {
             value={formik.values.campaign_description}
             className="dark:text-white"
             error={
-                !!(formik.errors.campaign_name && formik.touched.campaign_name)
-              }
+              !!(formik.errors.campaign_name && formik.touched.campaign_name)
+            }
             labelProps={{
-                className: `${
-                  formik.errors.campaign_description && formik.touched.campaign_description
-                    ? '!text-red-500'
-                    : '!text-black dark:!text-white'
-                }`,
-              }}
+              className: `${
+                formik.errors.campaign_description &&
+                formik.touched.campaign_description
+                  ? "!text-red-500"
+                  : "!text-black dark:!text-white"
+              }`,
+            }}
           />
           <div className="h-5">
             <ErrorMessage name="campaign_description" formik={formik} />
           </div>
         </div>
         <div className="flex mt-8 justify-center mx-auto text-center dark:text-white">
-          <Button type="submit">Create Campaign</Button>
+          <Button type="submit" disabled={isLoading}>
+            {isLoading ? "Submitting Campaign..." : "Create Campaign"}
+          </Button>
         </div>
       </form>
     </Fragment>

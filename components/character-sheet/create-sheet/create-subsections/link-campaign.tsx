@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { Fragment } from "react";
 import { Input, Button } from "@material-tailwind/react";
 import { useLinkCampaign } from "@/components/custom-hooks/character-sheet-hooks/create-character-hooks/use-link-campaign";
 
@@ -34,7 +34,7 @@ const LinkCampaign = () => {
             disabled={!campaignId || isLoading}
             className="flex-shrink-0 dark:text-gray-200"
           >
-            {isLoading ? "Loading.." : "Check ID"}
+            {isLoading ? "Loading..." : "Check ID"}
           </Button>
         )}
         {isValid && (
@@ -43,7 +43,7 @@ const LinkCampaign = () => {
             disabled={!campaignId || isLoading}
             className="flex-shrink-0 dark:text-gray-200"
           >
-            {isLoading ? "Loading.." : "Remove ID"}
+            {isLoading ? "Loading..." : "Remove ID"}
           </Button>
         )}
 

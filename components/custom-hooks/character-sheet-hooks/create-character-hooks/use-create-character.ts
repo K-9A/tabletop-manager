@@ -42,7 +42,7 @@ function convertRawObjToObjectArray(skillsObj: any): any[] {
 }
 
 export const useHandleSubmitAll = (initialData) => {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
 
@@ -152,7 +152,7 @@ export const useHandleSubmitAll = (initialData) => {
   };
 
   return {
-    loading,
+    isLoading,
     error,
     data,
     handleSubmit,

@@ -12,6 +12,7 @@ export const useCampaignList = (userId) => {
   //For the user alert messages
   const addAlertMemo = useMemoizedAlert();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [campaigns, setCampaigns] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [active, setActive] = useState(1);
@@ -30,6 +31,7 @@ export const useCampaignList = (userId) => {
 
   //Fetch Campaigns
   const fetchCampaigns = useCallback(() => {
+    setIsLoading(true); // Start loading
     axios
       .get(`/api/campaign/campaign-list?userId=${userId}`)
       .then((response) => {
@@ -40,11 +42,12 @@ export const useCampaignList = (userId) => {
             date: formatDate(campaign.date_created),
           }));
           setCampaigns(retrievedCampaigns);
+          setIsLoading(false); // Stop loading 
         }
       })
       .catch((error) => {
         addAlertMemo("Error fetching data. Please try again.", "error");
-        console.error("Error fetching campaigns:", error);
+        setIsLoading(false); // Stop loading 
       });
 // Disabling the warning because addAlertMemo doesn't change and omitting it won't introduce bugs
 // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -109,6 +112,7 @@ export const useCampaignList = (userId) => {
     searchTerm,
     setSearchTerm,
     isDialogOpen,
+    isLoading,
     setIsDialogOpen,
     handleCampaignDelete,
     confirmCampaignDelete,

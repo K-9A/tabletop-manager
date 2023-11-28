@@ -1,3 +1,4 @@
+import { useState } from "react";
 import axios from "@/utils/axios-instance";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
@@ -9,6 +10,7 @@ import { campaignSchema } from "@/components/validation-schema/campaign/campaign
 export function useCreateCampaign() {
   const router = useRouter();
   const addAlertMemo = useMemoizedAlert();
+  const [isLoading, setIsLoading] = useState(false);
   const { data: session } = useSession();
   const userId = (session?.user as any)?.id;
 
@@ -18,7 +20,6 @@ export function useCreateCampaign() {
     );
   }
 
-
   const formik = useFormik({
     initialValues: {
       campaign_name: "",
@@ -26,6 +27,7 @@ export function useCreateCampaign() {
     },
     validationSchema: campaignSchema,
     onSubmit: async (values) => {
+      setIsLoading(true); // Start loading
       try {
         const campaignResponse = await axios.post("/campaign/campaign-list", {
           campaign_name: values.campaign_name,
@@ -37,6 +39,7 @@ export function useCreateCampaign() {
           addAlertMemo("Campaign Creation successful!", "success");
           router.push(`/user/${userId}`);
         }
+        setIsLoading(false); // Stop loading on error
       } catch (error) {
         if (isErrorWithResponse(error)) {
           console.error(
@@ -47,9 +50,10 @@ export function useCreateCampaign() {
         } else {
           addAlertMemo("Creating Campaign failed. Please try again.", "error");
         }
+        setIsLoading(false); // Stop loading on error
       }
     },
   });
 
-  return formik;
+  return { formik, isLoading };
 }

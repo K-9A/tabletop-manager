@@ -35,6 +35,7 @@ const CharacterList = () => {
     currentRows,
     active,
     isDialogOpen,
+    isLoading,
     setIsDialogOpen,
     handleRowClick,
     confirmCharacterDelete,
@@ -54,6 +55,7 @@ const CharacterList = () => {
       <ListBody
         headers={TABLE_HEAD}
         rows={currentRows}
+        isLoading={isLoading}
         isDarkMode={isDarkMode}
         onRowDelete={handleCharacterDelete}
         noDataMessage="No Characters Found"

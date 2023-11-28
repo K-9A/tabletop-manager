@@ -12,6 +12,7 @@ export const useLogin = (
   const router = useRouter();
 
   const addAlertMemo = useMemoizedAlert();
+  const [isLoading, setIsLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -20,6 +21,7 @@ export const useLogin = (
     },
     validationSchema: loginSchema,
     onSubmit: async (values) => {
+      setIsLoading(true); // Start loading
       try {
         const result = await signIn("credentials", {
           redirect: false,
@@ -30,7 +32,8 @@ export const useLogin = (
         // Check for errors in the result
         if (result?.error) {
           addAlertMemo(result.error, "error");
-          throw new Error(result.error);
+          setIsLoading(false); // Stop loading on error
+          return; // Early return on error
         }
 
         const session = await getSession();
@@ -47,6 +50,7 @@ export const useLogin = (
         } else {
           router.push("/login");
         }
+        setIsLoading(false); // Stop loading on success
       } catch (error) {
         const errorMessage =
           error instanceof Error
@@ -54,10 +58,11 @@ export const useLogin = (
             : "An unexpected error occurred.";
         formik.setStatus({ apiError: errorMessage });
         addAlertMemo(errorMessage, "error");
+        setIsLoading(false); // Stop loading on exception
       }
     },
   });
-  return { formik };
+  return { formik, isLoading };
 };
 
 export const useRedirectIfLoggedIn = (justLoggedInProp: boolean) => {

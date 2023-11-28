@@ -30,6 +30,7 @@ const CampaignList = () => {
     prev,
     totalPages,
     currentRows,
+    isLoading,
     active,
     isDialogOpen,
     setIsDialogOpen,
@@ -50,6 +51,7 @@ const CampaignList = () => {
       <ListBody
         headers={TABLE_HEAD}
         rows={currentRows}
+        isLoading={isLoading}
         isDarkMode={isDarkMode}
         onRowDelete={handleCampaignDelete}
         noDataMessage="No Campaigns Found"

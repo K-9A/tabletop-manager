@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Hero from "@/components/homepage/hero";
 import HomeButton from "@/components/homepage/home-button";
 
@@ -6,6 +7,7 @@ import { useRouter } from "next/router";
 import { useMemoizedAlert } from "../layout/alert";
 import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
+
 
 function HomePage() {
   const { data: session } = useSession();
@@ -34,12 +36,12 @@ function HomePage() {
       <HomeButton text="About" linkPath="/about" />
       <div className="flex flex-col md:flex-row justify-center space-y-2 md:space-y-0 md:space-x-4">
         {!session ? (
-          <>
+          <Fragment>
             <HomeButton text="Login" linkPath="/login" />
             <HomeButton text="Register" linkPath="/register" />
-          </>
+          </Fragment>
         ) : (
-          <></>
+          <Fragment></Fragment>
         )}
       </div>
       {/* <div className="flex flex-col md:flex-row justify-center space-y-2 md:space-y-0 md:space-x-4">

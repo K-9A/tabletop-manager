@@ -4,20 +4,19 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import AuthErrorMessage from "./helper/auth-error";
-import { useLogin, useRedirectIfLoggedIn } from "./custom-hooks/auth-hooks/use-login";
-
+import {
+  useLogin,
+  useRedirectIfLoggedIn,
+} from "./custom-hooks/auth-hooks/use-login";
 
 function Login() {
-  
   const [justLoggedIn, setJustLoggedIn] = useState(false);
 
-  const { formik } = useLogin(setJustLoggedIn);
+  const { formik, isLoading } = useLogin(setJustLoggedIn);
   useRedirectIfLoggedIn(justLoggedIn);
-
 
   //Darkmode state
   const isDarkMode = useSelector((state: RootState) => state.darkMode);
-
 
   return (
     <Card color="transparent" shadow={false} className="shadow-non">
@@ -60,8 +59,8 @@ function Login() {
           />
         </div>
 
-        <Button type="submit" className="mt-6" fullWidth>
-          Login
+        <Button type="submit" className="mt-6" fullWidth disabled={isLoading}>
+          {isLoading ? "Logging In..." : "Login"}
         </Button>
 
         <Typography
